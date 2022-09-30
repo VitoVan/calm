@@ -1,0 +1,50 @@
+#!/bin/bash
+
+# debugging
+# set -x
+
+export APP_DIR=$(pwd)/
+
+# https://stackoverflow.com/questions/59895/how-can-i-get-the-source-directory-of-a-bash-script-from-within-the-script-itsel
+SOURCE="${BASH_SOURCE[0]:-$0}";
+while [ -L "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
+    DIR="$( cd -P "$( dirname -- "$SOURCE"; )" &> /dev/null && pwd 2> /dev/null; )";
+    SOURCE="$( readlink -- "$SOURCE"; )";
+    [[ $SOURCE != /* ]] && SOURCE="${DIR}/${SOURCE}"; # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+done
+DIR="$( cd -P "$( dirname -- "$SOURCE"; )" &> /dev/null && pwd 2> /dev/null; )";
+
+cd $DIR
+
+if [ "$1" == "cache" ]; then
+    echo "Caching CALM ... "
+    echo "Deleting old cache binary ... "
+    rm ./calm-core
+    echo "Dumping core ..."
+    sbcl --eval '(load "calm.asd")' --eval "(ql:quickload 'calm)" --eval '(save-lisp-and-die "calm-core")'
+    echo "DONE."
+    exit 0
+fi
+
+calm_start () {
+    if test -f "calm-core"; then
+        if [ "$NO_CORE" != "1" ]; then
+            WITH_CORE="--core calm-core"
+        fi
+    fi
+
+    sbcl $WITH_CORE \
+         --eval '(load "calm.asd")' \
+         --eval "(ql:quickload 'calm)" \
+         --eval "(swank:create-server :port 4242)" \
+         $@ \
+         --eval "(calm:calm-start)"
+}
+
+
+CANVAS_FILE=$APP_DIR/canvas.lisp
+if test -f "$CANVAS_FILE"; then
+    calm_start --load "$CANVAS_FILE"
+else
+    calm_start
+fi
