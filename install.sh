@@ -18,6 +18,32 @@ install_quicklisp () {
     fi
 }
 
+install_calm () {
+    git clone https://github.com/VitoVan/calm.git ~/calm
+    echo 'export PATH="$PATH:~/calm/"' >> ~/.bash_profile
+    source ~/.bash_profile
+
+    export PATH="$PATH:~/calm/"
+
+    ls -lah ~/calm/
+    echo $PATH
+
+    echo "Caching calm ..."
+    calm cache
+
+    cd ~/calm/
+    ls -lah .
+
+    if test -f "calm-core"; then
+        echo "CALM installed successfully."
+        exit 0
+    else
+        echo "ERR."
+        exit 42
+    fi
+
+}
+
 # https://stackoverflow.com/questions/394230/how-to-detect-the-os-from-a-bash-script
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     # ...
@@ -35,6 +61,7 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     fi
 
     install_quicklisp
+    install_calm
 
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     # macOS
@@ -51,22 +78,39 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     brew link sdl2 sdl2_mixer cairo
 
     install_quicklisp
+    install_calm
+
 elif [[ "$OSTYPE" == "cygwin" ]]; then
     # POSIX compatibility layer and Linux environment emulation for Windows
     echo "Cygwin. Please use MSYS2"
 elif [[ "$OSTYPE" == "msys" ]]; then
+
     # Windows / MSYS2
     echo "Installing dependencies ..."
-    pacman -S --noconfirm --needed git \
+    echo $PATH
+
+    pacman -S --noconfirm --needed git p7zip \
            mingw64/mingw-w64-x86_64-SDL2 \
            mingw64/mingw-w64-x86_64-SDL2_mixer \
            mingw64/mingw-w64-x86_64-cairo
 
-    choco install sbcl
-    echo 'export PATH="/c/program files/steel bank common lisp/:$PATH"' >> ~/.bashrc
-    source ~/.bashrc
+
+    ls -lah "/c/program files/steel bank common lisp/"
+    echo 'export PATH="$PATH:/c/program files/steel bank common lisp/"' >> ~/.bash_profile
+    echo 'export SBCL_HOME="/c/program files/steel bank common lisp/"' >> ~/.bash_profile
+
+    source ~/.bash_profile
+
+    export PATH="$PATH:/c/program files/steel bank common lisp/"
+    export SBCL_HOME="/c/program files/steel bank common lisp/"
+
+    echo $PATH
 
     install_quicklisp
+
+    install_calm
+
+    echo "Now, you can start using CALM in a new MSYS2 Terminal."
 
 elif [[ "$OSTYPE" == "win32" ]]; then
     # I'm not sure this could happen.
