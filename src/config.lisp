@@ -1,8 +1,8 @@
 (in-package :calm)
 
 ;; init config
-(defparameter *calm-x* 0)
-(defparameter *calm-y* 0)
+(defparameter *calm-x* :centered)
+(defparameter *calm-y* :centered)
 (defparameter *calm-width* 600)
 (defparameter *calm-height* 150)
 (defparameter *calm-title* "CALM")
