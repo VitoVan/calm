@@ -45,8 +45,8 @@ git clone https://github.com/VitoVan/calm.git ~/calm
 # Config PATH
 echo 'export PATH="$PATH:~/calm/"' >> ~/.bash_profile
 source ~/.bash_profile
-# Build cache
-calm cache
+# Build core
+calm core
 # Start CALM
 calm
 ```

@@ -20,23 +20,24 @@ DIR="$( cd -P "$( dirname -- "$SOURCE"; )" &> /dev/null && pwd 2> /dev/null; )";
 
 cd $DIR
 
-if [ "$1" == "cache" ]; then
-    echo "Caching CALM ... "
-    echo "Deleting old cache binary ... "
-    rm ./calm.core
+if [ "$1" == "core" ]; then
+    echo "Deleting old core binary ... "
+    rm -f ./calm.core
     echo "Dumping core ..."
     sbcl --eval '(load "calm.asd")' --eval "(ql:quickload 'calm)" --eval '(save-lisp-and-die "calm.core")'
     echo "DONE."
     exit 0
 fi
 
-calm_start () {
-    if test -f "calm.core"; then
-        if [ "$NO_CORE" != "1" ]; then
-            WITH_CORE="--core calm.core"
-        fi
+if [ -z "$NO_CORE" ]; then
+    WITH_CORE="--core calm.core"
+    if [ ! -f "calm.core" ]; then
+        echo "Calm core does not exist, building now ..."
+        calm core
     fi
+fi
 
+calm_start () {
     sbcl $WITH_CORE \
          --eval '(load "calm.asd")' \
          --eval "(ql:quickload 'calm)" \

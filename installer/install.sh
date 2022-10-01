@@ -30,8 +30,8 @@ install_calm () {
     ls -lah ~/calm/
     echo $PATH
 
-    echo "Caching calm ..."
-    calm cache
+    echo "Building calm core ..."
+    calm core
 
     cd ~/calm/
     ls -lah .
