@@ -7,7 +7,7 @@
 (defparameter *calm-height* 150)
 (defparameter *calm-title* "CALM")
 (defparameter *calm-flags* '(:shown :allow-highdpi))
-(defparameter *calm-delay* nil)
+(defparameter *calm-delay* 42)
 
 ;; runtime variables
 (defparameter *calm-dpi-scale* 1)
