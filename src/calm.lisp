@@ -10,9 +10,9 @@
 
 (defun draw ()
   "default drawing function, user should override this"
-  (c:set-source-rgb 1 1 1)
-  (c:paint)
   (c:set-source-rgb (/ 12 255) (/ 55 255) (/ 132 255))
+  (c:paint)
+  (c:set-source-rgb 1 1 1)
   (c:move-to 30 100)
   (c:set-font-size 84)
   (c:show-text "DON'T PANIC"))
