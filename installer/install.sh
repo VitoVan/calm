@@ -34,7 +34,7 @@ install_calm () {
     cd ~/calm/
     ls -lah .
 
-    if test -f "calm-core"; then
+    if test -f "calm.core"; then
         echo "CALM installed successfully."
         exit 0
     else

@@ -23,24 +23,24 @@ cd $DIR
 if [ "$1" == "cache" ]; then
     echo "Caching CALM ... "
     echo "Deleting old cache binary ... "
-    rm ./calm-core
+    rm ./calm.core
     echo "Dumping core ..."
-    sbcl --eval '(load "calm.asd")' --eval "(ql:quickload 'calm)" --eval '(save-lisp-and-die "calm-core")'
+    sbcl --eval '(load "calm.asd")' --eval "(ql:quickload 'calm)" --eval '(save-lisp-and-die "calm.core")'
     echo "DONE."
     exit 0
 fi
 
 calm_start () {
-    if test -f "calm-core"; then
+    if test -f "calm.core"; then
         if [ "$NO_CORE" != "1" ]; then
-            WITH_CORE="--core calm-core"
+            WITH_CORE="--core calm.core"
         fi
     fi
 
     sbcl $WITH_CORE \
          --eval '(load "calm.asd")' \
          --eval "(ql:quickload 'calm)" \
-         --eval "(swank:create-server :port 4242)" \
+         --eval "(swank:create-server :port $SWANK_PORT)" \
          $@ \
          --eval "(calm:calm-start)"
 }
