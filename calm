@@ -3,10 +3,6 @@
 # debugging
 # set -x
 
-if [ -z "$SWANK_PORT" ]; then
-    export SWANK_PORT=4242
-fi
-
 export APP_DIR=$(pwd)/
 
 # https://stackoverflow.com/questions/59895/how-can-i-get-the-source-directory-of-a-bash-script-from-within-the-script-itsel
@@ -37,11 +33,22 @@ if [ -z "$NO_CORE" ]; then
     fi
 fi
 
+WITH_SWANK='format t "~%NO SWANK~%"'
+if [ -z "$NO_SWANK" ]; then
+    if [ -z "$SWANK_PORT" ]; then
+        export SWANK_PORT=4242
+    fi
+    WITH_SWANK="swank:create-server :port $SWANK_PORT"
+fi
+
 calm_start () {
+    echo $WITH_SWANK
+    echo $WITH_CORE
+#    exit
     sbcl $WITH_CORE \
          --eval '(load "calm.asd")' \
          --eval "(ql:quickload 'calm)" \
-         --eval "(swank:create-server :port $SWANK_PORT)" \
+         --eval "($WITH_SWANK)" \
          $@ \
          --eval "(calm:calm-start)"
 }
