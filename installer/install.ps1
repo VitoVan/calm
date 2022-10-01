@@ -26,4 +26,4 @@ refreshenv
 
 Write-Output "Installing CALM ..."
 
-C:\calm-msys64\msys2_shell.cmd -defterm -here -no-start -mingw64 -c './install.sh'
+C:\calm-msys64\msys2_shell.cmd -defterm -here -no-start -mingw64 -c './installer/install.sh'
