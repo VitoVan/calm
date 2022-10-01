@@ -28,7 +28,7 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Install CALM
         run: |
-          bash install.sh
+          bash ./installer/install.sh
 
   # This workflow contains a single job called "build"
   linux-build-fedora:
@@ -43,7 +43,7 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Install CALM
         run: |
-          docker run --rm -v ${PWD}:/calm -w /calm --name fedora-build fedora bash ./install.sh
+          docker run --rm -v ${PWD}:/calm -w /calm --name fedora-build fedora bash ./installer/install.sh
 
   # This workflow contains a single job called "build"
   linux-build-ubuntu:
@@ -58,7 +58,7 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Install CALM
         run: |
-          bash install.sh
+          bash ./installer/install.sh
 
   windows-build:
     # The type of runner that the job will run on
@@ -72,4 +72,4 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Install CALM
         run: |
-          ./install.ps1
+          ./installer/install.ps1
