@@ -6,9 +6,11 @@ Calm down and draw, in Lisp.
 
 ![platform support](https://img.shields.io/badge/Platform-Linux%20%7C%20macOS%20%7C%20Windows-blue.svg) [![CI](https://github.com/VitoVan/calm/actions/workflows/main.yml/badge.svg)](https://github.com/VitoVan/calm/actions/workflows/main.yml)
 
-## Auto Install
+## Installation
 
-### *nix (Fedora | Ubuntu | macOS)
+### Auto Install
+
+#### *nix (Fedora | Ubuntu | macOS)
 
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/VitoVan/calm/main/installer/install.sh)"
@@ -16,7 +18,7 @@ Calm down and draw, in Lisp.
 
 Paste that in a macOS Terminal or Linux shell prompt.
 
-### Windows
+#### Windows
 
 ```powershell
 Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/VitoVan/calm/main/installer/install.ps1'))
@@ -24,9 +26,9 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManage
 
 Paste that in a Windows PowerShell.
 
-## Manual Install
+### Manual Install
 
-### 1. Install dependencies
+#### 1. Install dependencies
 
 - [SBCL](https://www.sbcl.org)
 - [Quicklisp](https://quicklisp.org)
@@ -37,7 +39,7 @@ Paste that in a Windows PowerShell.
 
 For Windows platform, it is only tested under the [MSYS2](https://www.msys2.org) environment.
 
-### 2. Clone & Setup CALM
+#### 2. Clone & Setup CALM
 
 ```bash
 # Clone
@@ -52,3 +54,16 @@ calm
 ```
 
 DONE.
+
+## Environment Variables
+
+- `NO_SWANK=1`
+  Disable [Swank](https://www.cliki.net/SWANK), it was enabled by default at port 4242
+- `SWANK_PORT=4343`
+  Change Swank port to 4343, the default port was 4242
+- `NO_CORE`
+  Disable calm [core](https://www.sbcl.org/manual/#Saving-a-Core-Image), it was enabled by default to reduce the startup time
+- `CALM_DIR`
+  This variable holds the path of the directory where calm binary locates
+- `APP_DIR`
+  This variable holds the path of the directory where calm was started up (aka `pwd`)
