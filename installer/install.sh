@@ -1,3 +1,5 @@
+echo "CALM Installer v0.0.1"
+
 install_quicklisp () {
     # test Quicklisp
     sbcl --noinform  --disable-debugger --eval "(format t \"~A\" (find-package 'quicklisp-client))" --eval "(quit)" | grep QUICKLISP

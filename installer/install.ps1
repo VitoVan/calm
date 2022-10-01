@@ -1,3 +1,5 @@
+Write-Output "CALM (Windows) Installer v0.0.1"
+
 $testchoco = powershell choco -v
 if (-not($testchoco)) {
   Write-Output "Seems Chocolatey is not installed, installing now ..."
