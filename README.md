@@ -1,15 +1,15 @@
 # Canvas And Lisp Magic
 
-![dont-panic](./images/dont-panic.png)
+![Don't Panic](./images/dont-panic.png)
 
 Calm down and draw something, in Lisp.
 
 ![platform support](https://img.shields.io/badge/Platform-Linux%20%7C%20macOS%20%7C%20Windows-blue.svg) [![CI](https://github.com/VitoVan/calm/actions/workflows/main.yml/badge.svg)](https://github.com/VitoVan/calm/actions/workflows/main.yml)
 
 <p align="center">
-    <a href="https://github.com/calm2d/fan"><img width="250" src="./images/fan.png"></a>
-    <a href="https://github.com/calm2d/mondrian"><img width="250" src="./images/mondrian.png"></a>
-    <a href="https://github.com/calm2d/meditator"><img width="250" src="./images/meditator.png"></a>
+    <a title="Check the code for Fan" href="https://github.com/calm2d/fan"><img width="250" alt="Fan" src="./images/fan.png"></a>
+    <a title="Check the code for Mondrian" href="https://github.com/calm2d/mondrian"><img width="250" alt="Mondrian" src="./images/mondrian.png"></a>
+    <a title="Check the code for Meditator" href="https://github.com/calm2d/meditator"><img width="250" alt="Meditator" src="./images/meditator.png"></a>
 </p>
 
 ## Installation
