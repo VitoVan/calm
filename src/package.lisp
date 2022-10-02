@@ -3,9 +3,11 @@
   (:local-nicknames
    (:c :cl-cairo2))
   (:export
-   :wav-play
-   :wav-halt
-   :wav-is-playing
+   :play-wav
+   :halt-wav
+   :play-music
+   :halt-music
+   :audio-is-playing
    :set-cursor))
 
 (defpackage :calm
