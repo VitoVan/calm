@@ -57,13 +57,27 @@ DONE.
 
 ## Environment Variables
 
+Setf-able:
+
 - `NO_SWANK=1`
+
   Disable [Swank](https://www.cliki.net/SWANK), it was enabled by default at port 4242
+
 - `SWANK_PORT=4343`
+
   Change Swank port to 4343, the default port was 4242
+
 - `NO_CORE=1`
+
   Disable calm [core](https://www.sbcl.org/manual/#Saving-a-Core-Image), it was enabled by default to reduce the startup time
+
+
+Read-only:
+
 - `CALM_DIR`
+
   This variable holds the path of the directory where calm binary locates
+
 - `APP_DIR`
+
   This variable holds the path of the directory where calm was started up (aka `pwd`)
