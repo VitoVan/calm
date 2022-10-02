@@ -7,9 +7,9 @@ Calm down and draw something, in Lisp.
 ![platform support](https://img.shields.io/badge/Platform-Linux%20%7C%20macOS%20%7C%20Windows-blue.svg) [![CI](https://github.com/VitoVan/calm/actions/workflows/main.yml/badge.svg)](https://github.com/VitoVan/calm/actions/workflows/main.yml)
 
 <p align="center">
-    <img width="250" src="./images/fan.png">
-    <img width="250" src="./images/mondrian.png">
-    <img width="250" src="./images/meditator.png">
+    <a href="https://github.com/calm2d/fan"><img width="250" src="./images/fan.png"></a>
+    <a href="https://github.com/calm2d/mondrian"><img width="250" src="./images/mondrian.png"></a>
+    <a href="https://github.com/calm2d/meditator"><img width="250" src="./images/meditator.png"></a>
 </p>
 
 ## Installation
