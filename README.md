@@ -1,10 +1,35 @@
 # Canvas And Lisp Magic
 
-![Don't Panic](./images/dont-panic.png)
+[![Don't Panic](./images/dont-panic.png)](https://github.com/VitoVan/calm)
 
 Calm down and draw something, in Lisp.
 
 [![platform support](https://img.shields.io/badge/Platform-Linux%20%7C%20macOS%20%7C%20Windows-blue.svg)](#installation) [![CI](https://github.com/VitoVan/calm/actions/workflows/main.yml/badge.svg)](https://github.com/VitoVan/calm/actions/workflows/main.yml)
+
+## Hello World
+
+Find whatever directory, create a file: **canvas.lisp**
+
+```lisp
+(in-package #:calm)
+(defparameter *color-list* '((0.83 0.82 0.84) (0.89 0.12 0.17) (0.94 0.87 0.47) (0 0.35 0.59)))
+(defun draw ()
+  (dotimes (i 7)
+    (apply #'c:set-source-rgb (nth (if (>= i 4) (- i 4) i) *color-list*))
+    (c:arc (+ 60 (* (- (/ *calm-width* 5) 40) i)) 70 50 0 (* 2 pi))
+    (c:fill-path))
+  (setf *calm-redraw* nil))
+```
+
+Launch your terminal, cd to that directory, enter the command:
+
+```bash
+calm
+```
+
+[![Hello World](./images/hello-world.png)](#hello-world)
+
+## More Examples
 
 <p align="center">
     <a title="Check the code for Fan" href="https://github.com/calm2d/fan"><img width="250" alt="Fan" src="./images/fan.png"></a>
