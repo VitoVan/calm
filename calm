@@ -42,8 +42,6 @@ if [ -z "$NO_SWANK" ]; then
 fi
 
 calm_start () {
-    echo $WITH_SWANK
-    echo $WITH_CORE
     sbcl $WITH_CORE \
          --eval '(load "calm.asd")' \
          --eval "(ql:quickload 'calm)" \
