@@ -102,13 +102,18 @@ Setf-able:
 
   Disable calm [core](https://www.sbcl.org/manual/#Saving-a-Core-Image), it was enabled by default to reduce the startup time
 
+- `NO_SCREENSAVER=1`
+
+  Disable screensaver, in case you want to keep the screen on.
+
 
 Read-only:
 
 - `CALM_DIR`
 
-  This variable holds the path of the directory where calm binary locates
+  This variable holds the path of the directory where calm binary exists
 
 - `APP_DIR`
 
   This variable holds the path of the directory where calm was started up (aka `pwd`)
+

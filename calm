@@ -3,6 +3,10 @@
 # debugging
 # set -x
 
+if [ -z "$NO_SCREENSAVER" ]; then
+    export SDL_VIDEO_ALLOW_SCREENSAVER=1
+fi
+
 export APP_DIR=$(pwd)/
 
 # https://stackoverflow.com/questions/59895/how-can-i-get-the-source-directory-of-a-bash-script-from-within-the-script-itsel
