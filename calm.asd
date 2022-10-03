@@ -7,7 +7,6 @@
                  #:sdl2
                  #:sdl2-mixer
                  #:str
-                 #:deploy
                  #:swank
                  #:cl-cairo2)
     :pathname "./src/"
