@@ -8,13 +8,13 @@ if (-not($testchoco)) {
   Write-Output "Chocolatey Version $testchoco is already installed."
 }
 
-cinst msys2 --params "/InstallDir:C:\calm-msys64"
+cinst msys2 --params "/InstallDir:C:\msys64"
 
-setx /M PATH "%PATH%;C:\calm-msys64\usr\bin"
+setx /M PATH "%PATH%;C:\msys64\usr\bin"
 refreshenv
 
-# Run for the first time
-C:\calm-msys64\msys2_shell.cmd -defterm -here -no-start -mingw64 -c 'which pacman'
+# Test pacman
+C:\msys64\msys2_shell.cmd -defterm -here -no-start -mingw64 -c 'which pacman'
 
 $testsbcl = powershell sbcl --version
 if (-not($testsbcl)) {
@@ -28,4 +28,4 @@ refreshenv
 
 Write-Output "Installing CALM ..."
 
-C:\calm-msys64\msys2_shell.cmd -defterm -here -no-start -mingw64 -c './installer/install.sh'
+C:\msys64\msys2_shell.cmd -defterm -here -no-start -mingw64 -c './scripts/install.sh'

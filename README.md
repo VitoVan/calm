@@ -44,7 +44,7 @@ calm
 #### *nix (Fedora | Ubuntu | macOS)
 
 ```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/VitoVan/calm/main/installer/install.sh)"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/VitoVan/calm/main/scripts/install.sh)"
 ```
 
 Paste that in a macOS Terminal or Linux shell prompt.
@@ -52,7 +52,7 @@ Paste that in a macOS Terminal or Linux shell prompt.
 #### Windows
 
 ```powershell
-Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/VitoVan/calm/main/installer/install.ps1'))
+Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/VitoVan/calm/main/scripts/install.ps1'))
 ```
 
 Paste that in a Windows PowerShell.
@@ -68,7 +68,7 @@ Paste that in a Windows PowerShell.
 - [Cairo](https://www.cairographics.org)
 - [Git](https://git-scm.com)
 
-For Windows platform, it is only tested under the [MSYS2](https://www.msys2.org) environment.
+For Windows platform, it is only tested under the [MSYS2](https://www.msys2.org) [terminal](https://www.msys2.org/docs/terminals/).
 
 #### 2. Clone & Setup CALM
 
@@ -85,6 +85,17 @@ calm
 ```
 
 DONE.
+
+## Distribution
+
+To distribute your applications to non-wizard users, to provide a portable application package for those who fears the dark of the terminal.
+
+
+Launch your terminal, cd to the directory where the file **canvas.lisp** exists, enter the command:
+
+```bash
+calm dist
+```
 
 ## Environment Variables
 

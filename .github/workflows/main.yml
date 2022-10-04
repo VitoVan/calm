@@ -28,22 +28,68 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Install CALM
         run: |
-          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/VitoVan/calm/$(git describe --tags --abbrev=0)/installer/install.sh)"
+          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/VitoVan/calm/$(git describe --tags --abbrev=0)/scripts/install.sh)"
+
+      - name: Dist CALM APP
+        run: |
+          pwd
+          export DEFAULT_PWD=$(pwd)
+          cd ~/calm/.github/workflows/
+          cat ~/.bash_profile
+          source ~/.bash_profile
+          calm dist
+          mv calm-app-macos.zip $DEFAULT_PWD/calm-hello-macos.zip
+
+      - name: GH Release
+        uses: softprops/action-gh-release@v0.1.14
+        with:
+          files: |
+            calm-hello-macos.zip
+
 
   # This workflow contains a single job called "build"
   linux-build-fedora:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    container:
+      image: fedora
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+
+      # Runs a set of commands using the runners shell
+      - name: Install Git
+        run: |
+          sudo dnf install git -y
+
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
 
       # Runs a set of commands using the runners shell
       - name: Install CALM
         run: |
-          docker run --rm -v ${PWD}:/calm -w /calm --name fedora-build fedora bash -c "$(curl -fsSL https://raw.githubusercontent.com/VitoVan/calm/$(git describe --tags --abbrev=0)/installer/install.sh)"
+          git config --global --add safe.directory /__w/calm/calm
+          pwd
+          git describe --tags --abbrev=0
+          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/VitoVan/calm/$(git describe --tags --abbrev=0)/scripts/install.sh)"
+
+      - name: Dist CALM APP
+        run: |
+          pwd
+          export DEFAULT_PWD=$(pwd)
+          cd ~/calm/.github/workflows/
+          cat ~/.bash_profile
+          source ~/.bash_profile
+          calm dist
+          mv calm-app-linux.zip $DEFAULT_PWD/calm-hello-linux.zip
+
+      - name: GH Release
+        uses: softprops/action-gh-release@v0.1.14
+        with:
+          files: |
+            calm-hello-linux.zip
+
 
   # This workflow contains a single job called "build"
   linux-build-ubuntu:
@@ -58,7 +104,7 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Install CALM
         run: |
-          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/VitoVan/calm/$(git describe --tags --abbrev=0)/installer/install.sh)"
+          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/VitoVan/calm/$(git describe --tags --abbrev=0)/scripts/install.sh)"
 
   windows-build:
     # The type of runner that the job will run on
@@ -72,4 +118,16 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Install CALM
         run: |
-          Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString("https://raw.githubusercontent.com/VitoVan/calm/$(git describe --tags --abbrev=0)/installer/install.ps1"))
+          Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString("https://raw.githubusercontent.com/VitoVan/calm/$(git describe --tags --abbrev=0)/scripts/install.ps1"))
+
+      - name: Dist CALM APP
+        run: |
+          C:\msys64\msys2_shell.cmd -defterm -here -no-start -mingw64 -c 'cd ~/calm/.github/workflows/ && pwd && source ~/.bash_profile && calm dist'
+          C:\msys64\msys2_shell.cmd -defterm -here -no-start -mingw64 -c 'pwd && export DEFAULT_PWD=$(pwd) && mv ~/calm/.github/workflows/calm-app-windows.zip $DEFAULT_PWD/calm-hello-windows.zip'
+
+
+      - name: GH Release
+        uses: softprops/action-gh-release@v0.1.14
+        with:
+          files: |
+            calm-hello-windows.zip

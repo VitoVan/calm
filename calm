@@ -9,6 +9,9 @@ fi
 
 export APP_DIR=$(pwd)/
 
+export CANVAS_FILE=$APP_DIR/canvas.lisp
+
+
 # https://stackoverflow.com/questions/59895/how-can-i-get-the-source-directory-of-a-bash-script-from-within-the-script-itsel
 SOURCE="${BASH_SOURCE[0]:-$0}";
 while [ -L "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
@@ -16,26 +19,9 @@ while [ -L "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symli
     SOURCE="$( readlink -- "$SOURCE"; )";
     [[ $SOURCE != /* ]] && SOURCE="${DIR}/${SOURCE}"; # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
 done
-CALM_DIR="$( cd -P "$( dirname -- "$SOURCE"; )" &> /dev/null && pwd 2> /dev/null; )";
+export CALM_DIR="$( cd -P "$( dirname -- "$SOURCE"; )" &> /dev/null && pwd 2> /dev/null; )";
 
 cd $CALM_DIR
-
-if [ "$1" == "core" ]; then
-    echo "Deleting old core binary ... "
-    rm -f ./calm.core
-    echo "Dumping core ..."
-    sbcl --eval '(load "calm.asd")' --eval "(ql:quickload 'calm)" --eval '(save-lisp-and-die "calm.core")'
-    echo "DONE."
-    exit 0
-fi
-
-if [ -z "$NO_CORE" ]; then
-    WITH_CORE="--core calm.core"
-    if [ ! -f "calm.core" ]; then
-        echo "Calm core does not exist, building now ..."
-        calm core
-    fi
-fi
 
 WITH_SWANK='format t "~%NO SWANK~%"'
 if [ -z "$NO_SWANK" ]; then
@@ -46,19 +32,55 @@ if [ -z "$NO_SWANK" ]; then
 fi
 
 calm_start () {
-    sbcl $WITH_CORE \
-         --eval '(load "calm.asd")' \
-         --eval "(ql:quickload 'calm)" \
-         --eval "($WITH_SWANK)" \
-         --eval "(uiop:chdir \"$APP_DIR\")" \
-         $@ \
-         --eval "(calm:calm-start)"
+    # if calm.asd exists, then start CALM in normal mode
+    if [ -f "calm.asd" ]; then
+        if [ -z "$NO_CORE" ]; then
+            WITH_CORE="--core calm.core"
+            if [ ! -f "calm.core" ]; then
+                echo "Calm core does not exist, building now ..."
+                calm core
+            fi
+        fi
+        sbcl $WITH_CORE \
+             --load "calm.asd" \
+             --eval "(ql:quickload 'calm)" \
+             --eval "($WITH_SWANK)" \
+             --eval "(uiop:chdir \"$APP_DIR\")" \
+             $@ \
+             --eval "(calm:calm-start)"
+    else # if calm.asd does not exist, then start CALM in distribution mode (dumped binary)
+        if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+            LD_LIBRARY_PATH=./ ./calm-dist
+        elif [[ "$OSTYPE" == "darwin"* ]]; then
+            DYLD_FALLBACK_LIBRARY_PATH=./ ./calm-dist
+        else
+            echo "Something went wrong, please report to:"
+            echo "https://github.com/VitoVan/calm/issues/new"
+        fi
+    fi
 }
 
 
-CANVAS_FILE=$APP_DIR/canvas.lisp
-if test -f "$CANVAS_FILE"; then
-    calm_start --load "$CANVAS_FILE"
+if [ "$1" == "core" ]; then
+    echo "Deleting old core binary ... "
+    rm -f ./calm.core
+    echo "Dumping core ..."
+    sbcl --load "calm.asd" --eval "(ql:quickload 'calm)" --eval '(save-lisp-and-die "calm.core")'
+    echo "DONE."
+    exit 0
+elif [ "$1" == "dist" ]; then
+    echo "Building portable application package ... "
+    echo "Dumping binary ..."
+    . ./scripts/dist.sh
+    echo "Collecting dependencies ..."
+    echo "DONE."
+    exit 0
+elif [ -z "$1" ]; then
+    if test -f "$CANVAS_FILE"; then
+        calm_start --load "$CANVAS_FILE"
+    else
+        calm_start
+    fi
 else
-    calm_start
+    echo "Unrecognised ARG: $1"
 fi

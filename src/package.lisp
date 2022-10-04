@@ -16,4 +16,5 @@
    (:c :cl-cairo2)
    (:u :calm-utils))
   (:export
+   :calm-init
    :calm-start))

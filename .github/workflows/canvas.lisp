@@ -1,0 +1,8 @@
+(in-package #:calm)
+(defparameter *color-list* '((0.83 0.82 0.84) (0.89 0.12 0.17) (0.94 0.87 0.47) (0 0.35 0.59)))
+(defun draw ()
+  (dotimes (i 7)
+    (apply #'c:set-source-rgb (nth (if (>= i 4) (- i 4) i) *color-list*))
+    (c:arc (+ 60 (* (- (/ *calm-width* 5) 40) i)) 70 50 0 (* 2 pi))
+    (c:fill-path))
+  (setf *calm-redraw* nil))

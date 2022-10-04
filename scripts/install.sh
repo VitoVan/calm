@@ -1,4 +1,11 @@
+#!/bin/bash
+
+# debugging
+# set -x
+
 echo "CALM Installer v0.0.1"
+
+export CALM_BRANCH=main
 
 install_quicklisp () {
     # test Quicklisp
@@ -21,12 +28,19 @@ install_quicklisp () {
 }
 
 install_calm () {
-    git clone https://github.com/VitoVan/calm.git ~/calm
-    echo 'export PATH="$PATH:~/calm/"' >> ~/.bash_profile
-    source ~/.bash_profile
+    # for github workflow mostly
+    if [ -d .git ]; then
+        if [[ $(git remote get-url --all origin) == *"VitoVan/calm"* ]]; then
+            echo .git;
+            export CALM_BRANCH=$(git describe --tags --abbrev=0)
+        fi
+    fi
 
-    export PATH="$PATH:~/calm/"
+    git clone  --depth 1 --branch $CALM_BRANCH https://github.com/VitoVan/calm.git ~/calm
+    echo 'export PATH="$PATH:$HOME/calm/"' >> ~/.bash_profile
+    export PATH="$PATH:$HOME/calm/"
 
+    realpath ~/calm/
     ls -lah ~/calm/
     echo $PATH
 
@@ -54,9 +68,9 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 
     echo "Installing dependencies ..."
     if [[ "$DISTRO" == "Ubuntu"* ]]; then
-        sudo apt install sbcl git libsdl2-2.0-0 libsdl2-mixer-2.0-0  libcairo2 -y
+        sudo apt install zip sbcl git libsdl2-2.0-0 libsdl2-mixer-2.0-0  libcairo2 -y
     elif [[ "$DISTRO" == "Fedora"* ]]; then
-        sudo dnf install sbcl git SDL2 SDL2_mixer cairo -y
+        sudo dnf install zip sbcl git SDL2 SDL2_mixer cairo -y
     else
         echo "Unsupported DISTRO. Please install dependencies by yourself and modify this script."
         exit 42
@@ -91,7 +105,7 @@ elif [[ "$OSTYPE" == "msys" ]]; then
     echo "Installing dependencies ..."
     echo $PATH
 
-    pacman -S --noconfirm --needed git p7zip \
+    pacman -S --noconfirm --needed git zip zstd \
            mingw64/mingw-w64-x86_64-SDL2 \
            mingw64/mingw-w64-x86_64-SDL2_mixer \
            mingw64/mingw-w64-x86_64-cairo
@@ -100,8 +114,6 @@ elif [[ "$OSTYPE" == "msys" ]]; then
     ls -lah "/c/program files/steel bank common lisp/"
     echo 'export PATH="$PATH:/c/program files/steel bank common lisp/"' >> ~/.bash_profile
     echo 'export SBCL_HOME="/c/program files/steel bank common lisp/"' >> ~/.bash_profile
-
-    source ~/.bash_profile
 
     export PATH="$PATH:/c/program files/steel bank common lisp/"
     export SBCL_HOME="/c/program files/steel bank common lisp/"
