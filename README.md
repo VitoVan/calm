@@ -76,7 +76,7 @@ For Windows platform, it is only tested under the [MSYS2](https://www.msys2.org)
 # Clone
 git clone https://github.com/VitoVan/calm.git ~/calm
 # Config PATH
-echo 'export PATH="$PATH:~/calm/"' >> ~/.bash_profile
+echo 'export PATH="$PATH:$HOME/calm/"' >> ~/.bash_profile
 source ~/.bash_profile
 # Build core
 calm core
@@ -90,9 +90,7 @@ DONE.
 
 ### Standard Distribution
 
-To distribute your applications to non-wizard users,
-
-to provide a portable application package for those who fears the dark of the terminal.
+To distribute your applications to non-wizard users, to provide a portable application package for those who fears the dark of the terminal.
 
 Launch your terminal, cd to the directory where the file **canvas.lisp** exists, enter the command:
 
@@ -100,17 +98,13 @@ Launch your terminal, cd to the directory where the file **canvas.lisp** exists,
 calm dist
 ```
 
-You will get a directory `dist` containing all the dependencies and your final binary.
+You will get a directory `dist` containing all the dependencies and your final binary, now you should put all your resource files (.wav, .png, .mp3, etc.) into that directory.
 
-Before sending it to your friends, please make sure you have put all your resources (.wav, .png, .mp3, etc.) into that directory.
-
-Typically, they will be able to enjoy your application.
-
-If not, tell them to [extract the zip file](https://www.wikihow.com/Unzip-a-File) and run the file `calm` in the extracted folder.
+Now, zip it and send it to your friend! Normally, they will be able to enjoy your application. If not, tell them to [unzip](https://www.wikihow.com/Unzip-a-File) and run the file `calm` or double click `calm.exe`.
 
 ### Canvas Distribution
 
-For those who loves the source, for the maximum configurability.
+For those who love the source, for the maximum configurability.
 
 ```bash
 calm dist --with-canvas
@@ -124,24 +118,24 @@ It is very convenient when your friend has a bad taste in color.
 
 > **Note**
 > 1. Don't use Quicklisp in your `canvas.lisp`
-> 2. Put everything related to Quicklisp and CFFI into `before_canvas.lisp`, it will be loaded before dumping your binary.
+> 2. Put Quicklisp/CFFI related code into `before_canvas.lisp`, it will be treated nicely.
 
 ### Expedient Distribution
 
-Your friends are using a Linux / macOS / Windows, but you don't have the corresponding OS.
+Your friend is using Linux / macOS / Windows, but you don't have the corresponding OS.
 
 Let's say it's Windows.
 
-You could also distribute expediently by:
+You could also distribute expediently:
 
-1. [downloading the latest](https://github.com/VitoVan/calm/releases) `calm-hello-windows-with-canvas.zip`
+1. [download the latest](https://github.com/VitoVan/calm/releases) `calm-hello-windows-with-canvas.zip`
 2. extract it
 3. replace the `canvas.lisp` file with yours
-4. zip it and send it to your friends
+4. zip it and send it to your friend
 
-> **Warning**
-> 1. Don't use Quicklisp in your `canvas.lisp`, that won't work.
-> 2. Don't load any other foreign libraries except the already loaded ones (SDL2, Cairo, etc.)
+> **Note**
+> 1. Don't use Quicklisp, normally it won't work.
+> 2. CFFI might work, but foreign libraries (except SDL2, Cairo, etc.) are not guaranteed to exist.
 
 ## Environment Variables
 
