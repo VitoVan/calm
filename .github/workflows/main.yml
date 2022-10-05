@@ -37,14 +37,27 @@ jobs:
           cd ~/calm/.github/workflows/
           cat ~/.bash_profile
           source ~/.bash_profile
-          calm dist
-          mv calm-app-macos.zip $DEFAULT_PWD/calm-hello-macos.zip
+          calm dist && mv dist calm-app
+          zip -r -9 calm-hello-macos.zip ./calm-app && rm -rf ./calm-app
+          mv calm-*.zip $DEFAULT_PWD/
+
+      - name: Dist CALM APP with-canvas
+        run: |
+          pwd
+          export DEFAULT_PWD=$(pwd)
+          cd ~/calm/.github/workflows/
+          cat ~/.bash_profile
+          source ~/.bash_profile
+          calm dist --with-canvas && mv dist calm-app
+          zip -r -9 calm-hello-macos-with-canvas.zip ./calm-app && rm -rf ./calm-app
+          mv calm-*.zip $DEFAULT_PWD/
+
 
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.14
         with:
           files: |
-            calm-hello-macos.zip
+            calm-*.zip
 
 
   # This workflow contains a single job called "build"
@@ -58,9 +71,19 @@ jobs:
     steps:
 
       # Runs a set of commands using the runners shell
-      - name: Install Git
+      - name: Install Dependencies
         run: |
-          sudo dnf install git -y
+          dnf -y groupinstall "Development Tools"
+          sudo dnf install git sbcl libzstd-devel capstone-devel wget  bzip2 tar -y
+
+      # Prepare
+      - name: Prepare SBCL (higher version > 2.2.5 with compression)
+        run: |
+          wget http://downloads.sourceforge.net/project/sbcl/sbcl/2.2.7/sbcl-2.2.7-source.tar.bz2
+          bzip2 -cd sbcl-2.2.7-source.tar.bz2 | tar xvf -
+          cd sbcl-2.2.7
+          sh make.sh --with-fancy --with-sb-core-compression
+          sudo sh install.sh
 
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout
@@ -81,14 +104,27 @@ jobs:
           cd ~/calm/.github/workflows/
           cat ~/.bash_profile
           source ~/.bash_profile
-          calm dist
-          mv calm-app-linux.zip $DEFAULT_PWD/calm-hello-linux.zip
+          calm dist && mv dist calm-app
+          zip -r -9 calm-hello-linux.zip ./calm-app && rm -rf ./calm-app
+          mv calm-*.zip $DEFAULT_PWD/
+
+      - name: Dist CALM APP with-canvas
+        run: |
+          pwd
+          export DEFAULT_PWD=$(pwd)
+          cd ~/calm/.github/workflows/
+          cat ~/.bash_profile
+          source ~/.bash_profile
+          calm dist && mv dist calm-app
+          zip -r -9 calm-hello-linux-with-canvas.zip ./calm-app && rm -rf ./calm-app
+          mv calm-*.zip $DEFAULT_PWD/
+
 
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.14
         with:
           files: |
-            calm-hello-linux.zip
+            calm-*.zip
 
 
   # This workflow contains a single job called "build"
@@ -115,6 +151,37 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
+      - uses: msys2/setup-msys2@v2
+        with:
+          location: D:\
+          release: true
+          update: false
+          install: >-
+            unzip
+            p7zip
+            mingw-w64-x86_64-gcc
+            mingw-w64-x86_64-zstd
+            make
+            diffutils
+            git
+
+      - name: Install Host SBCL
+        shell: msys2 {0}
+        run: |
+          wget http://prdownloads.sourceforge.net/sbcl/sbcl-2.2.7-x86-64-windows-binary.msi
+          7z x sbcl-2.2.7-x86-64-windows-binary.msi -Osbcl-2.2.7-bin
+          wget http://downloads.sourceforge.net/project/sbcl/sbcl/2.2.7/sbcl-2.2.7-source.tar.bz2
+          bzip2 -cd sbcl-2.2.7-source.tar.bz2 | tar xvf -
+
+      - name: Prepare SBCL (higher version > 2.2.5 with compression)
+        shell: msys2 {0}
+        run: |
+          cd sbcl-2.2.7
+          PATH=$PATH:"../sbcl-2.2.7-bin/" SBCL_HOME="../sbcl-2.2.7-bin/" sh make.sh --xc-host='sbcl --lose-on-corruption --disable-ldb --disable-debugger' --with-fancy --with-sb-core-compression
+          sh install.sh
+          echo "SBCL_HOME=C:\Program Files\sbcl\lib\sbcl" >> $GITHUB_ENV
+          echo "C:\Program Files\sbcl\bin" >> $GITHUB_PATH
+
       # Runs a set of commands using the runners shell
       - name: Install CALM
         run: |
@@ -122,12 +189,17 @@ jobs:
 
       - name: Dist CALM APP
         run: |
-          C:\msys64\msys2_shell.cmd -defterm -here -no-start -mingw64 -c 'cd ~/calm/.github/workflows/ && pwd && source ~/.bash_profile && calm dist'
-          C:\msys64\msys2_shell.cmd -defterm -here -no-start -mingw64 -c 'pwd && export DEFAULT_PWD=$(pwd) && mv ~/calm/.github/workflows/calm-app-windows.zip $DEFAULT_PWD/calm-hello-windows.zip'
+          C:\msys64\msys2_shell.cmd -defterm -here -no-start -mingw64 -c 'cd ~/calm/.github/workflows/ && pwd && source ~/.bash_profile && calm dist && mv dist calm-app && zip -r -9 calm-hello-windows.zip ./calm-app && rm -rf ./calm-app'
+          C:\msys64\msys2_shell.cmd -defterm -here -no-start -mingw64 -c 'pwd && export DEFAULT_PWD=$(pwd) && mv ~/calm/.github/workflows/calm-hello-windows.zip $DEFAULT_PWD/'
+
+      - name: Dist CALM APP with-canvas
+        run: |
+          C:\msys64\msys2_shell.cmd -defterm -here -no-start -mingw64 -c 'cd ~/calm/.github/workflows/ && pwd && source ~/.bash_profile && calm dist --with-canvas && mv dist calm-app && zip -r -9 calm-hello-windows-with-canvas.zip ./calm-app && rm -rf ./calm-app'
+          C:\msys64\msys2_shell.cmd -defterm -here -no-start -mingw64 -c 'pwd && export DEFAULT_PWD=$(pwd) && mv ~/calm/.github/workflows/calm-hello-windows-with-canvas.zip $DEFAULT_PWD/'
 
 
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.14
         with:
           files: |
-            calm-hello-windows.zip
+            calm-*.zip

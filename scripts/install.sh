@@ -68,9 +68,17 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 
     echo "Installing dependencies ..."
     if [[ "$DISTRO" == "Ubuntu"* ]]; then
-        sudo apt install zip sbcl git libsdl2-2.0-0 libsdl2-mixer-2.0-0  libcairo2 -y
+        if ! command -v sbcl &> /dev/null; then
+            echo "Installing SBCL ..."
+            sudo apt install sbcl -y
+        fi
+        sudo apt install zip git libsdl2-2.0-0 libsdl2-mixer-2.0-0  libcairo2 -y
     elif [[ "$DISTRO" == "Fedora"* ]]; then
-        sudo dnf install zip sbcl git SDL2 SDL2_mixer cairo -y
+        if ! command -v sbcl &> /dev/null; then
+            echo "Installing SBCL ..."
+            sudo dnf install sbcl -y
+        fi
+        sudo dnf install zip git SDL2 SDL2_mixer cairo -y
     else
         echo "Unsupported DISTRO. Please install dependencies by yourself and modify this script."
         exit 42
@@ -87,8 +95,12 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     fi
 
+    if ! command -v sbcl &> /dev/null; then
+        echo "Installing SBCL ..."
+        brew install sbcl
+    fi
     echo "Installing dependencies ..."
-    brew install sbcl git coreutils sdl2 sdl2_mixer cairo
+    brew install git coreutils sdl2 sdl2_mixer cairo
 
     # link them, in case of they were unlinked before
     brew link sdl2 sdl2_mixer cairo
@@ -102,23 +114,32 @@ elif [[ "$OSTYPE" == "cygwin" ]]; then
 elif [[ "$OSTYPE" == "msys" ]]; then
 
     # Windows / MSYS2
+
+    if ! command -v sbcl &> /dev/null; then
+        echo "SBCL not ready, try setting ENV ..."
+
+        if test -f "/c/program files/steel bank common lisp/sbcl.exe"; then
+            echo 'export PATH="$PATH:/c/program files/steel bank common lisp/"' >> ~/.bash_profile
+            echo 'export SBCL_HOME="/c/program files/steel bank common lisp/"' >> ~/.bash_profile
+        elif test -f "/c/program files/sbcl/bin/sbcl.exe"; then
+            echo 'export PATH=$PATH:"/c/Program Files/sbcl/bin/"' >> ~/.bash_profile
+            echo 'export SBCL_HOME="/c/Program Files/sbcl/lib/sbcl/"' >> ~/.bash_profile
+        else
+            echo "Can't find SBCL, please make sure it is installed correctly."
+            exit 42
+        fi
+        source ~/.bash_profile
+        echo $PATH
+    fi
+
     echo "Installing dependencies ..."
     echo $PATH
 
-    pacman -S --noconfirm --needed git zip zstd \
+    pacman -S --noconfirm --needed git zip \
+           mingw64/mingw-w64-x86_64-zstd \
            mingw64/mingw-w64-x86_64-SDL2 \
            mingw64/mingw-w64-x86_64-SDL2_mixer \
            mingw64/mingw-w64-x86_64-cairo
-
-
-    ls -lah "/c/program files/steel bank common lisp/"
-    echo 'export PATH="$PATH:/c/program files/steel bank common lisp/"' >> ~/.bash_profile
-    echo 'export SBCL_HOME="/c/program files/steel bank common lisp/"' >> ~/.bash_profile
-
-    export PATH="$PATH:/c/program files/steel bank common lisp/"
-    export SBCL_HOME="/c/program files/steel bank common lisp/"
-
-    echo $PATH
 
     install_quicklisp
 

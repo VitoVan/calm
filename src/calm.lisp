@@ -105,13 +105,13 @@
 
 (defun calm-config ()
   "This is needed by the DIST mode"
-  
+
   ;; if the CALM_DIR env was not set, set it to the folder contains the core
   ;; this will happen in DIST mode on Windows
   (unless (uiop:getenv "CALM_DIR")
     (setf (uiop:getenv "CALM_DIR") (namestring (uiop:pathname-parent-directory-pathname sb-ext:*core-pathname*))))
   ;; if the APP_DIR env was not set, set it to the current dir
-  ;; this will happen in DIST mode on Windows  
+  ;; this will happen in DIST mode on Windows
   (unless (uiop:getenv "APP_DIR")
     (setf (uiop:getenv "APP_DIR") (namestring (uiop:getcwd))))
 
@@ -124,3 +124,9 @@
   #+linux (calm::calm-init)
   #+(or win32 darwin) (sdl2:make-this-thread-main #'calm::calm-init))
 
+(defun calm-load-and-start ()
+  "Load canvas.lisp and then start"
+  (calm::calm-config)
+  (load "canvas.lisp")
+  #+linux (calm::calm-init)
+  #+(or win32 darwin) (sdl2:make-this-thread-main #'calm::calm-init))

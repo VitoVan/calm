@@ -21,6 +21,33 @@ if [ $? -eq 0 ]; then
     export SBCL_COMPRESSION_ARG=":compression $SBCL_COMPRESSION_LEVEL"
 fi
 
+export SBCL_APPLICATION_TYPE_ARG=""
+
+copy_deps () {
+    echo "Copy dependencies ..."
+    sbcl --load "$CALM_DIR/calm.asd" \
+         --eval "(ql:quickload 'calm)" \
+         --load "$CANVAS_FILE" \
+         --load "$CALM_DIR/scripts/copy-foreign-libraries.lisp" \
+         --eval '(uiop:quit)'
+}
+
+dump_binary () {
+    CMD="sbcl --disable-debugger --load '$CALM_DIR/calm.asd' --eval '(ql:quickload :calm)'"
+    CALM_START="calm-start"
+    if [ -z "$CALM_DIST_WITH_CANVAS" ]; then
+        echo "Dump binary ..."
+        CMD="$CMD --load '$CANVAS_FILE' "
+    else
+        echo "Dump binary with canvas ..."
+        cp "$APP_DIR/canvas.lisp" ./
+        CALM_START="calm-load-and-start"
+    fi
+    CMD="$CMD --eval \"(sb-ext:save-lisp-and-die \\\"calm-dist\\\" $SBCL_COMPRESSION_ARG $SBCL_APPLICATION_TYPE_ARG :executable t :toplevel #'calm:$CALM_START)\""
+    eval $CMD
+}
+
+cd "$APP_DIR"
 
 # https://stackoverflow.com/questions/394230/how-to-detect-the-os-from-a-bash-script
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
@@ -31,21 +58,13 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 
     if [[ "$DISTRO" == "Fedora"* ]]; then
 
-        cd $APP_DIR
-
         echo "Prepare & Switch to dist folder ..."
         rm -rf ./dist
         mkdir ./dist
-        cp $CALM_DIR/calm ./dist
+        cp "$CALM_DIR/calm" ./dist/
         cd ./dist
 
-        echo "Copy dependencies ..."
-        sbcl --noinform \
-             --load "$CALM_DIR/calm.asd" \
-             --eval "(ql:quickload 'calm)" \
-             --load "$CANVAS_FILE" \
-             --load "$CALM_DIR/scripts/copy-foreign-libraries.lisp" \
-             --eval '(uiop:quit)'
+        copy_deps
 
         if [[ $SBCL_VERSION > "2.2.5" ]]; then
             echo "Copy libzstd ..."
@@ -61,22 +80,15 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
         rm -f libc.so*
         rm -f libstdc++.so*
 
-        echo "Dump binary ..."
-
-        sbcl --disable-debugger \
-             --load "$CALM_DIR/calm.asd" \
-             --eval "(ql:quickload 'calm)" \
-             --load "$CANVAS_FILE" \
-             --eval "(sb-ext:save-lisp-and-die \"calm-dist\" $SBCL_COMPRESSION_ARG :executable t :toplevel #'calm:calm-start)"
+        dump_binary
+        echo "Please run the file \"calm\"." > ./how-to-run-this-app.txt
+        echo "If you are using the terminal, cd to this directory, and type:" >> ./how-to-run-this-app.txt
+        echo "./calm" >> ./how-to-run-this-app.txt
 
         chmod +x calm*
 
-        echo "DONE."
-        ls -lah .
         cd ..
-        mv dist calm-app
-        zip -r -9 calm-app-linux.zip ./calm-app
-        pwd
+        ls -lah ./dist
         echo "=========================="
         echo "Please copy all your resource files into 'dist' folder before distributing."
         echo "=========================="
@@ -89,24 +101,16 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     # macOS
 
-    cd $APP_DIR
-
     # link all dependencies, in case of they were unlinked before
     brew link sdl2 sdl2_mixer cairo
 
     echo "Prepare & Switch to dist folder ..."
     rm -rf ./dist
     mkdir ./dist
-    cp $CALM_DIR/calm ./dist
+    cp "$CALM_DIR/calm" ./dist/
     cd ./dist
 
-    echo "Copy dependencies ..."
-    sbcl --noinform \
-         --load "$CALM_DIR/calm.asd" \
-         --eval "(ql:quickload 'calm)" \
-         --load "$CANVAS_FILE" \
-         --load "$CALM_DIR/scripts/copy-foreign-libraries.lisp" \
-         --eval '(uiop:quit)'
+    copy_deps
 
     if [[ $SBCL_VERSION > "2.2.5" ]]; then
         echo "Copy libzstd ..."
@@ -150,23 +154,16 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     echo "Unlink the dependencies ..."
     brew unlink sdl2 sdl2_mixer cairo
 
-    echo "Dump binary ..."
 
-    sbcl --disable-debugger \
-         --load "$CALM_DIR/calm.asd" \
-         --eval "(ql:quickload 'calm)" \
-         --load "$CANVAS_FILE" \
-         --eval "(sb-ext:save-lisp-and-die \"calm-dist\" $SBCL_COMPRESSION_ARG :executable t :toplevel #'calm:calm-start)"
+    dump_binary
+
+    echo "Please double click the file \"calm\"." > ./how-to-run-this-app.txt
 
     echo "Relink the dependencies ..."
     brew link sdl2 sdl2_mixer cairo
 
-    echo "DONE."
-    ls -lah .
     cd ..
-    mv dist calm-app
-    zip -r -9 calm-app-macos.zip ./calm-app
-    pwd
+    ls -lah ./dist
     echo "=========================="
     echo "Please copy all your resource files into 'dist' folder before distributing."
     echo "=========================="
@@ -176,20 +173,14 @@ elif [[ "$OSTYPE" == "cygwin" ]]; then
 elif [[ "$OSTYPE" == "msys" ]]; then
     # Windows / MSYS2
 
-    cd $APP_DIR
+    export SBCL_APPLICATION_TYPE_ARG=":application-type :gui"
 
     echo "Prepare & Switch to dist folder ..."
     rm -rf ./dist
     mkdir ./dist
     cd ./dist
 
-    echo "Copy dependencies ..."
-    sbcl --noinform \
-         --load "$CALM_DIR/calm.asd" \
-         --eval "(ql:quickload 'calm)" \
-         --load "$CANVAS_FILE" \
-         --load "$CALM_DIR/scripts/copy-foreign-libraries.lisp" \
-         --eval '(uiop:quit)'
+    copy_deps
 
     ls -lah /mingw64/bin/
 
@@ -201,20 +192,12 @@ elif [[ "$OSTYPE" == "msys" ]]; then
     # copy all the DLLs required by *.dll
     ldd *.dll  | grep mingw | awk '{print $3}' | xargs -I _ cp _ .
 
-    echo "Dump binary ..."
+    dump_binary
 
-    sbcl --disable-debugger \
-         --load "$CALM_DIR/calm.asd" \
-         --eval "(ql:quickload 'calm)" \
-         --load "$CANVAS_FILE" \
-         --eval "(sb-ext:save-lisp-and-die \"calm.exe\" :application-type :gui $SBCL_COMPRESSION_ARG :executable t :toplevel #'calm:calm-start)"
+    echo "Please double click \"calm.exe\"." > ./how-to-run-this-app.txt
 
-    echo "DONE."
-    ls -lah .
     cd ..
-    mv dist calm-app
-    zip -r -9 calm-app-windows.zip ./calm-app
-    pwd
+    ls -lah ./dist
     echo "=========================="
     echo "Please copy all your resource files into 'dist' folder before distributing."
     echo "=========================="

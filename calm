@@ -1,15 +1,15 @@
 #!/bin/bash
 
 # debugging
-# set -x
+set -x
 
 if [ -z "$NO_SCREENSAVER" ]; then
     export SDL_VIDEO_ALLOW_SCREENSAVER=1
 fi
 
 export APP_DIR=$(pwd)/
-
 export CANVAS_FILE=$APP_DIR/canvas.lisp
+export BEFORE_CANVAS_FILE=$APP_DIR/before_canvas.lisp
 
 
 # https://stackoverflow.com/questions/59895/how-can-i-get-the-source-directory-of-a-bash-script-from-within-the-script-itsel
@@ -28,10 +28,11 @@ if [ -z "$NO_SWANK" ]; then
     if [ -z "$SWANK_PORT" ]; then
         export SWANK_PORT=4242
     fi
-    WITH_SWANK="swank:create-server :port $SWANK_PORT"
+    WITH_SWANK="--eval '(swank:create-server :port $SWANK_PORT)'"
 fi
 
 calm_start () {
+    CMD="sbcl"
     # if calm.asd exists, then start CALM in normal mode
     if [ -f "calm.asd" ]; then
         if [ -z "$NO_CORE" ]; then
@@ -41,13 +42,15 @@ calm_start () {
                 calm core
             fi
         fi
-        sbcl $WITH_CORE \
-             --load "calm.asd" \
-             --eval "(ql:quickload 'calm)" \
-             --eval "($WITH_SWANK)" \
-             --eval "(uiop:chdir \"$APP_DIR\")" \
-             $@ \
-             --eval "(calm:calm-start)"
+        CMD="$CMD $WITH_CORE --load 'calm.asd' --eval '(ql:quickload :calm)' $WITH_SWANK --eval '(uiop:chdir \"$APP_DIR\")'"
+        if test -f "$CANVAS_FILE"; then
+            if test -f "$BEFORE_CANVAS_FILE"; then
+                CMD="$CMD --load '$BEFORE_CANVAS_FILE'"
+            fi
+            CMD="$CMD --load '$CANVAS_FILE'"
+        fi
+        CMD="$CMD --eval '(calm:calm-start)'"
+        eval $CMD
     else # if calm.asd does not exist, then start CALM in distribution mode (dumped binary)
         if [[ "$OSTYPE" == "linux-gnu"* ]]; then
             LD_LIBRARY_PATH=./ ./calm-dist
@@ -70,17 +73,19 @@ if [ "$1" == "core" ]; then
     exit 0
 elif [ "$1" == "dist" ]; then
     echo "Building portable application package ... "
+
+    # are we going to distribute canvas.lisp and load it when running?
+    if [[ $2 == "--with-canvas" ]]; then
+        export CALM_DIST_WITH_CANVAS=1
+    fi
+
     echo "Dumping binary ..."
     . ./scripts/dist.sh
     echo "Collecting dependencies ..."
     echo "DONE."
     exit 0
 elif [ -z "$1" ]; then
-    if test -f "$CANVAS_FILE"; then
-        calm_start --load "$CANVAS_FILE"
-    else
-        calm_start
-    fi
+    calm_start
 else
     echo "Unrecognised ARG: $1"
 fi
