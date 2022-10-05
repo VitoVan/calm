@@ -88,14 +88,60 @@ DONE.
 
 ## Distribution
 
-To distribute your applications to non-wizard users, to provide a portable application package for those who fears the dark of the terminal.
+### Standard Distribution
 
+To distribute your applications to non-wizard users,
+
+to provide a portable application package for those who fears the dark of the terminal.
 
 Launch your terminal, cd to the directory where the file **canvas.lisp** exists, enter the command:
 
 ```bash
 calm dist
 ```
+
+You will get a directory `dist` containing all the dependencies and your final binary.
+
+Before sending it to your friends, please make sure you have put all your resources (.wav, .png, .mp3, etc.) into that directory.
+
+Typically, they will be able to enjoy your application.
+
+If not, tell them to [extract the zip file](https://www.wikihow.com/Unzip-a-File) and run the file `calm` in the extracted folder.
+
+### Canvas Distribution
+
+For those who loves the source, for the maximum configurability.
+
+```bash
+calm dist --with-canvas
+```
+
+Mostly identical to the standard distribution, but with `canvas.lisp` included.
+
+This gives the end user ability to modify your application.
+
+It is very convenient when your friend has a bad taste in color.
+
+> **Note**
+> 1. Don't use Quicklisp in your `canvas.lisp`
+> 2. Put everything related to Quicklisp and CFFI into `before_canvas.lisp`, it will be loaded before dumping your binary.
+
+### Expedient Distribution
+
+Your friends are using a Linux / macOS / Windows, but you don't have the corresponding OS.
+
+Let's say it's Windows.
+
+You could also distribute expediently by:
+
+1. [downloading the latest](https://github.com/VitoVan/calm/releases) `calm-hello-windows-with-canvas.zip`
+2. extract it
+3. replace the `canvas.lisp` file with yours
+4. zip it and send it to your friends
+
+> **Warning**
+> 1. Don't use Quicklisp in your `canvas.lisp`, that won't work.
+> 2. Don't load any other foreign libraries except the already loaded ones (SDL2, Cairo, etc.)
 
 ## Environment Variables
 
@@ -127,4 +173,3 @@ Read-only:
 - `APP_DIR`
 
   This variable holds the path of the directory where calm was started up (aka `pwd`)
-

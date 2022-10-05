@@ -17,4 +17,5 @@
    (:u :calm-utils))
   (:export
    :calm-init
-   :calm-start))
+   :calm-start
+   :calm-load-and-start))
