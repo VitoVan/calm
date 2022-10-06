@@ -25,16 +25,24 @@ export SBCL_APPLICATION_TYPE_ARG=""
 
 copy_deps () {
     echo "Copy dependencies ..."
-    sbcl --load "$CALM_DIR/calm.asd" \
-         --eval "(ql:quickload 'calm)" \
-         --load "$CANVAS_FILE" \
-         --load "$CALM_DIR/scripts/copy-foreign-libraries.lisp" \
-         --eval '(uiop:quit)'
+    CMD="sbcl --load '$CALM_DIR/calm.asd' --eval '(ql:quickload :calm)'"
+
+    if test -f "$BEFORE_CANVAS_FILE"; then
+        CMD="$CMD --load '$BEFORE_CANVAS_FILE'"
+    fi
+
+    CMD="$CMD --load '$CANVAS_FILE' --load '$CALM_DIR/scripts/copy-foreign-libraries.lisp' --eval '(uiop:quit)'"
+    eval $CMD
 }
 
 dump_binary () {
     CMD="sbcl --disable-debugger --load '$CALM_DIR/calm.asd' --eval '(ql:quickload :calm)'"
     CALM_START="calm-start"
+
+    if test -f "$BEFORE_CANVAS_FILE"; then
+        CMD="$CMD --load '$BEFORE_CANVAS_FILE'"
+    fi
+
     if [ -z "$CALM_DIST_WITH_CANVAS" ]; then
         echo "Dump binary ..."
         CMD="$CMD --load '$CANVAS_FILE' "
