@@ -1,0 +1,53 @@
+#!/bin/bash
+
+# debugging
+if [ -n "$DEBUGGING" ]; then
+    set -x
+fi
+
+if [ -z "$CALM_HOME" ]; then
+    export CALM_HOME=$HOME/calm
+fi
+
+CALMX_HOME=$CALM_HOME/.calmx
+
+if [ ! -d "$CALMX_HOME" ]; then
+   echo "$CALMX_HOME does not exist, creating ..."
+   mkdir -p "$CALMX_HOME"
+fi
+
+cd "$CALMX_HOME"
+
+if [ -z "$1" ]; then
+    echo "No ARG."
+    exit 0
+fi
+
+CALM_APP=$1
+
+if [ ! -d "$CALM_APP" ]; then
+    CALM_APP_FOUND=$(find . -type d -depth 1 -name "$CALM_APP*" | head -n 1 | sed 's|./||')
+    if [ -n "$CALM_APP_FOUND" ]; then
+        CALM_APP=$CALM_APP_FOUND
+    fi
+fi
+
+CALM_APP_DIR=$CALM_HOME/.calmx/$CALM_APP
+CALM_APP_URL=https://github.com/calm2d/$CALM_APP
+
+if [ ! -d "$CALM_APP_DIR" ]; then
+    echo "$CALM_APP_DIR does not exist, I can try to download it from the URL below:"
+    echo $CALM_APP_URL
+    read -p "Do you want me to proceed? [y/n] " -n 1 -r
+    echo    # (optional) move to a new line
+    if [[ ! $REPLY =~ ^[Yy]$ ]]
+    then
+        echo "OK, bye."
+        exit 42
+    fi
+    git clone "$CALM_APP_URL"
+fi
+
+cd "$CALM_APP_DIR"
+
+NO_SWANK=1 calm
