@@ -1,7 +1,9 @@
 #!/bin/bash
 
 # debugging
-set -x
+if [ -n "$DEBUGGING" ]; then
+    set -x
+fi
 
 if [ -z "$NO_SCREENSAVER" ]; then
     export SDL_VIDEO_ALLOW_SCREENSAVER=1

@@ -157,6 +157,10 @@ Setf-able:
 
   Disable screensaver, in case you want to keep the screen on.
 
+- `DEBUGGING=1`
+
+  Enable debugging mode, aka `set -x` for bash scripts.
+
 
 Read-only:
 
