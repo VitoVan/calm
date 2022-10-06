@@ -202,6 +202,8 @@ elif [[ "$OSTYPE" == "msys" ]]; then
 
     dump_binary
 
+    mv calm-dist calm.exe
+
     echo "Please double click \"calm.exe\"." > ./how-to-run-this-app.txt
 
     cd ..
