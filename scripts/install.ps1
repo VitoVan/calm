@@ -28,6 +28,6 @@ refreshenv
 
 Write-Output "Installing CALM ..."
 
-(New-Object System.Net.WebClient).DownloadFile ('https://raw.githubusercontent.com/VitoVan/calm/main/scripts/install.sh', 'install-calm.sh')
+(New-Object System.Net.WebClient).DownloadFile('https://raw.githubusercontent.com/VitoVan/calm/main/scripts/install.sh', 'install-calm.sh')
 
 C:\msys64\msys2_shell.cmd -defterm -here -no-start -mingw64 -c './install-calm.sh'
