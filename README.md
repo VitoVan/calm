@@ -161,6 +161,9 @@ Setf-able:
 
   Enable debugging mode, aka `set -x` for bash scripts.
 
+- `CALM_EVAL='(format t "hello")'`
+
+  Some lisp code eval-ed after loading your `canvas.lisp` and before start
 
 Read-only:
 
