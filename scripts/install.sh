@@ -1,9 +1,11 @@
 #!/bin/bash
 
 # debugging
-# set -x
+if [ -n "$DEBUGGING" ]; then
+    set -x
+fi
 
-echo "CALM Installer v0.0.1"
+echo "CALM Installer v0.0.6"
 
 export CALM_BRANCH=main
 

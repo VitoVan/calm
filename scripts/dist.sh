@@ -1,9 +1,11 @@
 #!/bin/bash
 
 # debugging
-# set -x
+if [ -n "$DEBUGGING" ]; then
+    set -x
+fi
 
-echo "CALM Distributor v0.0.1"
+echo "CALM Distributor v0.0.6"
 
 export SBCL_VERSION=$(sbcl --version | cut -c 6-10)
 

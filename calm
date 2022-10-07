@@ -1,7 +1,9 @@
 #!/bin/bash
 
 # debugging
-set -x
+if [ -n "$DEBUGGING" ]; then
+    set -x
+fi
 
 if [ -z "$NO_SCREENSAVER" ]; then
     export SDL_VIDEO_ALLOW_SCREENSAVER=1
@@ -23,7 +25,7 @@ export CALM_DIR="$( cd -P "$( dirname -- "$SOURCE"; )" &> /dev/null && pwd 2> /d
 
 cd $CALM_DIR
 
-WITH_SWANK='format t "~%NO SWANK~%"'
+WITH_SWANK=""
 if [ -z "$NO_SWANK" ]; then
     if [ -z "$SWANK_PORT" ]; then
         export SWANK_PORT=4242
