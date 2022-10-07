@@ -28,6 +28,12 @@ refreshenv
 
 Write-Output "Installing CALM ..."
 
-(New-Object System.Net.WebClient).DownloadFile('https://raw.githubusercontent.com/VitoVan/calm/main/scripts/install.sh', 'install-calm.sh')
-
-C:\msys64\msys2_shell.cmd -defterm -here -no-start -mingw64 -c './install-calm.sh'
+if ((Test-Path ".\scripts\install.sh") -eq $true) {
+  Write-Output "Using existing file install.sh to proceed installation."
+  C:\msys64\msys2_shell.cmd -defterm -here -no-start -mingw64 -c './scripts/install.sh'
+}
+else {
+  Write-Output "Downloading CALM Installer ..."
+  (New-Object System.Net.WebClient).DownloadFile('https://raw.githubusercontent.com/VitoVan/calm/main/scripts/install.sh', 'install-calm.sh')
+  C:\msys64\msys2_shell.cmd -defterm -here -no-start -mingw64 -c './install-calm.sh'
+}
