@@ -55,9 +55,9 @@ calm_start () {
         eval $CMD
     else # if calm.asd does not exist, then start CALM in distribution mode (dumped binary)
         if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-            LD_LIBRARY_PATH=./ ./calm-dist
+            LD_LIBRARY_PATH=./ ./calm-app
         elif [[ "$OSTYPE" == "darwin"* ]]; then
-            DYLD_FALLBACK_LIBRARY_PATH=./ ./calm-dist
+            DYLD_FALLBACK_LIBRARY_PATH=./ ./calm-app
         else
             echo "Something went wrong, please report to:"
             echo "https://github.com/VitoVan/calm/issues/new"
@@ -79,9 +79,10 @@ elif [ "$1" == "dist" ]; then
     # are we going to distribute canvas.lisp and load it when running?
     if [[ $2 == "--with-canvas" ]]; then
         export CALM_DIST_WITH_CANVAS=1
+    elif [[ $2 == "--fancy-app" ]]; then
+        export CALM_DIST_FANCY_APP=1
     fi
 
-    echo "Dumping binary ..."
     . ./scripts/dist.sh
     echo "Collecting dependencies ..."
     echo "DONE."

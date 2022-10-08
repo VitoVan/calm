@@ -16,20 +16,23 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
 
-  osx-build:
+  macos:
     # The type of runner that the job will run on
     runs-on: macos-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      - name: Set output
+        id: vars
+        run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
+
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
       # Runs a set of commands using the runners shell
       - name: Install CALM
         run: |
-          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/VitoVan/calm/$(git describe --tags --abbrev=0)/scripts/install.sh)"
-
+          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/VitoVan/calm/${{ steps.vars.outputs.tag }}/scripts/install.sh)"
       - name: Dist CALM APP
         run: |
           pwd
@@ -37,10 +40,9 @@ jobs:
           cd ~/calm/.github/workflows/
           cat ~/.bash_profile
           source ~/.bash_profile
-          calm dist && mv dist calm-app
-          zip -r -9 calm-hello-macos.zip ./calm-app && rm -rf ./calm-app
+          calm dist && cp -r dist calm-app
+          zip -r -9 calm-hello-macos.zip ./calm-app && mv ./calm-app ./used-dir-ready-to-delete
           mv calm-*.zip $DEFAULT_PWD/
-
       - name: Dist CALM APP with-canvas
         run: |
           pwd
@@ -48,108 +50,46 @@ jobs:
           cd ~/calm/.github/workflows/
           cat ~/.bash_profile
           source ~/.bash_profile
-          calm dist --with-canvas && mv dist calm-app
-          zip -r -9 calm-hello-macos-with-canvas.zip ./calm-app && rm -rf ./calm-app
+          calm dist --with-canvas && cp -r dist calm-app
+          zip -r -9 calm-hello-macos-with-canvas.zip ./calm-app && mv ./calm-app ./used-dir-ready-to-delete
           mv calm-*.zip $DEFAULT_PWD/
-
-
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.14
         with:
+          prerelease: true
           files: |
             calm-*.zip
 
-
-  # This workflow contains a single job called "build"
-  linux-build-fedora:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-    container:
-      image: fedora
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-
-      # Runs a set of commands using the runners shell
-      - name: Install Dependencies
-        run: |
-          dnf -y groupinstall "Development Tools"
-          sudo dnf install git sbcl libzstd-devel capstone-devel wget  bzip2 tar -y
-
-      # Prepare
-      - name: Prepare SBCL (higher version > 2.2.5 with compression)
-        run: |
-          wget http://downloads.sourceforge.net/project/sbcl/sbcl/2.2.7/sbcl-2.2.7-source.tar.bz2
-          bzip2 -cd sbcl-2.2.7-source.tar.bz2 | tar xvf -
-          cd sbcl-2.2.7
-          sh make.sh --with-fancy --with-sb-core-compression
-          sudo sh install.sh
-
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      # Runs a set of commands using the runners shell
-      - name: Install CALM
-        run: |
-          git config --global --add safe.directory /__w/calm/calm
-          pwd
-          git describe --tags --abbrev=0
-          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/VitoVan/calm/$(git describe --tags --abbrev=0)/scripts/install.sh)"
-
-      - name: Dist CALM APP
-        run: |
-          pwd
-          export DEFAULT_PWD=$(pwd)
-          cd ~/calm/.github/workflows/
-          cat ~/.bash_profile
-          source ~/.bash_profile
-          calm dist && mv dist calm-app
-          zip -r -9 calm-hello-linux.zip ./calm-app && rm -rf ./calm-app
-          mv calm-*.zip $DEFAULT_PWD/
-
-      - name: Dist CALM APP with-canvas
-        run: |
-          pwd
-          export DEFAULT_PWD=$(pwd)
-          cd ~/calm/.github/workflows/
-          cat ~/.bash_profile
-          source ~/.bash_profile
-          calm dist && mv dist calm-app
-          zip -r -9 calm-hello-linux-with-canvas.zip ./calm-app && rm -rf ./calm-app
-          mv calm-*.zip $DEFAULT_PWD/
-
-
-      - name: GH Release
-        uses: softprops/action-gh-release@v0.1.14
-        with:
-          files: |
-            calm-*.zip
-
-
-  # This workflow contains a single job called "build"
-  linux-build-ubuntu:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
-
-      # Runs a set of commands using the runners shell
-      - name: Install CALM
-        run: |
-          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/VitoVan/calm/$(git describe --tags --abbrev=0)/scripts/install.sh)"
-
-  windows-build:
+  windows:
     # The type of runner that the job will run on
     runs-on: windows-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      - name: Set output
+        shell: bash
+        id: vars
+        run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
+
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
+
+      - name: Set CALM_BRANCH
+        shell: bash
+        run: |
+          echo ${{ steps.vars.outputs.tag }}
+          echo "CALM_BRANCH=${{ steps.vars.outputs.tag }}" >> $GITHUB_ENV
+
+      - uses: actions/setup-go@v3
+        with:
+          go-version: '1.19.1' # The Go version to download (if necessary) and use.
+
+      - name: Build calm-zipper.exe
+        run: |
+          go version
+          cd ./scripts/
+          go build -ldflags -H=windowsgui calm-zipper.go
+          Get-ChildItem -Force
 
       - uses: msys2/setup-msys2@v2
         with:
@@ -159,25 +99,37 @@ jobs:
           install: >-
             unzip
             p7zip
+            mingw-w64-x86_64-go
             mingw-w64-x86_64-gcc
             mingw-w64-x86_64-zstd
             make
             diffutils
             git
 
-      - name: Install Host SBCL
+      - name: Cache Compiled New SBCL
+        id: cache-sbcl
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-sbcl
+        with:
+          path: .\sbcl-2.2.7
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-sbcl-2.2.7
+
+      - name: Build SBCL (higher version > 2.2.5 with compression)
+        if: ${{ steps.cache-sbcl.outputs.cache-hit != 'true' }}
         shell: msys2 {0}
         run: |
           wget http://prdownloads.sourceforge.net/sbcl/sbcl-2.2.7-x86-64-windows-binary.msi
           7z x sbcl-2.2.7-x86-64-windows-binary.msi -Osbcl-2.2.7-bin
           wget http://downloads.sourceforge.net/project/sbcl/sbcl/2.2.7/sbcl-2.2.7-source.tar.bz2
           bzip2 -cd sbcl-2.2.7-source.tar.bz2 | tar xvf -
+          cd sbcl-2.2.7
+          PATH=$PATH:"../sbcl-2.2.7-bin/" SBCL_HOME="../sbcl-2.2.7-bin/" sh make.sh --xc-host='sbcl --lose-on-corruption --disable-ldb --disable-debugger' --with-fancy --with-sb-core-compression
 
-      - name: Prepare SBCL (higher version > 2.2.5 with compression)
+      - name: Install SBCL (higher version > 2.2.5 with compression)
         shell: msys2 {0}
         run: |
           cd sbcl-2.2.7
-          PATH=$PATH:"../sbcl-2.2.7-bin/" SBCL_HOME="../sbcl-2.2.7-bin/" sh make.sh --xc-host='sbcl --lose-on-corruption --disable-ldb --disable-debugger' --with-fancy --with-sb-core-compression
           sh install.sh
           echo "SBCL_HOME=C:\Program Files\sbcl\lib\sbcl" >> $GITHUB_ENV
           echo "C:\Program Files\sbcl\bin" >> $GITHUB_PATH
@@ -185,22 +137,121 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Install CALM
         run: |
-          Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString("https://raw.githubusercontent.com/VitoVan/calm/$(git describe --tags --abbrev=0)/scripts/install.ps1"))
-
+          Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString("https://raw.githubusercontent.com/VitoVan/calm/${{ steps.vars.outputs.tag }}/scripts/install.ps1"))
       - name: Dist CALM APP
         run: |
-          C:\msys64\msys2_shell.cmd -defterm -here -no-start -mingw64 -c 'cd ~/calm/.github/workflows/ && pwd && source ~/.bash_profile && calm dist && mv dist calm-app && zip -r -9 calm-hello-windows.zip ./calm-app && rm -rf ./calm-app'
+          C:\msys64\msys2_shell.cmd -defterm -here -no-start -mingw64 -c 'cd ~/calm/.github/workflows/ && pwd && source ~/.bash_profile && calm dist && cp -r dist calm-app && zip -r -9 calm-hello-windows.zip ./calm-app && mv ./calm-app ./used-dir-ready-to-delete'
           C:\msys64\msys2_shell.cmd -defterm -here -no-start -mingw64 -c 'pwd && export DEFAULT_PWD=$(pwd) && mv ~/calm/.github/workflows/calm-hello-windows.zip $DEFAULT_PWD/'
+
+      - name: Copy calm-zipper.exe for fancy-app
+        run: |
+          C:\msys64\msys2_shell.cmd -defterm -here -no-start -mingw64 -c 'cp ./scripts/calm-zipper.exe ~/calm/scripts/ && ls -lah ~/calm/scripts'
+
+      - name: Dist CALM APP fancy-app
+        run: |
+          C:\msys64\msys2_shell.cmd -defterm -here -no-start -mingw64 -c 'cd ~/calm/.github/workflows/ && pwd && source ~/.bash_profile && calm dist --fancy-app'
+          C:\msys64\msys2_shell.cmd -defterm -here -no-start -mingw64 -c 'pwd && export DEFAULT_PWD=$(pwd) && mv ~/calm/.github/workflows/*.exe $DEFAULT_PWD/'
 
       - name: Dist CALM APP with-canvas
         run: |
-          C:\msys64\msys2_shell.cmd -defterm -here -no-start -mingw64 -c 'cd ~/calm/.github/workflows/ && pwd && source ~/.bash_profile && calm dist --with-canvas && mv dist calm-app && zip -r -9 calm-hello-windows-with-canvas.zip ./calm-app && rm -rf ./calm-app'
+          C:\msys64\msys2_shell.cmd -defterm -here -no-start -mingw64 -c 'cd ~/calm/.github/workflows/ && pwd && source ~/.bash_profile && calm dist --with-canvas && cp -r dist calm-app && zip -r -9 calm-hello-windows-with-canvas.zip ./calm-app && mv ./calm-app ./used-dir-ready-to-delete'
           C:\msys64\msys2_shell.cmd -defterm -here -no-start -mingw64 -c 'pwd && export DEFAULT_PWD=$(pwd) && mv ~/calm/.github/workflows/calm-hello-windows-with-canvas.zip $DEFAULT_PWD/'
-
-
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.14
         with:
           prerelease: true
           files: |
             calm-*.zip
+            ./scripts/*.exe
+            *.exe
+
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set output
+        id: vars
+        run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Generate Dockerfile
+        run: |
+          echo ${{ steps.vars.outputs.tag }}
+          sed "s/#TAG#/${{ steps.vars.outputs.tag }}/" ./scripts/Dockerfile.template > Dockerfile
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          push: true
+          context: .
+          tags: vitovan/calm:${{ steps.vars.outputs.tag }}
+          cache-from: type=registry,ref=vitovan/calm:buildcache
+          cache-to: type=registry,ref=vitovan/calm:buildcache,mode=max
+
+  # This workflow contains a single job called "build"
+  linux:
+    # The type of runner that the job will run on
+    needs: docker
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: Set output
+        id: vars
+        run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
+
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      # Runs a set of commands using the runners shell
+      - name: Install CALM
+        run: |
+          /bin/bash -c "export CALM_BRANCH=${{ steps.vars.outputs.tag }} && $(curl -fsSL https://raw.githubusercontent.com/VitoVan/calm/${{ steps.vars.outputs.tag }}/scripts/install.sh)"
+
+      - name: Dist CALM APP
+        run: |
+          pwd
+          export DEFAULT_PWD=$(pwd)
+          cd ~/calm/.github/workflows/
+          docker run -v $PWD:/app --rm vitovan/calm:${{ steps.vars.outputs.tag }} dist
+          cp -r dist calm-app
+          zip -r -9 calm-hello-linux.zip ./calm-app && mv ./calm-app ./used-dir-ready-to-delete
+          mv calm-*.zip $DEFAULT_PWD/
+      - name: Dist CALM APP fancy-app
+        run: |
+          pwd
+          export DEFAULT_PWD=$(pwd)
+          cd ~/calm/.github/workflows/
+          cat ~/.bash_profile
+          source ~/.bash_profile
+          calm dist --fancy-app
+          mv *.AppImage $DEFAULT_PWD/
+      - name: Dist CALM APP with-canvas
+        run: |
+          pwd
+          export DEFAULT_PWD=$(pwd)
+          cd ~/calm/.github/workflows/
+          docker run -v $PWD:/app --rm vitovan/calm:${{ steps.vars.outputs.tag }} dist --with-canvas
+          cp -r dist calm-app
+          zip -r -9 calm-hello-linux-with-canvas.zip ./calm-app && mv ./calm-app ./used-dir-ready-to-delete
+          mv calm-*.zip $DEFAULT_PWD/
+      - name: GH Release
+        uses: softprops/action-gh-release@v0.1.14
+        with:
+          prerelease: true
+          files: |
+            calm-*.zip
+            *.AppImage

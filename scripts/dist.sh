@@ -5,7 +5,7 @@ if [ -n "$DEBUGGING" ]; then
     set -x
 fi
 
-echo "CALM Distributor v0.0.6"
+echo "CALM Distributor v0.0.7"
 
 export SBCL_VERSION=$(sbcl --version | cut -c 6-10)
 
@@ -17,8 +17,8 @@ fi
 
 export SBCL_COMPRESSION_ARG=""
 
+echo "Detecting SBCL compression level ..."
 sbcl --eval "(if (find :sb-core-compression *features*) (uiop:quit 0) (uiop:quit 42))"
-
 if [ $? -eq 0 ]; then
     export SBCL_COMPRESSION_ARG=":compression $SBCL_COMPRESSION_LEVEL"
 fi
@@ -38,7 +38,7 @@ copy_deps () {
 }
 
 dump_binary () {
-    CMD="sbcl --disable-debugger --load '$CALM_DIR/calm.asd' --eval '(ql:quickload :calm)'"
+    CMD="sbcl --load '$CALM_DIR/calm.asd' --eval '(ql:quickload :calm)'"
     CALM_START="calm-start"
 
     if test -f "$BEFORE_CANVAS_FILE"; then
@@ -53,64 +53,57 @@ dump_binary () {
         cp "$APP_DIR/canvas.lisp" ./
         CALM_START="calm-load-and-start"
     fi
-    CMD="$CMD --eval \"(sb-ext:save-lisp-and-die \\\"calm-dist\\\" $SBCL_COMPRESSION_ARG $SBCL_APPLICATION_TYPE_ARG :executable t :toplevel #'calm:$CALM_START)\""
+    CMD="$CMD --eval \"(sb-ext:save-lisp-and-die \\\"calm-app\\\" $SBCL_COMPRESSION_ARG $SBCL_APPLICATION_TYPE_ARG :executable t :toplevel #'calm:$CALM_START)\""
     eval $CMD
 }
 
-cd "$APP_DIR"
-
-# https://stackoverflow.com/questions/394230/how-to-detect-the-os-from-a-bash-script
-if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-    # Linux
-
-    export DISTRO="$(awk -F= '/^NAME/{print $2}' /etc/os-release | sed 's/"//g')"
-    echo "linux-$DISTRO"
-
+dist_linux () {
     if [[ "$DISTRO" == "Fedora"* ]]; then
-
-        echo "Prepare & Switch to dist folder ..."
-        rm -rf ./dist
-        mkdir ./dist
-        cp "$CALM_DIR/calm" ./dist/
-        cd ./dist
-
-        copy_deps
-
-        if [[ $SBCL_VERSION > "2.2.5" ]]; then
-            echo "Copy libzstd ..."
-            cp /usr/lib64/libzstd.so* ./
-        fi
-
-        chmod +x *.so*
-
-        # copy all the DLLs required by SDL2 & cairo
-        ldd ./*.so* | grep '=> /lib64' | awk '{print $3}' | sort | uniq | xargs -I _ cp _ .
-
-        # something should not be there
-        rm -f libc.so*
-        rm -f libstdc++.so*
-
-        dump_binary
-        echo "Please run the file \"calm\"." > ./how-to-run-this-app.txt
-        echo "If you are using the terminal, cd to this directory, and type:" >> ./how-to-run-this-app.txt
-        echo "./calm" >> ./how-to-run-this-app.txt
-
-        chmod +x calm*
-
-        cd ..
-        ls -lah ./dist
-        echo "=========================="
-        echo "Please copy all your resource files into 'dist' folder before distributing."
-        echo "=========================="
+        echo "Distributing CALM into directory './dist' ..."
     else
-        echo "Sorry, I only made this work on Fedora. You could try using docker."
+        echo "'calm dist' and 'calm dist --with-canvas' only work on Fedora"
+        echo "Please use docker instead (if you don't mind):"
+        echo "docker run -v $PWD:/app --rm vitovan/calm bash -c 'calm dist'"
         exit 42
     fi
 
+    echo "Prepare & Switch to dist folder ..."
+    rm -rf ./dist
+    mkdir ./dist
+    cp "$CALM_DIR/calm" ./dist/
+    cd ./dist
 
-elif [[ "$OSTYPE" == "darwin"* ]]; then
-    # macOS
+    copy_deps
 
+    if [[ $SBCL_VERSION > "2.2.5" ]]; then
+        echo "Copy libzstd ..."
+        cp /usr/lib64/libzstd.so* ./
+    fi
+
+    chmod +x *.so*
+
+    # copy all the DLLs required by SDL2 & cairo
+    ldd ./*.so* | grep '=> /lib64' | awk '{print $3}' | sort | uniq | xargs -I _ cp _ .
+
+    # something should not be there
+    rm -f libc.so*
+    rm -f libstdc++.so*
+
+    dump_binary
+    echo "Please run the file \"calm\"." > ./how-to-run-this-app.txt
+    echo "If you are using the terminal, cd to this directory, and type:" >> ./how-to-run-this-app.txt
+    echo "./calm" >> ./how-to-run-this-app.txt
+
+    chmod +x calm*
+
+    cd ..
+    ls -lah ./dist
+    echo "=========================="
+    echo "Please copy all your resource files into 'dist' folder before distributing."
+    echo "=========================="
+}
+
+dist_darwin () {
     # link all dependencies, in case of they were unlinked before
     brew link sdl2 sdl2_mixer cairo
 
@@ -177,13 +170,13 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     echo "=========================="
     echo "Please copy all your resource files into 'dist' folder before distributing."
     echo "=========================="
-elif [[ "$OSTYPE" == "cygwin" ]]; then
-    # POSIX compatibility layer and Linux environment emulation for Windows
-    echo "Cygwin. Please use MSYS2"
-elif [[ "$OSTYPE" == "msys" ]]; then
+}
+
+dist_msys () {
     # Windows / MSYS2
 
-    export SBCL_APPLICATION_TYPE_ARG=":application-type :gui"
+    #
+    # export SBCL_APPLICATION_TYPE_ARG=":application-type :gui"
 
     echo "Prepare & Switch to dist folder ..."
     rm -rf ./dist
@@ -191,8 +184,6 @@ elif [[ "$OSTYPE" == "msys" ]]; then
     cd ./dist
 
     copy_deps
-
-    ls -lah /mingw64/bin/
 
     if [[ $SBCL_VERSION > "2.2.5" ]]; then
         echo "Copy libzstd ..."
@@ -204,7 +195,7 @@ elif [[ "$OSTYPE" == "msys" ]]; then
 
     dump_binary
 
-    mv calm-dist calm.exe
+    mv calm-app calm.exe
 
     echo "Please double click \"calm.exe\"." > ./how-to-run-this-app.txt
 
@@ -213,9 +204,136 @@ elif [[ "$OSTYPE" == "msys" ]]; then
     echo "=========================="
     echo "Please copy all your resource files into 'dist' folder before distributing."
     echo "=========================="
+}
+
+make_appimage () {
+    echo "Making AppImage ..."
+
+    if [ ! -d "./dist" ]; then
+        echo "Directory 'dist' does not exist, please run 'calm dist' first"
+        echo "Quitting ..."
+        exit 42
+    else
+        mkdir calm.AppDir
+        cp dist/* calm.AppDir/
+
+        if [ ! -d "./resources" ]; then
+            echo "Directory 'resources' does not exist ... skipping ..."
+        else
+            mkdir calm.AppDir/resources/
+            cp -r ./resources/* calm.AppDir/resources/*
+        fi
+
+        mv "$CALM_DIR/scripts/calm.svg" calm.AppDir/
+        mv "$CALM_DIR/scripts/calm.desktop" calm.AppDir/
+        mv "$CALM_DIR/scripts/AppRun" calm.AppDir/
+
+        chmod +x calm.AppDir/AppRun
+
+        if [ ! -f "$CALM_DIR/scripts/appimagetool" ]; then
+            echo "Downloading appimagetool ..."
+            curl -o "$CALM_DIR/scripts/appimagetool" -L \
+                 https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage
+            chmod +x "$CALM_DIR/scripts/appimagetool"
+        fi
+        "$CALM_DIR/scripts/appimagetool" calm.AppDir calm.AppImage
+        ls -lah .
+    fi
+}
+
+make_standalone_exe_with_warp () {
+    echo "Making stand-alone EXE ..."
+
+    if [ ! -d "./dist" ]; then
+        echo "Directory 'dist' does not exist, please run 'calm dist' first"
+        echo "Quitting ..."
+        exit 42
+    else
+
+        WARP_PACKER="$CALM_DIR/scripts/warp-packer.exe"
+
+        if [ ! -f "$WARP_PACKER" ]; then
+            echo "Downloading warp-packer ..."
+            curl -o "$WARP_PACKER" -L \
+             https://github.com/dgiagio/warp/releases/download/v0.3.0/windows-x64.warp-packer.exe
+        fi
+
+        if [ ! -d "./resources" ]; then
+            echo "Directory 'resources' does not exist ... skipping ..."
+        else
+            mkdir ./dist/resources/
+            cp -r resources/* ./dist/resources/*
+        fi
+
+        "$WARP_PACKER" --arch windows-x64 --input_dir ./dist --exec calm.exe --output calm.exe
+
+        ls -lah .
+    fi
+}
+
+make_standalone_exe () {
+    echo "Making stand-alone EXE ..."
+
+    if [ ! -d "./dist" ]; then
+        echo "Directory 'dist' does not exist, please run 'calm dist' first"
+        echo "Quitting ..."
+        exit 42
+    else
+
+        CALM_ZIPPER="$CALM_DIR/scripts/calm-zipper.exe"
+
+        if [ ! -f "$CALM_ZIPPER" ]; then
+            echo "Downloading calm-zipper ..."
+            curl -o "$CALM_ZIPPER" -L \
+                 https://github.com/VitoVan/calm/releases/latest/download/calm-zipper.exe
+        fi
+
+        if [ ! -d "./resources" ]; then
+            echo "Directory 'resources' does not exist ... skipping ..."
+        else
+            mkdir ./dist/resources/
+            cp -r resources/* ./dist/resources/*
+        fi
+
+        "$CALM_ZIPPER" ./dist
+
+        ls -lah .
+    fi
+}
+
+cd "$APP_DIR"
+
+# https://stackoverflow.com/questions/394230/how-to-detect-the-os-from-a-bash-script
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    export DISTRO="$(awk -F= '/^NAME/{print $2}' /etc/os-release | sed 's/"//g')"
+    echo "linux-$DISTRO"
+
+    if [ -z "$CALM_DIST_FANCY_APP" ]; then
+        dist_linux
+    else
+        make_appimage
+    fi
+
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+
+    dist_darwin
+
+elif [[ "$OSTYPE" == "cygwin" ]]; then
+
+    echo "Cygwin. Please use MSYS2."
+
+elif [[ "$OSTYPE" == "msys" ]]; then
+
+
+    if [ -z "$CALM_DIST_FANCY_APP" ]; then
+        dist_msys
+    else
+        make_standalone_exe
+    fi
+
 
 elif [[ "$OSTYPE" == "win32" ]]; then
-    # I'm not sure this can happen.
+    # I'm not sure this could happen.
     echo "WIN32. Please use MSYS2, please let me know if you want:"
     echo "https://github.com/VitoVan/calm/issues/new"
 elif [[ "$OSTYPE" == "freebsd"* ]]; then

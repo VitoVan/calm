@@ -1,3 +1,7 @@
 calm.core
 .DS_Store
 dist/
+Dockerfile
+*.exe
+*.AppImage
+*.dmg
