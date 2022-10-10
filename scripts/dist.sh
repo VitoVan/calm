@@ -176,7 +176,7 @@ dist_msys () {
     # Windows / MSYS2
 
     #
-    # export SBCL_APPLICATION_TYPE_ARG=":application-type :gui"
+    export SBCL_APPLICATION_TYPE_ARG=":application-type :gui"
 
     echo "Prepare & Switch to dist folder ..."
     rm -rf ./dist
