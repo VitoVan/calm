@@ -150,7 +150,7 @@ jobs:
       - name: Dist CALM APP fancy-app
         run: |
           C:\msys64\msys2_shell.cmd -defterm -here -no-start -mingw64 -c 'cd ~/calm/.github/workflows/ && pwd && source ~/.bash_profile && calm dist --fancy-app'
-          C:\msys64\msys2_shell.cmd -defterm -here -no-start -mingw64 -c 'pwd && export DEFAULT_PWD=$(pwd) && mv ~/calm/.github/workflows/*.exe $DEFAULT_PWD/'
+          C:\msys64\msys2_shell.cmd -defterm -here -no-start -mingw64 -c 'pwd && export DEFAULT_PWD=$(pwd) && mv ~/calm/.github/workflows/calm-app.exe $DEFAULT_PWD/calm-hello.exe'
 
       - name: Dist CALM APP with-canvas
         run: |
@@ -238,7 +238,7 @@ jobs:
           cat ~/.bash_profile
           source ~/.bash_profile
           calm dist --fancy-app
-          mv *.AppImage $DEFAULT_PWD/
+          mv calm-app.AppImage $DEFAULT_PWD/calm-hello.AppImage
       - name: Dist CALM APP with-canvas
         run: |
           pwd

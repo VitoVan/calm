@@ -53,7 +53,7 @@ dump_binary () {
         cp "$APP_DIR/canvas.lisp" ./
         CALM_START="calm-load-and-start"
     fi
-    CMD="$CMD --eval \"(sb-ext:save-lisp-and-die \\\"calm-app\\\" $SBCL_COMPRESSION_ARG $SBCL_APPLICATION_TYPE_ARG :executable t :toplevel #'calm:$CALM_START)\""
+    CMD="$CMD --eval \"(sb-ext:save-lisp-and-die \\\"calm-bin\\\" $SBCL_COMPRESSION_ARG $SBCL_APPLICATION_TYPE_ARG :executable t :toplevel #'calm:$CALM_START)\""
     eval $CMD
 }
 
@@ -195,7 +195,7 @@ dist_msys () {
 
     dump_binary
 
-    mv calm-app calm.exe
+    mv calm-bin calm.exe
 
     echo "Please double click \"calm.exe\"." > ./how-to-run-this-app.txt
 
@@ -236,7 +236,7 @@ make_appimage () {
                  https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage
             chmod +x "$CALM_DIR/scripts/appimagetool"
         fi
-        "$CALM_DIR/scripts/appimagetool" calm.AppDir calm.AppImage
+        "$CALM_DIR/scripts/appimagetool" calm.AppDir calm-app.AppImage
         ls -lah .
     fi
 }

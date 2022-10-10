@@ -55,9 +55,9 @@ calm_start () {
         eval $CMD
     else # if calm.asd does not exist, then start CALM in distribution mode (dumped binary)
         if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-            LD_LIBRARY_PATH=./ ./calm-app
+            LD_LIBRARY_PATH=./ ./calm-bin
         elif [[ "$OSTYPE" == "darwin"* ]]; then
-            DYLD_FALLBACK_LIBRARY_PATH=./ ./calm-app
+            DYLD_FALLBACK_LIBRARY_PATH=./ ./calm-bin
         else
             echo "Something went wrong, please report to:"
             echo "https://github.com/VitoVan/calm/issues/new"
