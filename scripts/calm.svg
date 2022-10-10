@@ -24,14 +24,14 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="px"
      showgrid="true"
-     inkscape:zoom="1.4512039"
-     inkscape:cx="-48.924898"
-     inkscape:cy="57.193894"
-     inkscape:window-width="1920"
-     inkscape:window-height="1027"
+     inkscape:zoom="13.560072"
+     inkscape:cx="5.6046898"
+     inkscape:cy="10.47192"
+     inkscape:window-width="1614"
+     inkscape:window-height="771"
      inkscape:window-x="0"
      inkscape:window-y="25"
-     inkscape:window-maximized="1"
+     inkscape:window-maximized="0"
      inkscape:current-layer="layer1"
      inkscape:lockguides="true">
     <inkscape:grid
@@ -45,11 +45,32 @@
      inkscape:groupmode="layer"
      id="layer1">
     <rect
+       style="fill:#ff0000;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;paint-order:stroke markers fill"
+       id="rect354"
+       width="9.0707483"
+       height="5.9734192"
+       x="0"
+       y="0.073745921" />
+    <rect
        style="fill:#0000ff;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;paint-order:stroke markers fill"
-       id="rect320"
-       width="268"
-       height="272"
-       x="-112"
-       y="-124" />
+       id="rect408"
+       width="9.0707483"
+       height="9.8819532"
+       x="0"
+       y="6.0471654" />
+    <rect
+       style="fill:#ffff00;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;paint-order:stroke markers fill"
+       id="rect410"
+       width="7.0058622"
+       height="5.8996735"
+       x="9.0707483"
+       y="10.029445" />
+    <rect
+       style="fill:#008000;fill-rule:evenodd;stroke:#000000;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;paint-order:stroke markers fill"
+       id="rect464"
+       width="6.9321165"
+       height="9.8082075"
+       x="8.9970016"
+       y="0.073745921" />
   </g>
 </svg>
