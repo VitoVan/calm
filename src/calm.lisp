@@ -105,7 +105,6 @@
 
 (defun calm-config ()
   "This is needed by the DIST mode"
-
   ;; if the CALM_DIR env was not set, set it to the folder contains the core
   ;; this will happen in DIST mode on Windows
   (unless (uiop:getenv "CALM_DIR")
@@ -118,9 +117,18 @@
   ;; switch to the APP_DIR
   (uiop:chdir (uiop:getenv "APP_DIR")))
 
+(defun calm-eval ()
+  "Eval lisp code from env CALM_EVAL"
+  (let ((calm-eval-str (uiop:getenv "CALM_EVAL")))
+    (when calm-eval-str
+      (format t "EVALing: ~%~A~%" calm-eval-str)
+      (in-package #:calm)
+      (eval (read-from-string calm-eval-str)))))
+
 (defun calm-start ()
   "Start the window"
   (calm::calm-config)
+  (calm-eval)
   #+linux (calm::calm-init)
   #+(or win32 darwin) (sdl2:make-this-thread-main #'calm::calm-init))
 
@@ -128,5 +136,6 @@
   "Load canvas.lisp and then start"
   (calm::calm-config)
   (load "canvas.lisp")
+  (calm-eval)
   #+linux (calm::calm-init)
   #+(or win32 darwin) (sdl2:make-this-thread-main #'calm::calm-init))

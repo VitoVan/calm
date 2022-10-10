@@ -1,4 +1,4 @@
-Write-Output "CALM (Windows) Installer v0.0.1"
+Write-Output "CALM (Windows) Installer v0.0.7"
 
 $testchoco = powershell choco -v
 if (-not($testchoco)) {
@@ -30,10 +30,10 @@ Write-Output "Installing CALM ..."
 
 if ((Test-Path ".\scripts\install.sh") -eq $true) {
   Write-Output "Using existing file install.sh to proceed installation."
-  C:\msys64\msys2_shell.cmd -defterm -here -no-start -mingw64 -c './scripts/install.sh'
+  C:\msys64\msys2_shell.cmd -defterm -here -no-start -mingw64 -c 'DEBUGGING=1 ./scripts/install.sh'
 }
 else {
   Write-Output "Downloading CALM Installer ..."
   (New-Object System.Net.WebClient).DownloadFile('https://raw.githubusercontent.com/VitoVan/calm/main/scripts/install.sh', 'install-calm.sh')
-  C:\msys64\msys2_shell.cmd -defterm -here -no-start -mingw64 -c './install-calm.sh'
+  C:\msys64\msys2_shell.cmd -defterm -here -no-start -mingw64 -c 'DEBUGGING=1 ./install-calm.sh'
 }

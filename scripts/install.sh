@@ -3,11 +3,14 @@
 # debugging
 if [ -n "$DEBUGGING" ]; then
     set -x
+    env
 fi
 
-echo "CALM Installer v0.0.6"
+echo "CALM Installer v0.0.7"
 
-export CALM_BRANCH=main
+if [ -z "$CALM_BRANCH" ]; then
+    export CALM_BRANCH=main
+fi
 
 install_quicklisp () {
     # test Quicklisp
@@ -30,14 +33,6 @@ install_quicklisp () {
 }
 
 install_calm () {
-    # for github workflow mostly
-    if [ -d .git ]; then
-        if [[ $(git remote get-url --all origin) == *"VitoVan/calm"* ]]; then
-            echo .git;
-            export CALM_BRANCH=$(git describe --tags --abbrev=0)
-        fi
-    fi
-
     git clone  --depth 1 --branch $CALM_BRANCH https://github.com/VitoVan/calm.git ~/calm
     echo 'export PATH="$PATH:$HOME/calm/"' >> ~/.bash_profile
     export PATH="$PATH:$HOME/calm/"

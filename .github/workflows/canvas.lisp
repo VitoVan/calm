@@ -4,5 +4,4 @@
   (dotimes (i 7)
     (apply #'c:set-source-rgb (nth (if (>= i 4) (- i 4) i) *color-list*))
     (c:arc (+ 60 (* (- (/ *calm-width* 5) 40) i)) 70 50 0 (* 2 pi))
-    (c:fill-path))
-  (setf *calm-redraw* nil))
+    (c:fill-path)))
