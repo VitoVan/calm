@@ -17,6 +17,11 @@
   (c:set-font-size 84)
   (c:show-text "DON'T PANIC"))
 
+(defun think ()
+  "default thinking function, user should override this.
+   You may not be drawing something, but you are always thinking."
+  nil)
+
 (defun calm-init ()
   (sdl2:with-init (:everything)
     (sdl2:with-window (calm-window :title *calm-title* :x *calm-x* :y *calm-y* :w *calm-width* :h *calm-height* :flags *calm-flags*)
@@ -29,8 +34,20 @@
           (:keydown (:keysym k :state s) (on-keydown (sdl2:scancode k)))
           (:keyup (:keysym k :state s) (on-keyup (sdl2:scancode k)))
           (:windowevent (:event e)
-                        (cond ((equal e sdl2-ffi:+sdl-windowevent-close+)
-                               (calm-quit))))
+                        (format t "SDL2 Window EVENT: ~A ~%" e)
+                        (cond
+                          ((equal e sdl2-ffi:+sdl-windowevent-minimized+)
+                           (setf *calm-redraw* nil))
+                          ((equal e sdl2-ffi:+sdl-windowevent-restored+)
+                           (setf *calm-redraw* t))
+
+                          ((equal e sdl2-ffi:+sdl-windowevent-enter+)
+                           (setf *calm-state-mouse-inside-window* t))
+                          ((equal e sdl2-ffi:+sdl-windowevent-leave+)
+                           (setf *calm-state-mouse-inside-window* nil))
+
+                          ((equal e sdl2-ffi:+sdl-windowevent-close+)
+                           (calm-quit))))
           (:mousemotion (:x x :y y)
                         (setf *calm-state-mouse-x* x
                               *calm-state-mouse-y* y
@@ -47,6 +64,7 @@
                                   *calm-state-mouse-just-clicked* nil)
                             (on-mousebuttondown :button button :x x :y y :clicks clicks))
           (:idle ()
+                 (think)
                  (when *calm-redraw*
                    (multiple-value-bind (calm-renderer-width calm-renderer-height)
                        (sdl2:get-renderer-output-size calm-renderer)

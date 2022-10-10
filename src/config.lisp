@@ -16,6 +16,7 @@
 
 ;; runtime variables
 (defparameter *calm-dpi-scale* 1)
+(defparameter *calm-state-mouse-inside-window* nil)
 (defparameter *calm-state-mouse-x* 0)
 (defparameter *calm-state-mouse-y* 0)
 (defparameter *calm-state-mouse-up* nil)
