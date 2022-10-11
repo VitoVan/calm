@@ -128,6 +128,8 @@ if ! command -v create-dmg &> /dev/null; then
     brew install create-dmg
 fi
 
+rm calm-app.dmg
+
 create-dmg --hdiutil-verbose --volname "CALM Application" \
            --volicon "$CALM_DIR/scripts/calm-cartridge.icns" \
            --window-pos 200 120 \
@@ -136,6 +138,6 @@ create-dmg --hdiutil-verbose --volname "CALM Application" \
            --icon "$APPNAME.app" 200 90 \
            --hide-extension "$APPNAME.app" \
            --app-drop-link 600 85 \
-           calm-app.dmg $APPNAME.app
+           calm-app.dmg "$APPNAME.app/"
 
 echo "DONE."
