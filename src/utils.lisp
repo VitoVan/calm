@@ -1,5 +1,8 @@
 (in-package #:calm-utils)
 
+(defmacro calm-log (control-string &rest rest)
+  `(format t ,control-string ,@rest))
+
 (defun set-cursor (type)
   (cond
     ((equal type :hand) (sdl2-ffi.functions:sdl-set-cursor (sdl2-ffi.functions:sdl-create-system-cursor sdl2-ffi:+sdl-system-cursor-hand+)))

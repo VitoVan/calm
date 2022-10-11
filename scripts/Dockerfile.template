@@ -11,6 +11,8 @@ RUN bzip2 -cd sbcl-2.2.7-source.tar.bz2 | tar xvf - && \
     sh make.sh --with-fancy --with-sb-core-compression && \
     sh install.sh
 
+ENV CALM_BRANCH=#TAG#
+
 # install CALM
 RUN /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/VitoVan/calm/#TAG#/scripts/install.sh)"
 ENV PATH="${PATH}:/root/calm/"

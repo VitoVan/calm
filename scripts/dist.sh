@@ -3,6 +3,7 @@
 # debugging
 if [ -n "$DEBUGGING" ]; then
     set -x
+    env
 fi
 
 echo "CALM Distributor v0.0.7"
@@ -224,7 +225,7 @@ make_appimage () {
             cp -r ./resources/* calm.AppDir/resources/*
         fi
 
-        mv "$CALM_DIR/scripts/calm.svg" calm.AppDir/
+        mv "$CALM_DIR/scripts/calm-linux.png" calm.AppDir/calm.png
         mv "$CALM_DIR/scripts/calm.desktop" calm.AppDir/
         mv "$CALM_DIR/scripts/AppRun" calm.AppDir/
 
@@ -237,36 +238,6 @@ make_appimage () {
             chmod +x "$CALM_DIR/scripts/appimagetool"
         fi
         "$CALM_DIR/scripts/appimagetool" calm.AppDir calm-app.AppImage
-        ls -lah .
-    fi
-}
-
-make_standalone_exe_with_warp () {
-    echo "Making stand-alone EXE ..."
-
-    if [ ! -d "./dist" ]; then
-        echo "Directory 'dist' does not exist, please run 'calm dist' first"
-        echo "Quitting ..."
-        exit 42
-    else
-
-        WARP_PACKER="$CALM_DIR/scripts/warp-packer.exe"
-
-        if [ ! -f "$WARP_PACKER" ]; then
-            echo "Downloading warp-packer ..."
-            curl -o "$WARP_PACKER" -L \
-             https://github.com/dgiagio/warp/releases/download/v0.3.0/windows-x64.warp-packer.exe
-        fi
-
-        if [ ! -d "./resources" ]; then
-            echo "Directory 'resources' does not exist ... skipping ..."
-        else
-            mkdir ./dist/resources/
-            cp -r resources/* ./dist/resources/*
-        fi
-
-        "$WARP_PACKER" --arch windows-x64 --input_dir ./dist --exec calm.exe --output calm.exe
-
         ls -lah .
     fi
 }
@@ -297,7 +268,28 @@ make_standalone_exe () {
 
         "$CALM_ZIPPER" ./dist
 
+        RESOURCE_HACKER="$CALM_DIR/scripts/rh/ResourceHacker.exe"
+
+        if [ ! -f "$RESOURCE_HACKER" ]; then
+            curl -OL http://www.angusj.com/resourcehacker/resource_hacker.zip
+            unzip resource_hacker.zip -d "$CALM_DIR/scripts/rh/"
+        fi
+        mv calm-app.exe no-icon-calm-app.exe
+        "$RESOURCE_HACKER"  -open no-icon-calm-app.exe -save calm-app.exe -action addskip -res "$CALM_DIR/scripts/calm-windows.ico" -mask ICONGROUP,MAINICON
+
         ls -lah .
+    fi
+}
+
+make_macos_app () {
+    echo "Making macOS APP ..."
+
+    if [ ! -d "./dist" ]; then
+        echo "Directory 'dist' does not exist, please run 'calm dist' first"
+        echo "Quitting ..."
+        exit 42
+    else
+        "$CALM_DIR/scripts/gen-macos-app.sh" CalmApp "$CALM_DIR/scripts/calm-macos.icns"
     fi
 }
 
@@ -316,7 +308,11 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 
 elif [[ "$OSTYPE" == "darwin"* ]]; then
 
-    dist_darwin
+    if [ -z "$CALM_DIST_FANCY_APP" ]; then
+        dist_darwin
+    else
+        make_macos_app
+    fi
 
 elif [[ "$OSTYPE" == "cygwin" ]]; then
 
