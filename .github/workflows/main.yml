@@ -29,6 +29,13 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
+      - name: Set CALM_BRANCH
+        shell: bash
+        run: |
+          echo ${{ steps.vars.outputs.tag }}
+          echo "CALM_BRANCH=${{ steps.vars.outputs.tag }}" >> $GITHUB_ENV
+          echo "DEBUGGING=1" >> $GITHUB_ENV
+
       # Runs a set of commands using the runners shell
       - name: Install CALM
         run: |
@@ -43,6 +50,15 @@ jobs:
           calm dist && cp -r dist calm-app
           zip -r -9 calm-hello-macos.zip ./calm-app && mv ./calm-app ./used-dir-ready-to-delete
           mv calm-*.zip $DEFAULT_PWD/
+      - name: Dist CALM APP fancy-app
+        run: |
+          pwd
+          export DEFAULT_PWD=$(pwd)
+          cd ~/calm/.github/workflows/
+          cat ~/.bash_profile
+          source ~/.bash_profile
+          calm dist --fancy-app
+          mv calm-app.dmg $DEFAULT_PWD/calm-hello.dmg
       - name: Dist CALM APP with-canvas
         run: |
           pwd
@@ -59,6 +75,7 @@ jobs:
           prerelease: true
           files: |
             calm-*.zip
+            calm-*.dmg
 
   windows:
     # The type of runner that the job will run on
@@ -79,6 +96,7 @@ jobs:
         run: |
           echo ${{ steps.vars.outputs.tag }}
           echo "CALM_BRANCH=${{ steps.vars.outputs.tag }}" >> $GITHUB_ENV
+          echo "DEBUGGING=1" >> $GITHUB_ENV
 
       - uses: actions/setup-go@v3
         with:
@@ -163,7 +181,7 @@ jobs:
           files: |
             calm-*.zip
             ./scripts/*.exe
-            *.exe
+            calm-*.exe
 
   docker:
     runs-on: ubuntu-latest
@@ -213,13 +231,20 @@ jobs:
         id: vars
         run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
 
+      - name: Set CALM_BRANCH
+        shell: bash
+        run: |
+          echo ${{ steps.vars.outputs.tag }}
+          echo "CALM_BRANCH=${{ steps.vars.outputs.tag }}" >> $GITHUB_ENV
+          echo "DEBUGGING=1" >> $GITHUB_ENV
+
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
       # Runs a set of commands using the runners shell
       - name: Install CALM
         run: |
-          /bin/bash -c "export CALM_BRANCH=${{ steps.vars.outputs.tag }} && $(curl -fsSL https://raw.githubusercontent.com/VitoVan/calm/${{ steps.vars.outputs.tag }}/scripts/install.sh)"
+          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/VitoVan/calm/${{ steps.vars.outputs.tag }}/scripts/install.sh)"
 
       - name: Dist CALM APP
         run: |
