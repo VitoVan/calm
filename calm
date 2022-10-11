@@ -81,6 +81,11 @@ elif [ "$1" == "dist" ]; then
         export CALM_DIST_WITH_CANVAS=1
     elif [[ $2 == "--fancy-app" ]]; then
         export CALM_DIST_FANCY_APP=1
+        if [ -z "$3" ]; then
+            export CALM_DIST_FANCY_APP_NAME="CalmApp"
+        else
+            export CALM_DIST_FANCY_APP_NAME=$3
+        fi
     fi
 
     . ./scripts/dist.sh

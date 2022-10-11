@@ -237,7 +237,7 @@ make_appimage () {
                  https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage
             chmod +x "$CALM_DIR/scripts/appimagetool"
         fi
-        "$CALM_DIR/scripts/appimagetool" calm.AppDir calm-app.AppImage
+        "$CALM_DIR/scripts/appimagetool" calm.AppDir "${CALM_DIST_FANCY_APP_NAME}.AppImage"
         ls -lah .
     fi
 }
@@ -275,7 +275,7 @@ make_standalone_exe () {
             unzip resource_hacker.zip -d "$CALM_DIR/scripts/rh/"
         fi
         mv calm-app.exe no-icon-calm-app.exe
-        "$RESOURCE_HACKER"  -open no-icon-calm-app.exe -save calm-app.exe -action addskip -res "$CALM_DIR/scripts/calm-windows.ico" -mask ICONGROUP,MAINICON
+        "$RESOURCE_HACKER"  -open no-icon-calm-app.exe -save "${CALM_DIST_FANCY_APP_NAME}.exe" -action addskip -res "$CALM_DIR/scripts/calm-windows.ico" -mask ICONGROUP,MAINICON
 
         ls -lah .
     fi
@@ -289,7 +289,7 @@ make_macos_app () {
         echo "Quitting ..."
         exit 42
     else
-        "$CALM_DIR/scripts/gen-macos-app.sh" CalmApp "$CALM_DIR/scripts/calm-macos.icns"
+        "$CALM_DIR/scripts/gen-macos-app.sh" "$CALM_DIST_FANCY_APP_NAME" "$CALM_DIR/scripts/calm-macos.icns"
     fi
 }
 
