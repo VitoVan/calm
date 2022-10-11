@@ -3,6 +3,7 @@
   (:local-nicknames
    (:c :cl-cairo2))
   (:export
+   :calm-log
    :play-wav
    :halt-wav
    :play-music

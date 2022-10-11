@@ -30,16 +30,25 @@
           (:quit () (calm-quit))
           (:mousewheel (:x x :y y :direction direction) (on-mousewheel x y direction))
           (:textinput (:text text) (on-textinput text))
-          (:textediting (:text text :start start :length length) (format t "~%TEXT-EDITING: ~A ~A ~A~%" text start length))
+          (:textediting (:text text :start start :length length) (u:calm-log "~%TEXT-EDITING: ~A ~A ~A~%" text start length))
           (:keydown (:keysym k :state s) (on-keydown (sdl2:scancode k)))
           (:keyup (:keysym k :state s) (on-keyup (sdl2:scancode k)))
           (:windowevent (:event e)
-                        (format t "SDL2 Window EVENT: ~A ~%" e)
+                        (u:calm-log "SDL2 Window EVENT: ~A ~%" e)
                         (cond
                           ((equal e sdl2-ffi:+sdl-windowevent-minimized+)
-                           (setf *calm-redraw* nil))
+                           (setf *calm-redraw* nil)
+                           (u:calm-log "Window has been minimized, redraw stopped. E: ~A~%" e))
+                          ((equal e sdl2-ffi:+sdl-windowevent-hidden+)
+                           (setf *calm-redraw* nil)
+                           (u:calm-log "Window has been hidden , redraw stopped. E: ~A~%" e))
+
                           ((equal e sdl2-ffi:+sdl-windowevent-restored+)
-                           (setf *calm-redraw* t))
+                           (setf *calm-redraw* t)
+                           (u:calm-log "Windows restored, resume redraw. E: ~A~%" e))
+                          ((equal e sdl2-ffi:+sdl-windowevent-shown+)
+                           (setf *calm-redraw* t)
+                           (u:calm-log "Windows shown, calling redraw. E: ~A~%" e))
 
                           ((equal e sdl2-ffi:+sdl-windowevent-enter+)
                            (setf *calm-state-mouse-inside-window* t))
@@ -139,7 +148,7 @@
   "Eval lisp code from env CALM_EVAL"
   (let ((calm-eval-str (uiop:getenv "CALM_EVAL")))
     (when calm-eval-str
-      (format t "EVALing: ~%~A~%" calm-eval-str)
+      (u:calm-log "EVALing: ~%~A~%" calm-eval-str)
       (in-package #:calm)
       (eval (read-from-string calm-eval-str)))))
 
