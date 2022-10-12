@@ -173,3 +173,8 @@ Read-only:
 - `APP_DIR`
 
   This variable holds the path of the directory where calm was started up (aka `pwd`)
+
+`env` file:
+
+- Put a `env` file alongside with your `canvas.lisp`, it will be loaded properly
+- Windows not supported yet

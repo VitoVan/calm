@@ -67,6 +67,16 @@ copy_resources () {
     fi
 }
 
+set_dist_env () {
+    if [ ! -f "../env" ]; then
+        echo "File 'env' does not exist ... skipping ..."
+    else
+        echo "Copying 'env' ..."
+        cp ../env ./
+    fi
+    echo 'DIST_MODE=1' >> env
+}
+
 dist_linux () {
     if [[ "$DISTRO" == "Fedora"* ]]; then
         echo "Distributing CALM into directory './dist' ..."
@@ -101,6 +111,7 @@ dist_linux () {
 
     dump_binary
     copy_resources
+    set_dist_env
 
     echo "Please run the file \"calm\"." > ./how-to-run-this-app.txt
     echo "If you are using the terminal, cd to this directory, and type:" >> ./how-to-run-this-app.txt
@@ -169,6 +180,7 @@ dist_darwin () {
 
     dump_binary
     copy_resources
+    set_dist_env
 
     echo "Please double click the file \"calm\"." > ./how-to-run-this-app.txt
 
@@ -202,6 +214,7 @@ dist_msys () {
 
     dump_binary
     copy_resources
+    set_dist_env
 
     mv calm-bin calm.exe
 
