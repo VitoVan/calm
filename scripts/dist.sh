@@ -58,6 +58,15 @@ dump_binary () {
     eval $CMD
 }
 
+copy_resources () {
+    if [ ! -d "../resources" ]; then
+        echo "Directory 'resources' does not exist ... skipping ..."
+    else
+        echo "Copying ./resources ..."
+        cp -r ../resources/ ./resources/
+    fi
+}
+
 dist_linux () {
     if [[ "$DISTRO" == "Fedora"* ]]; then
         echo "Distributing CALM into directory './dist' ..."
@@ -91,6 +100,8 @@ dist_linux () {
     rm -f libstdc++.so*
 
     dump_binary
+    copy_resources
+
     echo "Please run the file \"calm\"." > ./how-to-run-this-app.txt
     echo "If you are using the terminal, cd to this directory, and type:" >> ./how-to-run-this-app.txt
     echo "./calm" >> ./how-to-run-this-app.txt
@@ -99,9 +110,6 @@ dist_linux () {
 
     cd ..
     ls -lah ./dist
-    echo "=========================="
-    echo "Please copy all your resource files into 'dist' folder before distributing."
-    echo "=========================="
 }
 
 dist_darwin () {
@@ -160,6 +168,7 @@ dist_darwin () {
 
 
     dump_binary
+    copy_resources
 
     echo "Please double click the file \"calm\"." > ./how-to-run-this-app.txt
 
@@ -168,9 +177,6 @@ dist_darwin () {
 
     cd ..
     ls -lah ./dist
-    echo "=========================="
-    echo "Please copy all your resource files into 'dist' folder before distributing."
-    echo "=========================="
 }
 
 dist_msys () {
@@ -195,6 +201,7 @@ dist_msys () {
     ldd *.dll  | grep mingw | awk '{print $3}' | xargs -I _ cp _ .
 
     dump_binary
+    copy_resources
 
     mv calm-bin calm.exe
 
@@ -202,9 +209,6 @@ dist_msys () {
 
     cd ..
     ls -lah ./dist
-    echo "=========================="
-    echo "Please copy all your resource files into 'dist' folder before distributing."
-    echo "=========================="
 }
 
 make_appimage () {
@@ -217,13 +221,6 @@ make_appimage () {
     else
         mkdir calm.AppDir
         cp dist/* calm.AppDir/
-
-        if [ ! -d "./resources" ]; then
-            echo "Directory 'resources' does not exist ... skipping ..."
-        else
-            mkdir calm.AppDir/resources/
-            cp -r ./resources/* calm.AppDir/resources/*
-        fi
 
         mv "$CALM_DIR/scripts/calm-linux.png" calm.AppDir/calm.png
         mv "$CALM_DIR/scripts/calm.desktop" calm.AppDir/
@@ -257,13 +254,6 @@ make_standalone_exe () {
             echo "Downloading calm-zipper ..."
             curl -o "$CALM_ZIPPER" -L \
                  https://github.com/VitoVan/calm/releases/latest/download/calm-zipper.exe
-        fi
-
-        if [ ! -d "./resources" ]; then
-            echo "Directory 'resources' does not exist ... skipping ..."
-        else
-            mkdir ./dist/resources/
-            cp -r resources/* ./dist/resources/*
         fi
 
         "$CALM_ZIPPER" ./dist

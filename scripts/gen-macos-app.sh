@@ -116,13 +116,6 @@ cd "$DEFAULT_DIR"
 
 cp -r ./dist/* "$APPNAME.app/Contents/MacOS/"
 
-if [ ! -d "./resources" ]; then
-    echo "Directory 'resources' does not exist ... skipping ..."
-else
-    mkdir "$APPNAME.app/Contents/MacOS/resources/"
-    cp -r resources/* "$APPNAME.app/Contents/MacOS/resources/"
-fi
-
 if ! command -v create-dmg &> /dev/null; then
     echo "create-dmg is not ready, downloading ..."
     brew install create-dmg
