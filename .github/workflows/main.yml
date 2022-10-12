@@ -57,8 +57,8 @@ jobs:
           cd ~/calm/.github/workflows/
           cat ~/.bash_profile
           source ~/.bash_profile
-          calm dist --fancy-app
-          mv calm-app.dmg $DEFAULT_PWD/calm-hello.dmg
+          calm dist --fancy-app HelloCalm
+          mv HelloCalm.dmg $DEFAULT_PWD/HelloCalm.dmg
       - name: Dist CALM APP with-canvas
         run: |
           pwd
@@ -75,7 +75,7 @@ jobs:
           prerelease: true
           files: |
             calm-*.zip
-            calm-*.dmg
+            *.dmg
 
   windows:
     # The type of runner that the job will run on
@@ -167,8 +167,8 @@ jobs:
 
       - name: Dist CALM APP fancy-app
         run: |
-          C:\msys64\msys2_shell.cmd -defterm -here -no-start -mingw64 -c 'cd ~/calm/.github/workflows/ && pwd && source ~/.bash_profile && calm dist --fancy-app'
-          C:\msys64\msys2_shell.cmd -defterm -here -no-start -mingw64 -c 'pwd && export DEFAULT_PWD=$(pwd) && mv ~/calm/.github/workflows/calm-app.exe $DEFAULT_PWD/calm-hello.exe'
+          C:\msys64\msys2_shell.cmd -defterm -here -no-start -mingw64 -c 'cd ~/calm/.github/workflows/ && pwd && source ~/.bash_profile && calm dist --fancy-app HelloCalm'
+          C:\msys64\msys2_shell.cmd -defterm -here -no-start -mingw64 -c 'pwd && export DEFAULT_PWD=$(pwd) && mv ~/calm/.github/workflows/HelloCalm.exe $DEFAULT_PWD/HelloCalm.exe'
 
       - name: Dist CALM APP with-canvas
         run: |
@@ -181,7 +181,7 @@ jobs:
           files: |
             calm-*.zip
             ./scripts/*.exe
-            calm-*.exe
+            *.exe
 
   docker:
     runs-on: ubuntu-latest
@@ -262,8 +262,8 @@ jobs:
           cd ~/calm/.github/workflows/
           cat ~/.bash_profile
           source ~/.bash_profile
-          calm dist --fancy-app
-          mv calm-app.AppImage $DEFAULT_PWD/calm-hello.AppImage
+          calm dist --fancy-app HelloCalm
+          mv HelloCalm.AppImage $DEFAULT_PWD/HelloCalm.AppImage
       - name: Dist CALM APP with-canvas
         run: |
           pwd

@@ -58,6 +58,25 @@ dump_binary () {
     eval $CMD
 }
 
+copy_resources () {
+    if [ ! -d "../resources" ]; then
+        echo "Directory 'resources' does not exist ... skipping ..."
+    else
+        echo "Copying ./resources ..."
+        cp -r ../resources/ ./resources/
+    fi
+}
+
+set_dist_env () {
+    if [ ! -f "../env" ]; then
+        echo "File 'env' does not exist ... skipping ..."
+    else
+        echo "Copying 'env' ..."
+        cp ../env ./
+    fi
+    echo 'DIST_MODE=1' >> env
+}
+
 dist_linux () {
     if [[ "$DISTRO" == "Fedora"* ]]; then
         echo "Distributing CALM into directory './dist' ..."
@@ -91,6 +110,9 @@ dist_linux () {
     rm -f libstdc++.so*
 
     dump_binary
+    copy_resources
+    set_dist_env
+
     echo "Please run the file \"calm\"." > ./how-to-run-this-app.txt
     echo "If you are using the terminal, cd to this directory, and type:" >> ./how-to-run-this-app.txt
     echo "./calm" >> ./how-to-run-this-app.txt
@@ -99,9 +121,6 @@ dist_linux () {
 
     cd ..
     ls -lah ./dist
-    echo "=========================="
-    echo "Please copy all your resource files into 'dist' folder before distributing."
-    echo "=========================="
 }
 
 dist_darwin () {
@@ -160,6 +179,8 @@ dist_darwin () {
 
 
     dump_binary
+    copy_resources
+    set_dist_env
 
     echo "Please double click the file \"calm\"." > ./how-to-run-this-app.txt
 
@@ -168,9 +189,6 @@ dist_darwin () {
 
     cd ..
     ls -lah ./dist
-    echo "=========================="
-    echo "Please copy all your resource files into 'dist' folder before distributing."
-    echo "=========================="
 }
 
 dist_msys () {
@@ -195,6 +213,8 @@ dist_msys () {
     ldd *.dll  | grep mingw | awk '{print $3}' | xargs -I _ cp _ .
 
     dump_binary
+    copy_resources
+    set_dist_env
 
     mv calm-bin calm.exe
 
@@ -202,9 +222,6 @@ dist_msys () {
 
     cd ..
     ls -lah ./dist
-    echo "=========================="
-    echo "Please copy all your resource files into 'dist' folder before distributing."
-    echo "=========================="
 }
 
 make_appimage () {
@@ -218,13 +235,6 @@ make_appimage () {
         mkdir calm.AppDir
         cp dist/* calm.AppDir/
 
-        if [ ! -d "./resources" ]; then
-            echo "Directory 'resources' does not exist ... skipping ..."
-        else
-            mkdir calm.AppDir/resources/
-            cp -r ./resources/* calm.AppDir/resources/*
-        fi
-
         mv "$CALM_DIR/scripts/calm-linux.png" calm.AppDir/calm.png
         mv "$CALM_DIR/scripts/calm.desktop" calm.AppDir/
         mv "$CALM_DIR/scripts/AppRun" calm.AppDir/
@@ -237,7 +247,7 @@ make_appimage () {
                  https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage
             chmod +x "$CALM_DIR/scripts/appimagetool"
         fi
-        "$CALM_DIR/scripts/appimagetool" calm.AppDir calm-app.AppImage
+        "$CALM_DIR/scripts/appimagetool" calm.AppDir "${CALM_DIST_FANCY_APP_NAME}.AppImage"
         ls -lah .
     fi
 }
@@ -259,13 +269,6 @@ make_standalone_exe () {
                  https://github.com/VitoVan/calm/releases/latest/download/calm-zipper.exe
         fi
 
-        if [ ! -d "./resources" ]; then
-            echo "Directory 'resources' does not exist ... skipping ..."
-        else
-            mkdir ./dist/resources/
-            cp -r resources/* ./dist/resources/*
-        fi
-
         "$CALM_ZIPPER" ./dist
 
         RESOURCE_HACKER="$CALM_DIR/scripts/rh/ResourceHacker.exe"
@@ -275,7 +278,7 @@ make_standalone_exe () {
             unzip resource_hacker.zip -d "$CALM_DIR/scripts/rh/"
         fi
         mv calm-app.exe no-icon-calm-app.exe
-        "$RESOURCE_HACKER"  -open no-icon-calm-app.exe -save calm-app.exe -action addskip -res "$CALM_DIR/scripts/calm-windows.ico" -mask ICONGROUP,MAINICON
+        "$RESOURCE_HACKER"  -open no-icon-calm-app.exe -save "${CALM_DIST_FANCY_APP_NAME}.exe" -action addskip -res "$CALM_DIR/scripts/calm-windows.ico" -mask ICONGROUP,MAINICON
 
         ls -lah .
     fi
@@ -289,7 +292,7 @@ make_macos_app () {
         echo "Quitting ..."
         exit 42
     else
-        "$CALM_DIR/scripts/gen-macos-app.sh" CalmApp "$CALM_DIR/scripts/calm-macos.icns"
+        "$CALM_DIR/scripts/gen-macos-app.sh" "$CALM_DIST_FANCY_APP_NAME" "$CALM_DIR/scripts/calm-macos.icns"
     fi
 }
 

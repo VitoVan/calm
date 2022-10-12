@@ -114,21 +114,14 @@ fi
 
 cd "$DEFAULT_DIR"
 
-cp -r ./dist/* $APPNAME.app/Contents/MacOS/
-
-if [ ! -d "./resources" ]; then
-    echo "Directory 'resources' does not exist ... skipping ..."
-else
-    mkdir $APPNAME.app/Contents/MacOS/resources/
-    cp -r resources/* $APPNAME.app/Contents/MacOS/resources/
-fi
+cp -r ./dist/* "$APPNAME.app/Contents/MacOS/"
 
 if ! command -v create-dmg &> /dev/null; then
     echo "create-dmg is not ready, downloading ..."
     brew install create-dmg
 fi
 
-rm calm-app.dmg
+rm "$APPNAME.dmg"
 
 create-dmg --hdiutil-verbose --volname "CALM Application" \
            --volicon "$CALM_DIR/scripts/calm-cartridge.icns" \
@@ -138,6 +131,6 @@ create-dmg --hdiutil-verbose --volname "CALM Application" \
            --icon "$APPNAME.app" 200 90 \
            --hide-extension "$APPNAME.app" \
            --app-drop-link 600 85 \
-           calm-app.dmg "$APPNAME.app/"
+           "$APPNAME.dmg" "$APPNAME.app/"
 
 echo "DONE."

@@ -3,16 +3,10 @@
 # debugging
 if [ -n "$DEBUGGING" ]; then
     set -x
-fi
-
-if [ -z "$NO_SCREENSAVER" ]; then
-    export SDL_VIDEO_ALLOW_SCREENSAVER=1
+    env
 fi
 
 export APP_DIR=$(pwd)/
-export CANVAS_FILE=$APP_DIR/canvas.lisp
-export BEFORE_CANVAS_FILE=$APP_DIR/before_canvas.lisp
-
 
 # https://stackoverflow.com/questions/59895/how-can-i-get-the-source-directory-of-a-bash-script-from-within-the-script-itsel
 SOURCE="${BASH_SOURCE[0]:-$0}";
@@ -21,9 +15,29 @@ while [ -L "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symli
     SOURCE="$( readlink -- "$SOURCE"; )";
     [[ $SOURCE != /* ]] && SOURCE="${DIR}/${SOURCE}"; # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
 done
-export CALM_DIR="$( cd -P "$( dirname -- "$SOURCE"; )" &> /dev/null && pwd 2> /dev/null; )";
+export CALM_DIR="$( cd -P "$( dirname -- "$SOURCE"; )" &> /dev/null && pwd 2> /dev/null; )/";
+
 
 cd "$CALM_DIR"
+
+if [ -f env ]; then
+    export $(grep -v '^#' env | xargs)
+fi
+
+if [ -z "$NO_SCREENSAVER" ]; then
+    export SDL_VIDEO_ALLOW_SCREENSAVER=1
+fi
+
+if [ -n "$DIST_MODE" ]; then
+    echo "Entering DIST_MODE ..."
+    export APP_DIR=$CALM_DIR
+fi
+
+echo "CALM_DIR: $CALM_DIR"
+echo "APP_DIR: $APP_DIR"
+
+export CANVAS_FILE=$APP_DIR/canvas.lisp
+export BEFORE_CANVAS_FILE=$APP_DIR/before_canvas.lisp
 
 WITH_SWANK=""
 if [ -z "$NO_SWANK" ]; then
@@ -81,6 +95,11 @@ elif [ "$1" == "dist" ]; then
         export CALM_DIST_WITH_CANVAS=1
     elif [[ $2 == "--fancy-app" ]]; then
         export CALM_DIST_FANCY_APP=1
+        if [ -z "$3" ]; then
+            export CALM_DIST_FANCY_APP_NAME="CalmApp"
+        else
+            export CALM_DIST_FANCY_APP_NAME=$3
+        fi
     fi
 
     . ./scripts/dist.sh
