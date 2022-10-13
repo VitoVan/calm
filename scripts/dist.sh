@@ -8,6 +8,8 @@ fi
 
 echo "CALM Distributor v0.0.7"
 
+export SBCL="sbcl"
+
 export SBCL_VERSION=$(sbcl --version | cut -c 6-10)
 
 export SBCL_COMPRESSION_LEVEL=9
@@ -19,7 +21,7 @@ fi
 export SBCL_COMPRESSION_ARG=""
 
 echo "Detecting SBCL compression level ..."
-sbcl --eval "(if (find :sb-core-compression *features*) (uiop:quit 0) (uiop:quit 42))"
+"$SBCL" --eval "(if (find :sb-core-compression *features*) (uiop:quit 0) (uiop:quit 42))"
 if [ $? -eq 0 ]; then
     export SBCL_COMPRESSION_ARG=":compression $SBCL_COMPRESSION_LEVEL"
 fi
@@ -28,7 +30,7 @@ export SBCL_APPLICATION_TYPE_ARG=""
 
 copy_deps () {
     echo "Copy dependencies ..."
-    CMD="sbcl --load '$CALM_DIR/calm.asd' --eval '(ql:quickload :calm)'"
+    CMD="$SBCL --load '$CALM_DIR/calm.asd' --eval '(ql:quickload :calm)'"
 
     if test -f "$BEFORE_CANVAS_FILE"; then
         CMD="$CMD --load '$BEFORE_CANVAS_FILE'"
@@ -39,7 +41,7 @@ copy_deps () {
 }
 
 dump_binary () {
-    CMD="sbcl --load '$CALM_DIR/calm.asd' --eval '(ql:quickload :calm)'"
+    CMD="$SBCL --load '$CALM_DIR/calm.asd' --eval '(ql:quickload :calm)'"
     CALM_START="calm-start"
 
     if test -f "$BEFORE_CANVAS_FILE"; then
@@ -191,6 +193,15 @@ dist_darwin () {
     ls -lah ./dist
 }
 
+set_calm_icon () {
+    RCEDIT="$CALM_DIR/scripts/rcedit-x64.exe"
+
+    if [ ! -f "$RCEDIT" ]; then
+        curl -o "$RCEDIT" -L https://github.com/electron/rcedit/releases/download/v1.1.1/rcedit-x64.exe
+    fi
+    "$RCEDIT" "$@" --set-icon "$CALM_DIR/scripts/calm-windows.ico"
+}
+
 dist_msys () {
     # Windows / MSYS2
 
@@ -211,6 +222,13 @@ dist_msys () {
 
     # copy all the DLLs required by *.dll
     ldd *.dll  | grep mingw | awk '{print $3}' | xargs -I _ cp _ .
+
+    # change SBCL icon, so the dumped EXE will also have an ICON
+    # this might annoy someone, sorry
+    # TODO: please don't annoy anyone
+    cp "$(which sbcl).exe" "$(which sbcl)-calm.exe"
+    set_calm_icon "$(which sbcl)-calm.exe"
+    export SBCL="sbcl-calm"
 
     dump_binary
     copy_resources
@@ -253,7 +271,7 @@ make_appimage () {
 }
 
 make_standalone_exe () {
-    echo "Making stand-alone EXE ..."
+    echo "Prepare the stand-alone executable ..."
 
     if [ ! -d "./dist" ]; then
         echo "Directory 'dist' does not exist, please run 'calm dist' first"
@@ -269,17 +287,12 @@ make_standalone_exe () {
                  https://github.com/VitoVan/calm/releases/latest/download/calm-zipper.exe
         fi
 
+        # set icon for zipper
+        set_calm_icon "$CALM_ZIPPER"
+
         "$CALM_ZIPPER" ./dist
 
-        RESOURCE_HACKER="$CALM_DIR/scripts/rh/ResourceHacker.exe"
-
-        if [ ! -f "$RESOURCE_HACKER" ]; then
-            curl -OL http://www.angusj.com/resourcehacker/resource_hacker.zip
-            unzip resource_hacker.zip -d "$CALM_DIR/scripts/rh/"
-        fi
-        mv calm-app.exe no-icon-calm-app.exe
-        "$RESOURCE_HACKER"  -open no-icon-calm-app.exe -save "${CALM_DIST_FANCY_APP_NAME}.exe" -action addskip -res "$CALM_DIR/scripts/calm-windows.ico" -mask ICONGROUP,MAINICON
-
+        mv calm-app.exe "${CALM_DIST_FANCY_APP_NAME}.exe"
         ls -lah .
     fi
 }
