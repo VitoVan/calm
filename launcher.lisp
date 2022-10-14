@@ -48,16 +48,15 @@
       ;; starting CALM
       ((equal nil args)
        (format t "Starting CALM ...~%")
-       (uiop:run-program
-        (str:concat
-         "/usr/local/bin/sbcl --load 'calm.asd'"
+       (let ((cmd (str:concat
+         "./sbcl --load 'calm.asd'"
          " --eval '(ql:quickload :calm)' "
          " --eval '(uiop:chdir \"" app-dir "\")'"
          (when before-canvas-file (str:concat " --load '" (namestring before-canvas-file) "' "))
          (when canvas-file (str:concat " --load '" (namestring canvas-file) "' "))
-         " --eval '(calm:calm-start)'")
-        )
-       )
+         " --eval '(calm:calm-start)'")))
+         (llog "EXECUTING: ~A~%" cmd)
+         (uiop:run-program cmd :error-output "cdk/calm-error.log" :output "cdk/calm.log")))
       
       (t (format t "Example usages:
 

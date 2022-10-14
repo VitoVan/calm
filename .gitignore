@@ -1,4 +1,7 @@
+cdk/
+launcher
 calm.core
+*.zip
 .DS_Store
 dist/
 Dockerfile
