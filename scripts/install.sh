@@ -69,13 +69,13 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
             echo "Installing SBCL ..."
             sudo apt install sbcl -y
         fi
-        sudo apt install zip git libsdl2-2.0-0 libsdl2-mixer-2.0-0  libcairo2 -y
+        sudo apt install git libsdl2-2.0-0 libsdl2-mixer-2.0-0  libcairo2 -y
     elif [[ "$DISTRO" == "Fedora"* ]]; then
         if ! command -v sbcl &> /dev/null; then
             echo "Installing SBCL ..."
             sudo dnf install sbcl -y
         fi
-        sudo dnf install zip git SDL2 SDL2_mixer cairo -y
+        sudo dnf install git SDL2 SDL2_mixer cairo -y
     else
         echo "Unsupported DISTRO. Please install dependencies by yourself and modify this script."
         exit 42
@@ -132,7 +132,7 @@ elif [[ "$OSTYPE" == "msys" ]]; then
     echo "Installing dependencies ..."
     echo $PATH
 
-    pacman -S --noconfirm --needed git zip unzip \
+    pacman -S --noconfirm --needed git \
            mingw64/mingw-w64-x86_64-zstd \
            mingw64/mingw-w64-x86_64-SDL2 \
            mingw64/mingw-w64-x86_64-SDL2_mixer \
