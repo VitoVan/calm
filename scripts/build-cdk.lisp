@@ -7,7 +7,7 @@
 ;; this SBCL instance should be the one installed on your machine instead of `./sbcl`,
 ;; since before CDK was built, `./sbcl` may not be ready.
 ;;
-;; sbcl --load build-cdk.lisp
+;; sbcl --load scripts/build-cdk.lisp
 ;;
 (ql:quickload '(:cffi :str))
 

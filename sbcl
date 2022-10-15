@@ -9,7 +9,6 @@ while [ -L "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symli
 done
 export DIR="$( cd -P "$( dirname -- "$SOURCE"; )" &> /dev/null && pwd 2> /dev/null; )/";
 
-
 cd "$DIR"
 
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
@@ -21,9 +20,14 @@ else
     echo "https://github.com/VitoVan/calm/issues/new"
 fi
 
-export SBCL_HOME="$(pwd)/cdk/lib/sbcl"
+if [ ! -f "./cdk/libexec/bin/sbcl" ]; then
+    echo "CDK not ready, please build with:"
+    echo "sbcl --load scripts/build-cdk.lisp"
+fi
 
-export SBCL_SOURCE_ROOT="$(pwd)/cdk/share/sbcl/src"
+export SBCL_HOME="$DIR/cdk/lib/sbcl"
+
+export SBCL_SOURCE_ROOT="$DIR/cdk/share/sbcl/src"
 
 export CORE="$SBCL_HOME/sbcl.core"
 
