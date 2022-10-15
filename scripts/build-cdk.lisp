@@ -78,21 +78,43 @@
 
 (exec "rm -rf ./cdk")
 
-(echo "Building macOS CDK")
+(echo "Building CDK ...")
 
 (echo "Downloading pre-built SBCL (--with-fancy --with-compression) ...")
 
-(unless (uiop:probe-file* "./install_root-macOS.zip")
-  (exec "curl -OL https://github.com/VitoVan/sbcl-with-compression/releases/download/test-2.2.9-09/install_root-macOS.zip"))
+(defparameter *pre-built-sbcl-url*
+  (format nil
+          "https://github.com/VitoVan/sbcl-with-compression/releases/download/test-2.2.9-09/install_root-~A.zip"
+          #+win32
+          "Windows"
+          #+linux
+          "Linux"
+          #+darwin
+          "macOS"
+          ))
 
-(exec "unzip install_root-macOS.zip")
+(unless (uiop:probe-file* "./install_root-macOS.zip")
+  (exec "curl -o install_root.zip -L ~A" *pre-built-sbcl-url*))
+
+(exec "unzip install_root.zip")
 
 (exec "mv ./install_root ./cdk")
+
+#-win32
+(exec "cp ./scripts/calm.sh ./calm")
+#+win32
+(exec "cp ./scripts/calm.ps1 ./calm.ps1")
+
+#-win32
+(exec "cp ./scripts/sbcl.sh ./sbcl")
+#+win32
+(exec "cp ./scripts/sbcl.ps1 ./sbcl.ps1")
 
 (echo "Installing Quicklisp ...")
 
 (exec "curl -o ./cdk/quicklisp.lisp -L https://beta.quicklisp.org/quicklisp.lisp")
 
+;; this won't work on Windows, stupid PowerShell / BAT double quote escaping...
 (exec "./sbcl --load ./cdk/quicklisp.lisp --eval '(quicklisp-quickstart:install :proxy \"http://127.0.0.1:1087/\" :path \"./cdk/quicklisp/\")' --eval '(quit)'")
 
 (echo "Load calm.asd ...")
