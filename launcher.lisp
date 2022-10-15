@@ -1,4 +1,5 @@
 ;; this file was intended to be loaded by SBCL > 2.2.5 and with compression feature enabled
+;; you can find one here: https://github.com/VitoVan/sbcl-with-compression
 ;;
 ;; by loading this file, you will get a executable `launcher[.exe]`,
 ;; and you will need libzstd in the right place to run the executable.

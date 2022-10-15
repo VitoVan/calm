@@ -15,7 +15,10 @@
   (c:set-source-rgb 1 1 1)
   (c:move-to 30 100)
   (c:set-font-size 84)
-  (c:show-text "DON'T PANIC"))
+  (c:show-text "DON'T PANIC")
+  (when (uiop:getenv "CI")
+    (format t "Running in CI Environment, quit without showing GUI.~%")
+    (calm-quit)))
 
 (defun think ()
   "default thinking function, user should override this.
