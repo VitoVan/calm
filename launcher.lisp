@@ -18,6 +18,11 @@
 (defmacro llog (control-string &rest rest)
   `(format t ,control-string ,@rest))
 
+#+win32
+(defparameter *sbcl-path* "powershell.exe -File ./sbcl.ps1")
+
+#-win32
+(defparameter *sbcl-path* "./sbcl")
 
 (defparameter *dist-mode* nil)
 
@@ -36,7 +41,7 @@
   (llog "CURRENT_DIR: ~A~%" (uiop:getcwd))
 
   (llog "ARGS: ~A~%" (uiop:command-line-arguments))
-  
+
   (let* ((calm-dir (uiop:getenv "CALM_DIR"))
          (app-dir (uiop:getenv "APP_DIR"))
          (before-canvas-file (uiop:probe-file* (str:concat app-dir "/before-canvas.lisp")))
@@ -45,20 +50,48 @@
     (cond
       ((equal '(dist --with-canvas) args) (format t "OK, distributing with canvas.lisp ...~%"))
       ((equal '(dist --fancy-app) args) (format t "OK, distributing fancy application ...~%"))
-      
+
       ;; starting CALM
       ((equal nil args)
        (format t "Starting CALM ...~%")
-       (let ((cmd (str:concat
-         "./sbcl --load 'calm.asd'"
-         " --eval '(ql:quickload :calm)' "
-         " --eval '(uiop:chdir \"" app-dir "\")'"
-         (when before-canvas-file (str:concat " --load '" (namestring before-canvas-file) "' "))
-         (when canvas-file (str:concat " --load '" (namestring canvas-file) "' "))
-         " --eval '(calm:calm-start)'")))
+       (let* (
+              #-win32
+              (args (str:concat
+                     " --load 'calm.asd'"
+                     " --eval '(ql:quickload :calm)' "
+                     " --eval '(uiop:chdir \"" app-dir "\")'"
+                     (when before-canvas-file (str:concat " --load '" (namestring before-canvas-file) "' "))
+                     (when canvas-file (str:concat " --load '" (namestring canvas-file) "' "))
+                     " --eval '(calm:calm-start)'"))
+              #+win32
+              (calm-helper
+                (str:concat
+                 "(load \"calm.asd\")"
+                 "(ql:quickload :calm)"
+                 "(uiop:chdir \"" app-dir "\")"
+                 (when before-canvas-file (str:concat "(load \"" (namestring before-canvas-file) "\") "))
+                 (when canvas-file (str:concat "(load \"" (namestring canvas-file) "\") "))
+                 "(calm:calm-start)"))
+              #+win32
+              (calm-helper-filename
+                (format nil ".calm-windows-powershell-args-helper-~A.lisp" (get-internal-real-time)))
+              #-win32
+              (cmd (str:concat *sbcl-path* args))
+              #+win32
+              (cmd (str:concat *sbcl-path* " --load " calm-helper-filename))
+              )
+
+         ;; I failed to pass the arguments to ./sbcl.ps1,
+         ;; so let's load a file instead
+         ;; https://stackoverflow.com/questions/6714165/powershell-stripping-double-quotes-from-command-line-arguments#
+         #+win32
+         (str:to-file calm-helper-filename calm-helper)
+         
          (llog "EXECUTING: ~A~%" cmd)
-         (uiop:run-program cmd :error-output "cdk/calm-error.log" :output "cdk/calm.log")))
-      
+         (uiop:run-program cmd :error-output "cdk/calm-error.log" :output "cdk/calm.log")
+
+         (uiop:delete-file-if-exists calm-helper-filename)))
+
       (t (format t "Example usages:
 
 Normal start, inside a directory contains canvas.lisp
@@ -81,8 +114,8 @@ Distribute fancy application:
 (sb-ext:save-lisp-and-die
  #+win32
  "launcher.exe"
- #+(or darwin linux)
+ #-win32
  "launcher"
-;; :compression 22
+ ;; :compression 22
  :executable t
  :toplevel #'launch)

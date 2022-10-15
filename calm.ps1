@@ -12,16 +12,14 @@ $DIR = Split-Path $SOURCE
 
 cd "$DIR"
 
-if (-not(Test-Path ".\cdk\bin\sbcl.exe")) {
-  Write-Output "CDK not ready, please build with:"
-  Write-Output "sbcl --load scripts/build-cdk.lisp"
-  Exit 42
-}
-
 $Env:PATH += ";$DIR\cdk\lib\calm"
 
 $env:SBCL_HOME = "$DIR\cdk\lib\sbcl"
 
 $CORE = "$env:SBCL_HOME\sbcl.core"
 
-& .\cdk\bin\sbcl.exe --core $CORE --userinit .sbclrc $Args
+if (-not(Test-Path ".\launcher.exe")) {
+       .\sbcl.ps1 --load launcher.lisp
+}
+
+& .\launcher.exe $Args
