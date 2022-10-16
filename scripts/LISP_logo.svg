@@ -1,0 +1,25 @@
+<svg width="166.8" height="113.9" version="1.1" xmlns="http://www.w3.org/2000/svg"><script xmlns="">{
+            document.currentScript.dataset.injected = true;
+            const o = JSON.parse('{"userAgent":"Mozilla/5.0 (X11; Linux x86_64; rv:80.0) Gecko/20100101 Firefox/80.0","appVersion":"5.0 (X11)","platform":"Linux","vendor":"","product":"Gecko","oscpu":"Linux x86_64","userAgentData":"[delete]","productSub":"20100101","buildID":"20181001000000"}');
+
+            for (const key of Object.keys(o)) {
+              if (o[key] === '[delete]') {
+                delete Object.getPrototypeOf(window.navigator)[key];
+              }
+              else {
+                navigator.__defineGetter__(key, () =&gt; {
+                  if (o[key] === 'empty') {
+                    return '';
+                  }
+                  return o[key];
+                });
+              }
+            }
+          }</script>
+ <g transform="translate(-403.4 -342.5)">
+  <g transform="matrix(.653 0 0 .653 307.9 290.9)" fill="#c40804" fill-rule="evenodd" stroke-width="0">
+   <path d="m349 213.3c0 18.25-26.26 19.11-26.26 1l0.5-46.82c0-16.26 17.12-33.99 40.37-34.25 17.26 0 17.79-26.79 0-26.79h-131.2c-12.92 0-18.7 7.625-18.45 17.12v77.66c0 18.28-26.26 18-26.26 0 0 0-0.5-59.16-0.5-79.15 0-19.49 15.35-43 44.41-43h131.4c25.5 0.25 38.75 19.77 38.5 38.78-0.0883 26.25-20.23 42.03-35.75 42.03-11.53 0-16.41 6.473-16.41 17.25l-0.3576 36.16z"/>
+   <path d="m146.4 120.6-0.2259 91.86c1.367 25.83 19.74 40.58 39.77 41.08l85.34-0.8218c20.29 0 36.73-16.86 36.73-39.12 0-20.76-13.63-38.41-39.39-39.12-18.75 0-18.5-26.79 0-26.79h38.66c17.58 0 17.14-27.87 0-27.87l-41.24 0.5c-20.28 0-38.71 17.12-38.5 39.24s15.41 41.32 39.3 41.32c18.59 0 18.18 26.65 0.1768 26.65h-75.8c-10.26 0-17.98-5.584-17.98-18.12l-0.5-88.59c0-19.87-26.34-19.56-26.34-0.2149z"/>
+  </g>
+ </g>
+<foreignObject width="100%" height="100%" style="pointer-events: none !important; overflow: visible !important;"><div xmlns="http://www.w3.org/1999/xhtml" id="tenten-safe-area-provider" style="all: initial;"></div></foreignObject></svg>

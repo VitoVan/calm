@@ -1,4 +1,6 @@
 cdk/
+calm
+calm.ps1
 launcher
 calm.core
 *.zip
