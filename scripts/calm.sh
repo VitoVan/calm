@@ -7,24 +7,27 @@ while [ -L "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symli
     SOURCE="$( readlink -- "$SOURCE"; )";
     [[ $SOURCE != /* ]] && SOURCE="${DIR}/${SOURCE}"; # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
 done
-export DIR="$( cd -P "$( dirname -- "$SOURCE"; )" &> /dev/null && pwd 2> /dev/null; )/";
+export CALM_DIR="$( cd -P "$( dirname -- "$SOURCE"; )" &> /dev/null && pwd 2> /dev/null; )/";
 
 
-cd "$DIR"
+cd "$CALM_DIR"
 
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-    export LD_LIBRARY_PATH=./cdk/lib/calm
+    export LD_LIBRARY_PATH="$CALM_DIR/cdk/lib/calm"
 elif [[ "$OSTYPE" == "darwin"* ]]; then
-    export DYLD_FALLBACK_LIBRARY_PATH=./cdk/lib/calm
+    export DYLD_FALLBACK_LIBRARY_PATH="$CALM_DIR/cdk/lib/calm"
 else
     echo "Something went wrong, please report to:"
     echo "https://github.com/VitoVan/calm/issues/new"
 fi
 
-export SBCL_HOME=./cdk/lib/sbcl/
+export SBCL_BIN="$CALM_DIR/cdk/libexec/bin/sbcl"
+export SBCL_HOME="$CALM_DIR/cdk/lib/sbcl/"
+export SBCL_CORE="$SBCL_HOME/sbcl.core"
+export SBCL_USERINIT="$CALM_DIR/.sbclrc"
 
 if [ ! -f "./launcher" ]; then
-   ./sbcl --load launcher.lisp
+    "$SBCL_BIN" --core "$SBCL_CORE" --userinit "$SBCL_USERINIT" --load launcher.lisp
 fi
 
 eval "./launcher $@"

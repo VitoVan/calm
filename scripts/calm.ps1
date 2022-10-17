@@ -8,18 +8,19 @@
 
 # https://stackoverflow.com/questions/8343767/how-to-get-the-current-directory-of-the-cmdlet-being-executed
 $SOURCE = (Get-Variable MyInvocation).Value.MyCommand.Path
-$DIR = Split-Path $SOURCE
+$Env:CALM_DIR = Split-Path $SOURCE
 
-cd "$DIR"
+cd "$Env:CALM_DIR"
 
-$Env:PATH += ";$DIR\cdk\lib\calm"
+$Env:PATH += ";$Env:CALM_DIR\cdk\lib\calm"
 
-$env:SBCL_HOME = "$DIR\cdk\lib\sbcl"
-
-$CORE = "$env:SBCL_HOME\sbcl.core"
+$Env:SBCL_BIN = "$Env:CALM_DIR\cdk\lib\sbcl"
+$Env:SBCL_HOME = "$Env:CALM_DIR\cdk\lib\sbcl"
+$Env:SBCL_CORE = "$env:SBCL_HOME\sbcl.core"
+$Env:SBCL_USERINIT = "$env:CALM_DIR\.sbclrc"
 
 if (-not(Test-Path ".\launcher.exe")) {
-       .\sbcl.ps1 --load launcher.lisp
+   & "$SBCL_BIN" --core "$SBCL_CORE" --userinit "$SBCL_USERINIT" --load launcher.lisp
 }
 
 & .\launcher.exe $Args

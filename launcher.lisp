@@ -18,12 +18,6 @@
 (defmacro llog (control-string &rest rest)
   `(format t ,control-string ,@rest))
 
-#+win32
-(defparameter *sbcl-path* "powershell.exe -File ./sbcl.ps1")
-
-#-win32
-(defparameter *sbcl-path* "./sbcl")
-
 (defparameter *dist-mode* nil)
 
 (defun launch ()
@@ -54,43 +48,22 @@
       ;; starting CALM
       ((equal nil args)
        (format t "Starting CALM ...~%")
-       (let* (
-              #-win32
-              (args (str:concat
-                     " --load 'calm.asd'"
-                     " --eval '(ql:quickload :calm)' "
-                     " --eval '(uiop:chdir \"" app-dir "\")'"
-                     (when before-canvas-file (str:concat " --load '" (namestring before-canvas-file) "' "))
-                     (when canvas-file (str:concat " --load '" (namestring canvas-file) "' "))
-                     " --eval '(calm:calm-start)'"))
-              #+win32
-              (calm-helper
-                (str:concat
-                 "(load \"calm.asd\")"
-                 "(ql:quickload :calm)"
-                 "(uiop:chdir \"" app-dir "\")"
-                 (when before-canvas-file (str:concat "(load \"" (namestring before-canvas-file) "\") "))
-                 (when canvas-file (str:concat "(load \"" (namestring canvas-file) "\") "))
-                 "(calm:calm-start)"))
-              #+win32
-              (calm-helper-filename
-                (format nil ".calm-windows-powershell-args-helper-~A.lisp" (get-internal-real-time)))
-              #-win32
-              (cmd (str:concat *sbcl-path* args))
-              #+win32
-              (cmd (str:concat *sbcl-path* " --load " calm-helper-filename))
-              )
+       (let ((cmd (list
+                   (uiop:getenv "SBCL_BIN")
+                   "--load" "calm.asd"
+                   "--eval" "(ql:quickload :calm)"
+                   "--eval" (str:concat "(uiop:chdir \"" app-dir "\")"))))
 
-         ;; I failed to pass the arguments to ./sbcl.ps1,
-         ;; so let's load a file instead
-         ;; https://stackoverflow.com/questions/6714165/powershell-stripping-double-quotes-from-command-line-arguments#
-         #+win32
-         (str:to-file calm-helper-filename calm-helper)
+         (when before-canvas-file
+           (setf cmd (append cmd (list "--load" (namestring before-canvas-file)))))
          
-         (llog "EXECUTING: ~A~%" cmd)
-         (uiop:run-program cmd :error-output "cdk/calm-error.log" :output "cdk/calm.log")
+         (when canvas-file
+           (setf cmd (append cmd (list "--load" (namestring canvas-file)))))
 
-         (uiop:delete-file-if-exists calm-helper-filename)))
+         (setf cmd (append cmd (list "--eval" "(calm:calm-start)")))
+
+         (llog "EXECUTING: ~A~%" cmd)
+         (uiop:run-program cmd :error-output "cdk/calm-error.log" :output "cdk/calm.log")))
 
       (t (format t "Example usages:
 
