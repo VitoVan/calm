@@ -4,8 +4,8 @@
 ;; on Linux and macOS, it should be working without any surprise.
 ;;
 ;; please load this file inside the root directory of CALM (where `calm.asd` exists),
-;; this SBCL instance should be the one installed on your machine instead of `./sbcl`,
-;; since before CDK was built, `./sbcl` may not be ready.
+;; this SBCL instance should be the one installed on your machine instead of `sbcl` in the CDK,
+;; since before CDK was built, `sbcl` in the CDK may not be ready.
 ;;
 ;; sbcl --load scripts/build-cdk.lisp
 ;;
@@ -100,15 +100,9 @@
 
 (exec "mv ./install_root ./cdk")
 
-#-win32
 (exec "cp ./scripts/calm.sh ./calm")
-#+win32
-(exec "cp ./scripts/calm.ps1 ./calm.ps1")
 
-#-win32
 (exec "cp ./scripts/sbcl.sh ./sbcl")
-#+win32
-(exec "cp ./scripts/sbcl.ps1 ./sbcl.ps1")
 
 (echo "Installing Quicklisp ...")
 

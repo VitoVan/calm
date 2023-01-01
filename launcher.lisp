@@ -63,7 +63,7 @@
          (setf cmd (append cmd (list "--eval" "(calm:calm-start)")))
 
          (llog "EXECUTING: ~A~%" cmd)
-         (uiop:run-program cmd :error-output "cdk/calm-error.log" :output "cdk/calm.log")))
+         (uiop:run-program cmd :error-output "calm-error.log" :output "calm.log")))
 
       (t (format t "Example usages:
 

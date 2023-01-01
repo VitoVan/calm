@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export APP_DIR="$(pwd)"
+
 # https://stackoverflow.com/questions/59895/how-can-i-get-the-source-directory-of-a-bash-script-from-within-the-script-itsel
 SOURCE="${BASH_SOURCE[0]:-$0}";
 while [ -L "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
@@ -10,7 +12,7 @@ done
 export CALM_DIR="$( cd -P "$( dirname -- "$SOURCE"; )" &> /dev/null && pwd 2> /dev/null; )/";
 
 
-cd "$CALM_DIR"
+# cd "$CALM_DIR"
 
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     export LD_LIBRARY_PATH="$CALM_DIR/cdk/lib/calm"
