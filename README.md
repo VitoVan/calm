@@ -43,7 +43,10 @@ calm
 #### *nix (Fedora | Ubuntu | macOS)
 
 ```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/VitoVan/calm/main/scripts/install.sh)"
+curl -o ~/calm.zip "https://github.com/VitoVan/calm/releases/download/0.0.13/calm-(uname | cut -d '_' -f 1).zip"
+unzip ~/calm.zip ~/calm && rm ~/calm.zip
+echo 'export PATH="$PATH:$HOME/calm/"' >> ~/.bash_profile
+source ~/.bash_profile
 ```
 
 Paste that in a macOS Terminal or Linux shell prompt.
@@ -51,41 +54,21 @@ Paste that in a macOS Terminal or Linux shell prompt.
 #### Windows
 
 ```powershell
-Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/VitoVan/calm/main/scripts/install.ps1'))
+Invoke-WebRequest -Uri "https://github.com/VitoVan/calm/releases/download/0.0.13/calm-Windows.zip" -OutFile "C:\calm.zip"
+Expand-Archive C:\calm.zip -DestinationPath C:\calm
+setx /M PATH "%PATH%;C:\calm"
+refreshenv
 ```
 
 Paste that in a Windows PowerShell.
 
 ### Manual Install
 
-#### 1. Install dependencies
+1. Download the latest [release](https://github.com/VitoVan/calm/releases)
+2. Unzip it
+3. Add the extracted folder into your PATH environment.
 
-- [SBCL](https://www.sbcl.org)
-- [Quicklisp](https://quicklisp.org)
-- [SDL2](https://www.libsdl.org)
-- [SDL2_mixer](https://www.libsdl.org/projects/mixer)
-- [Cairo](https://www.cairographics.org)
-- [Git](https://git-scm.com)
-
-For Windows platform, it is only tested under the [MSYS2](https://www.msys2.org) [terminal](https://www.msys2.org/docs/terminals/).
-
-#### 2. Clone & Setup CALM
-
-```bash
-# Clone
-git clone https://github.com/VitoVan/calm.git ~/calm
-# Config PATH
-echo 'export PATH="$PATH:$HOME/calm/"' >> ~/.bash_profile
-source ~/.bash_profile
-# Build core
-calm core
-# Start CALM
-calm
-```
-
-DONE.
-
-## Distribution
+## Distribution (CALM Application)
 
 ### Standard Distribution
 
@@ -106,7 +89,7 @@ Now, zip it and send it to your friend! Normally, they will be able to enjoy you
 For those who love the source, for the maximum configurability.
 
 ```bash
-calm dist --with-canvas
+calm dist-with-canvas
 ```
 
 Mostly identical to the standard distribution, but with `canvas.lisp` included.
@@ -114,10 +97,6 @@ Mostly identical to the standard distribution, but with `canvas.lisp` included.
 This gives the end user ability to modify your application.
 
 It is very convenient when your friend has a bad taste in color.
-
-> **Note**
-> 1. Don't use Quicklisp in your `canvas.lisp`
-> 2. Put Quicklisp/CFFI related code into `before_canvas.lisp`, it will be treated nicely.
 
 ### Expedient Distribution
 
@@ -127,7 +106,7 @@ Let's say it's Windows.
 
 You could also distribute expediently:
 
-1. [download the latest](https://github.com/VitoVan/calm/releases) `calm-hello-windows-with-canvas.zip`
+1. [download the latest](https://github.com/VitoVan/calm/releases) `calm-app-with-canvas-MINGW64.zip `
 2. extract it
 3. replace the `canvas.lisp` file with yours
 4. zip it and send it to your friend
@@ -140,25 +119,9 @@ You could also distribute expediently:
 
 Setf-able:
 
-- `NO_SWANK=1`
+- `SDL_VIDEO_ALLOW_SCREENSAVER=1`
 
-  Disable [Swank](https://www.cliki.net/SWANK), it was enabled by default at port 4242
-
-- `SWANK_PORT=4343`
-
-  Change Swank port to 4343, the default port was 4242
-
-- `NO_CORE=1`
-
-  Disable calm [core](https://www.sbcl.org/manual/#Saving-a-Core-Image), it was enabled by default to reduce the startup time
-
-- `NO_SCREENSAVER=1`
-
-  Disable screensaver, in case you want to keep the screen on.
-
-- `DEBUGGING=1`
-
-  Enable debugging mode, aka `set -x` for bash scripts.
+  Allow screensaver, check [Why does SDL disable my screensaver by default?](https://wiki.libsdl.org/SDL2/FAQUsingSDL#why_does_sdl_disable_my_screensaver_by_default)
 
 - `CALM_EVAL='(format t "hello")'`
 
@@ -173,8 +136,3 @@ Read-only:
 - `APP_DIR`
 
   This variable holds the path of the directory where calm was started up (aka `pwd`)
-
-`env` file:
-
-- Put a `env` file alongside with your `canvas.lisp`, it will be loaded properly
-- Windows not supported yet

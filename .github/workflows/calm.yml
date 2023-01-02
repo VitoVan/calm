@@ -1,0 +1,63 @@
+name: CALM
+
+on:
+  push:
+    tags:
+      - "*.*.*"
+      - "test-calm-*"
+
+jobs:
+
+  Linux:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Build
+        run: |
+          docker run -v $PWD:/calm -w /calm fedora bash build.sh
+          ls -lah .
+      - name: GH Release
+        uses: softprops/action-gh-release@v0.1.14
+        with:
+          prerelease: true
+          files: |
+            *.zip
+
+  macOS:
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Build
+        run: |
+          bash build.sh
+          ls -lah .
+      - name: GH Release
+        uses: softprops/action-gh-release@v0.1.14
+        with:
+          prerelease: true
+          files: |
+            *.zip
+
+  Windows:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Build
+        shell: cmd
+        run: |
+          build.bat
+
+      - name: GH Release
+        uses: softprops/action-gh-release@v0.1.14
+        with:
+          prerelease: true
+          files: |
+            *.zip

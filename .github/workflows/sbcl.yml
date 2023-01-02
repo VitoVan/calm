@@ -1,0 +1,147 @@
+name: SBCL
+
+on:
+  push:
+    tags:
+      - "sbcl-*"
+      - "test-sbcl-*"
+
+jobs:
+
+  Ubuntu:
+    # The type of runner that the job will run on
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-20.04, ubuntu-22.04, ubuntu-18.04]
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      - name: install dependencies
+        run: |
+          sudo apt update -y
+          sudo apt install build-essential -y
+          sudo apt install sbcl libzstd-dev -y
+      - name: build
+        run: |
+          curl -OL http://downloads.sourceforge.net/project/sbcl/sbcl/2.2.9/sbcl-2.2.9-source.tar.bz2
+          bzip2 -cd sbcl-2.2.9-source.tar.bz2 | tar xvf -
+          cd sbcl-2.2.9
+          sh make.sh --with-fancy --with-sb-core-compression
+      - name: zip install_root
+        run: |
+          set -x
+          cd sbcl-2.2.9
+          export INSTALL_ROOT=$HOME/install_root
+          sh install.sh
+          cd ..
+          echo $INSTALL_ROOT
+          cp -r $INSTALL_ROOT ./install_root
+          zip -r -9 install_root-${{ matrix.os }}.zip ./install_root
+      - name: GH Release
+        uses: softprops/action-gh-release@v0.1.14
+        with:
+          prerelease: true
+          files: |
+            *.zip
+
+  macOS:
+
+    # The type of runner that the job will run on
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [macos-11, macos-12, macos-10.15]
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      - name: install
+        shell: bash
+        run: |
+          brew install sbcl
+      - name: build
+        run: |
+          curl -OL http://downloads.sourceforge.net/project/sbcl/sbcl/2.2.9/sbcl-2.2.9-source.tar.bz2
+          bzip2 -cd sbcl-2.2.9-source.tar.bz2 | tar xvf -
+          cd sbcl-2.2.9
+          sh make.sh --with-fancy --with-sb-core-compression
+      - name: zip install_root
+        run: |
+          set -x
+          cd sbcl-2.2.9
+          export INSTALL_ROOT=$HOME/install_root
+          sh install.sh
+          cd ..
+          echo $INSTALL_ROOT
+          cp -r $INSTALL_ROOT ./install_root
+          zip -r -9 install_root-${{ matrix.os }}.zip ./install_root
+
+      - name: GH Release
+        uses: softprops/action-gh-release@v0.1.14
+        with:
+          prerelease: true
+          files: |
+            *.zip
+
+  Windows:
+
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [windows-2022, windows-2019]
+
+    defaults:
+      run:
+        shell: msys2 {0}
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: msys2/setup-msys2@v2
+        with:
+          location: D:\
+          release: true
+          update: false
+          install: >-
+            p7zip
+            zip
+            mingw-w64-x86_64-gcc
+            mingw-w64-x86_64-zstd
+            make
+            diffutils
+            wget
+            git
+      - name: build
+        run: |
+          wget http://prdownloads.sourceforge.net/sbcl/sbcl-2.2.7-x86-64-windows-binary.msi
+          7z x sbcl-2.2.7-x86-64-windows-binary.msi -Osbcl-2.2.7-bin && rm sbcl-2.2.7-x86-64-windows-binary.msi
+          wget http://downloads.sourceforge.net/project/sbcl/sbcl/2.2.9/sbcl-2.2.9-source.tar.bz2
+          bzip2 -cd sbcl-2.2.9-source.tar.bz2 | tar xvf -
+          cd sbcl-2.2.9
+          PATH=$PATH:"../sbcl-2.2.7-bin/" SBCL_HOME="../sbcl-2.2.7-bin/" sh make.sh --xc-host='sbcl --lose-on-corruption --disable-ldb --disable-debugger' --with-fancy --with-sb-core-compression
+      - name: zip install_root
+        run: |
+          set -x
+          cd sbcl-2.2.9
+          export INSTALL_ROOT=$HOME/install_root
+          sh install.sh
+          cd ..
+          echo $INSTALL_ROOT
+          cp -r $INSTALL_ROOT ./install_root
+          zip -r -9 install_root-${{ matrix.os }}.zip ./install_root
+      - name: GH Release
+        uses: softprops/action-gh-release@v0.1.14
+        with:
+          prerelease: true
+          files: |
+            *.zip

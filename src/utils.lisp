@@ -16,7 +16,7 @@
     (if (string= (str:downcase (pathname-type abs-pathname)) "wav")
         (progn (sdl2-mixer:open-audio sdl2-ffi:+mix-default-frequency+ sdl2-ffi:+mix-default-format+ 2 4096)
                (sdl2-mixer:play-channel -1 (sdl2-mixer:load-wav abs-pathname) loops))
-        (format t "Only WAV supported, try sdl2-mixer."))))
+        (format t "Only WAV supported, please try `play-music` or `sdl2-mixer`."))))
 
 (defun halt-wav ()
   (sdl2-mixer:halt-channel -1))
