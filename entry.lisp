@@ -8,7 +8,7 @@
 ;; show / dist / dist-with-canvas
 (defparameter cmd (uiop:getenv "CALM_CMD"))
 
-(defun prepare-for-dist (dir-name)
+(defun prepare-for-dist (dir-name &key with-canvas)
   (let* ((ori-lib-dir (str:concat (uiop:getenv "CALM_DIR") "lib/"))
          (dist-dir (str:concat (uiop:getenv "APP_DIR") dir-name "/"))
          (lib-dir (str:concat dist-dir "lib/"))
@@ -17,7 +17,9 @@
     (mapcar #'ensure-directories-exist (list lib-dir bin-dir))
     (loop for x in (uiop:directory-files (pathname ori-lib-dir))
           do (uiop:copy-file x (str:concat lib-dir (pathname-name x) "." (pathname-type x))))
-    (uiop:copy-file (str:concat  (uiop:getenv "CALM_DIR") calm-bin) (str:concat dist-dir calm-bin))))
+    (uiop:copy-file (str:concat  (uiop:getenv "CALM_DIR") calm-bin) (str:concat dist-dir calm-bin))
+    (when with-canvas
+      (uiop:copy-file (str:concat  (uiop:getenv "APP_DIR") "canvas.lisp") (str:concat dist-dir "canvas.lisp")))))
 
 (cond
 
@@ -30,7 +32,7 @@
 
   ;; Distribute the App with canvas.lisp
   ((string= cmd "dist-with-canvas")
-   (prepare-for-dist "dist-with-canvas")
+   (prepare-for-dist "dist-with-canvas" :with-canvas t)
    (sb-ext:save-lisp-and-die
     #+win32 ".\\dist-with-canvas\\bin\\calm-app.exe"
     #-win32 "./dist-with-canvas/bin/calm-app"
@@ -42,7 +44,7 @@
 
   ;; Distribute the App
   ((string= cmd "dist")
-   (prepare-for-dist "dist")
+   (prepare-for-dist "dist" :with-canvas nil)
    (load (merge-pathnames "canvas.lisp" (uiop:getcwd)))
    (sb-ext:save-lisp-and-die
     #+win32 ".\\dist\\bin\\calm-app.exe"
