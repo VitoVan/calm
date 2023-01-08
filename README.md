@@ -43,7 +43,7 @@ calm
 #### *nix (Fedora | Ubuntu | macOS)
 
 ```bash
-curl -o ~/calm.zip "https://github.com/VitoVan/calm/releases/download/0.0.13/calm-(uname | cut -d '_' -f 1).zip"
+curl -o ~/calm.zip "https://github.com/VitoVan/calm/releases/download/0.0.14/calm-(uname | cut -d '_' -f 1).zip"
 unzip ~/calm.zip ~/calm && rm ~/calm.zip
 echo 'export PATH="$PATH:$HOME/calm/"' >> ~/.bash_profile
 source ~/.bash_profile
@@ -54,7 +54,7 @@ Paste that in a macOS Terminal or Linux shell prompt.
 #### Windows
 
 ```powershell
-Invoke-WebRequest -Uri "https://github.com/VitoVan/calm/releases/download/0.0.13/calm-Windows.zip" -OutFile "C:\calm.zip"
+Invoke-WebRequest -Uri "https://github.com/VitoVan/calm/releases/download/0.0.14/calm-Windows.zip" -OutFile "C:\calm.zip"
 Expand-Archive C:\calm.zip -DestinationPath C:\calm
 setx /M PATH "%PATH%;C:\calm"
 refreshenv
