@@ -1,3 +1,0 @@
-#!/bin/bash
-export APPDIR="$(dirname "$(readlink -f "$0")")"
-"$APPDIR"/calm $@

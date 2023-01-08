@@ -162,7 +162,10 @@
 (defun calm-load-and-start ()
   "Load canvas.lisp and then start"
   (calm::calm-config)
-  (load "canvas.lisp")
+  (let ((canvas-file (merge-pathnames "canvas.lisp" (uiop:getcwd))))
+    (if (probe-file canvas-file)
+        (load canvas-file)
+        (u:calm-log "canvas.lisp NOT FOUND: ~A~%" canvas-file)))
   (calm-eval)
   #+linux (calm::calm-init)
   #+(or win32 darwin) (sdl2:make-this-thread-main #'calm::calm-init))

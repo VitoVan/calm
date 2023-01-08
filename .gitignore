@@ -1,6 +1,13 @@
+quicklisp.lisp
+install_root.zip
+calm
 calm.core
 .DS_Store
 dist/
+dist-with-canvas/
+lib/
+quicklisp/
+sbcl/
 Dockerfile
 *.exe
 *.AppImage
