@@ -54,7 +54,7 @@ Paste that in a macOS Terminal or Linux shell prompt.
 #### Windows
 
 ```powershell
-Invoke-WebRequest -Uri "https://github.com/VitoVan/calm/releases/download/0.0.14/calm-Windows.zip" -OutFile "C:\calm.zip"
+Invoke-WebRequest -Uri "https://github.com/VitoVan/calm/releases/download/0.0.14/calm-MINGW64.zip" -OutFile "C:\calm.zip"
 Expand-Archive C:\calm.zip -DestinationPath C:\calm
 setx /M PATH "%PATH%;C:\calm"
 refreshenv
