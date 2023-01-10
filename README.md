@@ -43,7 +43,7 @@ calm
 #### *nix (Fedora | Ubuntu | macOS)
 
 ```bash
-curl -o ~/calm.zip "https://github.com/VitoVan/calm/releases/download/0.0.14/calm-(uname | cut -d '_' -f 1).zip"
+curl -o ~/calm.zip "https://github.com/VitoVan/calm/releases/download/0.0.14/calm-$(uname | cut -d '_' -f 1).zip"
 unzip ~/calm.zip ~/calm && rm ~/calm.zip
 echo 'export PATH="$PATH:$HOME/calm/"' >> ~/.bash_profile
 source ~/.bash_profile
