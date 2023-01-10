@@ -12,3 +12,5 @@ Dockerfile
 *.exe
 *.AppImage
 *.dmg
+*.zip
+.github/workflows/calm-app*
