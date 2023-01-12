@@ -10,7 +10,7 @@ build_fedora () {
     ./calm sh all quicklisp
     ./calm sh all copy-lib
     ./calm sh fedora config-lib
-    ./calm sh all pack
+    ./calm sh fedora pack
     ./calm sh all clean
     echo "DONE"
 }
@@ -25,7 +25,7 @@ build_darwin () {
     ./calm sh all quicklisp
     ./calm sh all copy-lib
     ./calm sh darwin config-lib
-    ./calm sh all pack
+    ./calm sh darwin pack
     ./calm sh all clean
     echo "DONE"
 }
@@ -41,7 +41,7 @@ build_msys () {
     ./calm.exe sh all quicklisp
     ./calm.exe sh all copy-lib
     ./calm.exe sh msys config-lib
-    ./calm.exe sh all pack
+    ./calm.exe sh msys pack
     ./calm.exe sh all clean
     echo "DONE"
 }

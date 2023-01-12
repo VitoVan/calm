@@ -3,6 +3,7 @@ install_root.zip
 calm
 calm.core
 .DS_Store
+calm-dist/
 dist/
 dist-with-canvas/
 lib/
@@ -13,4 +14,5 @@ Dockerfile
 *.AppImage
 *.dmg
 *.zip
+*.app
 .github/workflows/calm-app*
