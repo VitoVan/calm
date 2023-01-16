@@ -48,7 +48,9 @@ calm
 
 All the binaries are built with [Github Action](them), so the supported enviroments are limited.
 
-So if you are using something not supported (Apple M1 or ARM Windows / Linux), please consider building your own CALM, it's quite easy.
+If you are using something not supported (Apple M1 or ARM Windows / Linux), please consider building your own CALM.
+
+You may need to [build your own SBCL](.github/workflows/sbcl.yml) and modify the [sbcl.sh](sh/fedora/sbcl.sh) before executing the following command.
 
 ```bash
 git clone https://github.com/VitoVan/calm.git
