@@ -1,4 +1,6 @@
-# Canvas And Lisp Magic
+
+
+# <img width="100" alt="Calm" src="./build/calm.png"> Canvas And Lisp Magic
 
 [![Don't Panic](./images/dont-panic.png)](https://github.com/VitoVan/calm)
 
@@ -44,7 +46,13 @@ calm
 
     for macOS, add `/path/to/Calm.app/Contents/MacOS/` instead
 
-## CALM Application Distribution
+
+    
+    
+
+## <img width="100" alt="Calm" src="./build/app.png"> Distribution
+
+Distribute your CALM Application.
 
 ### Standard Distribution
 
