@@ -1,6 +1,6 @@
 
 
-# <img width="100" alt="Calm" src="./build/calm.png"> Canvas And Lisp Magic
+# <img style="vertical-align:middle;margin-right:10px;" width="100" alt="Calm" src="./build/calm.png"> Canvas And Lisp Magic
 
 [![Hello World](./images/hello-world.png)](#hello-world)
 
@@ -48,7 +48,7 @@ calm
     
     
 
-## <img width="100" alt="Calm" src="./build/app.png"> Distribution
+## <img style="vertical-align:middle;margin-right:5px;" width="50" alt="Calm Application" src="./build/app.png"> Distribution
 
 Distribute your CALM Application.
 
