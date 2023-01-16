@@ -1,4 +1,15 @@
+#
+# "xxx cannot be opened because the developer cannot be verified",
+# your macOS user is likely to receive many warnings like this when they received a zipped dist folder of a CALM application.
+# Except signing your application (https://support.apple.com/guide/security/app-code-signing-process-sec3ad8e6e53/web)
+# you could also bundle all these dylibs and binaries into 1 macOS application,
+# by this way, your macos user will only receive 1 warning and can easily get rid of it (if they trust you).
+#
+# This script is for creating macOS application bundle
+# Example usage:
+#
 # APP_ICON=./build/app.icns APP_NAME=Hello APP_VERSION=0.0.1 DIST_DIR=./dist ./calm sh darwin bundle
+#
 
 mkdir -p "$APP_NAME.app/Contents/Resources"
 
