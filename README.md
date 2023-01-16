@@ -38,7 +38,7 @@ calm
 
 ### Pre-built Binary
 
-1. Download the latest [release](https://github.com/VitoVan/calm/releases) for your platform
+1. Download the [latest release](https://github.com/VitoVan/calm/releases/latest) for your platform
 2. Unzip it
 3. Add the extracted folder into your PATH environment
 
