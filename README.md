@@ -2,7 +2,7 @@
 
 # <img width="100" alt="Calm" src="./build/calm.png"> Canvas And Lisp Magic
 
-[![Don't Panic](./images/dont-panic.png)](https://github.com/VitoVan/calm)
+[![Hello World](./images/hello-world.png)](#hello-world)
 
 Calm down and draw something, in Lisp.
 
@@ -27,8 +27,6 @@ Launch your terminal, cd to that directory, enter the command:
 ```bash
 calm
 ```
-
-[![Hello World](./images/hello-world.png)](#hello-world)
 
 ## More Examples
 
@@ -70,7 +68,7 @@ Now, zip it and send it to your friend! Normally, they will be able to enjoy you
 
 > **Note**
 >
-> for macOS users, you may want to create an [application bundle](https://en.wikipedia.org/wiki/Bundle_(macOS)):
+> for macOS, you may want to create an [application bundle](https://en.wikipedia.org/wiki/Bundle_(macOS)):
 >
 > <details><summary>Click to show code</summary>
 > <p>
