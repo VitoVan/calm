@@ -133,13 +133,33 @@
 (defun calm-config ()
   "This is needed by the DIST mode"
   ;; if the CALM_DIR env was not set, set it to the folder contains the core
-  ;; this will happen in DIST mode on Windows
+  ;; this should NOT happen with the C launcher
   (unless (uiop:getenv "CALM_DIR")
     (setf (uiop:getenv "CALM_DIR") (namestring (uiop:pathname-parent-directory-pathname sb-ext:*core-pathname*))))
+
   ;; if the APP_DIR env was not set, set it to the current dir
-  ;; this will happen in DIST mode on Windows
+  ;; this should NOT happen with the C launcher
   (unless (uiop:getenv "APP_DIR")
     (setf (uiop:getenv "APP_DIR") (namestring (uiop:getcwd))))
+
+  ;; on macOS, if the CALM_DIR env contains ".app/Contents/MacOS",
+  ;; and the user double clicked the application,
+  ;; then APP_DIR won't be able to be set correctly,
+  ;; since the `pwd` will be given as "/Users/jack/" instead of the real location,
+  ;; so we should set APP_DIR to CALM_DIR
+  ;;
+  ;; but, we can't just detect this by `(str:contains? ".app/Contents/MacOS" (uiop:getenv "CALM_DIR"))`
+  ;; because if we have packed CALM as an APP, then it will always find the canvas.lisp inside the app bundle,
+  ;; instead of the current directory.
+  ;;
+  ;; so, let's create a dummy file (.please_load_calm_canvas_from_here) inside the app bundle,
+  ;; and if it exists, then we will pick it up.
+  #+darwin
+  (when
+      (and
+       (str:contains? ".app/Contents/MacOS" (uiop:getenv "CALM_DIR"))
+       (probe-file (str:concat (uiop:getenv "CALM_DIR") ".please_load_calm_canvas_from_here")))
+    (setf (uiop:getenv "APP_DIR") (uiop:getenv "CALM_DIR")))
 
   ;; switch to the APP_DIR
   (uiop:chdir (uiop:getenv "APP_DIR")))

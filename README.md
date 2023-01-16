@@ -1,4 +1,6 @@
-# Canvas And Lisp Magic
+
+
+# <img width="100" alt="Calm" src="./build/calm.png"> Canvas And Lisp Magic
 
 [![Don't Panic](./images/dont-panic.png)](https://github.com/VitoVan/calm)
 
@@ -38,37 +40,19 @@ calm
 
 ## Installation
 
-### Auto Install
-
-#### *nix (Fedora | Ubuntu | macOS)
-
-```bash
-curl -o ~/calm.zip "https://github.com/VitoVan/calm/releases/download/0.0.14/calm-(uname | cut -d '_' -f 1).zip"
-unzip ~/calm.zip ~/calm && rm ~/calm.zip
-echo 'export PATH="$PATH:$HOME/calm/"' >> ~/.bash_profile
-source ~/.bash_profile
-```
-
-Paste that in a macOS Terminal or Linux shell prompt.
-
-#### Windows
-
-```powershell
-Invoke-WebRequest -Uri "https://github.com/VitoVan/calm/releases/download/0.0.14/calm-MINGW64.zip" -OutFile "C:\calm.zip"
-Expand-Archive C:\calm.zip -DestinationPath C:\calm
-setx /M PATH "%PATH%;C:\calm"
-refreshenv
-```
-
-Paste that in a Windows PowerShell.
-
-### Manual Install
-
-1. Download the latest [release](https://github.com/VitoVan/calm/releases)
+1. Download the latest [release](https://github.com/VitoVan/calm/releases) for your platform
 2. Unzip it
-3. Add the extracted folder into your PATH environment.
+3. Add the extracted folder into your PATH environment
 
-## Distribution (CALM Application)
+    for macOS, add `/path/to/Calm.app/Contents/MacOS/` instead
+
+
+    
+    
+
+## <img width="100" alt="Calm" src="./build/app.png"> Distribution
+
+Distribute your CALM Application.
 
 ### Standard Distribution
 
@@ -83,6 +67,26 @@ calm dist
 You will get a directory `dist` containing all the dependencies and your final binary, now you should put all your resource files (.wav, .png, .mp3, etc.) into that directory.
 
 Now, zip it and send it to your friend! Normally, they will be able to enjoy your application. If not, tell them to [unzip](https://www.wikihow.com/Unzip-a-File) and run the file `calm` or double click `calm.exe`.
+
+> **Note**
+>
+> for macOS users, you may want to create an [application bundle](https://en.wikipedia.org/wiki/Bundle_(macOS)):
+>
+> <details><summary>Click to show code</summary>
+> <p>
+>
+> ```bash
+> export APP_ICON=/absolute/path/to/your/app.icns
+> export APP_NAME=Hello
+> export APP_VERSION=0.0.1
+> export DIST_DIR=/absolute/path/to/your/dist
+> calm sh darwin bundle
+> ```
+>
+> </p>
+> </details>
+
+
 
 ### Canvas Distribution
 
@@ -106,7 +110,7 @@ Let's say it's Windows.
 
 You could also distribute expediently:
 
-1. [download the latest](https://github.com/VitoVan/calm/releases) `calm-app-with-canvas-MINGW64.zip `
+1. [download the latest](https://github.com/VitoVan/calm/releases) `calm-app-with-canvas-Windows.zip `
 2. extract it
 3. replace the `canvas.lisp` file with yours
 4. zip it and send it to your friend
