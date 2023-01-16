@@ -4,7 +4,7 @@
 
 Calm down and draw something, in Lisp.
 
-[![platform support](https://img.shields.io/badge/Platform-Linux%20%7C%20macOS%20%7C%20Windows-blue.svg)](#installation) [![CI](https://github.com/VitoVan/calm/actions/workflows/calm.yml/badge.svg)](https://github.com/VitoVan/calm/actions/workflows/main.yml)
+[![platform support](https://img.shields.io/badge/Platform-Linux%20%7C%20macOS%20%7C%20Windows-blue.svg)](#installation) [![CI](https://github.com/VitoVan/calm/actions/workflows/calm.yml/badge.svg)](https://github.com/VitoVan/calm/actions/workflows/calm.yml)
 
 ## Hello World
 
@@ -38,7 +38,7 @@ calm
 
 ### Pre-built Binary
 
-1. Download the [latest release](https://github.com/VitoVan/calm/releases/latest) for your platform
+1. Download the [latest release](https://github.com/VitoVan/calm/releases/latest) for your platform (e.g. calm-Linux.zip)
 2. Unzip it
 3. Add the extracted folder into your PATH environment
 
@@ -46,7 +46,7 @@ calm
 
 ### Build Your Own
 
-All the binaries are built with [Github Action](them), so the supported enviroments are limited.
+All the binaries are built with [Github Action](them), so the supported environments are limited.
 
 If you are using something not supported (Apple M1 or ARM Windows / Linux), please consider building your own CALM.
 
