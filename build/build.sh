@@ -51,7 +51,9 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     if [[ "$DISTRO" == "Fedora"* ]]; then
         build_fedora
     else
-        echo "Sorry, I only managed to build this on Fedora"
+        echo "Sorry, I only managed to build this on Fedora."
+        echo "If you don't mind, docker could fulfil this task:"
+        echo "    docker run -v $PWD:/calm -w /calm fedora bash build/build.sh"
         exit 42
     fi
 elif [[ "$OSTYPE" == "darwin"* ]]; then

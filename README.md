@@ -1,5 +1,3 @@
-
-
 # <img style="vertical-align:middle;margin-right:10px;" width="100" alt="Calm" src="./build/calm.png"> Canvas And Lisp Magic
 
 [![Hello World](./images/hello-world.png)](#hello-world)
@@ -38,15 +36,30 @@ calm
 
 ## Installation
 
+### Pre-built Binary
+
 1. Download the latest [release](https://github.com/VitoVan/calm/releases) for your platform
 2. Unzip it
 3. Add the extracted folder into your PATH environment
 
     for macOS, add `/path/to/Calm.app/Contents/MacOS/` instead
 
+### Build Your Own
 
-    
-    
+All the binaries are built with [Github Action](them), so the supported enviroments are limited.
+
+So if you are using something not supported (Apple M1 or ARM Windows / Linux), please consider building your own CALM, it's quite easy.
+
+```bash
+git clone https://github.com/VitoVan/calm.git
+cd calm
+# on macOS or Linux
+sh build/build.sh
+# on Windows (you should have MSVC compiler installed)
+build\\build.bat
+```
+
+
 
 ## <img style="vertical-align:middle;margin-right:5px;" width="50" alt="Calm Application" src="./build/app.png"> Distribution
 
