@@ -11,6 +11,8 @@
 # APP_ICON=./build/app.icns APP_NAME=Hello APP_VERSION=0.0.1 DIST_DIR=./dist ./calm sh darwin bundle
 #
 
+cd "$APP_DIR"
+
 mkdir -p "$APP_NAME.app/Contents/Resources"
 
 cat > "$APP_NAME.app/Contents/Info.plist" <<END
