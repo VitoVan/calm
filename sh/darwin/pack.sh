@@ -1,6 +1,6 @@
 mkdir calm-dist
 cp -R {calm,calm.c,build,entry.lisp,src,lib,sh,quicklisp,README.md,calm.asd,sbcl,images,LICENSE} ./calm-dist/
-APP_ICON=./build/calm.icns APP_NAME=Calm APP_VERSION=0.0.16 DIST_DIR=./calm-dist ./calm sh darwin bundle
+APP_ICON=./build/calm.icns APP_NAME=Calm APP_VERSION=0.0.17 DIST_DIR=./calm-dist ./calm sh darwin bundle
 rm Calm.app/Contents/MacOS/.please_load_calm_canvas_from_here
 zip -r -9 calm-macOS.zip Calm.app
 
