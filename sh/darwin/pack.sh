@@ -14,5 +14,5 @@ zip -r -9 calm-app-macOS.zip Hello.app
 cd .github/workflows/
 ../../calm dist-with-canvas
 cd ../../
-APP_ICON=./build/app.icns APP_NAME=HelloCanvas APP_VERSION=0.0.1 DIST_DIR=./.github/workflows/dist-with-canvas ./calm sh darwin bundle
-zip -r -9 calm-app-with-canvas-macOS.zip HelloCanvas.app
+APP_ICON=./build/app.icns APP_NAME="Hello Canvas" APP_VERSION=0.0.1 DIST_DIR=./.github/workflows/dist-with-canvas ./calm sh darwin bundle
+zip -r -9 calm-app-with-canvas-macOS.zip "Hello Canvas.app"

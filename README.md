@@ -89,10 +89,10 @@ Now, zip it and send it to your friend! Normally, they will be able to enjoy you
 > <p>
 >
 > ```bash
-> export APP_ICON=/absolute/path/to/your/app.icns
+> export APP_ICON=/path/to/your/app.icns
 > export APP_NAME=Hello
 > export APP_VERSION=0.0.1
-> export DIST_DIR=/absolute/path/to/your/dist
+> export DIST_DIR=/path/to/your/dist
 > calm sh darwin bundle
 > ```
 >

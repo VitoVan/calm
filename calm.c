@@ -135,7 +135,9 @@ int main(int argc, char *argv[]) {
      *     DYLD_FALLBACK_LIBRARY_PATH=/some/where/my/lib ./my-app
      */
     strcpy(entry_cmd, "DYLD_FALLBACK_LIBRARY_PATH=");
+    strcat(entry_cmd, "\"");
     strcat(entry_cmd, lib_path);
+    strcat(entry_cmd, "\"");
     strcat(entry_cmd, " ");
     strcat(entry_cmd, getbinarydir());
     strcat(entry_cmd, "/sbcl/bin/sbcl");
@@ -192,7 +194,9 @@ int main(int argc, char *argv[]) {
     WinExec("bin\\calm-app.exe", SW_NORMAL);
 #elif defined __APPLE__
     strcpy(entry_cmd, "DYLD_FALLBACK_LIBRARY_PATH=");
+    strcat(entry_cmd, "\"");
     strcat(entry_cmd, lib_path);
+    strcat(entry_cmd, "\"");
     strcat(entry_cmd, " bin/calm-app");
     system(entry_cmd);
 #else
