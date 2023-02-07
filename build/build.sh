@@ -1,9 +1,11 @@
 export CALM_BUILDING=1
 
 build_fedora () {
-    echo "build launcher ..."
-    sudo dnf install gcc -y
-    gcc calm.c -o calm
+    if ! [ -f calm ]; then
+        echo "build launcher ..."
+        sudo dnf install gcc -y
+        gcc calm.c -o calm
+    fi
 
     ./calm sh fedora deps
     ./calm sh fedora sbcl
