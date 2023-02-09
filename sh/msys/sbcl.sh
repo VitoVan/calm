@@ -1,7 +1,7 @@
 echo "Install SBCL binary (with compression feature) ..."
 if ! [ -d sbcl ]; then
     if ! [ -f install_root.zip ]; then
-        curl -o install_root.zip -L https://github.com/VitoVan/calm/releases/download/sbcl-2.2.9/install_root-windows-2022.zip
+        curl -o install_root.zip -L https://github.com/VitoVan/calm/releases/download/sbcl-2.3.1/install_root-windows-2022.zip
     fi
     rm -rf ./install_root
     rm -f calm.core
