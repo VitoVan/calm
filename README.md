@@ -38,8 +38,13 @@ calm
 
 ### Pre-built Binary
 
-1. Download the [latest release](https://github.com/VitoVan/calm/releases/latest) for your platform (e.g. calm-Linux.zip)
-2. Unzip it
+1. Download the [latest release](https://github.com/VitoVan/calm/releases/latest) for your platform
+
+    - Linux: calm.tgz
+    - macOS: calm.dmg
+    - Windows: calm.zip
+
+2. Extract the content
 3. Add the extracted folder into your PATH environment
 
     for macOS, add `/path/to/Calm.app/Contents/MacOS/` instead
@@ -77,9 +82,9 @@ Launch your terminal, cd to the directory where the file **canvas.lisp** exists,
 calm dist
 ```
 
-You will get a directory `dist` containing all the dependencies and your final binary, now you should put all your resource files (.wav, .png, .mp3, etc.) into that directory.
+You will get a directory `dist` containing all the dependencies and your final binary, you should put all your assets (.wav, .png, .mp3, etc.) into that directory.
 
-Now, zip it and send it to your friend! Normally, they will be able to enjoy your application. If not, tell them to [unzip](https://www.wikihow.com/Unzip-a-File) and run the file `calm` or double click `calm.exe`.
+Now, pack it and send it to your friend! Normally, they will be able to enjoy your application. If not, tell them to run the file `calm` or double click `calm.exe`.
 
 > **Note**
 >
@@ -123,7 +128,7 @@ Let's say it's Windows.
 
 You could also distribute expediently:
 
-1. [download the latest](https://github.com/VitoVan/calm/releases) `calm-app-with-canvas-Windows.zip `
+1. [download the latest](https://github.com/VitoVan/calm/releases) `hello-canvas.zip `
 2. extract it
 3. replace the `canvas.lisp` file with yours
 4. zip it and send it to your friend
