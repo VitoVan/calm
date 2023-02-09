@@ -28,14 +28,14 @@ jobs:
           sudo apt install sbcl libzstd-dev -y
       - name: build
         run: |
-          curl -OL http://downloads.sourceforge.net/project/sbcl/sbcl/2.2.9/sbcl-2.2.9-source.tar.bz2
-          bzip2 -cd sbcl-2.2.9-source.tar.bz2 | tar xvf -
-          cd sbcl-2.2.9
+          curl -OL http://downloads.sourceforge.net/project/sbcl/sbcl/2.3.1/sbcl-2.3.1-source.tar.bz2
+          bzip2 -cd sbcl-2.3.1-source.tar.bz2 | tar xvf -
+          cd sbcl-2.3.1
           sh make.sh --with-fancy --with-sb-core-compression
       - name: zip install_root
         run: |
           set -x
-          cd sbcl-2.2.9
+          cd sbcl-2.3.1
           export INSTALL_ROOT=$HOME/install_root
           sh install.sh
           cd ..
@@ -70,14 +70,14 @@ jobs:
           brew install sbcl
       - name: build
         run: |
-          curl -OL http://downloads.sourceforge.net/project/sbcl/sbcl/2.2.9/sbcl-2.2.9-source.tar.bz2
-          bzip2 -cd sbcl-2.2.9-source.tar.bz2 | tar xvf -
-          cd sbcl-2.2.9
+          curl -OL http://downloads.sourceforge.net/project/sbcl/sbcl/2.3.1/sbcl-2.3.1-source.tar.bz2
+          bzip2 -cd sbcl-2.3.1-source.tar.bz2 | tar xvf -
+          cd sbcl-2.3.1
           sh make.sh --with-fancy --with-sb-core-compression
       - name: zip install_root
         run: |
           set -x
-          cd sbcl-2.2.9
+          cd sbcl-2.3.1
           export INSTALL_ROOT=$HOME/install_root
           sh install.sh
           cd ..
@@ -125,14 +125,14 @@ jobs:
         run: |
           wget http://prdownloads.sourceforge.net/sbcl/sbcl-2.2.7-x86-64-windows-binary.msi
           7z x sbcl-2.2.7-x86-64-windows-binary.msi -Osbcl-2.2.7-bin && rm sbcl-2.2.7-x86-64-windows-binary.msi
-          wget http://downloads.sourceforge.net/project/sbcl/sbcl/2.2.9/sbcl-2.2.9-source.tar.bz2
-          bzip2 -cd sbcl-2.2.9-source.tar.bz2 | tar xvf -
-          cd sbcl-2.2.9
+          wget http://downloads.sourceforge.net/project/sbcl/sbcl/2.3.1/sbcl-2.3.1-source.tar.bz2
+          bzip2 -cd sbcl-2.3.1-source.tar.bz2 | tar xvf -
+          cd sbcl-2.3.1
           PATH=$PATH:"../sbcl-2.2.7-bin/" SBCL_HOME="../sbcl-2.2.7-bin/" sh make.sh --xc-host='sbcl --lose-on-corruption --disable-ldb --disable-debugger' --with-fancy --with-sb-core-compression
       - name: zip install_root
         run: |
           set -x
-          cd sbcl-2.2.9
+          cd sbcl-2.3.1
           export INSTALL_ROOT=$HOME/install_root
           sh install.sh
           cd ..
