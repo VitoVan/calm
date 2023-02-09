@@ -39,11 +39,6 @@ calm
 ### Pre-built Binary
 
 1. Download the [latest release](https://github.com/VitoVan/calm/releases/latest) for your platform
-
-    - Linux: calm.tgz
-    - macOS: calm.dmg
-    - Windows: calm.zip
-
 2. Extract the content
 3. Add the extracted folder into your PATH environment
 
@@ -128,7 +123,7 @@ Let's say it's Windows.
 
 You could also distribute expediently:
 
-1. [download the latest](https://github.com/VitoVan/calm/releases) `hello-canvas.zip `
+1. download [the latest](https://github.com/VitoVan/calm/releases/latest) `hello-canvas.zip `
 2. extract it
 3. replace the `canvas.lisp` file with yours
 4. zip it and send it to your friend
