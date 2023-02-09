@@ -1,5 +1,5 @@
 export APP_ICON=./build/app.icns
-export APP_VERSION=0.0.18
+export APP_VERSION=0.0.19
 
 mkdir calm-dist
 cp -R {calm,calm.c,build,entry.lisp,src,lib,sh,quicklisp,README.md,calm.asd,sbcl,images,LICENSE} ./calm-dist/
