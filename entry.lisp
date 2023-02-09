@@ -13,11 +13,11 @@
          (dist-dir (str:concat (uiop:getenv "APP_DIR") dir-name "/"))
          (lib-dir (str:concat dist-dir "lib/"))
          (bin-dir (str:concat dist-dir "bin/"))
-         (calm-bin #+win32 "calm.exe" #-win32 "calm"))
+         (calm-bin #+win32 "calmNoConsole.exe" #-win32 "calm"))
     (mapcar #'ensure-directories-exist (list lib-dir bin-dir))
     (loop for x in (uiop:directory-files (pathname ori-lib-dir))
           do (uiop:copy-file x (str:concat lib-dir (pathname-name x) "." (pathname-type x))))
-    (uiop:copy-file (str:concat  (uiop:getenv "CALM_DIR") calm-bin) (str:concat dist-dir calm-bin))
+    (uiop:copy-file (str:concat  (uiop:getenv "CALM_DIR") calm-bin) (str:concat dist-dir "calm" #+win32 ".exe" #-win32 ""))
     (when with-canvas
       (uiop:copy-file (str:concat  (uiop:getenv "APP_DIR") "canvas.lisp") (str:concat dist-dir "canvas.lisp")))))
 
