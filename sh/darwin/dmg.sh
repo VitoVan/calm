@@ -8,6 +8,11 @@ if [[ -z "${DMG_NAME}" ]]; then
     exit 42
 fi
 
+if [[ -z "${DMG_ICON}" ]]; then
+    echo "Please set the env: DMG_ICON"
+    exit 42
+fi
+
 if ! command -v create-dmg &> /dev/null; then
     echo "create-dmg is not ready, downloading ..."
     brew install create-dmg
@@ -16,7 +21,7 @@ fi
 cd "$APP_DIR"
 
 create-dmg --hdiutil-verbose --volname "$APP_NAME - CALM" \
-           --volicon "$CALM_DIR/build/app-dmg.icns" \
+           --volicon "$DMG_ICON" \
            --window-pos 200 120 \
            --window-size 800 280 \
            --icon-size 100 \

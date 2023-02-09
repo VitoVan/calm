@@ -24,6 +24,11 @@
 (cond
 
   ;; Show the Canvas
+  ((string= cmd "test")
+   (format t "Nothing to test.~%")
+   (uiop:quit 0))
+
+  ;; Show the Canvas
   ((string= cmd "show")
    (calm:calm-load-and-start))
 

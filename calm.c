@@ -185,22 +185,25 @@ int main(int argc, char *argv[]) {
     // Execute Entry Command
     printf("EXECUTING: %s\n", entry_cmd);
 
-    system(entry_cmd);
-    // system("env");
+    if (system(entry_cmd) != 0) return 42;
   } else {
     printf("EXECUTING: bin/calm-app\n");
 
 #ifdef _WIN32
-    WinExec("bin\\calm-app.exe", SW_NORMAL);
+    if (WinExec("bin\\calm-app.exe", SW_NORMAL) > 31) {
+      return 0;
+    } else {
+      return 42;
+    }
 #elif defined __APPLE__
     strcpy(entry_cmd, "DYLD_FALLBACK_LIBRARY_PATH=");
     strcat(entry_cmd, "\"");
     strcat(entry_cmd, lib_path);
     strcat(entry_cmd, "\"");
     strcat(entry_cmd, " bin/calm-app");
-    system(entry_cmd);
+    if (system(entry_cmd) != 0) return 42;
 #else
-    system("bin/calm-app");
+    if (system("bin/calm-app") != 0) return 42;
 #endif
   }
 
