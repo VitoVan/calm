@@ -1,5 +1,7 @@
 export CALM_BUILDING=1
 
+env
+
 build_fedora () {
     if ! [ -f calm ]; then
         echo "build launcher ..."

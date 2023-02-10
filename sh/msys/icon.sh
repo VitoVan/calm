@@ -6,7 +6,9 @@ fi
 RCEDIT="$CALM_DIR/sh/msys/rcedit-x64.exe"
 
 if [ ! -f "$RCEDIT" ]; then
+    set -x
     curl -o "$RCEDIT" -L https://github.com/electron/rcedit/releases/download/v1.1.1/rcedit-x64.exe
+    set +x
 fi
 
 "$RCEDIT" "$CALM_DIR/sbcl/bin/sbcl.exe" --set-icon "$CALM_DIR/build/app.ico"
