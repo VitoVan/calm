@@ -8,7 +8,7 @@
 # This script is for creating macOS application bundle
 # Example usage:
 #
-# APP_ICON=./build/app.icns APP_NAME=Hello APP_VERSION=0.0.19 DIST_DIR=./dist ./calm sh darwin bundle
+# APP_ICON=./build/app.icns APP_NAME=Hello APP_VERSION=0.0.1 DIST_DIR=./dist ./calm sh darwin bundle
 #
 
 cd "$APP_DIR"
