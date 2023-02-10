@@ -13,7 +13,6 @@ build_fedora () {
     ./calm sh all copy-lib
     ./calm sh fedora config-lib
     ./calm sh fedora pack
-    ./calm sh all clean
     echo "DONE"
 }
 
@@ -28,7 +27,6 @@ build_darwin () {
     ./calm sh all copy-lib
     ./calm sh darwin config-lib
     ./calm sh darwin pack
-    ./calm sh all clean
     echo "DONE"
 }
 
@@ -38,14 +36,12 @@ build_msys () {
     #        cl /Fe:calmGUI calm.c /link /SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup
     #        cl /Fe:calm calm.c /link /SUBSYSTEM:CONSOLE
 
-    ./calm.exe sh msys deps
-    ./calm.exe sh msys sbcl
-    ./calm.exe sh all quicklisp
-    ./calm.exe sh all copy-lib
-    ./calm.exe sh msys config-lib
-    ./calm.exe sh msys pack
-    ./calm.exe sh all clean
-    echo "DONE"
+    ./calm sh msys deps
+    ./calm sh msys sbcl
+    ./calm sh all quicklisp
+    ./calm sh all copy-lib
+    ./calm sh msys config-lib
+    ./calm sh msys pack
 }
 
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
@@ -64,5 +60,15 @@ elif [[ "$OSTYPE" == "msys" ]]; then
     build_msys
 else
     echo "Unsupported platform, please try Fedora Linux / macOS / MSYS2"
+    exit 42
+fi
+
+if ./calm test; then
+    echo "DONE."
+    ./calm sh all clean
+    exit 0
+else
+    echo "Failed!"
+    ./calm sh all clean
     exit 42
 fi
