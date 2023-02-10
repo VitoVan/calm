@@ -28,7 +28,9 @@ jobs:
           sudo apt install sbcl libzstd-dev -y
       - name: build
         run: |
+          set -x
           curl -OL http://downloads.sourceforge.net/project/sbcl/sbcl/2.3.1/sbcl-2.3.1-source.tar.bz2
+          set +x
           bzip2 -cd sbcl-2.3.1-source.tar.bz2 | tar xvf -
           cd sbcl-2.3.1
           sh make.sh --with-fancy --with-sb-core-compression
@@ -70,7 +72,9 @@ jobs:
           brew install sbcl
       - name: build
         run: |
+          set -x
           curl -OL http://downloads.sourceforge.net/project/sbcl/sbcl/2.3.1/sbcl-2.3.1-source.tar.bz2
+          set +x
           bzip2 -cd sbcl-2.3.1-source.tar.bz2 | tar xvf -
           cd sbcl-2.3.1
           sh make.sh --with-fancy --with-sb-core-compression
