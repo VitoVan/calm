@@ -13,6 +13,9 @@
    setting it to `NIL` means you don't want the canvas to be painted again,
    setting it back to `t` will paint the canvas again and again by calling the `draw` function, again.
   ")
+(defparameter *calm-music-format* sdl2-ffi:+audio-s32sys+)
+(defparameter *calm-music-frequency* 44100)
+(defparameter *calm-music-channels* 2)
 
 ;; runtime variables
 (defparameter *calm-dpi-scale* 1)
