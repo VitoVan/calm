@@ -9,20 +9,22 @@
     ((equal type :arrow) (sdl2-ffi.functions:sdl-set-cursor (sdl2-ffi.functions:sdl-create-system-cursor sdl2-ffi:+sdl-system-cursor-arrow+)))))
 
 (sdl2-mixer:init)
-(defun play-wav (pathname &optional (loops 0))
-  (let ((abs-pathname (or
-                       (uiop:absolute-pathname-p pathname)
-                       (uiop:merge-pathnames* pathname (uiop:getenv "APP_DIR")))))
-    (if (string= (str:downcase (pathname-type abs-pathname)) "wav")
-        (progn (sdl2-mixer:open-audio sdl2-ffi:+mix-default-frequency+ sdl2-ffi:+mix-default-format+ 2 4096)
-               (sdl2-mixer:play-channel -1 (sdl2-mixer:load-wav abs-pathname) loops))
-        (format t "Only WAV supported, please try `play-music` or `sdl2-mixer`."))))
-
-(defun halt-wav ()
-  (sdl2-mixer:halt-channel -1))
 
 (defun play-music (pathname &optional (loops 0))
-  (sdl2-mixer:open-audio sdl2-ffi:+mix-default-frequency+ sdl2-ffi:+mix-default-format+ 2 4096)
+
+  ;;
+  ;; if we put the following code outside of this function,
+  ;; it will open-audio right after the library is loaded,
+  ;; which will cause problem for save-lisp-and-die
+  ;;
+  (sdl2-mixer:open-audio
+   calm::*calm-music-frequency*
+   calm::*calm-music-format*
+   ;; channels: number of channels (1 is mono, 2 is stereo, etc).
+   calm::*calm-music-channels*
+   ;; chunksize: audio buffer size in sample FRAMES (total samples divided by channel count).
+   (* calm::*calm-music-channels* calm::*calm-music-frequency*))
+
   (let ((music
           (sdl2-mixer:load-music
            (or
