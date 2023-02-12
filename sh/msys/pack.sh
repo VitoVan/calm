@@ -1,16 +1,15 @@
-echo "Setting icons ..."
-./calm sh msys icon
-
-zip -r ./calm.zip calm.exe calmNoConsole.exe calm.c entry.lisp src lib sh quicklisp README.md calm.asd sbcl images LICENSE
+zip -r ./calm.zip calm.exe calmNoConsole.exe calm.c entry.lisp build src lib sh quicklisp README.md calm.asd sbcl images LICENSE
 
 cd .github/workflows/
 
 ../../calm dist
 chmod +x ./dist/calm
-mv ./dist ./hello
-zip -r ../../hello.zip ./hello/
+export DIST_DIR=./dist
+export APP_NAME=Hello
+../../calm sh msys installer
+mv ./*-Installer.exe ../../
 
 ../../calm dist-with-canvas
 chmod +x ./dist-with-canvas/calm
-mv ./dist-with-canvas ./hello-canvas
-zip -r ../../hello-canvas.zip ./hello-canvas/
+mv ./dist-with-canvas ./calm-dist
+zip -r ../../hello-canvas.zip ./calm-dist/
