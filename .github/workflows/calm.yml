@@ -70,3 +70,4 @@ jobs:
           prerelease: true
           files: |
             *.zip
+            *-Installer.exe

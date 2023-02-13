@@ -43,7 +43,26 @@ build_msys () {
     ./calm sh all quicklisp
     ./calm sh all copy-lib
     ./calm sh msys config-lib
+
+    echo "setting icons ..."
+    RCEDIT="./sh/msys/rcedit.exe"
+    if [ ! -f "$RCEDIT" ]; then
+        set -x
+        curl -o "$RCEDIT" -L https://github.com/electron/rcedit/releases/download/v1.1.1/rcedit-x64.exe
+        set +x
+    fi
+    "$RCEDIT" "./sbcl/bin/sbcl.exe" --set-icon "./build/app.ico"
+    #
+    # calmNoConsole.exe will be copied into dist folder,
+    # so let's make its icon the same as the app icon
+    #
+    "$RCEDIT" "./calmNoConsole.exe" --set-icon "./build/app.ico"
+    "$RCEDIT" "./calm.exe" --set-icon "./build/calm.ico"
+    rm "$RCEDIT"
+
+    echo "packing ..."
     ./calm sh msys pack
+
 }
 
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
