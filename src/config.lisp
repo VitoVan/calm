@@ -1,12 +1,20 @@
 (in-package :calm)
 
 ;; init config
-(defparameter *calm-x* :centered)
-(defparameter *calm-y* :centered)
-(defparameter *calm-width* 600)
-(defparameter *calm-height* 150)
-(defparameter *calm-title* "CALM")
-(defparameter *calm-flags* '(:shown :allow-highdpi))
+(defparameter *calm-window-x* :centered)
+(defparameter *calm-window-y* :centered)
+(defparameter *calm-window-width* 600)
+(defparameter *calm-window-height* 150)
+(defparameter *calm-window-title* "CALM")
+(defparameter *calm-window-flags* '(:shown :allow-highdpi))
+
+;;
+;; use OpenGL on Linux to avoid weird window flashing: (like it was closed and then opened again)
+;;
+#+linux
+(push :opengl *calm-window-flags*)
+
+(defparameter *calm-window-icon* nil)
 (defparameter *calm-delay* 42)
 (defparameter *calm-redraw* t
   "The canvas will be painted again and again by calling the `draw` function,
