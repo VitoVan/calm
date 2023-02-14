@@ -4,8 +4,11 @@ cd .github/workflows/
 
 ../../calm dist
 chmod +x ./dist/calm
-mv ./dist ./hello
-tar -czvf ../../hello.tgz ./hello/
+export DIST_DIR=./dist
+export APP_NAME=Hello
+export APP_ICON="${CALM_DIR}/build/app.png"
+../../calm sh fedora appimage
+mv ./*.AppImage ../../hello.AppImage
 
 ../../calm dist-with-canvas
 chmod +x ./dist-with-canvas/calm

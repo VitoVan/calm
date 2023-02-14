@@ -6,6 +6,7 @@
     :depends-on (
                  #:sdl2
                  #:sdl2-mixer
+                 #:sdl2-image
                  #:str
                  #:swank
                  #:cl-cairo2)

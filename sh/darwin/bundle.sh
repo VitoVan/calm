@@ -11,11 +11,32 @@
 # APP_ICON=./build/app.icns APP_NAME=Hello APP_VERSION=0.0.1 DIST_DIR=./dist ./calm sh darwin bundle
 #
 
+if [[ -z "${APP_NAME}" ]]; then
+    echo "Please set the env: APP_NAME"
+    exit 42
+fi
+
+if [[ -z "${APP_VERSION}" ]]; then
+    echo "Please set the env: APP_VERSION"
+    exit 42
+fi
+
+if [[ -z "${APP_ICON}" ]]; then
+    echo "Please set the env: APP_ICON"
+    exit 42
+fi
+
+if [[ -z "${DIST_DIR}" ]]; then
+    echo "Please set the env: DIST_DIR"
+    exit 42
+fi
+
+
 cd "$APP_DIR"
 
 mkdir -p "$APP_NAME.app/Contents/Resources"
 
-cat > "$APP_NAME.app/Contents/Info.plist" <<END
+cat > "$APP_NAME.app/Contents/Info.plist" <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
@@ -44,7 +65,7 @@ cat > "$APP_NAME.app/Contents/Info.plist" <<END
   <key>NSSupportsAutomaticGraphicsSwitching</key><true/>
 </dict>
 </plist>
-END
+EOF
 
 cp -R "${DIST_DIR}" "${APP_NAME}.app/Contents/MacOS"
 chmod +x "${APP_NAME}.app/Contents/MacOS/calm"

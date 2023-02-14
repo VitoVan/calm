@@ -24,7 +24,15 @@
 
 (defun calm-init ()
   (sdl2:with-init (:everything)
-    (sdl2:with-window (calm-window :title *calm-title* :x *calm-x* :y *calm-y* :w *calm-width* :h *calm-height* :flags *calm-flags*)
+    (sdl2:with-window (calm-window :title *calm-window-title* :x *calm-window-x* :y *calm-window-y* :w *calm-window-width* :h *calm-window-height* :flags *calm-window-flags*)
+      ;; default window icon
+      (unless *calm-window-icon*
+        (setf *calm-window-icon* (str:concat (uiop:getenv "CALM_DIR") "build/app.png")))
+      (when (probe-file *calm-window-icon*)
+        (sdl2-ffi.functions:sdl-set-window-icon
+         calm-window
+         (sdl2-image:load-image *calm-window-icon*)))
+
       (sdl2:with-renderer (calm-renderer calm-window)
         (sdl2:with-event-loop (:method :poll)
           (:quit () (calm-quit))
@@ -77,7 +85,7 @@
                  (when *calm-redraw*
                    (multiple-value-bind (calm-renderer-width calm-renderer-height)
                        (sdl2:get-renderer-output-size calm-renderer)
-                     (setf *calm-dpi-scale* (/ calm-renderer-width *calm-width*))
+                     (setf *calm-dpi-scale* (/ calm-renderer-width *calm-window-width*))
                      (sdl2:render-clear calm-renderer)
                      (let ((texture (sdl2:create-texture
                                      calm-renderer

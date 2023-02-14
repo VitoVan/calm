@@ -7,7 +7,7 @@ chmod +x ./dist/calm
 export DIST_DIR=./dist
 export APP_NAME=Hello
 ../../calm sh msys installer
-mv ./*-Installer.exe ../../
+mv ./*-Installer.exe ../../hello.exe
 
 ../../calm dist-with-canvas
 chmod +x ./dist-with-canvas/calm
