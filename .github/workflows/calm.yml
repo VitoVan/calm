@@ -18,7 +18,7 @@ jobs:
         run: |
           sudo apt install -y build-essential
           gcc calm.c -o calm
-          docker run --env CI=true -v $PWD:/calm -w /calm fedora:34 bash build/build.sh
+          docker run --env CI=true -v $PWD:/calm -w /calm fedora:36 bash build/build.sh
           ls -lah .
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.14
@@ -71,4 +71,4 @@ jobs:
           prerelease: true
           files: |
             *.zip
-            *-Installer.exe
+            hello.exe
