@@ -8,7 +8,7 @@ export DIST_DIR=./dist
 export APP_NAME=Hello
 export APP_ICON="${CALM_DIR}/build/app.png"
 ../../calm sh fedora appimage
-mv ./*.AppImage ../../
+mv ./*.AppImage ../../hello.AppImage
 
 ../../calm dist-with-canvas
 chmod +x ./dist-with-canvas/calm
