@@ -142,10 +142,6 @@ Setf-able:
 
   You can use `(setf (uiop:getenv "SDL_VIDEO_ALLOW_SCREENSAVER") "1")` to set it.
 
-- `CALM_EVAL='(format t "hello")'`
-
-  Some lisp code eval-ed after loading your `canvas.lisp` and before start
-
 Read-only:
 
 - `CALM_DIR`

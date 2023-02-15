@@ -172,18 +172,9 @@
   ;; switch to the APP_DIR
   (uiop:chdir (uiop:getenv "APP_DIR")))
 
-(defun calm-eval ()
-  "Eval lisp code from env CALM_EVAL"
-  (let ((calm-eval-str (uiop:getenv "CALM_EVAL")))
-    (when calm-eval-str
-      (u:calm-log "EVALing: ~%~A~%" calm-eval-str)
-      (in-package #:calm)
-      (eval (read-from-string calm-eval-str)))))
-
 (defun calm-start ()
   "Start the window"
   (calm::calm-config)
-  (calm-eval)
   #+linux (calm::calm-init)
   #+(or win32 darwin) (sdl2:make-this-thread-main #'calm::calm-init))
 
@@ -194,6 +185,5 @@
     (if (probe-file canvas-file)
         (load canvas-file)
         (u:calm-log "canvas.lisp NOT FOUND: ~A~%" canvas-file)))
-  (calm-eval)
   #+linux (calm::calm-init)
   #+(or win32 darwin) (sdl2:make-this-thread-main #'calm::calm-init))
