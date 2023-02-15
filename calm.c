@@ -1,9 +1,16 @@
 /*
+ * I am formatting this file with:
+ *    clang-format --style=Google -i calm.c
+ * So, if you are editing this file, please format it afterwards
+ *
  * Compile on Windows:
- *    GUI:
- *        cl /Fe:calmGUI calm.c /link /SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup
- *    Console:
- *        cl /Fe:calm calm.c /link /SUBSYSTEM:CONSOLE
+ *  GUI:
+ *    cl /Fe:calmNoConsole calm.c /link /SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup
+ *  Console:
+ *    cl /Fe:calm calm.c /link /SUBSYSTEM:CONSOLE
+ *
+ * Compile on *nix:
+ *    gcc calm.c -o calm
  */
 
 #include <stdint.h>
@@ -27,7 +34,7 @@ void applyenv(char const *variable, char const *value) {
 #endif
 }
 
-char *getbinarypath() {
+const char *getbinarypath() {
   static char path[FILENAME_MAX];
   uint32_t size = sizeof(path);
 #ifdef __APPLE__
@@ -40,20 +47,82 @@ char *getbinarypath() {
   return path;
 }
 
-char *getbinarydir() {
+const char *getbinarydir() {
 #ifdef _WIN32
-  char drive[FILENAME_MAX];
+  static char drive[FILENAME_MAX];
   char dir[FILENAME_MAX];
   _splitpath_s(getbinarypath(), drive, sizeof(drive), dir, sizeof(dir), NULL, 0,
                NULL, 0);
   return strcat(drive, dir);
 #else
-  return dirname(getbinarypath());
+  return dirname((char *)getbinarypath());
 #endif
+}
+
+const char *getlibpath() {
+  static char lib_path[FILENAME_MAX];
+#ifdef __APPLE__
+  /*
+   * add quotation mark, to avoid white-space problems
+   * this shit seems only work on macOS
+   */
+
+  strcpy(lib_path, "\"");
+#else
+  strcpy(lib_path, "");
+#endif
+
+  strcat(lib_path, getbinarydir());
+
+#ifdef _WIN32
+  char *lib_rel = "lib";
+#else
+  char *lib_rel = "/lib";
+#endif
+  strcat(lib_path, lib_rel);
+
+#ifdef __APPLE__
+  strcat(lib_path, "\"");
+#endif
+
+  printf("LIB_PATH=%s\n", lib_path);
+  return lib_path;
+}
+
+/*
+ * return the new value for
+ *     Linux: LD_LIBRARY_PATH
+ *     macOS: DYLD_FALLBACK_LIBRARY_PATH
+ *     Windows: PATH
+ */
+const char *getlibenv() {
+  const char *lib_path = getlibpath();
+  char *path_separator = ":";
+#ifdef __APPLE__
+  char *ori_lib_env = getenv("DYLD_FALLBACK_LIBRARY_PATH");
+#elif defined __linux__
+  char *ori_lib_env = getenv("LD_LIBRARY_PATH");
+#elif defined _WIN32
+  path_separator = ";";
+  char *ori_lib_env = getenv("PATH");
+#endif
+  if (ori_lib_env == NULL) {
+    ori_lib_env = "";
+  }
+  char *lib_env = malloc(strlen(ori_lib_env) * sizeof(char) +
+                         strlen(lib_path) * sizeof(char) + 1);
+  strcpy(lib_env, ori_lib_env);
+  if (strlen(ori_lib_env) > 0) {
+    strcat(lib_env, path_separator);
+  }
+  strcat(lib_env, lib_path);
+  printf("LIB_ENV=%s\n", lib_env);
+  return lib_env;
 }
 
 int main(int argc, char *argv[]) {
   char calm_cmd[1024];
+  const char *lib_env = getlibenv();
 
   if (argc >= 2) {
     strcpy(calm_cmd, argv[1]);
@@ -70,7 +139,9 @@ int main(int argc, char *argv[]) {
   char slash[] = "/";
 #endif
 
-  // applying APP_DIR
+  /*
+   * applying APP_DIR
+   */
   char cwd[FILENAME_MAX];
   getcwd(cwd, sizeof(cwd));
 #ifdef _WIN32
@@ -81,7 +152,9 @@ int main(int argc, char *argv[]) {
   applyenv("APP_DIR", cwd);
   printf("APP_DIR=%s \n", getenv("APP_DIR"));
 
-  // applying CALM_DIR
+  /*
+   * applying CALM_DIR
+   */
   char binarydir[FILENAME_MAX];
   strcpy(binarydir, getbinarydir());
 #ifndef _WIN32
@@ -90,7 +163,9 @@ int main(int argc, char *argv[]) {
   applyenv("CALM_DIR", binarydir);
   printf("CALM_DIR=%s \n", getenv("CALM_DIR"));
 
-  // applying SBCL_HOME
+  /*
+   * applying SBCL_HOME
+   */
 #ifdef _WIN32
   char *sbcl_home_rel = "sbcl\\lib\\sbcl";
 #else
@@ -102,19 +177,9 @@ int main(int argc, char *argv[]) {
   applyenv("SBCL_HOME", sbcl_home);
   printf("SBCL_HOME=%s \n", getenv("SBCL_HOME"));
 
-  // applying Library PATH
-#ifdef _WIN32
-  char *lib_rel = "lib";
-#else
-  char *lib_rel = "/lib";
-#endif
-
-  char lib_path[FILENAME_MAX];
-  strcpy(lib_path, getbinarydir());
-  strcat(lib_path, lib_rel);
-  printf("LIB_PATH=%s\n", lib_path);
-
-  // change DIR to CALM_DIR
+  /*
+   * cd to CALM_DIR
+   */
   chdir(getenv("CALM_DIR"));
 
   char entry_cmd[FILENAME_MAX];
@@ -122,7 +187,7 @@ int main(int argc, char *argv[]) {
 
 #ifdef __APPLE__
   int calm_is_building = getenv("CALM_BUILDING") ? 1 : 0;
-  if (calm_is_building == 1) {  // Building, don't set DYLD env
+  if (calm_is_building == 1) {  // Building, don't set lib env
     strcat(entry_cmd, "/sbcl/bin/sbcl");
   } else {
     /*
@@ -135,25 +200,17 @@ int main(int argc, char *argv[]) {
      *     DYLD_FALLBACK_LIBRARY_PATH=/some/where/my/lib ./my-app
      */
     strcpy(entry_cmd, "DYLD_FALLBACK_LIBRARY_PATH=");
-    strcat(entry_cmd, "\"");
-    strcat(entry_cmd, lib_path);
-    strcat(entry_cmd, "\"");
+    strcat(entry_cmd, lib_env);
     strcat(entry_cmd, " ");
     strcat(entry_cmd, getbinarydir());
     strcat(entry_cmd, "/sbcl/bin/sbcl");
   }
 #elif defined _WIN32
-  char *ori_path = getenv("PATH");
-  char *new_path = malloc(strlen(ori_path) * sizeof(char) +
-                          strlen(lib_path) * sizeof(char) + 1);
-  strcpy(new_path, ori_path);
-  strcat(new_path, ";");
-  strcat(new_path, lib_path);
-  applyenv("PATH", new_path);
+  applyenv("PATH", lib_env);
   printf("PATH=%s \n", getenv("PATH"));
   strcat(entry_cmd, "sbcl\\bin\\sbcl.exe");
 #elif defined __linux__
-  applyenv("LD_LIBRARY_PATH", lib_path);
+  applyenv("LD_LIBRARY_PATH", lib_env);
   printf("LD_LIBRARY_PATH=%s \n", getenv("LD_LIBRARY_PATH"));
   strcat(entry_cmd, "/sbcl/bin/sbcl");
 #endif
@@ -197,9 +254,7 @@ int main(int argc, char *argv[]) {
     }
 #elif defined __APPLE__
     strcpy(entry_cmd, "DYLD_FALLBACK_LIBRARY_PATH=");
-    strcat(entry_cmd, "\"");
-    strcat(entry_cmd, lib_path);
-    strcat(entry_cmd, "\"");
+    strcat(entry_cmd, lib_env);
     strcat(entry_cmd, " bin/calm-app");
     if (system(entry_cmd) != 0) return 42;
 #else
