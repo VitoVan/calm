@@ -120,6 +120,23 @@ const char *getlibenv() {
   return lib_env;
 }
 
+/*
+ * show an alert, for the first time long loading process
+ * only needed when running `calm` command
+ */
+void firstrun() {
+  if (getenv("CI") == NULL) {
+    if (access(".calm-initialised", F_OK) != 0) {
+#ifdef __APPLE__
+      system(
+          "osascript -e 'display alert \"Initialising CALM ...\" message "
+          "\"This may take a few minutes.\" buttons {\"OK, I will wait\"} "
+          "giving up after 10' && touch .calm-initialised &");
+#endif
+    }
+  }
+}
+
 int main(int argc, char *argv[]) {
   char calm_cmd[1024];
   const char *lib_env = getlibenv();
@@ -216,6 +233,8 @@ int main(int argc, char *argv[]) {
 #endif
 
   if (access("calm.asd", F_OK) == 0) {
+    firstrun();
+
     if (access("calm.core", F_OK) == 0) {
       strcat(entry_cmd, " --core calm.core");
     }
