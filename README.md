@@ -138,11 +138,9 @@ Setf-able:
 
 - `SDL_VIDEO_ALLOW_SCREENSAVER=1`
 
-  Allow screensaver, check [Why does SDL disable my screensaver by default?](https://wiki.libsdl.org/SDL2/FAQUsingSDL#why_does_sdl_disable_my_screensaver_by_default)
+  Allow screensaver, check [Why does SDL disable my screensaver by default?](https://wiki.libsdl.org/SDL2/FAQUsingSDL#why_does_sdl_disable_my_screensaver_by_default).
 
-- `CALM_EVAL='(format t "hello")'`
-
-  Some lisp code eval-ed after loading your `canvas.lisp` and before start
+  You can use `(setf (uiop:getenv "SDL_VIDEO_ALLOW_SCREENSAVER") "1")` to set it.
 
 Read-only:
 
