@@ -61,17 +61,19 @@ Section "Installer Section"
 
   WriteUninstaller "$INSTDIR\Uninstall.exe"
 
-  ; Create application shortcut (first in installation dir to have the correct "start in" target)
-  CreateShortCut "$INSTDIR\__APP_NAME__.lnk" "$INSTDIR\calm-install-root\calm.exe"
+  ; Create application shortcut (first in calm-install-root to have the correct "start in" target)
+  SetOutPath "$INSTDIR\calm-install-root\"
+  CreateShortCut "$INSTDIR\calm-install-root\__APP_NAME__.lnk" "$INSTDIR\calm-install-root\calm.exe"
+  SetOutPath "$INSTDIR\"
   CreateShortCut "$INSTDIR\uninstall-__APP_NAME__.lnk" "$INSTDIR\Uninstall.exe"
 
   ; Start menu entries
   SetOutPath "$SMPROGRAMS\__APP_NAME__\"
-  CopyFiles "$INSTDIR\__APP_NAME__.lnk" "$SMPROGRAMS\__APP_NAME__\"
-  CopyFiles "$INSTDIR\__APP_NAME__.lnk" "$DESKTOP\"
+  CopyFiles "$INSTDIR\calm-install-root\__APP_NAME__.lnk" "$SMPROGRAMS\__APP_NAME__\"
+  CopyFiles "$INSTDIR\calm-install-root\__APP_NAME__.lnk" "$DESKTOP\"
   CopyFiles "$INSTDIR\uninstall-__APP_NAME__.lnk" "$SMPROGRAMS\__APP_NAME__\"
 
-  Delete "$INSTDIR\__APP_NAME__.lnk"
+  Delete "$INSTDIR\calm-install-root\__APP_NAME__.lnk"
   Delete "$INSTDIR\uninstall-__APP_NAME__.lnk"
 
   WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\__APP_NAME__" "DisplayName" "__APP_NAME__"
