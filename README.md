@@ -91,6 +91,7 @@ Now, pack it and send it to your friend! Normally, they will be able to enjoy yo
 > ```bash
 > export APP_ICON=/path/to/your/app.icns
 > export APP_NAME=Hello
+> export APP_ID=com.jack.coolapp
 > export APP_VERSION=0.0.1
 > export DIST_DIR=/path/to/your/dist
 > calm sh darwin bundle

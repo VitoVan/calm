@@ -8,6 +8,7 @@ fi
 
 export APP_ICON=./build/calm.icns
 export APP_VERSION=0.0.29
+export APP_ID=com.vitovan.calm
 
 mkdir calm-dist
 cp -R {calm,calm.c,build,entry.lisp,src,lib,sh,quicklisp,README.md,calm.asd,sbcl,images,LICENSE} ./calm-dist/
