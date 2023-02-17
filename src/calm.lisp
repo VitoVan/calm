@@ -26,8 +26,12 @@
   (sdl2:with-init (:everything)
     (sdl2:with-window (calm-window :title *calm-window-title* :x *calm-window-x* :y *calm-window-y* :w *calm-window-width* :h *calm-window-height* :flags *calm-window-flags*)
       ;; default window icon
-      (unless *calm-window-icon*
-        (setf *calm-window-icon* (str:concat (uiop:getenv "CALM_DIR") "build/app.png")))
+      (if *calm-window-icon*
+          (setf *calm-window-icon*
+                (or
+                 (uiop:absolute-pathname-p *calm-window-icon*)
+                 (uiop:merge-pathnames* *calm-window-icon* (uiop:getenv "APP_DIR"))))
+          (setf *calm-window-icon* (str:concat (uiop:getenv "CALM_DIR") "build/app.png")))
       (when (probe-file *calm-window-icon*)
         (sdl2-ffi.functions:sdl-set-window-icon
          calm-window
