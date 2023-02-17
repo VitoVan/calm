@@ -39,7 +39,13 @@
 
   !insertmacro MUI_PAGE_DIRECTORY
   !insertmacro MUI_PAGE_INSTFILES
-  !define MUI_FINISHPAGE_RUN "$INSTDIR\calm-install-root\calm.exe"
+
+  !define MUI_FINISHPAGE_RUN
+  !define MUI_FINISHPAGE_RUN_FUNCTION "LaunchLink"
+  Function LaunchLink
+    ExecShell "" "$DESKTOP\__APP_NAME__.lnk"
+  FunctionEnd
+
   !insertmacro MUI_PAGE_FINISH
 
   !insertmacro MUI_UNPAGE_CONFIRM
