@@ -1,3 +1,4 @@
 #!/bin/bash
-cd ./usr/bin/
+export APPDIR="$(dirname "$(readlink -f "$0")")"
+cd $APPDIR/usr/bin/
 exec ./calm
