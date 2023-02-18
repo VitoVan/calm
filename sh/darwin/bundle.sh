@@ -16,6 +16,11 @@ if [[ -z "${APP_NAME}" ]]; then
     exit 42
 fi
 
+if [[ -z "${APP_ID}" ]]; then
+    echo "Please set the env: APP_ID, e.g. com.jack.coolapp"
+    exit 42
+fi
+
 if [[ -z "${APP_VERSION}" ]]; then
     echo "Please set the env: APP_VERSION"
     exit 42
@@ -46,7 +51,7 @@ cat > "$APP_NAME.app/Contents/Info.plist" <<EOF
   <key>CFBundleExecutable</key>
   <string>calm</string>
   <key>CFBundleIdentifier</key>
-  <string>com.vitovan.calm</string>
+  <string>$APP_ID</string>
   <key>CFBundleName</key>
   <string>$APP_NAME</string>
   <key>CFBundleIconFile</key>
