@@ -67,9 +67,7 @@ build\\build.bat
 
 Distribute your CALM Application.
 
-### Standard Distribution
-
-To distribute your applications to non-wizard users, to provide a portable application package for those who fears the dark of the terminal.
+### Generate Application
 
 Launch your terminal, cd to the directory where the file **canvas.lisp** exists, enter the command:
 
@@ -81,6 +79,8 @@ You will get a directory `dist` containing all the dependencies and your final b
 
 Now, pack it and send it to your friend! Normally, they will be able to enjoy your application. If not, tell them to run the file `calm` or double click `calm.exe`.
 
+There exists a similar command `calm dist-with-canvas`, this one will include `canvas.lisp` in the final `dist` directory. This gives the end user the ability to modify your application.
+
 > **Note**
 >
 > for macOS, you may want to create an [application bundle](https://en.wikipedia.org/wiki/Bundle_(macOS)):
@@ -89,32 +89,71 @@ Now, pack it and send it to your friend! Normally, they will be able to enjoy yo
 > <p>
 >
 > ```bash
-> export APP_ICON=/path/to/your/app.icns
-> export APP_NAME=Hello
+> export APP_ICON=asset/coolapp.icns
+> export APP_NAME=Coolapp
 > export APP_ID=com.jack.coolapp
 > export APP_VERSION=0.0.1
-> export DIST_DIR=/path/to/your/dist
+> export DIST_DIR=./dist
 > calm sh darwin bundle
 > ```
 >
 > </p>
 > </details>
 
+### Generate Package
 
+Instead of sending out the directory, you can also generate pretty packages.
 
-### Canvas Distribution
+**Linux AppImage**
 
-For those who love the source, for the maximum configurability.
+![Linux AppImage](./images/linux-appimage.png)
+
+<details><summary>Click to show code</summary>
+<p>
 
 ```bash
-calm dist-with-canvas
+export DIST_DIR=./dist
+export APP_NAME=Coolapp
+export APP_ICON="asset/coolapp.png"
+calm sh fedora appimage
 ```
 
-Mostly identical to the standard distribution, but with `canvas.lisp` included.
+</p>
+</details>
 
-This gives the end user ability to modify your application.
+**macOS Application Bundle**
 
-It is very convenient when your friend has a bad taste in color.
+![macOS Application DMG](./images/macos-dmg.png)
+
+<details><summary>Click to show code</summary>
+<p>
+
+```bash
+# you should have ran `calm sh darwin bundle`
+export APP_NAME=Coolapp
+export DMG_NAME=coolapp
+export DMG_ICON=asset/coolapp-dmg.icns
+calm sh darwin dmg
+```
+
+</p>
+</details>
+
+**Windows Installer**
+
+![Windows Installer](./images/windows-installer.png)
+
+<details><summary>Click to show code</summary>
+<p>
+
+```bash
+export DIST_DIR=./dist
+export APP_NAME=Coolapp
+calm sh msys installer
+```
+
+</p>
+</details>
 
 ### Expedient Distribution
 
