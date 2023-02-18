@@ -1,7 +1,5 @@
 # <img style="vertical-align:middle;margin-right:10px;" width="100" alt="Calm" src="./build/calm.png"> Canvas And Lisp Magic
 
-[![Hello World](./images/hello-world.png)](#hello-world)
-
 Calm down and draw something, in Lisp.
 
 [![platform support](https://img.shields.io/badge/Platform-Linux%20%7C%20macOS%20%7C%20Windows-blue.svg)](#installation) [![CI](https://github.com/VitoVan/calm/actions/workflows/calm.yml/badge.svg)](https://github.com/VitoVan/calm/actions/workflows/calm.yml)
@@ -25,6 +23,8 @@ Launch your terminal, cd to that directory, enter the command:
 ```bash
 calm
 ```
+
+[![Hello World](./images/hello-world.png)](#hello-world)
 
 ## More Examples
 
@@ -83,7 +83,7 @@ There exists a similar command `calm dist-with-canvas`, this one will include `c
 
 > **Note**
 >
-> for macOS, you may want to create an [application bundle](https://en.wikipedia.org/wiki/Bundle_(macOS)):
+> for macOS, you may want to create an [application bundle](https://en.wikipedia.org/wiki/Bundle_(macOS)) to avoid too many [warning messages](https://support.apple.com/HT202491) for the dylibs:
 >
 > <details><summary>Click to show code</summary>
 > <p>
