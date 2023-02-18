@@ -22,7 +22,6 @@ if [ ! -f "${APP_IMAGE_TOOL}" ]; then
     echo "appimagetool is not ready, downloading ..."
     set -x
     curl -o "${APP_IMAGE_TOOL}" -L https://github.com/AppImage/AppImageKit/releases/download/13/appimagetool-x86_64.AppImage
-    curl -o "${APP_IMAGE_APPRUN}" -L https://github.com/AppImage/AppImageKit/releases/download/13/AppRun-x86_64
     chmod +x "${APP_IMAGE_TOOL}"
     chmod +x "${APP_IMAGE_APPRUN}"
     set +x
