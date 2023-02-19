@@ -34,7 +34,9 @@ calm
     <a title="Check the code for Meditator" href="./examples/meditator"><img width="250" alt="Meditator" src="./examples/meditator/canvas.png"></a>
 </p>
 
-Click the image to read more, [click here](https://github.com/VitoVan/calm/releases/latest/download/examples.zip) to download the example pack, or check this list for the shiny stuff [made with CALM](https://github.com/VitoVan/made-with-calm).
+Click the image to read more, [click here](https://github.com/VitoVan/calm/releases/latest/download/examples.zip) to download the example pack.
+
+Or check this list for the shiny stuff [Made with CALM](https://github.com/VitoVan/made-with-calm).
 
 ## Installation
 
