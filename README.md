@@ -193,3 +193,29 @@ Read-only:
 - `APP_DIR`
 
   This variable holds the path of the directory where calm was started up (aka `pwd`)
+
+## Tutorials
+
+Not yet, but here are some links might be helpful:
+
+- SDL2
+    - https://wiki.libsdl.org/SDL2
+    - https://github.com/lispgames/cl-sdl2
+
+- Cairo
+  - https://www.cairographics.org/
+  - https://github.com/rpav/cl-cairo2
+    in `(c:fill-path)`, the `c` is a nickname for `cl-cairo2`
+
+- CALM
+  - https://github.com/VitoVan/calm/blob/main/src/config.lisp
+  - https://github.com/VitoVan/calm/blob/main/src/utils.lisp
+
+- Development Tools
+    - https://slime.common-lisp.dev/
+    - https://lispcookbook.github.io/cl-cookbook/vscode-alive.html
+
+- Common Lisp
+  - https://lispcookbook.github.io/cl-cookbook/
+  - http://www.lispworks.com/documentation/HyperSpec/Front/
+  - https://lisp-lang.org/books/
