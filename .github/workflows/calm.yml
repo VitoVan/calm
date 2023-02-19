@@ -16,8 +16,6 @@ jobs:
 
       - name: Build
         run: |
-          sudo apt install -y build-essential
-          gcc calm.c -o calm
           docker run --env CI=true -v $PWD:/calm -w /calm fedora:36 bash build/build.sh
           ls -lah .
       - name: GH Release

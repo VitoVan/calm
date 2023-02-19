@@ -10,7 +10,7 @@ export APP_ICON=./build/calm.icns
 export APP_VERSION=0.0.32
 
 mkdir calm-dist
-cp -R {calm,calm.c,build,entry.lisp,src,lib,sh,quicklisp,README.md,calm.asd,sbcl,images,LICENSE} ./calm-dist/
+cp -R {calm,build,entry.lisp,src,lib,sh,quicklisp,README.md,calm.asd,sbcl,images,LICENSE} ./calm-dist/
 export APP_NAME=Calm
 export APP_ID=com.vitovan.calm
 export DIST_DIR=./calm-dist
