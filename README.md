@@ -2,7 +2,7 @@
 
 Calm down and draw something, in Lisp.
 
-[![platform support](https://img.shields.io/badge/Platform-Linux%20%7C%20macOS%20%7C%20Windows-blue.svg)](#installation) [![CI](https://github.com/VitoVan/calm/actions/workflows/calm.yml/badge.svg)](https://github.com/VitoVan/calm/actions/workflows/calm.yml)
+[![platform support](https://img.shields.io/badge/Platform-Linux%20%7C%20macOS%20%7C%20Windows-blue.svg)](#installation) [![CI](https://github.com/VitoVan/calm/actions/workflows/calm.yml/badge.svg)](https://github.com/VitoVan/calm/actions/workflows/calm.yml) [![GitHub all releases](https://img.shields.io/github/downloads/vitovan/calm/total?color=green&label=Downloads&style=plastic)](https://github.com/VitoVan/calm/releases/latest)
 
 ## Hello World
 
@@ -34,11 +34,13 @@ calm
     <a title="Check the code for Meditator" href="./examples/meditator"><img width="250" alt="Meditator" src="./examples/meditator/canvas.png"></a>
 </p>
 
+Click the image to read more, [click here](https://github.com/VitoVan/calm/releases/latest/download/examples.zip) to download the example pack, or check this list for the shiny stuff [made with CALM](https://github.com/VitoVan/made-with-calm).
+
 ## Installation
 
 ### Pre-built Binary
 
-1. Download the [latest release](https://github.com/VitoVan/calm/releases/latest) for your platform
+1. **Download the [latest release](https://github.com/VitoVan/calm/releases/latest)** for your platform
 2. Extract the content
 3. Add the extracted folder into your PATH environment
 
@@ -46,7 +48,7 @@ calm
 
 ### Build Your Own
 
-All the binaries are built with [Github Action](them), so the supported environments are limited.
+All the binaries are built with [Github Action](.github/workflows/calm.yml), so the supported environments are limited.
 
 If you are using something not supported (Apple M1 or ARM Windows / Linux), please consider building your own CALM.
 
