@@ -9,9 +9,11 @@
 
 (in-package #:calm)
 
-(setf *calm-width* 600)
-(setf *calm-height* 500)
-(setf *calm-title* "Mondrian")
+(defparameter *mondrian-version* "0.0.1")
+
+(setf *calm-window-width* 600)
+(setf *calm-window-height* 500)
+(setf *calm-window-title* "Mondrian")
 
 (defun on-mousebuttonup (&key button x y clicks)
   (declare (ignore button x y clicks))
@@ -31,10 +33,10 @@
   (c:set-line-width 20)
   (loop with x = 0
         for width = (+ 42 (random 300))
-        until (> x *calm-width*)
+        until (> x *calm-window-width*)
         do (loop with y = 0
                  for height = (+ 42 (random 300))
-                 until (> y *calm-height*)
+                 until (> y *calm-window-height*)
                  do (draw-rect x y width height (= (random 3) 0))
                  do (incf y height))
         do (incf x width))

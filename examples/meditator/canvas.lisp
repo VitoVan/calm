@@ -11,10 +11,9 @@
 
 (defparameter *meditator-version* "0.0.1")
 
-(setf *calm-width* 600)
-(setf *calm-height* 500)
-
-(defparameter *calm-title* "Meditator")
+(setf *calm-window-width* 600)
+(setf *calm-window-height* 500)
+(setf *calm-window-title* "Meditator")
 
 (defun draw-button ()
   (c:new-path)

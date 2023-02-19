@@ -9,6 +9,8 @@
 
 (in-package #:calm)
 
+(defparameter *fan-version* "0.0.1")
+
 (setf *calm-window-width* 600)
 (setf *calm-window-height* 500)
 

@@ -1,6 +1,6 @@
 # Mondrian
 
-The random Piet Mondrian, in Lisp.
+The random Piet Mondrian, please click the canvas.
 
 ![mondrian](./canvas.png "Random Piet Mondrian")
 
