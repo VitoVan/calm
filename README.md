@@ -29,9 +29,9 @@ calm
 ## More Examples
 
 <p align="center">
-    <a title="Check the code for Fan" href="https://github.com/calm2d/fan"><img width="250" alt="Fan" src="./images/fan.png"></a>
-    <a title="Check the code for Mondrian" href="https://github.com/calm2d/mondrian"><img width="250" alt="Mondrian" src="./images/mondrian.png"></a>
-    <a title="Check the code for Meditator" href="https://github.com/calm2d/meditator"><img width="250" alt="Meditator" src="./images/meditator.png"></a>
+    <a title="Check the code for Fan" href="./examples/fan"><img width="250" alt="Fan" src="./examples/fan/canvas.png"></a>
+    <a title="Check the code for Mondrian" href="./examples/mondrian"><img width="250" alt="Mondrian" src="./examples/mondrian/canvas.png"></a>
+    <a title="Check the code for Meditator" href="./examples/meditator"><img width="250" alt="Meditator" src="./examples/meditator/canvas.png"></a>
 </p>
 
 ## Installation
