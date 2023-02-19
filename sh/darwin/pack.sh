@@ -7,7 +7,7 @@ else
 fi
 
 export APP_ICON=./build/calm.icns
-export APP_VERSION=0.0.32
+export APP_VERSION=0.0.33
 
 mkdir calm-dist
 cp -R {calm,build,entry.lisp,src,lib,sh,quicklisp,README.md,calm.asd,sbcl,images,LICENSE} ./calm-dist/
