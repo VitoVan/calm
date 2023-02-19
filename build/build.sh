@@ -6,7 +6,7 @@ build_fedora () {
     if ! [ -f calm ]; then
         echo "build launcher ..."
         sudo dnf install gcc -y
-        gcc calm.c -o calm
+        gcc src/calm.c -o calm
     fi
 
     ./calm sh fedora deps
@@ -21,7 +21,7 @@ build_fedora () {
 build_darwin () {
     echo "build launcher ..."
     brew install gcc
-    gcc calm.c -o calm
+    gcc src/calm.c -o calm
 
     ./calm sh darwin deps
     ./calm sh darwin sbcl
@@ -35,8 +35,8 @@ build_darwin () {
 build_msys () {
     ##        The following should be ran on MSVC Shell
     #        echo "build launcher ..."
-    #        cl /Fe:calmGUI calm.c /link /SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup
-    #        cl /Fe:calm calm.c /link /SUBSYSTEM:CONSOLE
+    #        cl /Fe:calmGUI src\calm.c /link /SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup
+    #        cl /Fe:calm src\calm.c /link /SUBSYSTEM:CONSOLE
 
     ./calm sh msys deps
     ./calm sh msys sbcl

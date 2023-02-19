@@ -1,4 +1,4 @@
-zip -r ./calm.zip calm.exe calmNoConsole.exe calm.c entry.lisp build src lib sh quicklisp README.md calm.asd sbcl images LICENSE
+zip -r ./calm.zip calm.exe calmNoConsole.exe entry.lisp build src lib sh quicklisp README.md calm.asd sbcl images LICENSE
 
 cd .github/workflows/
 

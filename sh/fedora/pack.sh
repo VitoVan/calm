@@ -1,4 +1,4 @@
-tar -czvf ./calm.tgz build calm calm.c entry.lisp src lib sh quicklisp README.md calm.asd sbcl images LICENSE
+tar -czvf ./calm.tgz build calm entry.lisp src lib sh quicklisp README.md calm.asd sbcl images LICENSE
 
 cd .github/workflows/
 
