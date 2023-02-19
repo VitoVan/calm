@@ -43,7 +43,7 @@ cd "$APP_DIR"
 # https://notes.alinpanaitiu.com/Making%20macOS%20apps%20uninstallable
 # the following trick makes the app "uninstallable"
 #
-mkdir "$APP_NAME.app/Contents/_MASReceipt"
+mkdir -p "$APP_NAME.app/Contents/_MASReceipt"
 touch "$APP_NAME.app/Contents/_MASReceipt/receipt"
 
 mkdir -p "$APP_NAME.app/Contents/Resources"
