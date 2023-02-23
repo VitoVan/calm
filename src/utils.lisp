@@ -34,6 +34,3 @@
 
 (defun halt-music ()
   (sdl2-mixer:halt-music))
-
-(defun audio-is-playing ()
-  (not (= 0 (sdl2-mixer:playing -1))))
