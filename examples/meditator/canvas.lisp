@@ -22,7 +22,7 @@
   (c:arc 550 50 15 0 (* 2 pi))
   (if (c:in-fill *calm-state-mouse-x* *calm-state-mouse-y*)
       (progn (c:fill-path) (u:set-cursor :hand)
-             (when (and *calm-state-mouse-just-clicked* (not (u:audio-is-playing)))
+             (when *calm-state-mouse-just-clicked*
                (setf *calm-state-mouse-just-clicked* nil)
                (u:play-music "./bowl.wav"))
              (c:arc 370 105 5 (* 1.7 pi) (* 0.3 pi))
