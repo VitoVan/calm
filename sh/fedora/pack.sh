@@ -1,6 +1,6 @@
 tar -czvf ./calm.tgz build calm entry.lisp src lib sh quicklisp README.md calm.asd sbcl images LICENSE
 
-cd .github/workflows/
+cd docs/src/examples/panic/
 
 ../../calm dist
 chmod +x ./dist/calm
