@@ -5,8 +5,8 @@
 [CALM](https://github.com/VitoVan/calm) (Canvas And Lisp Magic) is a Lisp development kit with the following features:
 
 - cross-platform support (Linux / macOS / Windows)
-- easy to write small GUI apps / games or generative arts
-- easy to pack AppImage / macOS Application Bundle / Windows Installer
+- easy to write small GUI apps, games or generative arts
+- easy to pack AppImage, macOS Application Bundle or Windows Installer
 - NOT advising you to use Emacs
 
 With CALM, we can finally:
