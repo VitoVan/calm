@@ -24,8 +24,8 @@ export APP_ICON=./build/app.icns
 export DMG_ICON=./build/app-dmg.icns
 
 cd docs/src/examples/panic/
-../../calm dist
-cd ../../
+../../../../calm dist
+cd ../../../../
 export APP_NAME=Hello
 export APP_ID=com.vitovan.hellocalm
 export DIST_DIR=./docs/src/examples/panic/dist
@@ -34,8 +34,8 @@ export DMG_NAME="hello${DMG_SUFIX}$"
 ./calm sh darwin dmg
 
 cd docs/src/examples/panic/
-../../calm dist-with-canvas
-cd ../../
+../../../../calm dist-with-canvas
+cd ../../../../
 export APP_NAME="Hello Canvas"
 export APP_ID=com.vitovan.hellocanvas
 export DIST_DIR=./docs/src/examples/panic/dist-with-canvas
