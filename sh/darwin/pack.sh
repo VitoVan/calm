@@ -7,7 +7,7 @@ else
 fi
 
 export APP_ICON=./build/calm.icns
-export APP_VERSION=0.0.33
+export APP_VERSION=0.0.34
 
 mkdir calm-dist
 cp -R {calm,build,entry.lisp,src,lib,sh,quicklisp,README.md,calm.asd,sbcl,images,LICENSE} ./calm-dist/
@@ -23,22 +23,22 @@ export DMG_ICON=./build/calm-dmg.icns
 export APP_ICON=./build/app.icns
 export DMG_ICON=./build/app-dmg.icns
 
-cd .github/workflows/
-../../calm dist
-cd ../../
+cd docs/src/examples/panic/
+../../../../calm dist
+cd ../../../../
 export APP_NAME=Hello
 export APP_ID=com.vitovan.hellocalm
-export DIST_DIR=./.github/workflows/dist
+export DIST_DIR=./docs/src/examples/panic/dist
 ./calm sh darwin bundle
 export DMG_NAME="hello${DMG_SUFIX}$"
 ./calm sh darwin dmg
 
-cd .github/workflows/
-../../calm dist-with-canvas
-cd ../../
+cd docs/src/examples/panic/
+../../../../calm dist-with-canvas
+cd ../../../../
 export APP_NAME="Hello Canvas"
 export APP_ID=com.vitovan.hellocanvas
-export DIST_DIR=./.github/workflows/dist-with-canvas
+export DIST_DIR=./docs/src/examples/panic/dist-with-canvas
 ./calm sh darwin bundle
 export DMG_NAME="hello-canvas${DMG_SUFIX}"
 ./calm sh darwin dmg

@@ -1,4 +1,4 @@
-# <img style="vertical-align:middle;margin-right:10px;" width="100" alt="Calm" src="./build/calm.png"> Canvas And Lisp Magic
+# <img style="vertical-align:middle;margin-right:10px;" width="100" alt="Calm" src="docs/src/images/calm.png"> Canvas And Lisp Magic
 
 Calm down and draw something, in Lisp.
 
@@ -24,48 +24,42 @@ Launch your terminal, cd to that directory, enter the command:
 calm
 ```
 
-[![Hello World](./images/hello-world.png)](#hello-world)
+[![Hello World](docs/src/examples/circles/canvas.png)](#hello-world)
 
 ## More Examples
 
 <p align="center">
-    <a title="Check the code for Fan" href="./examples/fan"><img width="250" alt="Fan" src="./examples/fan/canvas.png"></a>
-    <a title="Check the code for Mondrian" href="./examples/mondrian"><img width="250" alt="Mondrian" src="./examples/mondrian/canvas.png"></a>
-    <a title="Check the code for Meditator" href="./examples/meditator"><img width="250" alt="Meditator" src="./examples/meditator/canvas.png"></a>
+    <a title="Check the code for Fan" href="./docs/src/examples/fan"><img width="250" alt="Fan" src="./docs/src/examples/fan/canvas.png"></a>
+    <a title="Check the code for Mondrian" href="./docs/src/examples/mondrian"><img width="250" alt="Mondrian" src="./docs/src/examples/mondrian/canvas.png"></a>
+    <a title="Check the code for Meditator" href="./docs/src/examples/meditator"><img width="250" alt="Meditator" src="./docs/src/examples/meditator/canvas.png"></a>
 </p>
 
-Click the image to read more, [click here](https://github.com/VitoVan/calm/releases/latest/download/examples.zip) to download the example pack.
 
-Or check this list for the shiny stuff [Made with CALM](https://github.com/VitoVan/made-with-calm).
+The example pack can be downloaded [here](https://github.com/VitoVan/calm/releases/latest/download/examples.zip).
+
+For more examples, please check this list: [Made with CALM](https://github.com/VitoVan/made-with-calm).
 
 ## Installation
+
+If you want to have a taste of CALM quickly, [please click here](docs/src/getting-started.md).
 
 ### Pre-built Binary
 
 1. **Download the [latest release](https://github.com/VitoVan/calm/releases/latest)** for your platform
+
 2. Extract the content
+
 3. Add the extracted folder into your PATH environment
 
-    for macOS, add `/path/to/Calm.app/Contents/MacOS/` instead
+   for macOS, add `/path/to/Calm.app/Contents/MacOS/` instead
 
-### Build Your Own
+In case anything went wrong, here is an [Installation Guide](docs/src/installation.md).
 
-All the binaries are built with [Github Action](.github/workflows/calm.yml), so the supported environments are limited.
+### From the Source Code
 
-If you are using something not supported (Apple M1 or ARM Windows / Linux), please consider building your own CALM.
+All the binaries are built with [Github Action](.github/workflows/calm.yml), the available environments are limited. Currently they only support x86_64 CPU. 
 
-You may need to [build your own SBCL](.github/workflows/sbcl.yml) and modify the [sbcl.sh](sh/fedora/sbcl.sh) before executing the following command.
-
-```bash
-git clone https://github.com/VitoVan/calm.git
-cd calm
-# on macOS or Linux
-sh build/build.sh
-# on Windows (you should have MSVC compiler installed)
-build\\build.bat
-```
-
-
+If you are using something not supported, or you are one of those good old Lispers, feel free to [Run from Source](docs/src/installation.md#run-from-source), or [Build CALM](docs/src/installation.md#build-calm).
 
 ## <img style="vertical-align:middle;margin-right:5px;" width="50" alt="Calm Application" src="./build/app.png"> Distribution
 
@@ -110,7 +104,7 @@ Instead of sending out the directory, you can also generate pretty packages.
 
 **Linux AppImage**
 
-![Linux AppImage](./images/linux-appimage.png)
+![Linux AppImage](./docs/src/tutorials/images/linux-appimage.png)
 
 <details><summary>Click to show code</summary>
 <p>
@@ -127,7 +121,7 @@ calm sh fedora appimage
 
 **macOS Application Bundle**
 
-![macOS Application DMG](./images/macos-dmg.png)
+![macOS Application DMG](./docs/src/tutorials/images/macos-dmg.png)
 
 <details><summary>Click to show code</summary>
 <p>
@@ -145,7 +139,7 @@ calm sh darwin dmg
 
 **Windows Installer**
 
-![Windows Installer](./images/windows-installer.png)
+![Windows Installer](./docs/src/tutorials/images/windows-installer.png)
 
 <details><summary>Click to show code</summary>
 <p>

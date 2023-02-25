@@ -199,38 +199,57 @@ int main(int argc, char *argv[]) {
    */
   chdir(getenv("CALM_DIR"));
 
+  /*
+   * ==============
+   * detecting SBCL path - START
+   * ==============
+   */
+
   char entry_cmd[FILENAME_MAX];
-  strcpy(entry_cmd, getbinarydir());
+
+  int use_host_sbcl = getenv("USE_HOST_SBCL") ? 1 : 0;
+
+  if (use_host_sbcl == 1) {
+    strcpy(entry_cmd, "sbcl");
+  } else {
+    strcpy(entry_cmd, getbinarydir());
 
 #ifdef __APPLE__
-  int calm_is_building = getenv("CALM_BUILDING") ? 1 : 0;
-  if (calm_is_building == 1) {  // Building, don't set lib env
-    strcat(entry_cmd, "/sbcl/bin/sbcl");
-  } else {
-    /*
-     * Apple won't allow us to modify DYLD_FALLBACK_LIBRARY_PATH:
-     * https://developer.apple.com/forums/thread/13161
-     * https://developer.apple.com/library/archive/documentation/Security/Conceptual/System_Integrity_Protection_Guide/RuntimeProtections/RuntimeProtections.html
-     * So the following won't work:
-     *     applyenv("DYLD_FALLBACK_LIBRARY_PATH", lib_path);
-     * We have to prepend this inside the command, like:
-     *     DYLD_FALLBACK_LIBRARY_PATH=/some/where/my/lib ./my-app
-     */
-    strcpy(entry_cmd, "DYLD_FALLBACK_LIBRARY_PATH=");
-    strcat(entry_cmd, lib_env);
-    strcat(entry_cmd, " ");
-    strcat(entry_cmd, getbinarydir());
-    strcat(entry_cmd, "/sbcl/bin/sbcl");
-  }
+    int calm_is_building = getenv("CALM_BUILDING") ? 1 : 0;
+    if (calm_is_building == 1) {  // Building, don't set lib env
+      strcat(entry_cmd, "/sbcl/bin/sbcl");
+    } else {
+      /*
+       * Apple won't allow us to modify DYLD_FALLBACK_LIBRARY_PATH:
+       * https://developer.apple.com/forums/thread/13161
+       * https://developer.apple.com/library/archive/documentation/Security/Conceptual/System_Integrity_Protection_Guide/RuntimeProtections/RuntimeProtections.html
+       * So the following won't work:
+       *     applyenv("DYLD_FALLBACK_LIBRARY_PATH", lib_path);
+       * We have to prepend this inside the command, like:
+       *     DYLD_FALLBACK_LIBRARY_PATH=/some/where/my/lib ./my-app
+       */
+      strcpy(entry_cmd, "DYLD_FALLBACK_LIBRARY_PATH=");
+      strcat(entry_cmd, lib_env);
+      strcat(entry_cmd, " ");
+      strcat(entry_cmd, getbinarydir());
+      strcat(entry_cmd, "/sbcl/bin/sbcl");
+    }
 #elif defined _WIN32
-  applyenv("PATH", lib_env);
-  printf("PATH=%s \n", getenv("PATH"));
-  strcat(entry_cmd, "sbcl\\bin\\sbcl.exe");
+    applyenv("PATH", lib_env);
+    printf("PATH=%s \n", getenv("PATH"));
+    strcat(entry_cmd, "sbcl\\bin\\sbcl.exe");
 #elif defined __linux__
-  applyenv("LD_LIBRARY_PATH", lib_env);
-  printf("LD_LIBRARY_PATH=%s \n", getenv("LD_LIBRARY_PATH"));
-  strcat(entry_cmd, "/sbcl/bin/sbcl");
+    applyenv("LD_LIBRARY_PATH", lib_env);
+    printf("LD_LIBRARY_PATH=%s \n", getenv("LD_LIBRARY_PATH"));
+    strcat(entry_cmd, "/sbcl/bin/sbcl");
 #endif
+  }
+
+  /*
+   * ==============
+   * detecting SBCL path - END
+   * ==============
+   */
 
   if (access("calm.asd", F_OK) == 0) {
     firstrun();

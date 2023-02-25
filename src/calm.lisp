@@ -125,6 +125,8 @@
                                          (cl-cairo2:paint)
                                          ;; default font size
                                          (cl-cairo2:set-font-size 80)
+                                         ;; default font face
+                                         (c:select-font-face "Arial" :normal :normal)
                                          ;; default color
                                          (cl-cairo2:set-source-rgb 0 0 0)
                                          ;; default position

@@ -1,6 +1,7 @@
 quicklisp.lisp
 install_root.zip
 calm
+!calm/
 calm.core
 .DS_Store
 calm-dist/

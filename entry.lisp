@@ -1,4 +1,6 @@
-(load "quicklisp/setup.lisp")
+(let ((quicklisp-setup (probe-file "quicklisp/setup.lisp")))
+  (when quicklisp-setup
+    (load quicklisp-setup)))
 ;; Load CALM
 (load "calm.asd")
 (ql:quickload :calm)
