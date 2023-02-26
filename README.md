@@ -176,7 +176,7 @@ Setf-able:
 
 - `CALM_HOST_LISP`
 
-  You can use `CALM_HOST_LISP=ecl calm` to use the [ECL](https://ecl.common-lisp.dev/) on your computer.
+  With `CALM_HOST_LISP=ecl calm` to use [ECL](https://ecl.common-lisp.dev/) on your machine.
 
   Of course, `CALM_HOST_LISP=sbcl calm` will also work.
 
