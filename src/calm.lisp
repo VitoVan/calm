@@ -4,7 +4,7 @@
   ;; on Linux & Windows, uiop:quit will hang a while
   ;; don't know why, fix it recklessly.
   #-darwin
-  (sb-ext:quit :recklessly-p t)
+  (uiop:quit 0 nil)
   #+darwin
   (uiop:quit))
 
@@ -146,16 +146,6 @@
 
 (defun calm-config ()
   "This is needed by the DIST mode"
-  ;; if the CALM_DIR env was not set, set it to the folder contains the core
-  ;; this should NOT happen with the C launcher
-  (unless (uiop:getenv "CALM_DIR")
-    (setf (uiop:getenv "CALM_DIR") (namestring (uiop:pathname-parent-directory-pathname sb-ext:*core-pathname*))))
-
-  ;; if the APP_DIR env was not set, set it to the current dir
-  ;; this should NOT happen with the C launcher
-  (unless (uiop:getenv "APP_DIR")
-    (setf (uiop:getenv "APP_DIR") (namestring (uiop:getcwd))))
-
   ;; on macOS, if the CALM_DIR env contains ".app/Contents/MacOS",
   ;; and the user double clicked the application,
   ;; then APP_DIR won't be able to be set correctly,

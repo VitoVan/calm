@@ -207,10 +207,10 @@ int main(int argc, char *argv[]) {
 
   char entry_cmd[FILENAME_MAX];
 
-  int use_host_sbcl = getenv("USE_HOST_SBCL") ? 1 : 0;
+  char *calm_host_lisp = getenv("CALM_HOST_LISP");
 
-  if (use_host_sbcl == 1) {
-    strcpy(entry_cmd, "sbcl");
+  if (calm_host_lisp) {
+    strcpy(entry_cmd, calm_host_lisp);
   } else {
     strcpy(entry_cmd, getbinarydir());
 
@@ -258,8 +258,10 @@ int main(int argc, char *argv[]) {
       strcat(entry_cmd, " --core calm.core");
     }
 
-    // Disable .sbclrc
-    strcat(entry_cmd, " --no-sysinit --no-userinit");
+    if (calm_host_lisp == NULL) {
+      // Disable .sbclrc
+      strcat(entry_cmd, " --no-sysinit --no-userinit");
+    }
 
     if (strcmp(calm_cmd, "sbcl") == 0) {
       for (int i = 2; i < argc; i++) {

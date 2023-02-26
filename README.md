@@ -174,6 +174,15 @@ You could also distribute expediently:
 
 Setf-able:
 
+- `CALM_HOST_LISP`
+
+  You can use `CALM_HOST_LISP=ecl calm` to use the [ECL](https://ecl.common-lisp.dev/) on your computer.
+
+  Of course, `CALM_HOST_LISP=sbcl calm` will also work.
+
+  Setting this variable means you are going to take care of all the dependencies (include Quicklisp).
+
+
 - `SDL_VIDEO_ALLOW_SCREENSAVER=1`
 
   Allow screensaver, check [Why does SDL disable my screensaver by default?](https://wiki.libsdl.org/SDL2/FAQUsingSDL#why_does_sdl_disable_my_screensaver_by_default).

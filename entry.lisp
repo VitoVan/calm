@@ -40,6 +40,7 @@
   ;; Distribute the App with canvas.lisp
   ((string= cmd "dist-with-canvas")
    (prepare-for-dist "dist-with-canvas" :with-canvas t)
+   #+sbcl
    (sb-ext:save-lisp-and-die
     #+win32 ".\\dist-with-canvas\\bin\\calm-app.exe"
     #-win32 "./dist-with-canvas/bin/calm-app"
@@ -47,12 +48,15 @@
     #+win32 :application-type
     #+win32 :gui
     :executable t
-    :toplevel #'calm:calm-load-and-start))
+    :toplevel #'calm:calm-load-and-start)
+   #-sbcl
+   (format t "Sorry, this command is only supported on SBCL."))
 
   ;; Distribute the App
   ((string= cmd "dist")
    (prepare-for-dist "dist" :with-canvas nil)
    (load (merge-pathnames "canvas.lisp" (uiop:getcwd)))
+   #+sbcl
    (sb-ext:save-lisp-and-die
     #+win32 ".\\dist\\bin\\calm-app.exe"
     #-win32 "./dist/bin/calm-app"
@@ -60,7 +64,9 @@
     #+win32 :application-type
     #+win32 :gui
     :executable t
-    :toplevel #'calm:calm-start))
+    :toplevel #'calm:calm-start)
+   #-sbcl
+   (format t "Sorry, this command is only supported on SBCL."))
 
   (t (format t "UNKOWN CALM_CMD: ~A~%" cmd)))
 
