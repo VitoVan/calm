@@ -16,4 +16,4 @@ Dockerfile
 *.dmg
 *.zip
 *.app
-.github/workflows/calm-app*
+.calm-initialised
