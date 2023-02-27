@@ -1,4 +1,15 @@
 /*
+ * CAUTION:
+ *
+ *    !!!! SHITTY CODE AHEAD !!!!
+ *
+ * I tried to replace Bash with C to get more compatibility
+ * on different OSes, but I suck at C programming.
+ * Now the bright side is that it worked,
+ * the dark side is that the code is worse than the Bash scripts.
+ *
+ * Please forgive me, and improve the code if you don't mind.
+ *
  * I am formatting this file with:
  *    clang-format --style=Google -i calm.c
  * So, if you are editing this file, please format it afterwards
