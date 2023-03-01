@@ -1,4 +1,15 @@
 /*
+ * CAUTION:
+ *
+ *    !!!! SHITTY CODE AHEAD !!!!
+ *
+ * I tried to replace Bash with C to get more compatibility
+ * on different OSes, but I suck at C programming.
+ * Now the bright side is that it worked,
+ * the dark side is that the code is worse than the Bash scripts.
+ *
+ * Please forgive me, and improve the code if you don't mind.
+ *
  * I am formatting this file with:
  *    clang-format --style=Google -i calm.c
  * So, if you are editing this file, please format it afterwards
@@ -87,6 +98,19 @@ const char *getlibpath() {
 
   printf("LIB_PATH=%s\n", lib_path);
   return lib_path;
+}
+
+const char *getsbclpath() {
+  static char sbcl_path[FILENAME_MAX];
+  strcpy(sbcl_path, " \"");  // to escape white-space
+  strcat(sbcl_path, getbinarydir());
+#ifdef _WIN32
+  strcat(sbcl_path, "sbcl\\bin\\sbcl");
+#else
+  strcat(sbcl_path, "/sbcl/bin/sbcl");
+#endif
+  strcat(sbcl_path, "\"");  // to escape white-space
+  return sbcl_path;
 }
 
 /*
@@ -212,12 +236,10 @@ int main(int argc, char *argv[]) {
   if (calm_host_lisp) {
     strcpy(entry_cmd, calm_host_lisp);
   } else {
-    strcpy(entry_cmd, getbinarydir());
-
 #ifdef __APPLE__
     int calm_is_building = getenv("CALM_BUILDING") ? 1 : 0;
     if (calm_is_building == 1) {  // Building, don't set lib env
-      strcat(entry_cmd, "/sbcl/bin/sbcl");
+      strcpy(entry_cmd, getsbclpath());
     } else {
       /*
        * Apple won't allow us to modify DYLD_FALLBACK_LIBRARY_PATH:
@@ -231,27 +253,26 @@ int main(int argc, char *argv[]) {
       strcpy(entry_cmd, "DYLD_FALLBACK_LIBRARY_PATH=");
       strcat(entry_cmd, lib_env);
       strcat(entry_cmd, " ");
-      strcat(entry_cmd, getbinarydir());
-      strcat(entry_cmd, "/sbcl/bin/sbcl");
+      strcat(entry_cmd, getsbclpath());
     }
 #elif defined _WIN32
     applyenv("PATH", lib_env);
     printf("PATH=%s \n", getenv("PATH"));
-    strcat(entry_cmd, "sbcl\\bin\\sbcl.exe");
+    strcpy(entry_cmd, getsbclpath());
 #elif defined __linux__
     applyenv("LD_LIBRARY_PATH", lib_env);
     printf("LD_LIBRARY_PATH=%s \n", getenv("LD_LIBRARY_PATH"));
-    strcat(entry_cmd, "/sbcl/bin/sbcl");
+    strcpy(entry_cmd, getsbclpath());
 #endif
   }
 
-  /*
-   * ==============
-   * detecting SBCL path - END
-   * ==============
-   */
-
   if (access("calm.asd", F_OK) == 0) {
+    /*
+     * ==============
+     * Running CALM
+     * ==============
+     */
+
     firstrun();
 
     if (access("calm.core", F_OK) == 0) {
@@ -284,6 +305,12 @@ int main(int argc, char *argv[]) {
 
     if (system(entry_cmd) != 0) return 42;
   } else {
+    /*
+     * ==============
+     * Running CALM Application
+     * ==============
+     */
+
     printf("EXECUTING: bin/calm-app\n");
 
 #ifdef _WIN32
