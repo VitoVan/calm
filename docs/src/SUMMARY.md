@@ -1,10 +1,12 @@
-[Introduction](index.md)
+[Introduction](introduction.md)
 
 # CALM Documentation
 
+- [Installation](installation.md)
+
 - [Getting Started](getting-started.md)
 
-- [Installation](installation.md)
+- [Share & Publish](share-and-publish.md)
 
 - [Tutorials](tutorials.md)
   - [Drawing Shapes]()
@@ -14,6 +16,11 @@
   - [Distributing]()
   - [Packaging]()
 
-# Learn Lisp with CALM
+# Learn Lisp the Colorful Way
 
 - [Introduction to Lisp]()
+- [Lists]()
+- [Functions]()
+  - [Define]()
+  - [Use]()
+  - [Apply]()

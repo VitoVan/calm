@@ -41,8 +41,6 @@ For more examples, please check this list: [Made with CALM](https://github.com/V
 
 ## Installation
 
-If you want to have a taste of CALM quickly, [please click here](docs/src/getting-started.md).
-
 ### Pre-built Binary
 
 1. **Download the [latest release](https://github.com/VitoVan/calm/releases/latest)** for your platform
@@ -104,7 +102,7 @@ Instead of sending out the directory, you can also generate pretty packages.
 
 **Linux AppImage**
 
-![Linux AppImage](./docs/src/tutorials/images/linux-appimage.png)
+![Linux AppImage](./docs/src/images/linux-appimage.png)
 
 <details><summary>Click to show code</summary>
 <p>
@@ -121,7 +119,7 @@ calm sh fedora appimage
 
 **macOS Application Bundle**
 
-![macOS Application DMG](./docs/src/tutorials/images/macos-dmg.png)
+![macOS Application DMG](./docs/src/images/macos-dmg.png)
 
 <details><summary>Click to show code</summary>
 <p>
@@ -139,7 +137,7 @@ calm sh darwin dmg
 
 **Windows Installer**
 
-![Windows Installer](./docs/src/tutorials/images/windows-installer.png)
+![Windows Installer](./docs/src/images/windows-installer.png)
 
 <details><summary>Click to show code</summary>
 <p>

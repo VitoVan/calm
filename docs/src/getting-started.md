@@ -1,69 +1,101 @@
 # Getting Started
 
-Let's download a CALM sample application and modify it.
+Now we have [installed CALM](installation.md).
 
-## Hello, World!
+The next thing is to find a good place and create the file: **canvas.lisp**:
 
-Download the CALM sample application for your platform:
+```lisp
+(in-package #:calm)
 
-| Platform | Specifics     | CPU    | Download                                                     |
-| -------- | ---------------- | ------ | ------------------------------------------------------------ |
-| 🐧 Linux    | glibc >= 2.35    | x86_64 | [hello-canvas.tgz](https://github.com/VitoVan/calm/releases/download/0.0.35/hello-canvas.tgz) |
-| 🍏 macOS    | Monterey   | x86_64 | [hello-canvas.dmg](https://github.com/VitoVan/calm/releases/download/0.0.35/hello-canvas.dmg) |
-| 🏁 Windows  | 10 or 11 | x86_64 | [hello-canvas.zip](https://github.com/VitoVan/calm/releases/download/0.0.35/hello-canvas.zip) |
-| macOS    | Big Sur   | x86_64 | [hello-canvas-macos-11.dmg](https://github.com/VitoVan/calm/releases/download/0.0.35/hello-canvas-macos-11.dmg) |
-| macOS    | Catalina   | x86_64 | [hello-canvas-macos-10.15.dmg](https://github.com/VitoVan/calm/releases/download/0.0.35/hello-canvas-macos-10.15.dmg) |
+(setf *calm-window-width* 600)
+(setf *calm-window-height* 150)
 
-If your Platform or CPU are not listed, then you might have to check the [installation](installation.md#run-calm-from-source) page to see how to run CALM from source. Otherwise, just downloaded the sample application and run it!
+(setf *calm-window-title* "CALM")
 
-![DON'T PANIC](images/dont-panic.png)
+(defun draw ()
 
-### Run the Sample Application
+  ;; paint the background
 
-If the "DON'T PANIC" window has already shown on your screen, feel safe to skip this section.
+  (c:set-source-rgb (/ 12 255) (/ 55 255) (/ 132 255))
+  (c:paint)
 
-> On macOS, please drag the application out of the mounted DMG directory, we are going to modify it later (it's read-only if it stayed there).
+  ;; show the text
 
-When running applications, there are some differences between Linux, macOS and Windows.
+  (c:move-to 30 100)
+  (c:set-source-rgb 1 1 1)
+  (c:set-font-size 84)
+  (c:show-text "DON'T PANIC"))
+```
 
-- Linux
-  ```bash
-  tar xvf hello-canvas.tgz
-  cd hello-canvas
-  ./calm
-  ```
-- macOS
-  1. Open the downloaded DMG file
-  2. Drage the .app out (to be able to modify it)
+The code is self-explaining, but some of them may seem a little confusing, we will cover them later.
 
-        to the Desktop, Downloads or Applications folder if you like
-  3. Eject the DMG and run the application
-     > On macOS, it's very likely the system will stop you from running the software, since it's not verified by Apple. If you have problem to run it, please check [this](https://support.apple.com/HT202491).
+Let's just put it into a directory named: `hello`.
 
-- Windows
-  1. Right click to Extract All
-  2. Open the extracted folder, double click `calm.exe`
+Now the directory looks like this:
 
-If you have finished the above steps, the "DON'T PANIC" window should have shown.
+```bash
+hello/
+└── canvas.lisp
 
-### Modify the Sample Application
+1 directory, 1 file
+```
 
-Now open the file `canvas.lisp`:
+Change some of the content inside **canvas.lisp**, then execute `calm` inside the directory `hello`:
 
-1. search for `(setf *calm-window-title* "CALM")`
+```bash
+cd hello
+calm
+```
 
-   change it to `(setf *calm-window-title* "Hello, World!")`
-   
-2. search for `(c:show-text "DON'T PANIC")`
+![DON'T PANIC](examples/panic/canvas.png)
 
-    change it to `(c:show-text "HELLO, LISP!")`
+You will see the changes you made.
 
-3. save the file and restart the application.
+Modify **canvas.lisp**, restart `calm`; and modify **canvas.lisp** again, then restart `calm` again.
 
-![Hello, World!](images/hello-world.png)
+Play with it until you get bored, and then move on to the next section.
 
-Congrats! You have built your first CALM application!
+## Share It With Emma
 
-Can't wait to build something? Please check those [tutorials](tutorials.md)!
+Let's say it's Jack.
 
+Jack have a good friend Emma, and he changed the **canvas.lisp** into this:
 
+```lisp
+(in-package #:calm)
+
+(setf *calm-window-width* 520)
+(setf *calm-window-height* 140)
+
+(setf *calm-window-title* "Hello Emma")
+
+(defun draw ()
+  ;; paint the background to Emma's favorite color
+  (c:set-source-rgb 0.89 0.12 0.17)
+  (c:paint)
+  ;; show Hello Emma
+  (c:move-to 30 100)
+  (c:set-source-rgb 1 1 1)
+  (c:set-font-size 84)
+  (c:show-text "Hello Emma"))
+```
+
+![Hello Emma](images/hello-emma.png)
+
+Even though this seems quite dumb, Jack decided to send this to Emma.
+
+Emma uses the same macOS as Jack and knows nothing about Lisp or Terminal.
+
+So Jack generated a fancy DMG with the following command:
+
+```bash
+calm publish
+```
+
+and sent it to Emma.
+
+![Emma macOS DMG](images/emma-dmg.png)
+
+When Emma downloaded the DMG and opened the application, she smiled.
+
+Your Emma is using Windows or Linux? Don't worry, check this: [Share & Publish](share-and-publish.md#publish).
