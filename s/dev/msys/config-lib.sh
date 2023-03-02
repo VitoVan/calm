@@ -1,4 +1,4 @@
-echo "Config all libraries (.dll) ..."
+echo "config all libraries (.dll) ..."
 cd ./lib
 
 cp /mingw64/bin/libzstd.dll ./

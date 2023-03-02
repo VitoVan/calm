@@ -7,5 +7,5 @@ if ! [ -d quicklisp ]; then
     fi
     ./calm sbcl \
            --load quicklisp.lisp \
-           --load ./sh/all/install-quicklisp.lisp
+           --load ./s/dev/all/install-quicklisp.lisp
 fi

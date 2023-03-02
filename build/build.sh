@@ -9,12 +9,22 @@ build_fedora () {
         gcc src/calm.c -o calm
     fi
 
-    ./calm sh fedora deps
-    ./calm sh fedora sbcl
-    ./calm sh all quicklisp
-    ./calm sh all copy-lib
-    ./calm sh fedora config-lib
-    ./calm sh fedora pack
+    ./calm s dev fedora deps.sh
+    ./calm s dev fedora sbcl.sh
+    ./calm s dev all quicklisp.sh
+    ./calm s dev all copy-lib.sh
+    ./calm s dev fedora config-lib.sh
+
+    # prepare appimage-tool
+    APPIMAGETOOL="./s/usr/linux/appimagetool.AppImage"
+    if [ ! -f "$APPIMAGETOOL" ]; then
+        set -x
+        curl -o "$APPIMAGETOOL" -L https://github.com/AppImage/AppImageKit/releases/download/13/appimagetool-x86_64.AppImage
+        chmod +x "$APPIMAGETOOL"
+        set +x
+    fi
+
+    ./calm s dev fedora pack.sh
     echo "DONE"
 }
 
@@ -23,12 +33,12 @@ build_darwin () {
     brew install gcc
     gcc src/calm.c -o calm
 
-    ./calm sh darwin deps
-    ./calm sh darwin sbcl
-    ./calm sh all quicklisp
-    ./calm sh all copy-lib
-    ./calm sh darwin config-lib
-    ./calm sh darwin pack
+    ./calm s dev darwin deps.sh
+    ./calm s dev darwin sbcl.sh
+    ./calm s dev all quicklisp.sh
+    ./calm s dev all copy-lib.sh
+    ./calm s dev darwin config-lib.sh
+    ./calm s dev darwin pack.sh
     echo "DONE"
 }
 
@@ -38,14 +48,14 @@ build_msys () {
     #        cl /Fe:calmGUI src\calm.c /link /SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup
     #        cl /Fe:calm src\calm.c /link /SUBSYSTEM:CONSOLE
 
-    ./calm sh msys deps
-    ./calm sh msys sbcl
-    ./calm sh all quicklisp
-    ./calm sh all copy-lib
-    ./calm sh msys config-lib
+    ./calm s dev msys deps.sh
+    ./calm s dev msys sbcl.sh
+    ./calm s dev all quicklisp.sh
+    ./calm s dev all copy-lib.sh
+    ./calm s dev msys config-lib.sh
 
     echo "setting icons ..."
-    RCEDIT="./sh/msys/rcedit.exe"
+    RCEDIT="./s/usr/windows/rcedit.exe"
     if [ ! -f "$RCEDIT" ]; then
         set -x
         curl -o "$RCEDIT" -L https://github.com/electron/rcedit/releases/download/v1.1.1/rcedit-x64.exe
@@ -58,10 +68,9 @@ build_msys () {
     #
     "$RCEDIT" "./calmNoConsole.exe" --set-icon "./build/app.ico"
     "$RCEDIT" "./calm.exe" --set-icon "./build/calm.ico"
-    rm "$RCEDIT"
 
     echo "packing ..."
-    ./calm sh msys pack
+    ./calm s dev msys pack.sh
 
 }
 
@@ -86,10 +95,10 @@ fi
 
 if ./calm test; then
     echo "DONE."
-    ./calm sh all clean
+#    ./calm s dev all clean.sh
     exit 0
 else
     echo "Failed!"
-    ./calm sh all clean
+#    ./calm s dev all clean.sh
     exit 42
 fi
