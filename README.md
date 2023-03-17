@@ -90,7 +90,7 @@ There exists a similar command `calm dist-with-canvas`, this one will include `c
 > export APP_ID=com.jack.coolapp
 > export APP_VERSION=0.0.1
 > export DIST_DIR=./dist
-> calm sh darwin bundle
+> calm s usr macos bundle
 > ```
 >
 > </p>
@@ -189,11 +189,11 @@ Setf-able:
 
 Read-only:
 
-- `CALM_DIR`
+- `CALM_HOME`
 
   This variable holds the path of the directory where calm binary exists
 
-- `APP_DIR`
+- `CALM_APP_DIR`
 
   This variable holds the path of the directory where calm was started up (aka `pwd`)
 

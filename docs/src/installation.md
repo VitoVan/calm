@@ -162,8 +162,8 @@ Can't wait to build something? Let's [Get Started](getting-started.md)!
     # make a temporary launcher
     cat > "./calm" <<EOF
       cd "$HOME/calm"
-      export APP_DIR=$(pwd)
-      export CALM_DIR="$HOME/calm/"
+      export CALM_APP_DIR=$(pwd)
+      export CALM_HOME="$HOME/calm/"
       export CALM_CMD=show
       sbcl --load entry.lisp show
     EOF

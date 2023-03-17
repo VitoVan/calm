@@ -69,4 +69,4 @@ jobs:
           prerelease: true
           files: |
             *.zip
-            hello.exe
+            Hello.exe

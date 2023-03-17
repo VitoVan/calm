@@ -1,4 +1,4 @@
-echo "Config all libraries (.so) ..."
+echo "config all libraries (.so) ..."
 cd ./lib
 cp /usr/lib64/libzstd.so*
 chmod +x *.so*

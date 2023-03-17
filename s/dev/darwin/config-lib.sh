@@ -1,4 +1,4 @@
-echo "Config all libraries (.dylib) ..."
+echo "config all libraries (.dylib) ..."
 cd ./lib
 
 cp /usr/local/lib/libzstd.dylib ./
