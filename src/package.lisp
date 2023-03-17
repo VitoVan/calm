@@ -3,7 +3,16 @@
   (:local-nicknames
    (:c :cl-cairo2))
   (:export
+   :load-from-app
+   :load-from-calm
+   :get-from-env-or-ask
+   :exec
+   :exec-if
+   :touch-file
+   :copy-file
+   :copy-dir
    :calm-log
+   :calm-log-fancy
    :play-wav
    :halt-wav
    :play-music

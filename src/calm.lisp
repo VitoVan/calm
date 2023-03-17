@@ -30,10 +30,10 @@
           (setf *calm-window-icon*
                 (or
                  (uiop:absolute-pathname-p *calm-window-icon*)
-                 (uiop:merge-pathnames* *calm-window-icon* (uiop:getenv "APP_DIR"))))
-          (setf *calm-window-icon* (str:concat (uiop:getenv "CALM_DIR") "build/app.png")))
+                 (uiop:merge-pathnames* *calm-window-icon* (uiop:getenv "CALM_APP_DIR"))))
+          (setf *calm-window-icon* (str:concat (uiop:getenv "CALM_HOME") "build/app.png")))
       (when (probe-file *calm-window-icon*)
-        (sdl2-ffi.functions:sdl-set-window-icon
+        (sdl2-ffi.functions:sdl-set-window-icon ;; on Wayland, this doesn't work, who should I blame?
          calm-window
          (sdl2-image:load-image *calm-window-icon*)))
 
@@ -143,30 +143,6 @@
                      (sdl2:render-present calm-renderer)))
                  (when *calm-delay*
                    (sdl2:delay *calm-delay*))))))))
-
-(defun calm-config ()
-  "This is needed by the DIST mode"
-  ;; on macOS, if the CALM_DIR env contains ".app/Contents/MacOS",
-  ;; and the user double clicked the application,
-  ;; then APP_DIR won't be able to be set correctly,
-  ;; since the `pwd` will be given as "/Users/jack/" instead of the real location,
-  ;; so we should set APP_DIR to CALM_DIR
-  ;;
-  ;; but, we can't just detect this by `(str:contains? ".app/Contents/MacOS" (uiop:getenv "CALM_DIR"))`
-  ;; because if we have packed CALM as an APP, then it will always find the canvas.lisp inside the app bundle,
-  ;; instead of the current directory.
-  ;;
-  ;; so, let's create a dummy file (.please_load_calm_canvas_from_here) inside the app bundle,
-  ;; and if it exists, then we will pick it up.
-  #+darwin
-  (when
-      (and
-       (str:contains? ".app/Contents/MacOS" (uiop:getenv "CALM_DIR"))
-       (probe-file (str:concat (uiop:getenv "CALM_DIR") ".please_load_calm_canvas_from_here")))
-    (setf (uiop:getenv "APP_DIR") (uiop:getenv "CALM_DIR")))
-
-  ;; switch to the APP_DIR
-  (uiop:chdir (uiop:getenv "APP_DIR")))
 
 (defun calm-start ()
   "Start the window"
