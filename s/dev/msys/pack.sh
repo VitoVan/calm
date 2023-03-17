@@ -7,7 +7,7 @@ zip -r ./calm.zip calm.exe calmNoConsole.exe entry.lisp build src lib s quicklis
 # sample application
 #
 
-cd docs/src/examples/panic/
+cd docs/examples/circles/
 
 #
 # publish
@@ -21,6 +21,6 @@ export APP_NAME=Hello
 
 unset CALM_APP_DIR
 unset CALM_HOME
-../../../../calm publish
+../../../calm publish
 
-mv ./*-Installer.exe ../../../../Hello.exe
+mv ./*-Installer.exe ../../../Hello.exe

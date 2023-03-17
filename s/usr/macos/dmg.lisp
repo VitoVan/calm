@@ -9,18 +9,23 @@
   ;; clean old dmg
   (uiop:delete-file-if-exists (merge-pathnames (str:concat app-name ".dmg") *calm-env-app-dir*))
 
-  (u:exec-if "command -v create-dmg"
-             (str:concat
-              "create-dmg --hdiutil-verbose --volname \"" app-name " - CALM\""
-              " --volicon \"" dmg-icon "\""
-              " --window-pos 200 120"
-              " --window-size 800 280"
-              " --icon-size 100"
-              " --icon \"" app-name ".app\" 200 90"
-              " --hide-extension \"" app-name ".app\""
-              " --app-drop-link 600 85"
-              " \"" app-name ".dmg\"" " \"" app-name ".app/\"")
-             "brew install create-dmg" :re-exec-then t)
+  (when (not (= (u:exec "command -v create-dmg" :ignore-error-status t) 0))
+    (when (not (= (u:exec "command -v brew" :ignore-error-status t) 0))
+      (u:exec "/bin/bash -c \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\""))
+    (u:exec "brew install create-dmg"))
+
+  (u:exec
+   (str:concat
+    "create-dmg --hdiutil-verbose --volname \"" app-name " - CALM\""
+    " --volicon \"" dmg-icon "\""
+    " --window-pos 200 120"
+    " --window-size 800 280"
+    " --icon-size 100"
+    " --icon \"" app-name ".app\" 200 90"
+    " --hide-extension \"" app-name ".app\""
+    " --app-drop-link 600 85"
+    " \"" app-name ".dmg\"" " \"" app-name ".app/\""))
+
   (u:calm-log-fancy "~%DMG created: ~A.dmg~%" app-name))
 
 (make-dmg

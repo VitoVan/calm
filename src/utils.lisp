@@ -152,15 +152,23 @@ Just use the `cp' command for whoever's sake"
 this function will:
 1. (uiop:getenv \"VAR_NAME\"), return the value if it were found
 2. ask user to input a new value for this, and return"
-  (if (and default-value (not (uiop:getenv "CALM_ASK_ME")))
-      default-value
-      (let ((env-name (str:replace-all "-" "_" (str:upcase (string var-name)))))
-        (or (uiop:getenv env-name)
+  (let* ((env-name (str:replace-all "-" "_" (str:upcase (string var-name))))
+        (env-value (uiop:getenv env-name))
+        (current-value (or env-value default-value)))
+
+    ;; if there exists default value or env value,
+    ;; and the user don't want to be bothered (by default, we don't bother them),
+    (if (and (or default-value env-value) (not (uiop:getenv "CALM_ASK_ME")))
+        ;; the current value will be used, no question will be asked
+        current-value
+        ;; ask the user, and provide the current value
+        (or env-value
             (progn
-              (format t "Please set value for \"~A\" [default: ~A]: ~%" (str:replace-all "-" " " (string var-name)) default-value)
+              (format t "Please set value for \"~A\" [default: ~A]: ~%" (str:replace-all "-" " " (string var-name)) current-value)
               (let* ((input-line (read-line))
                      (result (if (str:empty? input-line)
-                                 default-value
+                                 current-value
                                  input-line)))
+                ;; update ENV to match the user input
                 (setf (uiop:getenv env-name) result)
                 result))))))

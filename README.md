@@ -1,4 +1,4 @@
-# <img style="vertical-align:middle;margin-right:10px;" width="100" alt="Calm" src="docs/src/images/calm.png"> Canvas And Lisp Magic
+# <img style="vertical-align:middle;margin-right:10px;" width="100" alt="Calm" src="docs/images/calm.png"> Canvas And Lisp Magic
 
 Calm down and draw something, in Lisp.
 
@@ -24,14 +24,14 @@ Launch your terminal, cd to that directory, enter the command:
 calm
 ```
 
-[![Hello World](docs/src/examples/circles/canvas.png)](#hello-world)
+[![Hello World](docs/examples/circles/canvas.png)](#hello-world)
 
 ## More Examples
 
 <p align="center">
-    <a title="Check the code for Fan" href="./docs/src/examples/fan"><img width="250" alt="Fan" src="./docs/src/examples/fan/canvas.png"></a>
-    <a title="Check the code for Mondrian" href="./docs/src/examples/mondrian"><img width="250" alt="Mondrian" src="./docs/src/examples/mondrian/canvas.png"></a>
-    <a title="Check the code for Meditator" href="./docs/src/examples/meditator"><img width="250" alt="Meditator" src="./docs/src/examples/meditator/canvas.png"></a>
+    <a title="Check the code for Fan" href="./docs/examples/fan"><img width="250" alt="Fan" src="./docs/examples/fan/canvas.png"></a>
+    <a title="Check the code for Mondrian" href="./docs/examples/mondrian"><img width="250" alt="Mondrian" src="./docs/examples/mondrian/canvas.png"></a>
+    <a title="Check the code for Meditator" href="./docs/examples/meditator"><img width="250" alt="Meditator" src="./docs/examples/meditator/canvas.png"></a>
 </p>
 
 
@@ -51,122 +51,104 @@ For more examples, please check this list: [Made with CALM](https://github.com/V
 
    for macOS, add `/path/to/Calm.app/Contents/MacOS/` instead
 
-In case anything went wrong, here is an [Installation Guide](docs/src/installation.md).
+In case anything went wrong, here is an [Installation Guide](docs/installation.md).
 
 ### From the Source Code
 
-All the binaries are built with [Github Action](.github/workflows/calm.yml), the available environments are limited. Currently they only support x86_64 CPU. 
-
-If you are using something not supported, or you are one of those good old Lispers, feel free to [Run from Source](docs/src/installation.md#run-from-source), or [Build CALM](docs/src/installation.md#build-calm).
+All the binaries are built with [Github Action](.github/workflows/calm.yml), the available environments are limited. Currently they only support x86_64 CPU. If you are using something not supported, or you are one of those good old Lispers, feel free to [Run from Source](docs/installation.md#run-from-source), or [Build CALM](docs/installation.md#build-calm).
 
 ## <img style="vertical-align:middle;margin-right:5px;" width="50" alt="Calm Application" src="./build/app.png"> Distribution
 
-Distribute your CALM Application.
-
-### Generate Application
+Distribution of CALM Application is just one command.
 
 Launch your terminal, cd to the directory where the file **canvas.lisp** exists, enter the command:
 
 ```bash
-calm dist
+calm publish
 ```
 
-You will get a directory `dist` containing all the dependencies and your final binary, you should put all your assets (.wav, .png, .mp3, etc.) into that directory.
+This command will generate different packages on different platforms:
 
-Now, pack it and send it to your friend! Normally, they will be able to enjoy your application. If not, tell them to run the file `calm` or double click `calm.exe`.
+**Linux: AppImage**
 
-There exists a similar command `calm dist-with-canvas`, this one will include `canvas.lisp` in the final `dist` directory. This gives the end user the ability to modify your application.
+![Linux AppImage](./docs/images/linux-appimage.png)
+
+>  **Note**
+>
+>  You may not expect the fancy window icon on Wayland, I don't know why.
+
+**macOS: Application Bundle**
+
+![macOS Application DMG](./docs/images/macos-dmg.png)
+
+>**Note**
+>
+>_You don't need to read this if you don't care about what I am going to install on your machine_
+>
+>DMG creation is powered by [create-dmg](https://github.com/create-dmg/create-dmg), will be installed by `brew install create-dmg` if it were not present.
+>
+>So if you don't have create-dmg, this will install create-dmg for you.
+>
+>And, if you don't have [Homebrew](https://brew.sh/), this will also install Homebrew for you.
+>
+>The binary detection was done by `command -v create-dmg` and `command -v brew`.
+
+**Windows: Installer**
+
+![Windows Installer](./docs/images/windows-installer.png)
 
 > **Note**
 >
-> for macOS, you may want to create an [application bundle](https://en.wikipedia.org/wiki/Bundle_(macOS)) to avoid too many [warning messages](https://support.apple.com/HT202491) for the dylibs:
+> _You don't need to read this if you don't care about what I am going to install on your machine_
 >
-> <details><summary>Click to show code</summary>
-> <p>
+> Installer creation is powered by [NSIS](https://nsis.sourceforge.io/), will be installed by `winget install nsis` if it were not present.
 >
-> ```bash
-> export APP_ICON=asset/coolapp.icns
-> export APP_NAME=Coolapp
-> export APP_ID=com.jack.coolapp
-> export APP_VERSION=0.0.1
-> export DIST_DIR=./dist
-> calm s usr macos bundle
-> ```
+> So if you don't have NSIS (i.e., `makensis`) under your PATH, this will install NSIS for you.
 >
-> </p>
-> </details>
+> And, if you don't have [winget](https://github.com/microsoft/winget-cli) under your PATH, this will also install winget for you.
+>
+> The binary detection was done by `where makensis` and `where winget`.
 
-### Generate Package
+### Customization
 
-Instead of sending out the directory, you can also generate pretty packages.
-
-**Linux AppImage**
-
-![Linux AppImage](./docs/src/images/linux-appimage.png)
-
-<details><summary>Click to show code</summary>
-<p>
+If you want to change the generated application name, icon, etc, please set the following environment variable:
 
 ```bash
-export DIST_DIR=./dist
-export APP_NAME=Coolapp
-export APP_ICON="asset/coolapp.png"
-calm sh fedora appimage
+calm publish-with-options
 ```
 
-</p>
-</details>
+You will be asked for all the customization options and the default value will also be provided.
 
-**macOS Application Bundle**
+### Share Your Code
 
-![macOS Application DMG](./docs/src/images/macos-dmg.png)
+Share your work with other Lispers.
 
-<details><summary>Click to show code</summary>
-<p>
+Launch your terminal, cd to the directory where the file **canvas.lisp** exists, enter the command:
 
 ```bash
-# you should have ran `calm sh darwin bundle`
-export APP_NAME=Coolapp
-export DMG_NAME=coolapp
-export DMG_ICON=asset/coolapp-dmg.icns
-calm sh darwin dmg
+calm share
 ```
 
-</p>
-</details>
-
-**Windows Installer**
-
-![Windows Installer](./docs/src/images/windows-installer.png)
-
-<details><summary>Click to show code</summary>
-<p>
+Your canvas related content will be packed and uploaded to [transfer.sh](https://transfer.sh/), you can share them with a link:
 
 ```bash
-export DIST_DIR=./dist
-export APP_NAME=Coolapp
-calm sh msys installer
+  ____      _      _       __  __
+ / ___|    / \    | |     |  \/  |
+| |       / _ \   | |     | |\/| |
+| |___   / ___ \  | |___  | |  | |
+ \____| /_/   \_\ |_____| |_|  |_|
+
+CALM: 0.0.36, SBCL: 2.3.1
+
+CALM Archive Created: calm-share-3888034151.tar.gz
+
+Generating Sharing Link:
+/usr/local/opt/curl/bin/curl
+EXECUTING CMD: curl -s --upload-file ./calm-share-3888034150.tar.gz https://transfer.sh/
+https://transfer.sh/Bf3BtK/calm-share-3888034151.tar.gz
 ```
 
-</p>
-</details>
-
-### Expedient Distribution
-
-Your friend is using Linux / macOS / Windows, but you don't have the corresponding OS.
-
-Let's say it's Windows.
-
-You could also distribute expediently:
-
-1. download [the latest](https://github.com/VitoVan/calm/releases/latest) `hello-canvas.zip `
-2. extract it
-3. replace the `canvas.lisp` file with yours
-4. zip it and send it to your friend
-
-> **Note**
-> 1. Don't use Quicklisp, normally it won't work.
-> 2. CFFI might work, but foreign libraries (except SDL2, Cairo, etc.) are not guaranteed to exist.
+If any of your friend don't know how to use this file, please don't mock them.
 
 ## Environment Variables
 
@@ -179,6 +161,12 @@ Setf-able:
   Of course, `CALM_HOST_LISP=sbcl calm` will also work.
 
   Setting this variable means you are going to take care of all the dependencies (include Quicklisp).
+
+- `CALM_ASK_ME`
+
+  With `CALM_ASK_ME=yes-please` to enable the customization process of `calm publish`.
+
+  This will allow you to customize all the available options while publishing.
 
 
 - `SDL_VIDEO_ALLOW_SCREENSAVER=1`

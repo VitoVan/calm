@@ -10,7 +10,7 @@ else
 fi
 
 export APP_ICON=./build/calm.icns
-export APP_VERSION=0.0.35
+export APP_VERSION=0.0.36
 
 mkdir calm-dist
 cp -R {calm,build,entry.lisp,src,lib,s,quicklisp,README.md,calm.asd,sbcl,images,LICENSE} ./calm-dist/
@@ -32,7 +32,7 @@ mv Calm.dmg calm${DMG_SUFIX}.dmg
 # sample application
 #
 
-cd docs/src/examples/panic/
+cd docs/examples/circles/
 
 #
 # publish
@@ -46,6 +46,6 @@ export DMG_NAME="hello${DMG_SUFIX}"
 
 unset CALM_APP_DIR
 unset CALM_HOME
-../../../../calm publish
+../../../calm publish
 
-mv *.dmg ../../../../Hello${DMG_SUFIX}.dmg
+mv *.dmg ../../../Hello${DMG_SUFIX}.dmg

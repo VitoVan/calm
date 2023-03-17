@@ -62,6 +62,28 @@
         (u:exec (str:concat calm-bin-abs " dist-with-canvas"))
         (u:exec (str:concat calm-bin-abs " dist")))))
 
+(defun publish ()
+  (setf (uiop:getenv "DIST_DIR") (uiop:native-namestring (uiop:merge-pathnames* "dist/" *calm-env-app-dir*)))
+  #+darwin
+  (progn
+    (dist-by-new-process)
+    (u:calm-log "building macOS Application...")
+    (u:load-from-calm "s/usr/macos/bundle.lisp")
+    (u:calm-log "building macOS DMG, this may take a while...")
+    (u:load-from-calm "s/usr/macos/dmg.lisp"))
+  #+win32
+  (progn
+    (u:load-from-calm "s/usr/windows/icon.lisp")
+    (setf (uiop:getenv "CALM_WITH_ICON") "YES_MY_LORD")
+    (dist-by-new-process)
+    (u:calm-log "building Windows Installer...")
+    (u:load-from-calm "s/usr/windows/installer.lisp"))
+  #+linux
+  (progn
+    (dist-by-new-process)
+    (u:calm-log "building Linux AppImage...")
+    (u:load-from-calm "s/usr/linux/appimage.lisp")))
+
 (cond
 
   ((string= *calm-env-calm-cmd* "test")
@@ -78,27 +100,11 @@
    (ensure-directories-exist (merge-pathnames "assets/" *calm-env-app-dir*))
    (u:calm-log-fancy "Hello, sample files and directories created, please enjoy"))
 
-  ((string= *calm-env-calm-cmd* "publish")
-   (setf (uiop:getenv "DIST_DIR") (uiop:native-namestring (uiop:merge-pathnames* "dist/" *calm-env-app-dir*)))
-   #+darwin
-   (progn
-     (dist-by-new-process)
-     (u:calm-log "building macOS Application...")
-     (u:load-from-calm "s/usr/macos/bundle.lisp")
-     (u:calm-log "building macOS DMG, this may take a while...")
-     (u:load-from-calm "s/usr/macos/dmg.lisp"))
-   #+win32
-   (progn
-     (u:load-from-calm "s/usr/windows/icon.lisp")
-     (setf (uiop:getenv "CALM_WITH_ICON") "YES_MY_LORD")
-     (dist-by-new-process)
-     (u:calm-log "building Windows Installer...")
-     (u:load-from-calm "s/usr/windows/installer.lisp"))
-   #+linux
-   (progn
-     (dist-by-new-process)
-     (u:calm-log "building Linux AppImage...")
-     (u:load-from-calm "s/usr/linux/appimage.lisp")))
+  ((string= *calm-env-calm-cmd* "publish") (publish))
+
+  ((string= *calm-env-calm-cmd* "publish-with-options")
+   (setf (uiop:getenv "CALM_ASK_ME") "yes-please")
+   (publish))
 
   ((string= *calm-env-calm-cmd* "share")
    (let ((calm-archive-name (str:concat "calm-share-" (write-to-string (get-universal-time)) ".tar.gz")))

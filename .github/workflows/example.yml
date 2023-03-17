@@ -16,10 +16,10 @@ jobs:
 
       - name: Compress Examples
         run: |
-          cd docs/src/
+          cd docs/
           zip -r examples.zip examples
-          mv examples.zip ../../
-          cd ../../
+          mv examples.zip ../
+          cd ../
           ls -lah .
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.14

@@ -1,4 +1,4 @@
-set dialogResult to display dialog "This may take a few minutes."  with title "Innitialising CALM..."  buttons {"OK, I will wait", "Why?"}  default button 1  with icon POSIX file "build/calm.icns"  giving up after 60
+set dialogResult to display dialog "This may take a few minutes."  with title "Innitialising CALM..."  buttons {"OK, I will wait", "Why?"}  default button 2 with icon POSIX file "build/calm.icns"  giving up after 60
 
 -- https://en.wikipedia.org/wiki/Meaning_of_life
 

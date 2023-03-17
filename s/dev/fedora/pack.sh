@@ -7,7 +7,7 @@ tar -czvf ./calm.tgz build calm entry.lisp src lib s quicklisp README.md calm.as
 # sample application
 #
 
-cd docs/src/examples/panic/
+cd docs/examples/circles/
 
 #
 # publish
@@ -18,6 +18,6 @@ export APP_ICON="${CALM_HOME}/build/app.png"
 
 unset CALM_APP_DIR
 unset CALM_HOME
-../../../../calm publish
+../../../calm publish
 
-mv ./*.AppImage ../../../../
+mv ./*.AppImage ../../../

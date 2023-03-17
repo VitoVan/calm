@@ -8,11 +8,11 @@ At the time of writing, CALM was pre-built for the following platforms:
 
 | Platform | Specifics     | CPU    | Download |
 | -------- | ---------------- | ------ | ------------------------- |
-| 🐧 Linux    | glibc >= 2.35    | x86_64 | [calm.tgz](https://github.com/VitoVan/calm/releases/download/0.0.35/calm.tgz) |
-| 🍏 macOS    | Monterey   | x86_64 | [calm.dmg](https://github.com/VitoVan/calm/releases/download/0.0.35/calm.dmg) |
-| 🏁 Windows  | 10 or 11 | x86_64 | [calm.zip](https://github.com/VitoVan/calm/releases/download/0.0.35/calm.zip) |
-| macOS    | Big Sur   | x86_64 | [calm-macos-11.dmg](https://github.com/VitoVan/calm/releases/download/0.0.35/calm-macos-11.dmg) |
-| macOS    | Catalina   | x86_64 | [calm-macos-10.15.dmg](https://github.com/VitoVan/calm/releases/download/0.0.35/calm-macos-10.15.dmg) |
+| 🐧 Linux    | glibc >= 2.35    | x86_64 | [calm.tgz](https://github.com/VitoVan/calm/releases/download/0.0.36/calm.tgz) |
+| 🍏 macOS    | Monterey   | x86_64 | [calm.dmg](https://github.com/VitoVan/calm/releases/download/0.0.36/calm.dmg) |
+| 🏁 Windows  | 10 or 11 | x86_64 | [calm.zip](https://github.com/VitoVan/calm/releases/download/0.0.36/calm.zip) |
+| macOS    | Big Sur   | x86_64 | [calm-macos-11.dmg](https://github.com/VitoVan/calm/releases/download/0.0.36/calm-macos-11.dmg) |
+| macOS    | Catalina   | x86_64 | [calm-macos-10.15.dmg](https://github.com/VitoVan/calm/releases/download/0.0.36/calm-macos-10.15.dmg) |
 
 The supported platforms are limited due to the reason that:
 
@@ -65,13 +65,13 @@ Now let's set up the environment for the ease of use.
       > ```
 
 
-Now, close all the terminals and open a fresh one.
-
 Congrats! You are all set!
 
-Can't wait to build something? Let's [Get Started](getting-started.md)!
+Can't wait to see what you are going to build!
 
 ## Run From Source
+
+For the one who hates pre-built binary, or who has the unsupported system / device.
 
 0. Preparation
 
@@ -185,7 +185,7 @@ Can't wait to build something? Let's [Get Started](getting-started.md)!
 
 Congrats! You are all set!
 
-Can't wait to build something? Let's [Get Started](getting-started.md)!
+Can't wait to see what you are going to build!
 
 ## Build CALM
 
