@@ -17,9 +17,11 @@ build_fedora () {
 
     # prepare appimage-tool
     APPIMAGETOOL="./s/usr/linux/appimagetool.AppImage"
+    APPIMAGETOOL_LICENSE="./s/usr/linux/appimagetool-LICENSE"
     if [ ! -f "$APPIMAGETOOL" ]; then
         set -x
         curl -o "$APPIMAGETOOL" -L https://github.com/AppImage/AppImageKit/releases/download/13/appimagetool-x86_64.AppImage
+        curl -o "$APPIMAGETOOL_LICENSE" -L https://raw.githubusercontent.com/AppImage/AppImageKit/master/LICENSE
         chmod +x "$APPIMAGETOOL"
         set +x
     fi
@@ -56,9 +58,11 @@ build_msys () {
 
     echo "setting icons ..."
     RCEDIT="./s/usr/windows/rcedit.exe"
+    RCEDIT_LICENSE="./s/usr/windows/rcedit-LICENSE"
     if [ ! -f "$RCEDIT" ]; then
         set -x
         curl -o "$RCEDIT" -L https://github.com/electron/rcedit/releases/download/v1.1.1/rcedit-x64.exe
+        curl -o "$RCEDIT_LICENSE" -L https://raw.githubusercontent.com/electron/rcedit/master/LICENSE
         set +x
     fi
     "$RCEDIT" "./sbcl/bin/sbcl.exe" --set-icon "./build/app.ico"
