@@ -71,7 +71,7 @@ e.g. use (load-from-calm \"config.lisp\") to load your custom configuration file
 (defun exec (command &key (expected-exit-code 0) (ignore-error-status nil))
   (format t "EXECUTING CMD: ~A~%" command)
   (let ((exit-code
-          (nth-value 2 (uiop:run-program command :output t :error-output t :ignore-error-status t))))
+          (nth-value 2 (uiop:run-program command :output :interactive :input :interactive :error-output t :ignore-error-status t))))
     (if (= exit-code expected-exit-code)
         exit-code
         (if ignore-error-status
