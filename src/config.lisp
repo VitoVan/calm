@@ -18,22 +18,27 @@
 (defparameter *calm-window-icon* nil)
 (defparameter *calm-delay* 42)
 (defparameter *calm-redraw* t
-  "The canvas will be painted again and again by calling the `draw` function,
-   setting it to `NIL` means you don't want the canvas to be painted again,
-   setting it back to `t` will paint the canvas again and again by calling the `draw` function, again.
+  "The canvas will be painted again and again by calling the `draw' function,
+   setting it to `NIL' means you don't want the canvas to be painted again,
+   setting it back to `t' will paint the canvas again and again by calling the `draw' function, again.
   ")
 (defparameter *calm-music-format* sdl2-ffi:+audio-s32sys+)
 (defparameter *calm-music-frequency* 44100)
 (defparameter *calm-music-channels* 2)
+(defparameter *calm-music-chunksize* 1024)
 
 ;; runtime variables
 (defparameter *calm-dpi-scale* 1)
+
 (defparameter *calm-state-mouse-inside-window* nil)
 (defparameter *calm-state-mouse-x* 0)
 (defparameter *calm-state-mouse-y* 0)
 (defparameter *calm-state-mouse-up* nil)
 (defparameter *calm-state-mouse-down* nil)
 (defparameter *calm-state-mouse-just-clicked* nil)
+
+(defparameter *calm-state-audio-open* nil)
+(defparameter *calm-state-loaded-audio* nil)
 
 ;; env
 (defparameter *calm-env-calm-home* nil)
@@ -80,8 +85,6 @@
   ;; to know if CALM has already successfully started once
   ;;
   ;; touch file: .calm-initialised
-  ;; thank you, Zach Beane
-  ;; https://lisptips.com/post/11136367093/touching-a-file
   (when (and (not (probe-file ".calm-initialised")) (probe-file "calm.asd"))
     (u:touch-file ".calm-initialised")
     (format t "~A~%" "CALM initialised successfully.")))

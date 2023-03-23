@@ -13,11 +13,10 @@
    :copy-dir
    :calm-log
    :calm-log-fancy
-   :play-wav
-   :halt-wav
+   :open-audio-if-not-yet
    :play-music
+   :play-wav
    :halt-music
-   :audio-is-playing
    :set-cursor))
 
 (defpackage :calm

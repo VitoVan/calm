@@ -25,27 +25,47 @@ CALM: ~A, ~A: ~A~%
 
 (sdl2-mixer:init)
 
+(defun open-audio-if-not-yet ()
+  (unless calm::*calm-state-audio-open*
+    ;;
+    ;; if we put the following code outside of this function,
+    ;; it will open-audio right after the library is loaded,
+    ;; which will cause problem for save-lisp-and-die
+    ;;
+    (sdl2-mixer:open-audio
+     calm::*calm-music-frequency*
+     calm::*calm-music-format*
+     ;; channels: number of channels (1 is mono, 2 is stereo, etc).
+     calm::*calm-music-channels*
+     ;;
+     ;; chunksize: audio buffer size in sample FRAMES (total samples divided by channel count).
+     ;; I thought it should be: (* calm::*calm-music-channels* calm::*calm-music-frequency*)
+     ;; but, it was delayed, I have to set it to `1024' according to this:
+     ;; https://stackoverflow.com/questions/983997/i-have-an-unintended-delay-in-playing-a-mix-chunk
+     calm::*calm-music-chunksize*
+     )))
+
 (defun play-music (pathname &optional (loops 0))
+  (open-audio-if-not-yet)
+  (let* ((music-pathname (or
+                          (uiop:absolute-pathname-p pathname)
+                          (uiop:merge-pathnames* pathname (uiop:getenv "CALM_APP_DIR"))))
+         (music-object-cache (cdr (assoc music-pathname calm::*calm-state-loaded-audio*)))
+         (music-object (or music-object-cache (sdl2-mixer:load-music music-pathname))))
+    (unless music-object-cache
+      (push (cons music-pathname music-object) calm::*calm-state-loaded-audio*))
+    (sdl2-mixer:play-music music-object loops)))
 
-  ;;
-  ;; if we put the following code outside of this function,
-  ;; it will open-audio right after the library is loaded,
-  ;; which will cause problem for save-lisp-and-die
-  ;;
-  (sdl2-mixer:open-audio
-   calm::*calm-music-frequency*
-   calm::*calm-music-format*
-   ;; channels: number of channels (1 is mono, 2 is stereo, etc).
-   calm::*calm-music-channels*
-   ;; chunksize: audio buffer size in sample FRAMES (total samples divided by channel count).
-   (* calm::*calm-music-channels* calm::*calm-music-frequency*))
-
-  (let ((music
-          (sdl2-mixer:load-music
-           (or
-            (uiop:absolute-pathname-p pathname)
-            (uiop:merge-pathnames* pathname (uiop:getenv "CALM_APP_DIR"))))))
-    (sdl2-mixer:play-music music loops)))
+(defun play-wav (pathname &optional (loops 0))
+  (open-audio-if-not-yet)
+  (let* ((wav-pathname (or
+                          (uiop:absolute-pathname-p pathname)
+                          (uiop:merge-pathnames* pathname (uiop:getenv "CALM_APP_DIR"))))
+         (wav-object-cache (cdr (assoc wav-pathname calm::*calm-state-loaded-audio*)))
+         (wav-object (or wav-object-cache (sdl2-mixer:load-wav wav-pathname))))
+    (unless wav-object-cache
+      (push (cons wav-pathname wav-object) calm::*calm-state-loaded-audio*))
+    (sdl2-mixer:play-channel -1 wav-object loops)))
 
 (defun load-from-app (pathname)
   "load lisp files from the `CALM_APP_DIR' directory,
@@ -94,6 +114,8 @@ if `re-exec-then' is T, then exec `then' again after the exec of `else'
 ;; file utilities
 ;;
 
+;; thank you, Zach Beane
+;; https://lisptips.com/post/11136367093/touching-a-file
 (defun touch-file (filename)
   (open filename :direction :probe :if-does-not-exist :create))
 
