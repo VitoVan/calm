@@ -111,7 +111,7 @@ This command will generate different packages on different platforms:
 
 ### Customization
 
-If you want to change the generated application name, icon, etc, please set the following environment variable:
+If you want to change the generated application name, icon, etc, please use the following command:
 
 ```bash
 calm publish-with-options
@@ -138,7 +138,7 @@ Your canvas related content will be packed and uploaded to [transfer.sh](https:/
 | |___   / ___ \  | |___  | |  | |
  \____| /_/   \_\ |_____| |_|  |_|
 
-CALM: 0.0.37, SBCL: 2.3.1
+CALM: 0.0.38, SBCL: 2.3.1
 
 CALM Archive Created: calm-share-3888034151.tar.gz
 
