@@ -111,7 +111,7 @@ This command will generate different packages on different platforms:
 
 ### Customization
 
-If you want to change the generated application name, icon, etc, please set the following environment variable:
+If you want to change the generated application name, icon, etc, please use the following command:
 
 ```bash
 calm publish-with-options
