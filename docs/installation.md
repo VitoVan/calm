@@ -8,11 +8,11 @@ At the time of writing, CALM was pre-built for the following platforms:
 
 | Platform | Specifics     | CPU    | Download |
 | -------- | ---------------- | ------ | ------------------------- |
-| 🐧 Linux    | glibc >= 2.35    | x86_64 | [calm.tgz](https://github.com/VitoVan/calm/releases/download/0.0.37/calm.tgz) |
-| 🍏 macOS    | Monterey   | x86_64 | [calm.dmg](https://github.com/VitoVan/calm/releases/download/0.0.37/calm.dmg) |
-| 🏁 Windows  | 10 or 11 | x86_64 | [calm.zip](https://github.com/VitoVan/calm/releases/download/0.0.37/calm.zip) |
-| macOS    | Big Sur   | x86_64 | [calm-macos-11.dmg](https://github.com/VitoVan/calm/releases/download/0.0.37/calm-macos-11.dmg) |
-| macOS    | Catalina   | x86_64 | [calm-macos-10.15.dmg](https://github.com/VitoVan/calm/releases/download/0.0.37/calm-macos-10.15.dmg) |
+| 🐧 Linux    | glibc >= 2.35    | x86_64 | [calm.tgz](https://github.com/VitoVan/calm/releases/download/0.0.38/calm.tgz) |
+| 🍏 macOS    | Monterey   | x86_64 | [calm.dmg](https://github.com/VitoVan/calm/releases/download/0.0.38/calm.dmg) |
+| 🏁 Windows  | 10 or 11 | x86_64 | [calm.zip](https://github.com/VitoVan/calm/releases/download/0.0.38/calm.zip) |
+| macOS    | Big Sur   | x86_64 | [calm-macos-11.dmg](https://github.com/VitoVan/calm/releases/download/0.0.38/calm-macos-11.dmg) |
+| macOS    | Catalina   | x86_64 | [calm-macos-10.15.dmg](https://github.com/VitoVan/calm/releases/download/0.0.38/calm-macos-10.15.dmg) |
 
 The supported platforms are limited due to the reason that:
 
