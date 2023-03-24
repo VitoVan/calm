@@ -30,6 +30,7 @@
 #include <string.h>
 
 #ifdef _WIN32
+#include <tchar.h>
 #include <windows.h>
 #define F_OK 0
 #else
@@ -109,7 +110,7 @@ const char *get_sbcl_path() {
   strcpy(sbcl_path, " \"");  // to escape white-space
   strcat(sbcl_path, get_binary_dir());
 #ifdef _WIN32
-  if (getenv("CALM_WITH_ICON") == NULL) {
+  if (getenv("CALM_DIST_WITH_ICON") == NULL) {
     strcat(sbcl_path, "sbcl\\bin\\sbcl");
   } else {
     strcat(sbcl_path, "sbcl\\bin\\sbcl-with-icon");
@@ -376,11 +377,23 @@ int main(int argc, char *argv[]) {
     printf("EXECUTING: bin/calm-app\n");
 
 #ifdef _WIN32
-    if (WinExec("bin\\calm-app.exe", SW_NORMAL) > 31) {
-      return 0;
-    } else {
+    STARTUPINFO si;
+    PROCESS_INFORMATION pi;
+
+    ZeroMemory(&si, sizeof(si));
+    si.cb = sizeof(si);
+    ZeroMemory(&pi, sizeof(pi));
+    if (!CreateProcess(NULL, "bin\\calm-app.exe", NULL, NULL, FALSE, 0, NULL,
+                       NULL, &si, &pi)) {
+      printf("CreateProcess failed (%d).\n", GetLastError());
       return 42;
+    } else {
+      printf("Fine?\n");
+      return 0;
     }
+    WaitForSingleObject(pi.hProcess, INFINITE);
+    CloseHandle(pi.hProcess);
+    CloseHandle(pi.hThread);
 #elif defined __APPLE__
     strcpy(entry_cmd, "DYLD_FALLBACK_LIBRARY_PATH=");
     strcat(entry_cmd, lib_env);

@@ -69,7 +69,7 @@ Section "Installer Section"
 
   ; Create application shortcut (first in calm-app-root to have the correct "start in" target)
   SetOutPath "$INSTDIR\calm-app-root\"
-  CreateShortCut "$INSTDIR\calm-app-root\_APP_NAME_.lnk" "$INSTDIR\calm-app-root\calm.exe"
+  CreateShortCut "$INSTDIR\calm-app-root\_APP_NAME_.lnk" "$INSTDIR\calm-app-root\calmNoConsole.exe"
   SetOutPath "$INSTDIR\"
   CreateShortCut "$INSTDIR\uninstall-_APP_NAME_.lnk" "$INSTDIR\Uninstall.exe"
 
@@ -84,7 +84,7 @@ Section "Installer Section"
 
   WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\_APP_NAME_" "DisplayName" "_APP_NAME_"
   WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\_APP_NAME_" "UninstallString" "$INSTDIR\Uninstall.exe"
-  WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\_APP_NAME_" "DisplayIcon" "$INSTDIR\calm-app-root\calm.exe"
+  WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\_APP_NAME_" "DisplayIcon" "$INSTDIR\calm-app-root\calmNoConsole.exe"
 
 SectionEnd
 

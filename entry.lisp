@@ -30,7 +30,7 @@
     ;; copy calm launcher
     (u:copy-file
      (merge-pathnames calm-bin *calm-env-calm-home*)
-     (merge-pathnames (str:concat "calm" #+win32 ".exe")  dist-dir))
+     (merge-pathnames calm-bin  dist-dir))
     ;; copy `canvas.lisp' and `src' directory
     (when with-canvas
       (u:copy-file (merge-pathnames "canvas.lisp"  *calm-env-app-dir*) (merge-pathnames "canvas.lisp" dist-dir))
@@ -74,7 +74,7 @@
   #+win32
   (progn
     (u:load-from-calm "s/usr/windows/icon.lisp")
-    (setf (uiop:getenv "CALM_WITH_ICON") "YES_MY_LORD")
+    (setf (uiop:getenv "CALM_DIST_WITH_ICON") "YES_MY_LORD")
     (dist-by-new-process)
     (u:calm-log "building Windows Installer...")
     (u:load-from-calm "s/usr/windows/installer.lisp"))
