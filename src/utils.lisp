@@ -130,7 +130,7 @@ so let's use the platform command"
        #-win32
        (str:concat "cp \"" from "\" \"" to "\"")
        #+win32
-       (uiop:copy-file from to)
+       (uiop:copy-file from to))
        ;; Windows `copy' will cause problem on PE files?
        ;; Amazing...
        ;; (str:concat "copy /y \"" from "\" \"" to "\""))
