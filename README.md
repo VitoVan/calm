@@ -138,7 +138,7 @@ Your canvas related content will be packed and uploaded to [transfer.sh](https:/
 | |___   / ___ \  | |___  | |  | |
  \____| /_/   \_\ |_____| |_|  |_|
 
-CALM: 0.0.38, SBCL: 2.3.1
+CALM: 0.0.39, SBCL: 2.3.1
 
 CALM Archive Created: calm-share-3888034151.tar.gz
 
@@ -160,14 +160,7 @@ Setf-able:
 
   Of course, `CALM_HOST_LISP=sbcl calm` will also work.
 
-  Setting this variable means you are going to take care of all the dependencies (include Quicklisp).
-
-- `CALM_ASK_ME`
-
-  With `CALM_ASK_ME=yes-please` to enable the customization process of `calm publish`.
-
-  This will allow you to customize all the available options while publishing.
-
+  Setting this variable means you are going to take care of all the dependencies (including Quicklisp).
 
 - `SDL_VIDEO_ALLOW_SCREENSAVER=1`
 
