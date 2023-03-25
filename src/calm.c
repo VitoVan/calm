@@ -146,7 +146,8 @@ const char *get_lib_env() {
     ori_lib_env = "";
   }
   char *lib_env = malloc(strlen(ori_lib_env) * sizeof(char) +
-                         strlen(lib_path) * sizeof(char) + 1);
+                         strlen(lib_path) * sizeof(char) +
+                         strlen(path_separator) * sizeof(char) + 1);
   strcpy(lib_env, ori_lib_env);
   if (strlen(ori_lib_env) > 0) {
     strcat(lib_env, path_separator);
