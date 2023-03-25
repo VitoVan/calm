@@ -160,14 +160,7 @@ Setf-able:
 
   Of course, `CALM_HOST_LISP=sbcl calm` will also work.
 
-  Setting this variable means you are going to take care of all the dependencies (include Quicklisp).
-
-- `CALM_ASK_ME`
-
-  With `CALM_ASK_ME=yes-please` to enable the customization process of `calm publish`.
-
-  This will allow you to customize all the available options while publishing.
-
+  Setting this variable means you are going to take care of all the dependencies (including Quicklisp).
 
 - `SDL_VIDEO_ALLOW_SCREENSAVER=1`
 
