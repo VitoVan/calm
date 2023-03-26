@@ -37,7 +37,7 @@
          calm-window
          (sdl2-image:load-image *calm-window-icon*)))
 
-      (sdl2:with-renderer (calm-renderer calm-window)
+      (sdl2:with-renderer (calm-renderer calm-window :flags *calm-renderer-flags*)
         (sdl2:with-event-loop (:method :poll)
           (:quit () (calm-quit))
           (:mousewheel (:x x :y y :direction direction) (on-mousewheel x y direction))
