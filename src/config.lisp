@@ -7,6 +7,7 @@
 (defparameter *calm-window-height* 150)
 (defparameter *calm-window-title* "CALM")
 (defparameter *calm-window-flags* '(:shown :allow-highdpi))
+(defparameter *calm-renderer-flags* '(:accelerated :presentvsync))
 
 ;;
 ;; use OpenGL on Linux to avoid weird window flashing: (like it was closed and then opened again)
