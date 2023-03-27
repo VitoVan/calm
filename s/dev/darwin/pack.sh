@@ -3,8 +3,6 @@ export PATH=$(pwd):$PATH
 
 if [[ -z "${CI_MATRIX_OS}" ]]; then
     export DMG_SUFIX=""
-elif [[ "macos-12" == "${CI_MATRIX_OS}" ]]; then
-    export DMG_SUFIX=""
 else
     export DMG_SUFIX=".${CI_MATRIX_OS}"
 fi
