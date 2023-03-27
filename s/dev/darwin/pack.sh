@@ -33,6 +33,22 @@ mv Calm.dmg calm${DMG_SUFIX}.dmg
 cd docs/examples/circles/
 
 #
+# dist-with-canvas
+#
+
+unset CALM_APP_DIR
+unset CALM_HOME
+../../../calm dist-with-canvas
+
+export DIST_DIR=./dist-with-canvas/
+export APP_NAME=Hello
+../../../calm make-bundle
+
+tar -czvf ./dist-with-canvas.tgz Hello.app
+
+mv ./dist-with-canvas.tgz ../../../dist-with-canvas${DMG_SUFIX}.tgz
+
+#
 # publish
 #
 

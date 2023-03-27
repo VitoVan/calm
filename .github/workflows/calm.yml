@@ -48,6 +48,7 @@ jobs:
         with:
           prerelease: true
           files: |
+            *.tgz
             *.dmg
 
   Windows:
@@ -68,5 +69,6 @@ jobs:
         with:
           prerelease: true
           files: |
+            *.tgz
             *.zip
             Hello.exe

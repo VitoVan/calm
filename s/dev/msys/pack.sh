@@ -10,6 +10,19 @@ zip -r ./calm.zip calm.exe calmNoConsole.exe entry.lisp build src lib s quicklis
 cd docs/examples/circles/
 
 #
+# dist-with-canvas
+#
+
+
+unset CALM_APP_DIR
+unset CALM_HOME
+../../../calm dist-with-canvas
+
+tar -czvf ./dist-with-canvas.tgz dist-with-canvas
+
+mv ./dist-with-canvas.tgz ../../../dist-with-canvas.windows.tgz
+
+#
 # publish
 #
 

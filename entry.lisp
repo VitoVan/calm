@@ -37,7 +37,7 @@
       (u:copy-dir (merge-pathnames "src/" *calm-env-app-dir*) (merge-pathnames "src/" dist-dir)))))
 
 (defun dist (pathname &key with-canvas)
-  (u:calm-log "binary pathname ~A [~A]~%" pathname (if with-canvas "(with-canvas)" ""))
+  (u:calm-log "binary pathname ~A ~A~%" pathname (if with-canvas "(with-canvas)" ""))
   (copy-dist-files pathname :with-canvas with-canvas)
   ;; load `canvas.lisp'
   (load (merge-pathnames "canvas.lisp" *calm-env-app-dir*))
