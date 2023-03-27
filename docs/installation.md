@@ -1,25 +1,6 @@
 # Installation
 
-If you don't mind to use pre-built binaries, the installation of CALM is just to download and extract.
-
-## Pre-built Binaries
-
-At the time of writing, CALM was pre-built for the following platforms:
-
-| Platform | Specifics     | CPU    | Download |
-| -------- | ---------------- | ------ | ------------------------- |
-| 🐧 Linux    | glibc >= 2.35    | x86_64 | [calm.tgz](https://github.com/VitoVan/calm/releases/download/0.0.40/calm.tgz) |
-| 🍏 macOS    | Monterey   | x86_64 | [calm.dmg](https://github.com/VitoVan/calm/releases/download/0.0.40/calm.dmg) |
-| 🏁 Windows  | 10 or 11 | x86_64 | [calm.zip](https://github.com/VitoVan/calm/releases/download/0.0.40/calm.zip) |
-| macOS    | Big Sur   | x86_64 | [calm-macos-11.dmg](https://github.com/VitoVan/calm/releases/download/0.0.40/calm-macos-11.dmg) |
-| macOS    | Catalina   | x86_64 | [calm-macos-10.15.dmg](https://github.com/VitoVan/calm/releases/download/0.0.40/calm-macos-10.15.dmg) |
-
-The supported platforms are limited due to the reason that:
-
-1. I don't have access to the ARM or Apple chip based devices
-2. Github Actions [don't support them either](https://github.com/actions/runner-images/issues/2187)
-
-If your CPU or Platform were not listed, please try to [run it from source](#run-from-source).
+If you don't mind to use pre-built binaries, the installation of CALM is just to [download and extract](https://github.com/VitoVan/calm#pre-built-binary).
 
 ### Setting Up CALM
 
@@ -196,31 +177,38 @@ To build CALM is to perform the following tasks:
 - Collect the dependencies
 - Build a launcher (from `calm.c`)
 
-Those strenuous low-tech work are initiated by `build.sh`, and carried by those in the `sh` directory.
+Those strenuous low-tech work are initiated by `build.sh`, and carried by those in the `s/dev/` directory.
 
 To build CALM on a not yet supported platform, the following files definitely need to be investigated:
 
 ```bash
-sh
+s/dev/
 ├── all
-│   └── copy-lib.lisp
+│   ├── clean.sh
+│   ├── copy-lib-with-canvas.sh
+│   ├── copy-lib.lisp
+│   ├── copy-lib.sh
+│   ├── install-quicklisp.lisp
+│   ├── load-calm.lisp
+│   └── quicklisp.sh
 ├── darwin
 │   ├── config-lib.sh
 │   ├── deps.sh
+│   ├── pack.sh
 │   └── sbcl.sh
 ├── fedora
 │   ├── config-lib.sh
 │   ├── deps.sh
+│   ├── pack.sh
 │   └── sbcl.sh
 └── msys
     ├── config-lib.sh
     ├── deps.sh
-    ├── new-app-icon.sh
-    ├── reset-app-icon.sh
+    ├── pack.sh
     └── sbcl.sh
 ```
 
-I will leave this here by now, since I think there may be very few people want to do this kind of work.
+I will leave this here for now, since there might be very few people want to do this kind of work.
 
 If you have interests to build CALM and encountered any problem, please let me know.
 
