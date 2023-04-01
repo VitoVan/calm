@@ -67,6 +67,12 @@
                           ((equal e sdl2-ffi:+sdl-windowevent-leave+)
                            (setf *calm-state-mouse-inside-window* nil))
 
+                          ((equal e sdl2-ffi:+sdl-windowevent-resized+)
+                           (setf *calm-redraw* t)
+                           (u:calm-log "Windows resized, resume redraw. E: ~A~%" e)
+                           (multiple-value-bind (width height) (sdl2:get-window-size calm-window)
+                             (on-windowresized width height)))
+                          
                           ((equal e sdl2-ffi:+sdl-windowevent-close+)
                            (calm-quit))))
           (:mousemotion (:x x :y y)
@@ -124,9 +130,9 @@
                                          (cl-cairo2:set-source-rgb 1 1 1)
                                          (cl-cairo2:paint)
                                          ;; default font size
-                                         (cl-cairo2:set-font-size 80)
+                                         (cl-cairo2:set-font-size *calm-default-font-size*)
                                          ;; default font face
-                                         (c:select-font-face "Arial" :normal :normal)
+                                         (c:select-font-face *calm-default-font-family* :normal :normal)
                                          ;; default color
                                          (cl-cairo2:set-source-rgb 0 0 0)
                                          ;; default position

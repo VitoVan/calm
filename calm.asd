@@ -9,11 +9,13 @@
                  #:sdl2-image
                  #:str
                  #:swank
-                 #:cl-cairo2)
+                 #:bt-semaphore
+                 #:cl-cairo2
+                 #:cl-gobject-introspection)
     :pathname "./src/"
     :serial t
     :components ((:file "package")
                  (:file "config")
-                 (:file "event")
+                 (:file "events")
                  (:file "utils")
                  (:file "calm")))

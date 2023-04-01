@@ -10,12 +10,17 @@ zip -r ./calm.zip calm.exe calmNoConsole.exe entry.lisp build src lib s quicklis
 cd docs/examples/circles/
 
 #
+# this is needed if the current working directory has been changed
+# while building new APP,
+# otherwise CALM will inherit the previous CALM_APP_DIR
+# instead of using the new `uiop:getcwd'
+#
+unset CALM_APP_DIR
+
+#
 # dist-with-canvas
 #
 
-
-unset CALM_APP_DIR
-unset CALM_HOME
 ../../../calm dist-with-canvas
 
 tar -czvf ./dist-with-canvas.tgz dist-with-canvas
@@ -32,8 +37,6 @@ export PATH=$PATH:"/c/Program Files (x86)/NSIS/"
 export APP_ICON=${CALM_HOME}/build/app.ico
 export APP_NAME=Hello
 
-unset CALM_APP_DIR
-unset CALM_HOME
 ../../../calm publish
 
 mv ./*-Installer.exe ../../../Hello.exe

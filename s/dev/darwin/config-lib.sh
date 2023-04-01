@@ -1,7 +1,11 @@
+# debug
+set -x
+
 echo "config all libraries (.dylib) ..."
 cd ./lib
 
 cp /usr/local/lib/libzstd.dylib ./
+cp /usr/local/lib/libpangocairo*.dylib ./
 
 # copy all dependencies
 # this should be ran for many times until no more dylib need to be copied
@@ -30,6 +34,30 @@ do
     done
 done
 
-# fix libSDL2.dylib
-rm libSDL2.dylib
-ln -s `find libSDL2-*.dylib` libSDL2.dylib
+# rm libSDL2.dylib
+# ln -s libSDL2-2.0.0.dylib libSDL2.dylib
+# 
+# rm libSDL2_mixer.dylib
+# ln -s libSDL2_mixer-2.0.0.dylib libSDL2_mixer.dylib
+# 
+# rm libSDL2_image.dylib
+# ln -s libSDL2_image-2.0.0.dylib libSDL2_image.dylib
+# 
+# rm libcairo.dylib
+# ln -s libcairo.2.dylib libcairo.dylib
+# 
+# rm libpangocairo-1.0.dylib
+# ln -s libpangocairo-1.0.0.dylib libpangocairo-1.0.dylib
+# 
+# rm libgobject-2.0.dylib
+# ln -s libgobject-2.0.0.dylib libgobject-2.0.dylib
+# 
+# rm libgirepository-1.0.dylib
+# ln -s libgirepository-1.0.1.dylib libgirepository-1.0.dylib
+
+ls -lah .
+
+# copy all typelibs
+cp -R /usr/local/Cellar/pango/1.50.12/lib/girepository-1.0/*.typelib ./
+cp -R /usr/local/Cellar/gobject-introspection/1.74.0/lib/girepository-1.0/*.typelib ./
+cp -R /usr/local/Cellar/harfbuzz/6.0.0/lib/girepository-1.0/*.typelib ./

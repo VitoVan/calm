@@ -8,6 +8,14 @@
 (defparameter *calm-window-title* "CALM")
 (defparameter *calm-window-flags* '(:shown :allow-highdpi))
 (defparameter *calm-renderer-flags* '(:accelerated :presentvsync))
+(defparameter *calm-default-font-size* 80)
+(defparameter *calm-default-font-family* "Arial")
+
+;; debug variable
+(defparameter *calm-debug-variable-a* nil)
+(defparameter *calm-debug-variable-b* nil)
+(defparameter *calm-debug-variable-c* nil)
+
 
 ;;
 ;; use OpenGL on Linux to avoid weird window flashing: (like it was closed and then opened again)
@@ -52,6 +60,15 @@
 
 (pushnew :calm *features*)
 
+(defun add-custom-font ()
+  ;; let pango use fontconfig to get cross-platform font loading support
+  (setf (uiop:getenv "PANGOCAIRO_BACKEND") "fontconfig")
+  #|
+  const char *fontPath = "Saira.ttf";
+  FcBool fontAddStatus = FcConfigAppFontAddFile(FcConfigGetCurrent(), fontPath);
+  |#
+  )
+
 (defun calm-config ()
   (setf *calm-env-calm-home* (uiop:getenv "CALM_HOME")
         *calm-env-app-dir* (uiop:getenv "CALM_APP_DIR")
@@ -88,4 +105,16 @@
   ;; touch file: .calm-initialised
   (when (and (not (probe-file ".calm-initialised")) (probe-file "calm.asd"))
     (u:touch-file ".calm-initialised")
-    (format t "~A~%" "CALM initialised successfully.")))
+    (format t "~A~%" "CALM initialised successfully."))
+
+  ;;
+  ;; config libs
+  ;;
+  (setf cffi:*foreign-library-directories* nil)
+  (pushnew (merge-pathnames "lib/" *calm-env-calm-home*) cffi:*foreign-library-directories*)
+
+  ;;
+  ;; config gir typelib
+  ;;
+  (gir:repository-prepend-search-path (uiop:native-namestring (merge-pathnames "lib/" *calm-env-calm-home*)))
+  )

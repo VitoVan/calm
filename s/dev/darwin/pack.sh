@@ -33,11 +33,16 @@ mv Calm.dmg calm${DMG_SUFIX}.dmg
 cd docs/examples/circles/
 
 #
+# this is needed if the current working directory has been changed
+# while building new APP,
+# otherwise CALM will inherit the previous CALM_APP_DIR
+# instead of using the new `uiop:getcwd'
+#
+unset CALM_APP_DIR
+
+#
 # dist-with-canvas
 #
-
-unset CALM_APP_DIR
-unset CALM_HOME
 ../../../calm dist-with-canvas
 
 export DIST_DIR=./dist-with-canvas/
@@ -58,8 +63,6 @@ export APP_NAME=Hello
 export BUNDLE_ID=com.vitovan.hellocalm
 export DMG_NAME="hello${DMG_SUFIX}"
 
-unset CALM_APP_DIR
-unset CALM_HOME
 ../../../calm publish
 
 mv *.dmg ../../../Hello${DMG_SUFIX}.dmg

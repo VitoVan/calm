@@ -3,6 +3,7 @@
   (:local-nicknames
    (:c :cl-cairo2))
   (:export
+   :with-cairo-state
    :load-from-app
    :load-from-calm
    :get-from-env-or-ask
@@ -17,6 +18,11 @@
    :play-music
    :play-wav
    :halt-music
+   :show-markup
+   :show-layout
+   :rrectangle
+   :create-markup-layout
+   :escape-string
    :set-cursor))
 
 (defpackage :calm
