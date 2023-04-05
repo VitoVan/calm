@@ -61,8 +61,6 @@
 (pushnew :calm *features*)
 
 (defun add-custom-font ()
-  ;; let pango use fontconfig to get cross-platform font loading support
-  (setf (uiop:getenv "PANGOCAIRO_BACKEND") "fontconfig")
   #|
   const char *fontPath = "Saira.ttf";
   FcBool fontAddStatus = FcConfigAppFontAddFile(FcConfigGetCurrent(), fontPath);
@@ -117,4 +115,12 @@
   ;; config gir typelib
   ;;
   (gir:repository-prepend-search-path (uiop:native-namestring (merge-pathnames "lib/" *calm-env-calm-home*)))
+
+  ;;
+  ;; DPI awareness
+  ;; https://github.com/libsdl-org/SDL/pull/5778
+  (setf (uiop:getenv "SDL_WINDOWS_DPI_SCALING") "1")
+
+  ;; let pango use fontconfig to get cross-platform font loading support
+  (setf (uiop:getenv "PANGOCAIRO_BACKEND") "fontconfig")
   )
