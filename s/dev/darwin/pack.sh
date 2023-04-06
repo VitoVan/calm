@@ -8,7 +8,7 @@ else
 fi
 
 export APP_ICON=./build/calm.icns
-export APP_VERSION=0.0.40
+export APP_VERSION=$(grep :version calm.asd | awk -F \" '{print $2}')
 
 mkdir calm-dist
 cp -R {calm,build,entry.lisp,src,lib,s,quicklisp,README.md,calm.asd,sbcl,images,LICENSE} ./calm-dist/
