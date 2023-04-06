@@ -43,7 +43,7 @@ For more examples, please check this list: [Made with CALM](https://github.com/V
 
 1. Download for your platform
 
-   [![Linux Download](docs/images/linux.svg)](<https://github.com/VitoVan/calm/releases/latest/download/calm.tgz>) [![macOS Monterey Download](docs/images/macos-monterey.svg)](<https://github.com/VitoVan/calm/releases/latest/download/calm.macos-12.dmg>) [![Windows Download](docs/images/windows.svg)](<https://github.com/VitoVan/calm/releases/latest/download/calm.zip>) [![macOS Big Sur Download](docs/images/macos-bigsur.svg)](<https://github.com/VitoVan/calm/releases/latest/download/calm.macos-11.dmg>) [![macOS Catalina Download](docs/images/macos-catalina.svg)](<https://github.com/VitoVan/calm/releases/latest/download/calm.macos-10.15.dmg>)
+   [![Linux Download](docs/images/linux.svg)](<https://github.com/VitoVan/calm/releases/latest/download/calm.tgz>) [![macOS Monterey+ Download](docs/images/macos-monterey-plus.svg)](<https://github.com/VitoVan/calm/releases/latest/download/calm.macos-12.dmg>) [![Windows Download](docs/images/windows.svg)](<https://github.com/VitoVan/calm/releases/latest/download/calm.zip>) [![macOS Big Sur Download](docs/images/macos-bigsur.svg)](<https://github.com/VitoVan/calm/releases/latest/download/calm.macos-11.dmg>) [![macOS Catalina Download](docs/images/macos-catalina.svg)](<https://github.com/VitoVan/calm/releases/latest/download/calm.macos-10.15.dmg>)
 
 2. Extract the content
 
