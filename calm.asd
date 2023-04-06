@@ -1,21 +1,22 @@
 (asdf:defsystem #:calm
-    :description "CALM - Canvas And Lisp Magic"
-    :version "0.0.41"
-    :author "Vito Van"
-    :license "GNU General Public License, version 2"
-    :depends-on (
-                 #:sdl2
-                 #:sdl2-mixer
-                 #:sdl2-image
-                 #:str
-                 #:swank
-                 #:bt-semaphore
-                 #:cl-cairo2
-                 #:cl-gobject-introspection)
-    :pathname "./src/"
-    :serial t
-    :components ((:file "package")
-                 (:file "config")
-                 (:file "events")
-                 (:file "utils")
-                 (:file "calm")))
+  :description "CALM - Canvas And Lisp Magic"
+  :version "0.0.41"
+  :author "Vito Van"
+  :license "GNU General Public License, version 2"
+  :depends-on (
+               #:sdl2
+               #:sdl2-mixer
+               #:sdl2-image
+               #:str
+               #:swank
+               #:bt-semaphore
+               #:cl-cairo2
+               #:cl-gobject-introspection)
+  :pathname "./src/"
+  :serial t
+  :components ((:file "package")
+               (:file "config")
+               (:file "events")
+               (:file "utils")
+               (:file "c")
+               (:file "calm")))
