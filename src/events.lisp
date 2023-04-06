@@ -7,3 +7,4 @@
 (defun on-mousemotion (&key x y) (declare (ignore x y)))
 (defun on-mousebuttonup (&key button x y clicks) (declare (ignore button x y clicks)))
 (defun on-mousebuttondown (&key button x y clicks) (declare (ignore button x y clicks)))
+(defun on-windowresized (width height) (declare (ignore width height)))

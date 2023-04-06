@@ -1,7 +1,15 @@
+(uiop:define-package :c
+    (:use :cl)
+  (:use-reexport :cl-cairo2)
+  (:export
+   :with-state
+   :rrectangle
+   :markup->layout
+   :show-layout
+   :show-markup))
+
 (defpackage :calm-utils
   (:use :cl)
-  (:local-nicknames
-   (:c :cl-cairo2))
   (:export
    :load-from-app
    :load-from-calm
@@ -22,7 +30,6 @@
 (defpackage :calm
   (:use :cl)
   (:local-nicknames
-   (:c :cl-cairo2)
    (:u :calm-utils))
   (:export
    :calm-init

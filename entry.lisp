@@ -37,7 +37,7 @@
       (u:copy-dir (merge-pathnames "src/" *calm-env-app-dir*) (merge-pathnames "src/" dist-dir)))))
 
 (defun dist (pathname &key with-canvas)
-  (u:calm-log "binary pathname ~A [~A]~%" pathname (if with-canvas "(with-canvas)" ""))
+  (u:calm-log "binary pathname ~A ~A~%" pathname (if with-canvas "(with-canvas)" ""))
   (copy-dist-files pathname :with-canvas with-canvas)
   ;; load `canvas.lisp'
   (load (merge-pathnames "canvas.lisp" *calm-env-app-dir*))
@@ -105,27 +105,6 @@
   ((string= *calm-env-calm-cmd* "publish-with-options")
    (setf (uiop:getenv "CALM_ASK_ME") "yes-please")
    (publish))
-
-  ((string= *calm-env-calm-cmd* "share")
-   (let ((calm-archive-name (str:concat "calm-share-" (write-to-string (get-universal-time)) ".tar.gz")))
-     (ensure-directories-exist (merge-pathnames "src/" *calm-env-app-dir*))
-     (ensure-directories-exist (merge-pathnames "assets/" *calm-env-app-dir*))
-     (u:exec-if #+win32 "whereis tar" #-win32 "command -v tar"
-                (str:concat "tar -cvzf ./" calm-archive-name " canvas.lisp src assets")
-                ;; yes, Windows also has tar
-                ;; https://techcommunity.microsoft.com/t5/containers/tar-and-curl-come-to-windows/ba-p/382409
-                "Can NOT find command tar, so you don't have tar?"
-                )
-     (u:calm-log-fancy "CALM Archive Created: ~A" calm-archive-name)
-     (u:calm-log "Generating Sharing Link:~%")
-     (u:exec-if #+win32 "whereis curl" #-win32 "command -v curl"
-                (str:concat "curl -s --upload-file ./" calm-archive-name " https://transfer.sh/")
-                ;; yes, Windows also has curl
-                ;; https://techcommunity.microsoft.com/t5/containers/tar-and-curl-come-to-windows/ba-p/382409
-                "Can NOT find command tar, so you don't have curl?"
-                )
-     (u:calm-log "~%")))
-
 
   ;; rebuild calm.core
   ;; this could speed up your CALM command

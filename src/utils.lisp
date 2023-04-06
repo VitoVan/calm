@@ -84,8 +84,9 @@ e.g. use (load-from-calm \"config.lisp\") to load your custom configuration file
 (defun halt-music ()
   (sdl2-mixer:halt-music))
 
+
 ;;
-;; command utilites
+;; command utilities
 ;;
 
 (defun exec (command &key (expected-exit-code 0) (ignore-error-status nil))
@@ -144,7 +145,7 @@ Just use the `cp' command for whoever's sake"
   (if (probe-file from)
       (exec
        #-win32
-       (str:concat "cp -r \"" from "\" \"" to "\"")
+       (str:concat "cp -R \"" from "\" \"" to "\"")
        #+win32
        (str:concat "robocopy /mir \"" from " \" \"" to " \"") ;; extra space to avoid escaping \"
        ;; I don't know why those Windows fuckers decide to

@@ -1,0 +1,9 @@
+* CALM
+** 0.0.41
+- add Pango
+  https://docs.gtk.org/Pango/
+- add multi-threading
+  https://bordeaux-threads.common-lisp.dev/
+- add Windows high-dpi / DPI scaling support
+  https://github.com/libsdl-org/SDL/pull/5778
+- rearrange code layout, add file c.lisp

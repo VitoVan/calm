@@ -128,14 +128,14 @@ const char *get_sbcl_path() {
 /*
  * return the new value for
  *     Linux: LD_LIBRARY_PATH
- *     macOS: DYLD_FALLBACK_LIBRARY_PATH
+ *     macOS: DYLD_LIBRARY_PATH
  *     Windows: PATH
  */
 const char *get_lib_env() {
   const char *lib_path = get_lib_path();
   char *path_separator = ":";
 #ifdef __APPLE__
-  char *ori_lib_env = getenv("DYLD_FALLBACK_LIBRARY_PATH");
+  char *ori_lib_env = getenv("DYLD_LIBRARY_PATH");
 #elif defined __linux__
   char *ori_lib_env = getenv("LD_LIBRARY_PATH");
 #elif defined _WIN32
@@ -307,15 +307,15 @@ int main(int argc, char *argv[]) {
     strcpy(entry_cmd, get_sbcl_path());
   } else {
     /*
-     * Apple won't allow us to modify DYLD_FALLBACK_LIBRARY_PATH:
+     * Apple won't allow us to modify DYLD_LIBRARY_PATH:
      * https://developer.apple.com/forums/thread/13161
      * https://developer.apple.com/library/archive/documentation/Security/Conceptual/System_Integrity_Protection_Guide/RuntimeProtections/RuntimeProtections.html
      * So the following won't work:
-     *     apply_env("DYLD_FALLBACK_LIBRARY_PATH", lib_path);
+     *     apply_env("DYLD_LIBRARY_PATH", lib_path);
      * We have to prepend this inside the command, like:
-     *     DYLD_FALLBACK_LIBRARY_PATH=/some/where/my/lib ./my-app
+     *     DYLD_LIBRARY_PATH=/some/where/my/lib ./my-app
      */
-    strcpy(entry_cmd, "DYLD_FALLBACK_LIBRARY_PATH=");
+    strcpy(entry_cmd, "DYLD_LIBRARY_PATH=");
     strcat(entry_cmd, lib_env);
     strcat(entry_cmd, " ");
     strcat(entry_cmd, get_sbcl_path());
@@ -383,7 +383,7 @@ int main(int argc, char *argv[]) {
       return 42;
     }
 #elif defined __APPLE__
-    strcpy(entry_cmd, "DYLD_FALLBACK_LIBRARY_PATH=");
+    strcpy(entry_cmd, "DYLD_LIBRARY_PATH=");
     strcat(entry_cmd, lib_env);
     strcat(entry_cmd, " bin/calm-app");
     if (system(entry_cmd) != 0) return 42;

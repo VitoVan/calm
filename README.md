@@ -1,8 +1,8 @@
-# <img style="vertical-align:middle;margin-right:10px;" width="100" alt="Calm" src="docs/images/calm.png"> Canvas And Lisp Magic
+# <img style="vertical-align:middle;margin-right:10px;" width="100" alt="Calm" src="docs/images/calm.png"> Canvas and Lisp Magic
 
 Calm down and draw something, in Lisp.
 
-[![platform support](https://img.shields.io/badge/Platform-Linux%20%7C%20macOS%20%7C%20Windows-blue.svg)](#installation) [![CI](https://github.com/VitoVan/calm/actions/workflows/calm.yml/badge.svg)](https://github.com/VitoVan/calm/actions/workflows/calm.yml) [![GitHub all releases](https://img.shields.io/github/downloads/vitovan/calm/total?color=green&label=Downloads&style=plastic)](https://github.com/VitoVan/calm/releases/latest)
+[![CI](https://github.com/VitoVan/calm/actions/workflows/calm.yml/badge.svg)](https://github.com/VitoVan/calm/actions/workflows/calm.yml) [![GitHub all releases](https://img.shields.io/github/downloads/vitovan/calm/total?color=brightgreen&label=Downloads&style=flat)](https://github.com/VitoVan/calm/releases/latest)
 
 ## Hello World
 
@@ -26,7 +26,7 @@ calm
 
 [![Hello World](docs/examples/circles/canvas.png)](#hello-world)
 
-## More Examples
+## Examples
 
 <p align="center">
     <a title="Check the code for Fan" href="./docs/examples/fan"><img width="250" alt="Fan" src="./docs/examples/fan/canvas.png"></a>
@@ -35,15 +35,15 @@ calm
 </p>
 
 
-The example pack can be downloaded [here](https://github.com/VitoVan/calm/releases/latest/download/examples.zip).
-
 For more examples, please check this list: [Made with CALM](https://github.com/VitoVan/made-with-calm).
 
-## Installation
+## <img style="vertical-align:middle;margin-right:5px;" width="50" alt="Calm Installer" src="./build/calm.png"> Installation
 
 ### Pre-built Binary
 
-1. **Download the [latest release](https://github.com/VitoVan/calm/releases/latest)** for your platform
+1. Download for your platform
+
+   [![Linux Download](docs/images/linux.svg)](<https://github.com/VitoVan/calm/releases/latest/download/calm.tgz>) [![macOS Monterey+ Download](docs/images/macos-monterey-plus.svg)](<https://github.com/VitoVan/calm/releases/latest/download/calm.macos-12.dmg>) [![Windows Download](docs/images/windows.svg)](<https://github.com/VitoVan/calm/releases/latest/download/calm.zip>) [![macOS Big Sur Download](docs/images/macos-bigsur.svg)](<https://github.com/VitoVan/calm/releases/latest/download/calm.macos-11.dmg>) [![macOS Catalina Download](docs/images/macos-catalina.svg)](<https://github.com/VitoVan/calm/releases/latest/download/calm.macos-10.15.dmg>)
 
 2. Extract the content
 
@@ -53,13 +53,13 @@ For more examples, please check this list: [Made with CALM](https://github.com/V
 
 In case anything went wrong, here is an [Installation Guide](docs/installation.md).
 
-### From the Source Code
+### Run from Source
 
-All the binaries are built with [Github Action](.github/workflows/calm.yml), the available environments are limited. Currently they only support x86_64 CPU. If you are using something not supported, or you are one of those good old Lispers, feel free to [Run from Source](docs/installation.md#run-from-source), or [Build CALM](docs/installation.md#build-calm).
+Supported platforms are currently limited by [Github Actions runner images](https://github.com/actions/runner-images).
+
+If your platforms are not supported, feel free to [Run from Source](docs/installation.md#run-from-source).
 
 ## <img style="vertical-align:middle;margin-right:5px;" width="50" alt="Calm Application" src="./build/app.png"> Distribution
-
-Distribution of CALM Application is just one command.
 
 Launch your terminal, cd to the directory where the file **canvas.lisp** exists, enter the command:
 
@@ -119,37 +119,6 @@ calm publish-with-options
 
 You will be asked for all the customization options and the default value will also be provided.
 
-### Share Your Code
-
-Share your work with other Lispers.
-
-Launch your terminal, cd to the directory where the file **canvas.lisp** exists, enter the command:
-
-```bash
-calm share
-```
-
-Your canvas related content will be packed and uploaded to [transfer.sh](https://transfer.sh/), you can share them with a link:
-
-```bash
-  ____      _      _       __  __
- / ___|    / \    | |     |  \/  |
-| |       / _ \   | |     | |\/| |
-| |___   / ___ \  | |___  | |  | |
- \____| /_/   \_\ |_____| |_|  |_|
-
-CALM: 0.0.40, SBCL: 2.3.1
-
-CALM Archive Created: calm-share-3888034151.tar.gz
-
-Generating Sharing Link:
-/usr/local/opt/curl/bin/curl
-EXECUTING CMD: curl -s --upload-file ./calm-share-3888034150.tar.gz https://transfer.sh/
-https://transfer.sh/Bf3BtK/calm-share-3888034151.tar.gz
-```
-
-If any of your friend don't know how to use this file, please don't mock them.
-
 ## Environment Variables
 
 Setf-able:
@@ -188,7 +157,9 @@ Not yet, but here are some links might be helpful:
 
 - Cairo
   - https://www.cairographics.org/
+
   - https://github.com/rpav/cl-cairo2
+
     in `(c:fill-path)`, the `c` is a nickname for `cl-cairo2`
 
 - CALM
