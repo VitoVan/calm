@@ -121,6 +121,14 @@
   ;; https://github.com/libsdl-org/SDL/pull/5778
   (setf (uiop:getenv "SDL_WINDOWS_DPI_SCALING") "1")
 
+  ;;
   ;; let pango use fontconfig to get cross-platform font loading support
-  (setf (uiop:getenv "PANGOCAIRO_BACKEND") "fontconfig")
+  ;;
+  ;; I think we should either:
+  ;;    1. leave this to the CALM user to decide
+  ;;    2. provide a full support for fontconfig backend with default `fonts.conf' etc.
+  ;;
+  ;; As for now, I just comment this out
+  ;;
+  ;; (setf (uiop:getenv "PANGOCAIRO_BACKEND") "fontconfig")
   )
