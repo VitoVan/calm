@@ -34,26 +34,29 @@ do
     done
 done
 
-# rm libSDL2.dylib
-# ln -s libSDL2-2.0.0.dylib libSDL2.dylib
-# 
-# rm libSDL2_mixer.dylib
-# ln -s libSDL2_mixer-2.0.0.dylib libSDL2_mixer.dylib
-# 
-# rm libSDL2_image.dylib
-# ln -s libSDL2_image-2.0.0.dylib libSDL2_image.dylib
-# 
-# rm libcairo.dylib
-# ln -s libcairo.2.dylib libcairo.dylib
-# 
-# rm libpangocairo-1.0.dylib
-# ln -s libpangocairo-1.0.0.dylib libpangocairo-1.0.dylib
-# 
-# rm libgobject-2.0.dylib
-# ln -s libgobject-2.0.0.dylib libgobject-2.0.dylib
-# 
-# rm libgirepository-1.0.dylib
-# ln -s libgirepository-1.0.1.dylib libgirepository-1.0.dylib
+rm libSDL2.dylib
+ln -s libSDL2-2.0.0.dylib libSDL2.dylib
+
+rm libSDL2_mixer.dylib
+ln -s libSDL2_mixer-2.0.0.dylib libSDL2_mixer.dylib
+
+rm libSDL2_image.dylib
+ln -s libSDL2_image-2.0.0.dylib libSDL2_image.dylib
+
+rm libcairo.dylib
+ln -s libcairo.2.dylib libcairo.dylib
+
+rm libpangocairo-1.0.dylib
+ln -s libpangocairo-1.0.0.dylib libpangocairo-1.0.dylib
+
+rm libgobject-2.0.dylib
+ln -s libgobject-2.0.0.dylib libgobject-2.0.dylib
+
+rm libgirepository-1.0.dylib
+ln -s libgirepository-1.0.1.dylib libgirepository-1.0.dylib
+
+rm libzstd.dylib
+ln -s libzstd.1.dylib libzstd.dylib
 
 ls -lah .
 
