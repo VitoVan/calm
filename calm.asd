@@ -1,5 +1,5 @@
 (asdf:defsystem #:calm
-  :description "CALM - Canvas And Lisp Magic"
+  :description "CALM - Canvas Aided Lisp Magic"
   :version "0.0.41"
   :author "Vito Van"
   :license "GNU General Public License, version 2"
@@ -19,4 +19,6 @@
                (:file "events")
                (:file "utils")
                (:file "c")
+               (:file "cairo")
+               (:file "fontconfig")
                (:file "calm")))

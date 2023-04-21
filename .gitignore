@@ -17,3 +17,5 @@ Dockerfile
 *.zip
 *.app
 .calm-initialised
+build/web/
+docs/examples/**/web/

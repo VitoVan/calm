@@ -1,14 +1,20 @@
 (in-package :calm)
 
 ;; init config
+#-jscl
 (defparameter *calm-window-x* :centered)
+#-jscl
 (defparameter *calm-window-y* :centered)
 (defparameter *calm-window-width* 600)
 (defparameter *calm-window-height* 150)
 (defparameter *calm-window-title* "CALM")
+#-jscl
 (defparameter *calm-window-flags* '(:shown :allow-highdpi))
+#-jscl
 (defparameter *calm-renderer-flags* '(:accelerated :presentvsync))
+#-jscl
 (defparameter *calm-default-font-size* 80)
+#-jscl
 (defparameter *calm-default-font-family* "Arial")
 
 ;; debug variable
@@ -20,24 +26,45 @@
 ;;
 ;; use OpenGL on Linux to avoid weird window flashing: (like it was closed and then opened again)
 ;;
-#+linux
+#+(and linux (not jscl))
 (push :opengl *calm-window-flags*)
 
 ;; on Wayland, this doesn't work, who should I blame?
+#-jscl
 (defparameter *calm-window-icon* nil)
+#-jscl
 (defparameter *calm-delay* 42)
+#+jscl
+(defparameter *calm-fps* 42)
+
 (defparameter *calm-redraw* t
   "The canvas will be painted again and again by calling the `draw' function,
    setting it to `NIL' means you don't want the canvas to be painted again,
    setting it back to `t' will paint the canvas again and again by calling the `draw' function, again.
   ")
+#-jscl
 (defparameter *calm-music-format* sdl2-ffi:+audio-s32sys+)
+#+jscl
+(defparameter *calm-music-format* 32800)
+
 (defparameter *calm-music-frequency* 44100)
 (defparameter *calm-music-channels* 2)
+
+;;
+;; chunksize: audio buffer size in sample FRAMES (total samples divided by channel count).
+;; I thought it should be: (* calm::*calm-music-channels* calm::*calm-music-frequency*)
+;; but, it was delayed, I have to set it to `1024' according to this:
+;; https://stackoverflow.com/questions/983997/i-have-an-unintended-delay-in-playing-a-mix-chunk
+#-jscl
 (defparameter *calm-music-chunksize* 1024)
+;; but, when it is on the browser,
+;; I have to set it to a very large value to make things a little more smooth,
+;; it still suffers some wierd noises sometimes.
+;; I don't know why, please enlight me if you know something about this
+#+jscl
+(defparameter *calm-music-chunksize* (* 4 1024))
 
 ;; runtime variables
-(defparameter *calm-dpi-scale* 1)
 
 (defparameter *calm-state-mouse-inside-window* nil)
 (defparameter *calm-state-mouse-x* 0)
@@ -50,23 +77,35 @@
 (defparameter *calm-state-loaded-audio* nil)
 
 ;; env
+#-jscl
 (defparameter *calm-env-calm-home* nil)
+#-jscl
 (defparameter *calm-env-calm-cmd* nil)
+#-jscl
 (defparameter *calm-env-app-dir* nil)
+#-jscl
 (defparameter *calm-env-host-lisp* nil)
 
 ;; other
-(defvar *calm-version* (slot-value (asdf:find-system 'calm) 'asdf:version))
+(defvar *calm-version* "0.0.41")
 
 (pushnew :calm *features*)
 
-(defun add-custom-font ()
-  #|
-  const char *fontPath = "Saira.ttf";
-  FcBool fontAddStatus = FcConfigAppFontAddFile(FcConfigGetCurrent(), fontPath);
-  |#
-  )
+#+jscl
+(defparameter *configured* nil)
 
+#+jscl
+(defun jscl-draw ()
+  (unless *configured*
+    ;; this has to be called in jscl-draw, since by then the wasm has finally initialised.
+    (let ((title-ptr (#j:allocateUTF8 *calm-window-title*)))
+      (#j:_config title-ptr)
+      (#j:_free title-ptr))
+    (setf *configured* t))
+  ;; draw something
+  (internal-draw))
+
+#-jscl
 (defun calm-config ()
   (setf *calm-env-calm-home* (uiop:getenv "CALM_HOME")
         *calm-env-app-dir* (uiop:getenv "CALM_APP_DIR")
@@ -88,9 +127,11 @@
   ;;
   ;; so, let's create a dummy file (.calm-app-macos-bundle) inside the app bundle,
   ;; and if it exists, then we will pick it up.
-  #+darwin
   (when
       (and
+       ;; why `featurep' instead of `#+darwin'?
+       ;; track: https://github.com/jscl-project/jscl/issues/475
+       (uiop:featurep :darwin)
        (str:contains? ".app/Contents/MacOS" (namestring *calm-env-calm-home*))
        (probe-file (merge-pathnames ".calm-app-macos-bundle" *calm-env-calm-home*)))
     (setf (uiop:getenv "CALM_APP_DIR") *calm-env-calm-home*
@@ -116,19 +157,54 @@
   ;;
   (gir:repository-prepend-search-path (uiop:native-namestring (merge-pathnames "lib/" *calm-env-calm-home*)))
 
+
   ;;
   ;; DPI awareness
   ;; https://github.com/libsdl-org/SDL/pull/5778
   (setf (uiop:getenv "SDL_WINDOWS_DPI_SCALING") "1")
 
-  ;;
   ;; let pango use fontconfig to get cross-platform font loading support
-  ;;
-  ;; I think we should either:
-  ;;    1. leave this to the CALM user to decide
-  ;;    2. provide a full support for fontconfig backend with default `fonts.conf' etc.
-  ;;
-  ;; As for now, I just comment this out
-  ;;
-  ;; (setf (uiop:getenv "PANGOCAIRO_BACKEND") "fontconfig")
-  )
+  (setf (uiop:getenv "PANGOCAIRO_BACKEND") "fontconfig")
+
+  ;; set fontconfig config dir
+  (setf (uiop:getenv "FONTCONFIG_PATH") (uiop:native-namestring (merge-pathnames "fonts/" *calm-env-app-dir*)))
+  (setf (uiop:getenv "FONTCONFIG_FILE") (uiop:native-namestring (merge-pathnames "fonts/fonts.conf" *calm-env-app-dir*)))
+
+  (format t "fontpath: ~A~%" (uiop:native-namestring (merge-pathnames "fonts/" *calm-env-app-dir*)))
+  (format t "fontfile: ~A~%" (uiop:native-namestring (merge-pathnames "fonts/fonts.conf" *calm-env-app-dir*)))
+
+  ;; (setf (uiop:getenv "FC_DEBUG") "1024")
+
+  ;; init fc
+  (let ((ns-fc (gir:require-namespace "fontconfig")))
+    (gir:invoke (ns-fc "init"))))
+
+#+jscl
+(defun get-calm-redraw () *calm-redraw*)
+
+#+jscl
+(defun calm-config ()
+  (setf #j:draw #'jscl-draw)
+  (when (fboundp 'think)
+    (setf #j:think #'think))
+  (setf #j:get_calm_redraw #'get-calm-redraw)
+  (setf #j:on_mousewheel #'internal-on-mousewheel)
+  (setf #j:on_mousemotion
+        #'(lambda (x y) (internal-on-mousemotion :x x :y y)))
+  (setf #j:on_mousebuttonup
+        #'(lambda (button x y clicks) (internal-on-mousebuttonup :button button :x x :y y :clicks clicks)))
+  (setf #j:on_mousebuttondown
+        #'(lambda (button x y clicks) (internal-on-mousebuttondown :button button :x x :y y :clicks clicks)))
+  (setf #j:on_windowresized #'internal-on-windowresized)
+  (setf #j:on_windowenter #'internal-on-windowenter)
+  (setf #j:on_windowleave #'internal-on-windowleave)
+  (setf #j:on_keydown #'internal-on-keydown)
+  (setf #j:on_keyup #'internal-on-keyup)
+
+  ;; create env
+  (#j:window:eval "var JSCL_ENV = {};")
+
+  (setf #j:JSCL_ENV:CALM_FPS *calm-fps*)
+
+  (setf #j:JSCL_ENV:CALM_WINDOW_WIDTH *calm-window-width*)
+  (setf #j:JSCL_ENV:CALM_WINDOW_HEIGHT *calm-window-height*))

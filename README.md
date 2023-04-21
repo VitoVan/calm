@@ -1,4 +1,4 @@
-# <img style="vertical-align:middle;margin-right:10px;" width="100" alt="Calm" src="docs/images/calm.png"> Canvas and Lisp Magic
+# <img style="vertical-align:middle;margin-right:10px;" width="100" alt="Calm" src="docs/images/calm.png"> Canvas Aided Lisp Magic
 
 Calm down and draw something, in Lisp.
 
@@ -9,12 +9,12 @@ Calm down and draw something, in Lisp.
 Find whatever directory, create a file: **canvas.lisp**
 
 ```lisp
-(in-package #:calm)
 (defparameter *color-list* '((0.83 0.82 0.84) (0.89 0.12 0.17) (0.94 0.87 0.47) (0 0.35 0.59)))
 (defun draw ()
   (dotimes (i 7)
+    (c:set-operator :darken)
+    (c:arc (+ 72 (* (- (/ *calm-window-width* 5) 44) i)) 73 50 0 (* 2 pi))
     (apply #'c:set-source-rgb (nth (if (>= i 4) (- i 4) i) *color-list*))
-    (c:arc (+ 60 (* (- (/ *calm-window-width* 5) 40) i)) 70 50 0 (* 2 pi))
     (c:fill-path)))
 ```
 

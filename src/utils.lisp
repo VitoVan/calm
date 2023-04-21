@@ -18,55 +18,6 @@ CALM: ~A, ~A: ~A~%
 (defmacro calm-log (control-string &rest rest)
   `(format t ,control-string ,@rest))
 
-(defun set-cursor (type)
-  (cond
-    ((equal type :hand) (sdl2-ffi.functions:sdl-set-cursor (sdl2-ffi.functions:sdl-create-system-cursor sdl2-ffi:+sdl-system-cursor-hand+)))
-    ((equal type :arrow) (sdl2-ffi.functions:sdl-set-cursor (sdl2-ffi.functions:sdl-create-system-cursor sdl2-ffi:+sdl-system-cursor-arrow+)))))
-
-(sdl2-mixer:init)
-
-(defun open-audio-if-not-yet ()
-  (unless calm::*calm-state-audio-open*
-    ;;
-    ;; if we put the following code outside of this function,
-    ;; it will open-audio right after the library is loaded,
-    ;; which will cause problem for save-lisp-and-die
-    ;;
-    (sdl2-mixer:open-audio
-     calm::*calm-music-frequency*
-     calm::*calm-music-format*
-     ;; channels: number of channels (1 is mono, 2 is stereo, etc).
-     calm::*calm-music-channels*
-     ;;
-     ;; chunksize: audio buffer size in sample FRAMES (total samples divided by channel count).
-     ;; I thought it should be: (* calm::*calm-music-channels* calm::*calm-music-frequency*)
-     ;; but, it was delayed, I have to set it to `1024' according to this:
-     ;; https://stackoverflow.com/questions/983997/i-have-an-unintended-delay-in-playing-a-mix-chunk
-     calm::*calm-music-chunksize*
-     )))
-
-(defun play-music (pathname &optional (loops 0))
-  (open-audio-if-not-yet)
-  (let* ((music-pathname (or
-                          (uiop:absolute-pathname-p pathname)
-                          (uiop:merge-pathnames* pathname (uiop:getenv "CALM_APP_DIR"))))
-         (music-object-cache (cdr (assoc music-pathname calm::*calm-state-loaded-audio*)))
-         (music-object (or music-object-cache (sdl2-mixer:load-music music-pathname))))
-    (unless music-object-cache
-      (push (cons music-pathname music-object) calm::*calm-state-loaded-audio*))
-    (sdl2-mixer:play-music music-object loops)))
-
-(defun play-wav (pathname &optional (loops 0))
-  (open-audio-if-not-yet)
-  (let* ((wav-pathname (or
-                          (uiop:absolute-pathname-p pathname)
-                          (uiop:merge-pathnames* pathname (uiop:getenv "CALM_APP_DIR"))))
-         (wav-object-cache (cdr (assoc wav-pathname calm::*calm-state-loaded-audio*)))
-         (wav-object (or wav-object-cache (sdl2-mixer:load-wav wav-pathname))))
-    (unless wav-object-cache
-      (push (cons wav-pathname wav-object) calm::*calm-state-loaded-audio*))
-    (sdl2-mixer:play-channel -1 wav-object loops)))
-
 (defun load-from-app (pathname)
   "load lisp files from the `CALM_APP_DIR' directory,
 e.g. use (load-from-app \"config.lisp\") to load your custom configuration file"
@@ -80,10 +31,6 @@ e.g. use (load-from-calm \"config.lisp\") to load your custom configuration file
   (load (or
          (uiop:absolute-pathname-p pathname)
          (uiop:merge-pathnames* pathname (uiop:getenv "CALM_HOME")))))
-
-(defun halt-music ()
-  (sdl2-mixer:halt-music))
-
 
 ;;
 ;; command utilities
@@ -167,6 +114,12 @@ Just use the `cp' command for whoever's sake"
        :ignore-error-status t)
       (format t "Directory NOT Found: ~A~%" from)))
 
+#-jscl
+(defun set-cursor (type)
+  (cond
+    ((equal type :hand) (sdl2-ffi.functions:sdl-set-cursor (sdl2-ffi.functions:sdl-create-system-cursor sdl2-ffi:+sdl-system-cursor-hand+)))
+    ((equal type :arrow) (sdl2-ffi.functions:sdl-set-cursor (sdl2-ffi.functions:sdl-create-system-cursor sdl2-ffi:+sdl-system-cursor-arrow+)))))
+
 ;;
 ;; env utils
 ;;
@@ -176,8 +129,8 @@ this function will:
 1. (uiop:getenv \"VAR_NAME\"), return the value if it were found
 2. ask user to input a new value for this, and return"
   (let* ((env-name (str:replace-all "-" "_" (str:upcase (string var-name))))
-        (env-value (uiop:getenv env-name))
-        (current-value (or env-value default-value)))
+         (env-value (uiop:getenv env-name))
+         (current-value (or env-value default-value)))
 
     ;; if there exists default value or env value,
     ;; and the user don't want to be bothered (by default, we don't bother them),
@@ -193,5 +146,5 @@ this function will:
                                  current-value
                                  input-line)))
                 ;; update ENV to match the user input
-                (setf (uiop:getenv env-name) result)
+                (setf (uiop:getenv env-name) (write-to-string result))
                 result))))))

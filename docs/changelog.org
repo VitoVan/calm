@@ -1,4 +1,11 @@
 * CALM
+** 0.0.42
+- fix macOS dylib conflict
+- enhance performance: 0 % ~ 0.3 % CPU usage when idle
+- add web support, with [[https://github.com/VitoVan/pango-cairo-wasm/][WebAssembly]] + [[https://github.com/jscl-project/jscl][JSCL]]
+- add custom fonts directory support
+  you could just put your fonts into the fonts directory (alongside with canvas.lisp),
+  it will be picked up by fontconfig, select it with: `c:select-font-family`.
 ** 0.0.41
 - add Pango
   https://docs.gtk.org/Pango/
