@@ -49,6 +49,7 @@
    :maybe-enum
    :weight
    :slant
+   :fc-init
    :fc-create-pattern
    :fc-pattern-add-string
    :fc-pattern-add-integer

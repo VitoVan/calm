@@ -1,12 +1,13 @@
 ;; some of the code borrowed from: https://github.com/Shinmera/font-discovery
 (in-package #:fontconfig)
 
-(cffi:define-foreign-library fontconfig
-  (:darwin (:or "libfontconfig.dylib" "libfontconfig.1.dylib"))
+(cffi:define-foreign-library :fontconfig
+  (:darwin (:or "libfontconfig.1.dylib" "libfontconfig.dylib"))
   (:unix (:or "libfontconfig.so.1" "libfontconfig.so"))
-  (:windows (:or "libfontconfig.dll" "libfontconfig-1.dll"))
+  (:windows (:or "libfontconfig-1.dll" "libfontconfig.dll"))
   (t (:default "libfontconfig")))
 
+(cffi:load-foreign-library :fontconfig)
 
 (cffi:defcenum weight
   (:thin 0)
@@ -36,6 +37,8 @@
   (etypecase thing
     (keyword (cffi:foreign-enum-value type thing))
     (integer thing)))
+
+(cffi:defcfun (fc-init "FcInit") :pointer)
 
 (cffi:defcfun (fc-create-pattern "FcPatternCreate") :pointer)
 

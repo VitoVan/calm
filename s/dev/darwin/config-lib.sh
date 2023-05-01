@@ -61,6 +61,4 @@ ln -s libzstd.1.dylib libzstd.dylib
 ls -lah .
 
 # copy all typelibs
-cp -R /usr/local/Cellar/pango/1.50.12/lib/girepository-1.0/*.typelib ./
-cp -R /usr/local/Cellar/gobject-introspection/1.74.0/lib/girepository-1.0/*.typelib ./
-cp -R /usr/local/Cellar/harfbuzz/6.0.0/lib/girepository-1.0/*.typelib ./
+cp -L -R /usr/local/lib/girepository-1.0/*.typelib ./

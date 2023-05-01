@@ -176,8 +176,8 @@
   ;; (setf (uiop:getenv "FC_DEBUG") "1024")
 
   ;; init fc
-  (let ((ns-fc (gir:require-namespace "fontconfig")))
-    (gir:invoke (ns-fc "init"))))
+  (fontconfig:fc-init)
+  )
 
 #+jscl
 (defun get-calm-redraw () *calm-redraw*)
