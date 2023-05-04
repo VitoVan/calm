@@ -26,14 +26,17 @@ calm
 
 [![Hello World](docs/examples/circles/canvas.png)](#hello-world)
 
+Or `calm publish-web` and [![open in the browser](docs/images/open-inthebrowser.svg)](https://vitovan.com/calm/circles/calm.html).
+
 ## Examples
 
 <p align="center">
-    <a title="Check the code for Fan" href="./docs/examples/fan"><img width="250" alt="Fan" src="./docs/examples/fan/canvas.png"></a>
-    <a title="Check the code for Mondrian" href="./docs/examples/mondrian"><img width="250" alt="Mondrian" src="./docs/examples/mondrian/canvas.png"></a>
-    <a title="Check the code for Meditator" href="./docs/examples/meditator"><img width="250" alt="Meditator" src="./docs/examples/meditator/canvas.png"></a>
+    <a href="https://github.com/VitoVan/calm/releases/tag/examples-0.0.42"><img width="250" alt="Fan" src="./docs/examples/fan/canvas.png"></a>
+    <a href="https://github.com/VitoVan/calm/releases/tag/examples-0.0.42"><img width="250" alt="Mondrian" src="./docs/examples/mondrian/canvas.png"></a>
+    <a href="https://github.com/VitoVan/calm/releases/tag/examples-0.0.42"><img width="250" alt="Meditator" src="./docs/examples/meditator/canvas.png"></a>
 </p>
 
+No need to download, you can check these examples [in your browser](https://github.com/VitoVan/calm/releases/tag/examples-0.0.42).
 
 For more examples, please check this list: [Made with CALM](https://github.com/VitoVan/made-with-calm).
 
@@ -118,6 +121,18 @@ calm publish-with-options
 ```
 
 You will be asked for all the customization options and the default value will also be provided.
+
+### On the Web
+
+```bash
+calm publish-web
+```
+
+This command could compoile your Lisp code into web pages that could be served on the internet.
+
+There is also another `calm publish-web-with-options` command for more customization.
+
+I haven't write any document yet, but the command should deliver. Please let me know if it doesn't.
 
 ## Environment Variables
 
