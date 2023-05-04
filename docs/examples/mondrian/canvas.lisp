@@ -41,6 +41,7 @@
   (apply #'c:set-source-rgb (nth (if color (1+ (random 3)) 0) *mondrian-color-list*))
   (c:fill-path))
 
+#-jscl
 (setf *random-state* (make-random-state t))
 
 (defun draw ()
