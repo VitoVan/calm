@@ -1,6 +1,17 @@
 (in-package #:calm)
 
 ;;
+;; CALM version check
+;;
+#-jscl
+(let ((required-version "0.0.42"))
+  (unless (string>= *calm-version* required-version)
+    (format t "Sorry, CALM ~A is needed, older version (current: ~A) of CALM won't work.~%"
+            required-version *calm-version*)
+    (uiop:quit 42)))
+
+
+;;
 ;; the swank server is for debugging, for usage please check
 ;; Emacs:
 ;;        https://slime.common-lisp.dev/

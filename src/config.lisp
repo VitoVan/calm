@@ -87,7 +87,7 @@
 (defparameter *calm-env-host-lisp* nil)
 
 ;; other
-(defvar *calm-version* "0.0.41")
+(defvar *calm-version* "0.0.42")
 
 (pushnew :calm *features*)
 
