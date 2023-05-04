@@ -16,6 +16,8 @@
          (dist-dir (merge-pathnames pathname *calm-env-app-dir*))
          (ori-assets-dir (merge-pathnames "assets/" *calm-env-app-dir*))
          (dist-assets-dir (merge-pathnames "assets/" dist-dir))
+         (ori-fonts-dir (merge-pathnames "fonts/" *calm-env-app-dir*))
+         (dist-fonts-dir (merge-pathnames "fonts/" dist-dir))
          (dist-lib-dir (merge-pathnames "lib/" dist-dir))
          (dist-bin-dir (merge-pathnames "bin/" dist-dir))
          (calm-bin #+win32 "calmNoConsole.exe" #-win32 "calm"))
@@ -27,6 +29,8 @@
     (u:copy-dir ori-lib-dir dist-lib-dir)
     ;; copy assets
     (u:copy-dir ori-assets-dir dist-assets-dir)
+    ;; copy fonts
+    (u:copy-dir ori-fonts-dir dist-fonts-dir)
     ;; copy calm launcher
     (u:copy-file
      (merge-pathnames calm-bin *calm-env-calm-home*)
@@ -62,6 +66,11 @@
         (u:exec (str:concat calm-bin-abs " dist-with-canvas"))
         (u:exec (str:concat calm-bin-abs " dist")))))
 
+(defun publish-web ()
+  (u:load-from-calm "s/usr/web/wasm.lisp")
+  (u:load-from-calm "s/usr/web/load-and-compile.lisp")
+  (u:load-from-calm "s/usr/web/post-compile.lisp"))
+
 (defun publish ()
   (setf (uiop:getenv "DIST_DIR") (uiop:native-namestring (uiop:merge-pathnames* "dist/" *calm-env-app-dir*)))
   #+darwin
@@ -96,15 +105,23 @@
   ((string= *calm-env-calm-cmd* "hello")
    (u:copy-file (merge-pathnames "s/usr/all/panic.lisp" *calm-env-calm-home*)
                 (merge-pathnames "canvas.lisp" *calm-env-app-dir*))
-   (ensure-directories-exist (merge-pathnames "src/" *calm-env-app-dir*))
    (ensure-directories-exist (merge-pathnames "assets/" *calm-env-app-dir*))
+   (ensure-directories-exist (merge-pathnames "fonts/" *calm-env-app-dir*))
+   (u:copy-file (merge-pathnames "s/usr/all/fonts.conf" *calm-env-calm-home*)
+                (merge-pathnames "fonts/fonts.conf" *calm-env-app-dir*))
    (u:calm-log-fancy "Hello, sample files and directories created, please enjoy"))
 
   ((string= *calm-env-calm-cmd* "publish") (publish))
 
+  ((string= *calm-env-calm-cmd* "publish-web") (publish-web))
+
   ((string= *calm-env-calm-cmd* "publish-with-options")
    (setf (uiop:getenv "CALM_ASK_ME") "yes-please")
    (publish))
+
+  ((string= *calm-env-calm-cmd* "publish-web-with-options")
+   (setf (uiop:getenv "CALM_ASK_ME") "yes-please")
+   (publish-web))
 
   ;; rebuild calm.core
   ;; this could speed up your CALM command

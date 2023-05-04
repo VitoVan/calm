@@ -1,0 +1,134 @@
+name: example-circles
+
+permissions:
+  contents: write
+
+on:
+  push:
+    tags:
+      - "examples-*"
+      - "test-examples-*"
+
+jobs:
+  Web:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Build
+        run: |
+          npm install uglify-js -g
+          set -x
+          curl -L -o calm.tgz https://github.com/VitoVan/calm/releases/download/0.0.42/calm.tgz
+          mkdir calm
+          tar xvf calm.tgz --directory=calm
+          ls -lah calm
+          export PATH=$PATH:$(pwd)/calm/
+          export APP_NAME=Circles
+          # switch dir, this is unnecessary if you are already at the same dir with canvas.lisp
+          cd docs/examples/circles/
+          calm publish-web
+          ls -lah .
+          zip -r -9 ${APP_NAME}-web.zip ./web
+          cp *.zip ../../../
+      - name: GH Release
+        uses: softprops/action-gh-release@v0.1.14
+        with:
+          prerelease: true
+          files: |
+            *-web.zip
+  Linux:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Build
+        run: |
+          set -x
+          curl -L -o calm.tgz https://github.com/VitoVan/calm/releases/download/0.0.42/calm.tgz
+          mkdir calm
+          tar xvf calm.tgz --directory=calm
+          ls -lah calm
+          export PATH=$PATH:$(pwd)/calm/
+          export APP_NAME=Circles
+          # switch dir, this is unnecessary if you are already at the same dir with canvas.lisp
+          cd docs/examples/circles/
+          calm publish
+          ls -lah .
+          cp *.AppImage ../../../
+      - name: GH Release
+        uses: softprops/action-gh-release@v0.1.14
+        with:
+          prerelease: true
+          files: |
+            *.AppImage
+  macOS:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [macos-11, macos-12, macos-10.15]
+
+    env:
+      CI_MATRIX_OS: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Build
+        run: |
+          set -x
+          export OS_SUBFIX=".${CI_MATRIX_OS}"
+          curl -L -o calm.dmg https://github.com/VitoVan/calm/releases/download/0.0.42/calm${OS_SUBFIX}.dmg
+          hdiutil attach calm.dmg
+          cp -R "/Volumes/Calm - CALM/Calm.app/Contents/MacOS/" calm
+          ls -lah calm
+          rm calm.dmg
+          export PATH=$PATH:$(pwd)/calm/
+          export APP_VERSION=0.0.42
+          export APP_ID=com.vitovan.circles
+          export APP_NAME=Circles
+          # switch dir, this is unnecessary if you are already at the same dir with canvas.lisp
+          cd docs/examples/circles/
+          calm publish
+          ls -lah .
+          mv *.dmg Circles${OS_SUBFIX}.dmg
+          cp *.dmg ../../../
+      - name: GH Release
+        uses: softprops/action-gh-release@v0.1.14
+        with:
+          prerelease: true
+          files: |
+            *.dmg
+  Windows:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: msys2/setup-msys2@v2
+
+      - name: Build
+        shell: msys2 {0}
+        run: |
+          set -x
+          pacman -S --noconfirm --needed unzip
+          curl -L -o calm.zip https://github.com/VitoVan/calm/releases/download/0.0.42/calm.zip
+          unzip calm.zip -d calm
+          ls -lah calm
+          export PATH=$PATH:$(pwd)/calm/
+          export APP_NAME=Circles
+          # switch dir, this is unnecessary if you are already at the same dir with canvas.lisp
+          cd docs/examples/circles/
+          calm publish
+          mv ./*-Installer.exe ./Circles.exe
+          ls -lah .
+          cp *.exe ../../../
+      - name: GH Release
+        uses: softprops/action-gh-release@v0.1.14
+        with:
+          prerelease: true
+          files: |
+            *.exe

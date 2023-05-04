@@ -3,12 +3,13 @@
 ;;
 ;; CALM version check
 ;;
-
-(let ((required-version "0.0.32")
-      (calm-version (slot-value (asdf:find-system 'calm) 'asdf:version)))
-  (when (uiop:version< calm-version required-version)
-    (format t "Sorry, this is built on CALM ~A, older version (current: ~A) of CALM won't work.~%" required-version calm-version)
+#-jscl
+(let ((required-version "0.0.42"))
+  (unless (string>= *calm-version* required-version)
+    (format t "Sorry, CALM ~A is needed, older version (current: ~A) of CALM won't work.~%"
+            required-version *calm-version*)
     (uiop:quit 42)))
+
 
 ;;
 ;; the swank server is for debugging, for usage please check

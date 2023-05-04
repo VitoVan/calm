@@ -118,7 +118,7 @@ const char *get_sbcl_path() {
   strcat(sbcl_path, "/sbcl/bin/sbcl");
 #endif
   strcat(sbcl_path, "\"");  // to escape white-space
-  if (access("calm.core", F_OK) == 0) {
+  if (access("calm.core", F_OK) == 0 && getenv("CALM_NO_CORE") == NULL) {
     strcat(sbcl_path, " --core calm.core");
   }
   strcat(sbcl_path, " --noinform --no-sysinit --no-userinit");

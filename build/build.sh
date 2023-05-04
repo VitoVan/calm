@@ -9,11 +9,11 @@ build_fedora () {
         gcc src/calm.c -o calm
     fi
 
-    ./calm s dev fedora deps.sh
-    ./calm s dev fedora sbcl.sh
-    ./calm s dev all quicklisp.sh
-    ./calm s dev all copy-lib.sh
-    ./calm s dev fedora config-lib.sh
+    ./calm s dev fedora deps.sh && \
+        ./calm s dev fedora sbcl.sh && \
+        ./calm s dev all quicklisp.sh && \
+        ./calm s dev all copy-lib.sh && \
+        ./calm s dev fedora config-lib.sh
 
     # prepare appimage-tool
     APPIMAGETOOL="./s/usr/linux/appimagetool.AppImage"
@@ -35,13 +35,13 @@ build_darwin () {
     brew install gcc
     gcc src/calm.c -o calm
 
-    ./calm s dev darwin deps.sh
-    ./calm s dev darwin sbcl.sh
-    ./calm s dev all quicklisp.sh
-    ./calm s dev all copy-lib.sh
-    ./calm s dev darwin config-lib.sh
-    ./calm s dev darwin pack.sh
-    echo "DONE"
+    ./calm s dev darwin deps.sh && \
+        ./calm s dev darwin sbcl.sh && \
+        ./calm s dev all quicklisp.sh && \
+        ./calm s dev all copy-lib.sh && \
+        ./calm s dev darwin config-lib.sh && \
+        ./calm s dev darwin pack.sh && \
+        echo "DONE"
 }
 
 build_msys () {
@@ -50,11 +50,11 @@ build_msys () {
     #        cl /Fe:calmGUI src\calm.c /link /SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup
     #        cl /Fe:calm src\calm.c /link /SUBSYSTEM:CONSOLE
 
-    ./calm s dev msys deps.sh
-    ./calm s dev msys sbcl.sh
-    ./calm s dev all quicklisp.sh
-    ./calm s dev all copy-lib.sh
-    ./calm s dev msys config-lib.sh
+    ./calm s dev msys deps.sh && \
+        ./calm s dev msys sbcl.sh && \
+        ./calm s dev all quicklisp.sh && \
+        ./calm s dev all copy-lib.sh && \
+        ./calm s dev msys config-lib.sh
 
     echo "setting icons ..."
     RCEDIT="./s/usr/windows/rcedit.exe"
@@ -99,10 +99,10 @@ fi
 
 if ./calm test; then
     echo "DONE."
-    ./calm s dev all clean.sh
+#    ./calm s dev all clean.sh
     exit 0
 else
     echo "Failed!"
-    ./calm s dev all clean.sh
+#    ./calm s dev all clean.sh
     exit 42
 fi
