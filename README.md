@@ -26,17 +26,17 @@ calm
 
 [![Hello World](docs/examples/circles/canvas.png)](#hello-world)
 
-Or `calm publish-web` and [![open in the browser](docs/images/open-inthebrowser.svg)](https://vitovan.com/calm/circles/calm.html)
+Or `calm publish-web` and [![open in the browser](docs/images/open-inthebrowser.svg)](<https://vitovan.com/calm/examples-0.1.0/circles/calm.html>)
 
 ## Examples
 
 <p align="center">
-    <a href="https://github.com/VitoVan/calm/releases/tag/examples-0.0.42"><img width="250" alt="Fan" src="./docs/examples/fan/canvas.png"></a>
-    <a href="https://github.com/VitoVan/calm/releases/tag/examples-0.0.42"><img width="250" alt="Mondrian" src="./docs/examples/mondrian/canvas.png"></a>
-    <a href="https://github.com/VitoVan/calm/releases/tag/examples-0.0.42"><img width="250" alt="Meditator" src="./docs/examples/meditator/canvas.png"></a>
+    <a href="https://github.com/VitoVan/calm/releases/tag/examples-0.1.0"><img width="250" alt="Fan" src="./docs/examples/fan/canvas.png"></a>
+    <a href="https://github.com/VitoVan/calm/releases/tag/examples-0.1.0"><img width="250" alt="Mondrian" src="./docs/examples/mondrian/canvas.png"></a>
+    <a href="https://github.com/VitoVan/calm/releases/tag/examples-0.1.0"><img width="250" alt="Meditator" src="./docs/examples/meditator/canvas.png"></a>
 </p>
 
-No need to download, you can check these examples [in your browser](https://github.com/VitoVan/calm/releases/tag/examples-0.0.42).
+No need to download, you can check these examples [in your browser](https://github.com/VitoVan/calm/releases/tag/examples-0.1.0).
 
 For more examples, please check this list: [Made with CALM](https://github.com/VitoVan/made-with-calm).
 

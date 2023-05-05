@@ -99,10 +99,10 @@ fi
 
 if ./calm test; then
     echo "DONE."
-#    ./calm s dev all clean.sh
+    ./calm s dev all clean.sh
     exit 0
 else
     echo "Failed!"
-#    ./calm s dev all clean.sh
+    ./calm s dev all clean.sh
     exit 42
 fi
