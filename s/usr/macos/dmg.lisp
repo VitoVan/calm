@@ -16,7 +16,7 @@
 
   (u:exec
    (str:concat
-    "create-dmg --hdiutil-verbose --volname \"" app-name " - CALM\""
+    "create-dmg --skip-jenkins --hdiutil-verbose --volname \"" app-name " - CALM\""
     " --volicon \"" dmg-icon "\""
     " --window-pos 200 120"
     " --window-size 800 280"
