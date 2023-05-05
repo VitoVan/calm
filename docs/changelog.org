@@ -1,4 +1,7 @@
 * CALM
+** 0.1.0
+- fix cairo_x/y_multiplier
+  it causes ugly canvas painting on some irregular devices (web only)
 ** 0.0.42
 - fix macOS dylib conflict
 - enhance performance: 0 % ~ 0.3 % CPU usage when idle
