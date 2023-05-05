@@ -18,8 +18,8 @@ int window_height = 150;
 int renderer_width;
 int renderer_height;
 
-int cairo_x_multiplier;
-int cairo_y_multiplier;
+double cairo_x_multiplier;
+double cairo_y_multiplier;
 
 extern int js_on_keydown(int sym);
 extern int js_on_keyup(int sym);
@@ -84,8 +84,8 @@ void idle_handler() {
 void resize_handler() {
   SDL_GetRendererOutputSize(renderer, &renderer_width, &renderer_height);
 
-  cairo_x_multiplier = renderer_width / window_width;
-  cairo_y_multiplier = renderer_height / window_height;
+  cairo_x_multiplier = (double)renderer_width / (double)window_width;
+  cairo_y_multiplier = (double)renderer_height / (double)window_height;
 
   SDL_DestroyTexture(texture);
   texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888,
@@ -183,8 +183,8 @@ int main(int argc, char *argv[]) {
 
   SDL_GetRendererOutputSize(renderer, &renderer_width, &renderer_height);
 
-  cairo_x_multiplier = renderer_width / window_width;
-  cairo_y_multiplier = renderer_height / window_height;
+  cairo_x_multiplier = (double)renderer_width / (double)window_width;
+  cairo_y_multiplier = (double)renderer_height / (double)window_height;
 
   texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888,
                               SDL_TEXTUREACCESS_STREAMING, renderer_width,
