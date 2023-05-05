@@ -26,7 +26,7 @@ calm
 
 [![Hello World](docs/examples/circles/canvas.png)](#hello-world)
 
-Or `calm publish-web` and [![open in the browser](docs/images/open-inthebrowser.svg)](https://vitovan.com/calm/circles/calm.html)
+Or `calm publish-web` and [![open in the browser](docs/images/open-inthebrowser.svg)](<https://vitovan.com/calm/examples-0.1.0/circles/calm.html>)
 
 ## Examples
 
