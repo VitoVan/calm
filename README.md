@@ -26,7 +26,15 @@ calm
 
 [![Hello World](docs/examples/circles/canvas.png)](#hello-world)
 
-Or `calm publish-web` and [![open in the browser](docs/images/open-inthebrowser.svg)](<https://vitovan.com/calm/examples-0.1.0/circles/calm.html>)
+Or:
+
+```bash
+calm publish-web
+```
+
+and then:
+
+[![open in the browser](https://img.shields.io/badge/open-in%20the%20browser-brightgreen?logo=webassembly&logoColor=white)](<https://vitovan.com/calm/examples-0.1.0/circles/calm.html>)
 
 ## Examples
 
@@ -46,7 +54,7 @@ For more examples, please check this list: [Made with CALM](https://github.com/V
 
 1. Download for your platform
 
-   [![Linux Download](docs/images/linux.svg)](<https://github.com/VitoVan/calm/releases/latest/download/calm.tgz>) [![macOS Monterey+ Download](docs/images/macos-monterey-plus.svg)](<https://github.com/VitoVan/calm/releases/latest/download/calm.macos-12.dmg>) [![Windows Download](docs/images/windows.svg)](<https://github.com/VitoVan/calm/releases/latest/download/calm.zip>) [![macOS Big Sur Download](docs/images/macos-bigsur.svg)](<https://github.com/VitoVan/calm/releases/latest/download/calm.macos-11.dmg>) [![macOS Catalina Download](docs/images/macos-catalina.svg)](<https://github.com/VitoVan/calm/releases/latest/download/calm.macos-10.15.dmg>)
+   [![Linux Download](https://img.shields.io/badge/Linux-glibc%202.35+-FFD032.svg?logo=linux)](<https://github.com/VitoVan/calm/releases/latest/download/calm.tgz>) [![macOS Ventura Download](https://img.shields.io/badge/macOS-Ventura-black?logo=apple)](<https://github.com/VitoVan/calm/releases/download/0.1.0/calm.macos-13.dmg>) [![Windows Download](https://img.shields.io/badge/Windows-Windows%2010/11-017fd5.svg?logo=windows)](<https://github.com/VitoVan/calm/releases/latest/download/calm.zip>) [![macOS Monterey Download](https://img.shields.io/badge/macOS-Monterey-white?logo=apple)](<https://github.com/VitoVan/calm/releases/latest/download/calm.macos-12.dmg>) [![macOS Big Sur Download](https://img.shields.io/badge/macOS-Big%20Sur-white?logo=apple)](<https://github.com/VitoVan/calm/releases/latest/download/calm.macos-11.dmg>)
 
 2. Extract the content
 
