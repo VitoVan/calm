@@ -16,7 +16,7 @@
       (u:exec (str:concat "git clone " jscl-git-url " " (uiop:native-namestring jscl-git-path)))
       (u:exec (str:concat
                "cd " (uiop:native-namestring jscl-git-path)
-               " && git checkout 0c21063a66f5043e6aadbae940a612db6ed0c539")))
+               " && git checkout 25e0341e95725f9d6bba991c3adeaa58ae885066")))
     (u:calm-log "generating JSCL compile scripts ~A~%" jscl-compile-script)
     (str:to-file
      jscl-compile-script
