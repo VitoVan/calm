@@ -3,16 +3,30 @@
 (in-package :calm)
 
 (defun make-wasm (rebuild-wasm-p)
-  (let* ((app-wasm-file (merge-pathnames "web/calm.wasm" *calm-env-app-dir*))
-         ;; (wasm-sh-file (merge-pathnames "s/usr/web/wasm.sh" *calm-env-calm-home*))
+  (let* ((web-tar-url "https://github.com/VitoVan/calm/releases/download/0.1.1/calm.tar")
+         (build-web-dir (merge-pathnames "build/web/" *calm-env-calm-home*))
+         (web-tar-file (merge-pathnames "calm.tar" build-web-dir))
+         (app-web-dir (merge-pathnames "web/" *calm-env-app-dir*))
          (build-dir (merge-pathnames "build-web/" *calm-env-app-dir*))
          (app-fonts-dir (merge-pathnames "fonts/" *calm-env-app-dir*))
          (app-assets-dir (merge-pathnames "assets/" *calm-env-app-dir*))
          (build-share-dir (merge-pathnames "share/" build-dir))
          (build-fonts-dir (merge-pathnames "fonts/" build-share-dir))
          (build-assets-dir (merge-pathnames "assets/" build-share-dir)))
-    (if (or (not (probe-file app-wasm-file)) (not (string= rebuild-wasm-p "no")))
+    (ensure-directories-exist build-web-dir)
+    (ensure-directories-exist app-web-dir)
+    (if (string= rebuild-wasm-p "no")
         (progn
+          (format t "rebuild-wasm-p was set as NO, using cache, or download it? let's see...~%")
+          (if (probe-file web-tar-file)
+              (format t "Using cached web tar file: ~A~%" web-tar-file)
+              (progn
+                (format t "Downloading web tar file from ~A ... ~%" web-tar-url)
+                (u:exec (str:concat "curl -o " (uiop:native-namestring web-tar-file) " -L " web-tar-url))))
+          (format t "extract files to ~A...~%" app-web-dir)
+          (u:exec (str:concat "tar xvf " (uiop:native-namestring web-tar-file) " --strip-components=1 --directory=" (uiop:native-namestring app-web-dir))))
+        (progn
+          (format t "Building WASM ... ~%")
           ;; preparation and clean up
           (ensure-directories-exist build-share-dir)
           (u:touch-file (merge-pathnames "nothing" build-share-dir))
@@ -253,8 +267,7 @@
             "_SDL_GetTicks,"
             "_SDL_GetError,"
             "_free"))
-          (u:calm-log-fancy "~%WASM file compiled."))
-        (format t "Using cached WASM: ~A" app-wasm-file))))
+          (u:calm-log-fancy "~%WASM file compiled.")))))
 
 (make-wasm
  (u:get-from-env-or-ask 'rebuild-wasm-p "no"))

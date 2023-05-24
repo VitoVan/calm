@@ -7,16 +7,10 @@
          (app-build-web-dir (merge-pathnames "build-web/" *calm-env-app-dir*))
          (build-web-dir (merge-pathnames "build/web/" *calm-env-calm-home*))
          (jscl-js-file (merge-pathnames "jscl/jscl.js" build-web-dir))
-         (jscl-min-js-file (merge-pathnames "jscl/jscl.min.js" build-web-dir))
          (jscl-output-file (merge-pathnames "jscl.js" app-web-dir)))
 
-    (unless (probe-file jscl-min-js-file)
-      (format t "minifying (uglifyjs) JSCL~%")
-      (u:exec (str:concat "command -v uglifyjs && uglifyjs "
-                          (uiop:native-namestring jscl-js-file) " -c -m -o "
-                          (uiop:native-namestring jscl-min-js-file))))
     (format t "copying jscl.js~%")
-    (u:copy-file (if (probe-file jscl-min-js-file) jscl-min-js-file jscl-js-file) jscl-output-file)
+    (u:copy-file jscl-js-file jscl-output-file)
     (format t "copying calm.js~%")
     (u:copy-file (merge-pathnames "calm.js" app-build-web-dir) (merge-pathnames "calm.js" app-web-dir))
     (format t "copying calm.worker.js~%")
