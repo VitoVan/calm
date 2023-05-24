@@ -17,11 +17,11 @@
 (defun rrectangle (x y width height &key (radius 8))
   "rounded rectangle"
   (let ((degrees (/ pi 180)))
-    (c:new-sub-path cr)
-    (c:arc (- (+ x width) radius) (+ y radius) radius (* -90 degrees) (* 0 degrees) cr)
-    (c:arc (- (+ x width) radius) (- (+ y height) radius) radius (* 0 degrees) (* 90 degrees) cr)
-    (c:arc (+ x radius) (- (+ y height) radius) radius (* 90 degrees) (* 180 degrees) cr)
-    (c:arc (+ x radius) (+ y radius) radius (* 180 degrees) (* 270 degrees) cr)
+    (c:new-sub-path)
+    (c:arc (- (+ x width) radius) (+ y radius) radius (* -90 degrees) (* 0 degrees))
+    (c:arc (- (+ x width) radius) (- (+ y height) radius) radius (* 0 degrees) (* 90 degrees))
+    (c:arc (+ x radius) (- (+ y height) radius) radius (* 90 degrees) (* 180 degrees))
+    (c:arc (+ x radius) (+ y radius) radius (* 180 degrees) (* 270 degrees))
     (c:close-path)))
 
 (defun show-png (pathname x y width height)
