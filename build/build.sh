@@ -3,6 +3,7 @@ export CALM_BUILDING=1
 env
 
 build_fedora () {
+    sudo dnf update -y
     if ! [ -f calm ]; then
         echo "build launcher ..."
         sudo dnf install gcc -y
@@ -31,6 +32,7 @@ build_fedora () {
 }
 
 build_darwin () {
+    brew update
     echo "build launcher ..."
     brew install gcc
     gcc src/calm.c -o calm
@@ -45,6 +47,7 @@ build_darwin () {
 }
 
 build_msys () {
+    pacman -Suy
     ##        The following should be ran on MSVC Shell
     #        echo "build launcher ..."
     #        cl /Fe:calmGUI src\calm.c /link /SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup

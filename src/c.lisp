@@ -14,7 +14,7 @@
 ;; drawing
 ;;
 
-(defun rrectangle (x y width height &key (radius 8))
+(defun rrectangle (x y width height &key (radius 8) (cr cl-cairo2:*context*))
   "rounded rectangle"
   (let ((degrees (/ pi 180)))
     (c:new-sub-path cr)
