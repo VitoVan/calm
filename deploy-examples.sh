@@ -1,7 +1,10 @@
 #!/bin/bash
+set -x
 
 if [[ ! -v CALM_EXAMPLE_VERSION ]]; then
     echo "CALM_EXAMPLE_VERSION is not set"
+    echo "e.g."
+    echo "export CALM_EXAMPLE_VERSION=examples-0.1.1"
     exit 42
 fi
 
@@ -28,8 +31,10 @@ mv web mondrian
 
 rm *.zip
 
+ls **/*.js | xargs -I _ uglifyjs _ -c -m -o _
+
 cd ..
 
 git add .
-git commit -m "Deploy examples to gh-pages"
+git commit -m "Deploy examples to gh-pages $(date +%s)"
 git push --set-upstream origin gh-pages
