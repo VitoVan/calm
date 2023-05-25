@@ -19,7 +19,6 @@ jobs:
 
       - name: Build
         run: |
-          npm install uglify-js -g
           set -x
           curl -L -o calm.tgz https://github.com/VitoVan/calm/releases/download/0.1.1/calm.tgz
           mkdir calm
