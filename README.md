@@ -39,12 +39,12 @@ and then:
 ## Examples
 
 <p align="center">
-    <a href="https://github.com/VitoVan/calm/releases/tag/examples-0.1.0"><img width="250" alt="Fan" src="./docs/examples/fan/canvas.png"></a>
-    <a href="https://github.com/VitoVan/calm/releases/tag/examples-0.1.0"><img width="250" alt="Mondrian" src="./docs/examples/mondrian/canvas.png"></a>
-    <a href="https://github.com/VitoVan/calm/releases/tag/examples-0.1.0"><img width="250" alt="Meditator" src="./docs/examples/meditator/canvas.png"></a>
+    <a href="https://vitovan.com/calm/examples-0.1.1/fan/calm.html"><img width="250" alt="Fan" src="./docs/examples/fan/canvas.png"></a>
+    <a href="https://vitovan.com/calm/examples-0.1.1/mondrian/calm.html"><img width="250" alt="Mondrian" src="./docs/examples/mondrian/canvas.png"></a>
+    <a href="https://vitovan.com/calm/examples-0.1.0/meditator/calm.html"><img width="250" alt="Meditator" src="./docs/examples/meditator/canvas.png"></a>
 </p>
 
-No need to download, you can check these examples [in your browser](https://github.com/VitoVan/calm/releases/tag/examples-0.1.0).
+No need to download, you can check these examples [in your browser](https://github.com/VitoVan/calm/releases/tag/examples-0.1.1).
 
 For more examples, please check this list: [Made with CALM](https://github.com/VitoVan/made-with-calm).
 
