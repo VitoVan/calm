@@ -140,7 +140,7 @@ This command could compoile your Lisp code into web pages that could be served o
 
 There is also another `calm publish-web-with-options` command for more customization.
 
-I haven't write any document yet, but the command should deliver. Please let me know if it doesn't.
+I haven't write any document yet, but the command should deliver, docker and git are needed. Please let me know if you encountered any problems.
 
 ## Environment Variables
 
