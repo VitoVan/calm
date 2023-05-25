@@ -29,6 +29,8 @@ jobs:
           export APP_NAME=Meditator
           # switch dir, this is unnecessary if you are already at the same dir with canvas.lisp
           cd docs/examples/meditator/
+          # extra sound files need to be packed
+          export REBUILD_WASM_P=yes
           calm publish-web
           ls -lah .
           zip -r -9 ${APP_NAME}-web.zip ./web
