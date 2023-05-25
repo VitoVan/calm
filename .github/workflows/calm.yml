@@ -9,20 +9,33 @@ on:
 jobs:
 
   Linux:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
 
     steps:
       - uses: actions/checkout@v3
 
-      - name: Build
+      - name: Build for Linux
         run: |
-          docker run --env CI=true -v $PWD:/calm -w /calm fedora:36 bash build/build.sh
+          docker run --env CI=true -v $PWD:/calm -w /calm fedora:34 bash build/build.sh
           ls -lah .
+
+      - name: Build for Web
+        run: |
+          mkdir calm
+          tar xvf calm.tgz --directory=calm
+          ls -lah calm
+          export PATH=$PATH:$(pwd)/calm/
+          calm hello
+          curl -o fonts/OpenSans-Regular.ttf -L https://github.com/googlefonts/opensans/raw/main/fonts/ttf/OpenSans-Regular.ttf
+          export REBUILD_WASM_P=yes
+          calm publish-web
+          tar cf calm.tar web/calm.*
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.14
         with:
           prerelease: true
           files: |
+            *.tar
             *.tgz
             *.AppImage
 

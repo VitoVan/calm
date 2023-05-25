@@ -4,7 +4,7 @@
 ;; CALM version check
 ;;
 #-jscl
-(let ((required-version "0.1.0"))
+(let ((required-version "0.1.1"))
   (unless (string>= *calm-version* required-version)
     (format t "Sorry, CALM ~A is needed, older version (current: ~A) of CALM won't work.~%"
             required-version *calm-version*)

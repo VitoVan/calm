@@ -1,4 +1,10 @@
 * CALM
+** 0.1.1
+- downgrade glibc dependency to 2.33 (from 2.35)
+- upgrade JSCL to 25e0341e95725f9d6bba991c3adeaa58ae885066
+  for more `setfable` operations and function `log`
+- enhance `publish-web` experience, default to pre-built wasm
+  by downloading them while `calm publish-web` if were not present
 ** 0.1.0
 - fix cairo_x/y_multiplier
   it causes ugly canvas painting on some irregular devices (web only)

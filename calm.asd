@@ -1,6 +1,6 @@
 (asdf:defsystem #:calm
   :description "CALM - Canvas Aided Lisp Magic"
-  :version "0.1.0"
+  :version "0.1.1"
   :author "Vito Van"
   :license "GNU General Public License, version 2"
   :depends-on (
