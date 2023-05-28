@@ -102,12 +102,18 @@
                                            cairo-y-multiplier new-y-multiplier
                                            texture new-texture)))))
                               ((equal e sdl2-ffi:+sdl-windowevent-close+) (sdl2:destroy-texture texture) (calm-quit))))
-              (:mousemotion (:x x :y y)
-                            (internal-on-mousemotion :x x :y y))
-              (:mousebuttonup (:button button :x x :y y :clicks clicks)
-                              (internal-on-mousebuttonup :button button :x x :y y :clicks clicks))
-              (:mousebuttondown (:button button :x x :y y :clicks clicks)
-                                (internal-on-mousebuttondown :button button :x x :y y :clicks clicks))
+              (:mousemotion (:x x :y y) (internal-on-mousemotion :x x :y y))
+              (:mousebuttonup (:button button :x x :y y :clicks clicks) (internal-on-mousebuttonup :button button :x x :y y :clicks clicks))
+              (:mousebuttondown (:button button :x x :y y :clicks clicks) (internal-on-mousebuttondown :button button :x x :y y :clicks clicks))
+              (:fingermotion
+               (:x x :y y :dx dx :dy dy :pressure pressure :finger-id finger-id)
+               (internal-on-fingermotion :x x :y y :dx dx :dy dy :pressure pressure :finger-id finger-id))
+              (:fingerup
+               (:x x :y y :dx dx :dy dy :pressure pressure :finger-id finger-id)
+               (internal-on-fingerup :x x :y y :dx dx :dy dy :pressure pressure :finger-id finger-id))
+              (:fingerdown
+               (:x x :y y :dx dx :dy dy :pressure pressure :finger-id finger-id)
+               (internal-on-fingerdown :x x :y y :dx dx :dy dy :pressure pressure :finger-id finger-id))
               (:idle ()
                      (internal-think)
                      (when *calm-redraw*
