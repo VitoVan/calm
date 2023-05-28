@@ -10,7 +10,8 @@
   (when (uiop:version< calm-version required-version)
     (format t
             "Sorry, this is built on CALM ~A, older version (current: ~A) of CALM won't work.~%"
-            required-version calm-versio)))
+            required-version calm-version)
+    (uiop:quit)))
 
 
 ;;
