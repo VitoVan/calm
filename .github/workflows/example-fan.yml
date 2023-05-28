@@ -34,7 +34,7 @@ jobs:
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.14
         with:
-          prerelease: true
+          draft: true
           files: |
             *-web.zip
   Linux:
@@ -60,7 +60,7 @@ jobs:
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.14
         with:
-          prerelease: true
+          draft: true
           files: |
             *.AppImage
   macOS:
@@ -98,7 +98,7 @@ jobs:
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.14
         with:
-          prerelease: true
+          draft: true
           files: |
             *.dmg
   Windows:
@@ -128,6 +128,6 @@ jobs:
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.14
         with:
-          prerelease: true
+          draft: true
           files: |
             *.exe

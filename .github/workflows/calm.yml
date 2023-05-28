@@ -8,7 +8,7 @@ on:
 
 jobs:
 
-  Linux:
+  Linux-and-Web:
     runs-on: ubuntu-22.04
 
     steps:
@@ -33,7 +33,7 @@ jobs:
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.14
         with:
-          prerelease: true
+          draft: true
           files: |
             *.tar
             *.tgz
@@ -59,7 +59,7 @@ jobs:
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.14
         with:
-          prerelease: true
+          draft: true
           files: |
             *.tgz
             *.dmg
@@ -80,7 +80,7 @@ jobs:
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.14
         with:
-          prerelease: true
+          draft: true
           files: |
             *.tgz
             *.zip

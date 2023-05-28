@@ -47,7 +47,7 @@ jobs:
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.14
         with:
-          prerelease: true
+          draft: true
           files: |
             *.zip
 
@@ -92,7 +92,7 @@ jobs:
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.14
         with:
-          prerelease: true
+          draft: true
           files: |
             *.zip
 
@@ -146,6 +146,6 @@ jobs:
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.14
         with:
-          prerelease: true
+          draft: true
           files: |
             *.zip
