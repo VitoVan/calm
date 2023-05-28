@@ -3,7 +3,8 @@
 (in-package :calm)
 
 (defun make-wasm (rebuild-wasm-p)
-  (let* ((web-tar-url "https://github.com/VitoVan/calm/releases/download/0.1.1/calm.tar")
+  (let* ((calm-version (slot-value (asdf:find-system 'calm) 'asdf:version))
+         (web-tar-url (str:concat "https://github.com/VitoVan/calm/releases/download/" calm-version "/calm.tar"))
          (build-web-dir (merge-pathnames "build/web/" *calm-env-calm-home*))
          (web-tar-file (merge-pathnames "calm.tar" build-web-dir))
          (app-web-dir (merge-pathnames "web/" *calm-env-app-dir*))

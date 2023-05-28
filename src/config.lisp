@@ -90,9 +90,6 @@
 #-jscl
 (defparameter *calm-env-host-lisp* nil)
 
-;; other
-(defvar *calm-version* "0.1.1")
-
 (pushnew :calm *features*)
 
 #+jscl

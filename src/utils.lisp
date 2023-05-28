@@ -11,7 +11,7 @@
  \\____| /_/   \\_\\ |_____| |_|  |_|
 
 CALM: ~A, ~A: ~A~%
-" calm::*calm-version* (lisp-implementation-type) (lisp-implementation-version))
+" (slot-value (asdf:find-system 'calm) 'asdf:version) (lisp-implementation-type) (lisp-implementation-version))
      (format t ,control-string ,@rest)
      (format t "~%~%")))
 
