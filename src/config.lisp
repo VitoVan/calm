@@ -217,4 +217,20 @@
   (setf #j:JSCL_ENV:CALM_FPS *calm-fps*)
 
   (setf #j:JSCL_ENV:CALM_WINDOW_WIDTH *calm-window-width*)
-  (setf #j:JSCL_ENV:CALM_WINDOW_HEIGHT *calm-window-height*))
+  (setf #j:JSCL_ENV:CALM_WINDOW_HEIGHT *calm-window-height*)
+
+  ;; https://experienceleague.adobe.com/docs/target/using/experiences/vec/mobile-viewports.html
+  (if (or (<= #j:screen:width 800) (<= #j:screen:height 600))
+      ;; scale canvas on mobile device
+      (let ((scale (write-to-string
+                    ;; track
+                    ;; https://github.com/jscl-project/jscl/issues/481
+                    (/ *calm-window-width* #j:screen:width)))
+            (#j:canvas (#j:document:getElementById "canvas")))
+        (setf #j:canvas:style:transformOrigin "center")
+        (setf #j:canvas:style:transform (concatenate 'string  "scale(" scale ")")))
+      ;; remove canvas scale
+      (let ((#j:canvas (#j:document:getElementById "canvas")))
+        (setf #j:canvas:style:transformOrigin "unset")
+        (setf #j:canvas:style:transform "unset")))
+  )
