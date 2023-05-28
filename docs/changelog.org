@@ -1,4 +1,10 @@
 * CALM
+** 0.1.2
+- add touch event support, mainly for mobile + web
+  should also work on all platforms
+- zoom canvas on small screen (web only), i.e. mobile
+- remove `*calm-version*`, use `asdf:version` insteadd
+  drop version check on JSCL
 ** 0.1.1
 - downgrade glibc dependency to 2.33 (from 2.35)
 - upgrade JSCL to 25e0341e95725f9d6bba991c3adeaa58ae885066

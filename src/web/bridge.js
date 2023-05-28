@@ -53,6 +53,30 @@ mergeInto(LibraryManager.library, {
       return 0;
     }
   },
+  js_on_fingermotion: function(x, y, dx, dy, pressure, fingerId) {
+    if (typeof on_fingermotion === 'function') {
+      on_fingermotion(x, y, dx, dy, pressure, fingerId);
+      return 42;
+    } else {
+      return 0;
+    }
+  },
+  js_on_fingerup: function(x, y, dx, dy, pressure, fingerId) {
+    if (typeof on_fingerup === 'function') {
+      on_fingerup(x, y, dx, dy, pressure, fingerId);
+      return 42;
+    } else {
+      return 0;
+    }
+  },
+  js_on_fingerdown: function(x, y, dx, dy, pressure, fingerId) {
+    if (typeof on_fingerdown === 'function') {
+      on_fingerdown(x, y, dx, dy, pressure, fingerId);
+      return 42;
+    } else {
+      return 0;
+    }
+  },
   js_on_windowenter: function() {
     if (typeof on_windowenter === 'function') {
       on_windowenter();

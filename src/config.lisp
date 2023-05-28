@@ -73,6 +73,10 @@
 (defparameter *calm-state-mouse-down* nil)
 (defparameter *calm-state-mouse-just-clicked* nil)
 
+(defparameter *calm-state-finger-x* 0)
+(defparameter *calm-state-finger-y* 0)
+(defparameter *calm-state-finger-just-clicked* nil)
+
 (defparameter *calm-state-audio-open* nil)
 (defparameter *calm-state-loaded-audio* nil)
 
@@ -85,9 +89,6 @@
 (defparameter *calm-env-app-dir* nil)
 #-jscl
 (defparameter *calm-env-host-lisp* nil)
-
-;; other
-(defvar *calm-version* "0.1.1")
 
 (pushnew :calm *features*)
 
@@ -189,12 +190,18 @@
     (setf #j:think #'think))
   (setf #j:get_calm_redraw #'get-calm-redraw)
   (setf #j:on_mousewheel #'internal-on-mousewheel)
-  (setf #j:on_mousemotion
-        #'(lambda (x y) (internal-on-mousemotion :x x :y y)))
-  (setf #j:on_mousebuttonup
-        #'(lambda (button x y clicks) (internal-on-mousebuttonup :button button :x x :y y :clicks clicks)))
-  (setf #j:on_mousebuttondown
-        #'(lambda (button x y clicks) (internal-on-mousebuttondown :button button :x x :y y :clicks clicks)))
+
+  (setf #j:on_mousemotion #'(lambda (x y) (internal-on-mousemotion :x x :y y)))
+  (setf #j:on_mousebuttonup #'(lambda (button x y clicks) (internal-on-mousebuttonup :button button :x x :y y :clicks clicks)))
+  (setf #j:on_mousebuttondown #'(lambda (button x y clicks) (internal-on-mousebuttondown :button button :x x :y y :clicks clicks)))
+
+  (setf #j:on_fingermotion
+        #'(lambda (x  y dx dy pressure finger-id) (internal-on-fingermotion :x x :y y :dx dx :dy dy :pressure pressure :finger-id finger-id)))
+  (setf #j:on_fingerup
+        #'(lambda (x  y dx dy pressure finger-id) (internal-on-fingerup  :x x :y y :dx dx :dy dy :pressure pressure :finger-id finger-id)))
+  (setf #j:on_fingerdown
+        #'(lambda (x  y dx dy pressure finger-id) (internal-on-fingerdown :x x :y y :dx dx :dy dy :pressure pressure :finger-id finger-id)))
+
   (setf #j:on_windowresized #'internal-on-windowresized)
   (setf #j:on_windowenter #'internal-on-windowenter)
   (setf #j:on_windowleave #'internal-on-windowleave)
@@ -207,4 +214,20 @@
   (setf #j:JSCL_ENV:CALM_FPS *calm-fps*)
 
   (setf #j:JSCL_ENV:CALM_WINDOW_WIDTH *calm-window-width*)
-  (setf #j:JSCL_ENV:CALM_WINDOW_HEIGHT *calm-window-height*))
+  (setf #j:JSCL_ENV:CALM_WINDOW_HEIGHT *calm-window-height*)
+
+  ;; https://experienceleague.adobe.com/docs/target/using/experiences/vec/mobile-viewports.html
+  (if (or (<= #j:screen:width 800) (<= #j:screen:height 600))
+      ;; scale canvas on mobile device
+      (let ((scale (write-to-string
+                    ;; track
+                    ;; https://github.com/jscl-project/jscl/issues/481
+                    (/ *calm-window-width* #j:screen:width)))
+            (#j:canvas (#j:document:getElementById "canvas")))
+        (setf #j:canvas:style:transformOrigin "center")
+        (setf #j:canvas:style:transform (concatenate 'string  "scale(" scale ")")))
+      ;; remove canvas scale
+      (let ((#j:canvas (#j:document:getElementById "canvas")))
+        (setf #j:canvas:style:transformOrigin "unset")
+        (setf #j:canvas:style:transform "unset")))
+  )

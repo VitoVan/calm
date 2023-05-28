@@ -19,9 +19,8 @@ jobs:
 
       - name: Build
         run: |
-          npm install uglify-js -g
           set -x
-          curl -L -o calm.tgz https://github.com/VitoVan/calm/releases/download/0.1.1/calm.tgz
+          curl -L -o calm.tgz https://github.com/VitoVan/calm/releases/download/0.1.2/calm.tgz
           mkdir calm
           tar xvf calm.tgz --directory=calm
           ls -lah calm
@@ -29,6 +28,8 @@ jobs:
           export APP_NAME=Meditator
           # switch dir, this is unnecessary if you are already at the same dir with canvas.lisp
           cd docs/examples/meditator/
+          # extra sound files need to be packed
+          export REBUILD_WASM_P=yes
           calm publish-web
           ls -lah .
           zip -r -9 ${APP_NAME}-web.zip ./web
@@ -48,7 +49,7 @@ jobs:
       - name: Build
         run: |
           set -x
-          curl -L -o calm.tgz https://github.com/VitoVan/calm/releases/download/0.1.1/calm.tgz
+          curl -L -o calm.tgz https://github.com/VitoVan/calm/releases/download/0.1.2/calm.tgz
           mkdir calm
           tar xvf calm.tgz --directory=calm
           ls -lah calm
@@ -82,7 +83,7 @@ jobs:
         run: |
           set -x
           export OS_SUBFIX=".${CI_MATRIX_OS}"
-          curl -L -o calm.dmg https://github.com/VitoVan/calm/releases/download/0.1.1/calm${OS_SUBFIX}.dmg
+          curl -L -o calm.dmg https://github.com/VitoVan/calm/releases/download/0.1.2/calm${OS_SUBFIX}.dmg
           hdiutil attach calm.dmg
           cp -R "/Volumes/Calm - CALM/Calm.app/Contents/MacOS/" calm
           ls -lah calm
@@ -116,7 +117,7 @@ jobs:
         run: |
           set -x
           pacman -S --noconfirm --needed unzip
-          curl -L -o calm.zip https://github.com/VitoVan/calm/releases/download/0.1.1/calm.zip
+          curl -L -o calm.zip https://github.com/VitoVan/calm/releases/download/0.1.2/calm.zip
           unzip calm.zip -d calm
           ls -lah calm
           export PATH=$PATH:$(pwd)/calm/

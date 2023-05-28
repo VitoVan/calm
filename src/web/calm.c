@@ -26,6 +26,12 @@ extern int js_on_keyup(int sym);
 extern int js_on_mousemotion(int x, int y);
 extern int js_on_mousebuttonup(int button, int x, int y, int clicks);
 extern int js_on_mousebuttondown(int button, int x, int y, int clicks);
+extern int js_on_fingermotion(float x, float y, float dx, float dy,
+                              float pressure, int fingerId);
+extern int js_on_fingerup(float x, float y, float dx, float dy, float pressure,
+                          int fingerId);
+extern int js_on_fingerdown(float x, float y, float dx, float dy,
+                            float pressure, int fingerId);
 extern int js_on_windowenter();
 extern int js_on_windowleave();
 extern int js_on_windowresized(int w, int h);
@@ -114,6 +120,21 @@ void handler() {
       case SDL_MOUSEBUTTONDOWN:
         js_on_mousebuttondown(event.button.button, event.button.x,
                               event.button.y, event.button.clicks);
+        break;
+      case SDL_FINGERMOTION:
+        js_on_fingermotion(event.tfinger.x, event.tfinger.y, event.tfinger.dx,
+                           event.tfinger.dy, event.tfinger.pressure,
+                           event.tfinger.fingerId);
+        break;
+      case SDL_FINGERUP:
+        js_on_fingerup(event.tfinger.x, event.tfinger.y, event.tfinger.dx,
+                       event.tfinger.dy, event.tfinger.pressure,
+                       event.tfinger.fingerId);
+        break;
+      case SDL_FINGERDOWN:
+        js_on_fingerdown(event.tfinger.x, event.tfinger.y, event.tfinger.dx,
+                         event.tfinger.dy, event.tfinger.pressure,
+                         event.tfinger.fingerId);
         break;
       case SDL_WINDOWEVENT:
         switch (event.window.event) {
