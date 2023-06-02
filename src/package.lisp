@@ -8,6 +8,7 @@
    :play-wav
    :playing
    :halt-music
+   :halt-wav
    :get-ticks
    :keq
    :show-png

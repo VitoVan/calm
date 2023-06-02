@@ -220,6 +220,12 @@
   #-jscl
   (sdl2-mixer:halt-music))
 
+(defun halt-wav (&optional (channel -1))
+  #+jscl
+  (#j:_Mix_HaltChannel channel)
+  #-jscl
+  (sdl2-mixer:halt-channel channel))
+
 (defun get-ticks ()
   #+jscl
   (#j:_SDL_GetTicks)
