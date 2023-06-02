@@ -174,10 +174,11 @@
   (format t "fontpath: ~A~%" (uiop:native-namestring (merge-pathnames "fonts/" *calm-env-app-dir*)))
   (format t "fontfile: ~A~%" (uiop:native-namestring (merge-pathnames "fonts/fonts.conf" *calm-env-app-dir*)))
 
+  ;; https://www.freedesktop.org/software/fontconfig/fontconfig-user.html#DEBUG
   ;; (setf (uiop:getenv "FC_DEBUG") "1024")
 
   ;; init fc
-  (fontconfig:fc-init)
+  (fontconfig:fc-init-reinitialize)
   )
 
 #+jscl

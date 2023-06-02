@@ -51,6 +51,7 @@
    :weight
    :slant
    :fc-init
+   :fc-init-reinitialize
    :fc-create-pattern
    :fc-pattern-add-string
    :fc-pattern-add-integer

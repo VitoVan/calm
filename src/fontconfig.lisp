@@ -40,6 +40,8 @@
 
 (cffi:defcfun (fc-init "FcInit") :pointer)
 
+(cffi:defcfun (fc-init-reinitialize "FcInitReinitialize") :pointer)
+
 (cffi:defcfun (fc-create-pattern "FcPatternCreate") :pointer)
 
 (cffi:defcfun (fc-pattern-add-string "FcPatternAddString") :bool
