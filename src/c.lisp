@@ -154,7 +154,7 @@
     #-jscl
     (sdl2-mixer:allocate-channels 8)))
 
-(defun play-music (pathname &optional (loops 0))
+(defun play-music (pathname &key (loops 0))
   (open-audio-if-not-yet)
   (let* ((music-pathname
            #+jscl
@@ -179,7 +179,7 @@
     #-jscl
     (sdl2-mixer:play-music music-object loops)))
 
-(defun play-wav (pathname &optional (loops 0))
+(defun play-wav (pathname &key (loops 0) (channel -1))
   (open-audio-if-not-yet)
   (let* ((wav-pathname
            #+jscl
@@ -204,9 +204,9 @@
     (unless wav-object-cache
       (push (cons wav-pathname wav-object) calm::*calm-state-loaded-audio*))
     #+jscl
-    (#j:_Mix_PlayChannelTimed -1 wav-object loops -1)
+    (#j:_Mix_PlayChannelTimed channel wav-object loops -1)
     #-jscl
-    (sdl2-mixer:play-channel -1 wav-object loops)))
+    (sdl2-mixer:play-channel channel wav-object loops)))
 
 (defun playing ()
   #+jscl
