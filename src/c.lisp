@@ -127,6 +127,7 @@
     (show-layout layout :cr cr)))
 
 (defun open-audio-if-not-yet ()
+  ;; (format t "open-audio-if-not-yet, already opened?: ~A~%" calm::*calm-state-audio-open*)
   (unless calm::*calm-state-audio-open*
     ;;
     ;; if we put the following code outside of this function,
@@ -152,9 +153,11 @@
     #+jscl
     (#j:_Mix_AllocateChannels 8)
     #-jscl
-    (sdl2-mixer:allocate-channels 8)))
+    (sdl2-mixer:allocate-channels 8)
+    (setf calm::*calm-state-audio-open* t)))
 
 (defun play-music (pathname &key (loops 0))
+  ;; (format t "playing music: ~A~%" pathname)
   (open-audio-if-not-yet)
   (let* ((music-pathname
            #+jscl
@@ -180,6 +183,7 @@
     (sdl2-mixer:play-music music-object loops)))
 
 (defun play-wav (pathname &key (loops 0) (channel -1))
+  ;; (format t "playing wav: ~A~%" pathname)
   (open-audio-if-not-yet)
   (let* ((wav-pathname
            #+jscl
@@ -213,6 +217,18 @@
   (#j:_Mix_Playing -1)
   #-jscl
   (sdl2-mixer:playing -1))
+
+(defun volume-music (music-volume)
+  #+jscl
+  (#j:_Mix_VolumeMusic music-volume)
+  #-jscl
+  (sdl2-mixer:volume-music music-volume))
+
+(defun volume (channel volume)
+  #+jscl
+  (#j:_Mix_Volume channel volume)
+  #-jscl
+  (sdl2-mixer:volume channel volume))
 
 (defun halt-music ()
   #+jscl
