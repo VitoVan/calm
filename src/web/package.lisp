@@ -148,8 +148,10 @@
    :playing
    :play-music
    :play-wav
+   :play-audio
    :halt-music
    :halt-wav
+   :halt-audio
    :volume
    :volume-music
    :get-ticks

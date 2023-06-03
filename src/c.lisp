@@ -212,6 +212,23 @@
     #-jscl
     (sdl2-mixer:play-channel channel wav-object loops)))
 
+#+jscl
+(defun play-audio (audio-url &key (loop-audio-p nil) (volume 1))
+  (format t "playing audio: ~A~%" audio-url)
+  (let* ((audio-object-cache
+           (cdr (assoc audio-url calm::*calm-state-loaded-audio* :test #'string=)))
+         (audio-object
+           (or audio-object-cache
+               ;; https://github.com/jscl-project/jscl/wiki/JSCL-and-manipulations-with-JS-objects
+               (#j:window:eval (concatenate 'string "new Audio('" audio-url "')"))
+               )))
+    (unless audio-object-cache
+      (push (cons audio-url audio-object) calm::*calm-state-loaded-audio*))
+    (when loop-audio-p
+      (setf (jscl::oget audio-object "loop") t))
+    (setf (jscl::oget audio-object "volume") volume)
+    ((jscl::oget audio-object "play"))))
+
 (defun playing ()
   #+jscl
   (#j:_Mix_Playing -1)
@@ -241,6 +258,15 @@
   (#j:_Mix_HaltChannel channel)
   #-jscl
   (sdl2-mixer:halt-channel channel))
+
+#+jscl
+(defun halt-audio (&optional (url nil))
+  (loop
+    for object in calm::*calm-state-loaded-audio*
+    when (or (null url) (string= (car object) url))
+    do
+       (format t "halting: ~A~%" object)
+       ((jscl::oget (cdr object) "pause"))))
 
 (defun get-ticks ()
   #+jscl
