@@ -75,6 +75,8 @@ jobs:
 
     env:
       CI_MATRIX_OS: ${{ matrix.os }}
+      HOMEBREW_NO_AUTO_UPDATE: 1
+      HOMEBREW_NO_INSTALL_CLEANUP: 1
 
     steps:
       - uses: actions/checkout@v3
