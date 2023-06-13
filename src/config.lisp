@@ -43,26 +43,28 @@
    setting it back to `t' will paint the canvas again and again by calling the `draw' function, again.
   ")
 #-jscl
-(defparameter *calm-music-format* sdl2-ffi:+audio-s32sys+)
+(defparameter *calm-audio-format* sdl2-ffi:+audio-s32sys+)
 #+jscl
-(defparameter *calm-music-format* 32800)
+(defparameter *calm-audio-format* 32800)
 
-(defparameter *calm-music-frequency* 44100)
-(defparameter *calm-music-channels* 2)
+(defparameter *calm-audio-frequency* 44100)
+(defparameter *calm-audio-channels* 2)
 
 ;;
 ;; chunksize: audio buffer size in sample FRAMES (total samples divided by channel count).
-;; I thought it should be: (* calm::*calm-music-channels* calm::*calm-music-frequency*)
+;; I thought it should be: (* calm::*calm-audio-channels* calm::*calm-audio-frequency*)
 ;; but, it was delayed, I have to set it to `1024' according to this:
 ;; https://stackoverflow.com/questions/983997/i-have-an-unintended-delay-in-playing-a-mix-chunk
 #-jscl
-(defparameter *calm-music-chunksize* 1024)
+(defparameter *calm-audio-chunksize* 1024)
 ;; but, when it is on the browser,
 ;; I have to set it to a very large value to make things a little more smooth,
 ;; it still suffers some wierd noises sometimes.
 ;; I don't know why, please enlight me if you know something about this
 #+jscl
-(defparameter *calm-music-chunksize* (* 4 1024))
+(defparameter *calm-audio-chunksize* (* 4 1024))
+;; the number of channels
+(defparameter *calm-audio-numchans* 8)
 
 ;; runtime variables
 

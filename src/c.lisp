@@ -139,21 +139,21 @@
     ;; (sdl2-mixer:init)
     #+jscl
     (#j:_Mix_OpenAudio
-     calm::*calm-music-frequency*
-     calm::*calm-music-format*
-     calm::*calm-music-channels*
-     calm::*calm-music-chunksize*)
+     calm::*calm-audio-frequency*
+     calm::*calm-audio-format*
+     calm::*calm-audio-channels*
+     calm::*calm-audio-chunksize*)
     #-jscl
     (sdl2-mixer:open-audio
-     calm::*calm-music-frequency*
-     calm::*calm-music-format*
+     calm::*calm-audio-frequency*
+     calm::*calm-audio-format*
      ;; channels: number of channels (1 is mono, 2 is stereo, etc).
-     calm::*calm-music-channels*
-     calm::*calm-music-chunksize*)
+     calm::*calm-audio-channels*
+     calm::*calm-audio-chunksize*)
     #+jscl
-    (#j:_Mix_AllocateChannels 8)
+    (#j:_Mix_AllocateChannels calm::*calm-audio-numchans*)
     #-jscl
-    (sdl2-mixer:allocate-channels 8)
+    (sdl2-mixer:allocate-channels calm::*calm-audio-numchans*)
     (setf calm::*calm-state-audio-open* t)))
 
 (defun play-music (pathname &key (loops 0))
@@ -186,14 +186,14 @@
   ;; (format t "playing wav: ~A~%" pathname)
   (open-audio-if-not-yet)
   (let* ((wav-pathname
-           #+jscl
+          #+jscl
            (concatenate 'string "/usr/share/" pathname) ;; /usr/share/assets/ will be embedded
            #-jscl
            (or (uiop:absolute-pathname-p pathname)
                (uiop:merge-pathnames* pathname (uiop:getenv "CALM_APP_DIR"))))
          (wav-object-cache
-           (cdr (assoc wav-pathname calm::*calm-state-loaded-audio*
-                       #+jscl :test #+jscl #'string=)))
+          (cdr (assoc wav-pathname calm::*calm-state-loaded-audio*
+                      #+jscl :test #+jscl #'string=)))
          (wav-object (or wav-object-cache
                          #+jscl
                          (let* ((wav-pathname-allocated-ptr (#j:allocateUTF8 wav-pathname))
@@ -207,10 +207,13 @@
                          (sdl2-mixer:load-wav wav-pathname))))
     (unless wav-object-cache
       (push (cons wav-pathname wav-object) calm::*calm-state-loaded-audio*))
-    #+jscl
-    (#j:_Mix_PlayChannelTimed channel wav-object loops -1)
-    #-jscl
-    (sdl2-mixer:play-channel channel wav-object loops)))
+
+    ;; only play when there is/are available channel(s)
+    (when (< (playing) calm::*calm-audio-numchans*)
+      #+jscl
+      (#j:_Mix_PlayChannelTimed channel wav-object loops -1)
+      #-jscl
+      (sdl2-mixer:play-channel channel wav-object loops))))
 
 #+jscl
 (defun play-audio (audio-url &key (loop-audio-p nil) (volume 1))
