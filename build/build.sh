@@ -32,7 +32,9 @@ build_fedora () {
 }
 
 build_darwin () {
-    brew update
+    # don't do this, some stupid CI would take forever and then fail
+    # brew update
+
     echo "build launcher ..."
     brew install gcc
     gcc src/calm.c -o calm
