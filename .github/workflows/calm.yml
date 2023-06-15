@@ -8,7 +8,7 @@ on:
 
 jobs:
 
-  Linux:
+  Linux-and-Web:
     runs-on: ubuntu-22.04
 
     steps:
@@ -33,7 +33,7 @@ jobs:
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.14
         with:
-          prerelease: true
+          draft: true
           files: |
             *.tar
             *.tgz
@@ -48,6 +48,8 @@ jobs:
 
     env:
       CI_MATRIX_OS: ${{ matrix.os }}
+      HOMEBREW_NO_AUTO_UPDATE: 1
+      HOMEBREW_NO_INSTALL_CLEANUP: 1
 
     steps:
       - uses: actions/checkout@v3
@@ -59,7 +61,7 @@ jobs:
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.14
         with:
-          prerelease: true
+          draft: true
           files: |
             *.tgz
             *.dmg
@@ -80,7 +82,7 @@ jobs:
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.14
         with:
-          prerelease: true
+          draft: true
           files: |
             *.tgz
             *.zip

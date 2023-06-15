@@ -5,12 +5,13 @@
 ;; version check won't work on JSCL, since the lack of ASDF
 ;;
 #-jscl
-(let ((required-version "0.1.2")
+(let ((required-version "0.1.3")
       (calm-version (slot-value (asdf:find-system 'calm) 'asdf:version)))
   (when (uiop:version< calm-version required-version)
     (format t
             "Sorry, this is built on CALM ~A, older version (current: ~A) of CALM won't work.~%"
-            required-version calm-versio)))
+            required-version calm-version)
+    (uiop:quit)))
 
 
 ;;

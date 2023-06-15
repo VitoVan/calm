@@ -8,6 +8,9 @@
    :play-wav
    :playing
    :halt-music
+   :halt-wav
+   :volume
+   :volume-music
    :get-ticks
    :keq
    :show-png
@@ -50,6 +53,7 @@
    :weight
    :slant
    :fc-init
+   :fc-init-reinitialize
    :fc-create-pattern
    :fc-pattern-add-string
    :fc-pattern-add-integer

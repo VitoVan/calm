@@ -127,6 +127,7 @@
     (show-layout layout :cr cr)))
 
 (defun open-audio-if-not-yet ()
+  ;; (format t "open-audio-if-not-yet, already opened?: ~A~%" calm::*calm-state-audio-open*)
   (unless calm::*calm-state-audio-open*
     ;;
     ;; if we put the following code outside of this function,
@@ -138,23 +139,25 @@
     ;; (sdl2-mixer:init)
     #+jscl
     (#j:_Mix_OpenAudio
-     calm::*calm-music-frequency*
-     calm::*calm-music-format*
-     calm::*calm-music-channels*
-     calm::*calm-music-chunksize*)
+     calm::*calm-audio-frequency*
+     calm::*calm-audio-format*
+     calm::*calm-audio-channels*
+     calm::*calm-audio-chunksize*)
     #-jscl
     (sdl2-mixer:open-audio
-     calm::*calm-music-frequency*
-     calm::*calm-music-format*
+     calm::*calm-audio-frequency*
+     calm::*calm-audio-format*
      ;; channels: number of channels (1 is mono, 2 is stereo, etc).
-     calm::*calm-music-channels*
-     calm::*calm-music-chunksize*)
+     calm::*calm-audio-channels*
+     calm::*calm-audio-chunksize*)
     #+jscl
-    (#j:_Mix_AllocateChannels 8)
+    (#j:_Mix_AllocateChannels calm::*calm-audio-numchans*)
     #-jscl
-    (sdl2-mixer:allocate-channels 8)))
+    (sdl2-mixer:allocate-channels calm::*calm-audio-numchans*)
+    (setf calm::*calm-state-audio-open* t)))
 
-(defun play-music (pathname &optional (loops 0))
+(defun play-music (pathname &key (loops 0))
+  ;; (format t "playing music: ~A~%" pathname)
   (open-audio-if-not-yet)
   (let* ((music-pathname
            #+jscl
@@ -179,17 +182,18 @@
     #-jscl
     (sdl2-mixer:play-music music-object loops)))
 
-(defun play-wav (pathname &optional (loops 0))
+(defun play-wav (pathname &key (loops 0) (channel -1))
+  ;; (format t "playing wav: ~A~%" pathname)
   (open-audio-if-not-yet)
   (let* ((wav-pathname
-           #+jscl
+          #+jscl
            (concatenate 'string "/usr/share/" pathname) ;; /usr/share/assets/ will be embedded
            #-jscl
            (or (uiop:absolute-pathname-p pathname)
                (uiop:merge-pathnames* pathname (uiop:getenv "CALM_APP_DIR"))))
          (wav-object-cache
-           (cdr (assoc wav-pathname calm::*calm-state-loaded-audio*
-                       #+jscl :test #+jscl #'string=)))
+          (cdr (assoc wav-pathname calm::*calm-state-loaded-audio*
+                      #+jscl :test #+jscl #'string=)))
          (wav-object (or wav-object-cache
                          #+jscl
                          (let* ((wav-pathname-allocated-ptr (#j:allocateUTF8 wav-pathname))
@@ -203,10 +207,30 @@
                          (sdl2-mixer:load-wav wav-pathname))))
     (unless wav-object-cache
       (push (cons wav-pathname wav-object) calm::*calm-state-loaded-audio*))
-    #+jscl
-    (#j:_Mix_PlayChannelTimed -1 wav-object loops -1)
-    #-jscl
-    (sdl2-mixer:play-channel -1 wav-object loops)))
+
+    ;; only play when there is/are available channel(s)
+    (when (< (playing) calm::*calm-audio-numchans*)
+      #+jscl
+      (#j:_Mix_PlayChannelTimed channel wav-object loops -1)
+      #-jscl
+      (sdl2-mixer:play-channel channel wav-object loops))))
+
+#+jscl
+(defun play-audio (audio-url &key (loop-audio-p nil) (volume 1))
+  (format t "playing audio: ~A~%" audio-url)
+  (let* ((audio-object-cache
+           (cdr (assoc audio-url calm::*calm-state-loaded-audio* :test #'string=)))
+         (audio-object
+           (or audio-object-cache
+               ;; https://github.com/jscl-project/jscl/wiki/JSCL-and-manipulations-with-JS-objects
+               (#j:window:eval (concatenate 'string "new Audio('" audio-url "')"))
+               )))
+    (unless audio-object-cache
+      (push (cons audio-url audio-object) calm::*calm-state-loaded-audio*))
+    (when loop-audio-p
+      (setf (jscl::oget audio-object "loop") t))
+    (setf (jscl::oget audio-object "volume") volume)
+    ((jscl::oget audio-object "play"))))
 
 (defun playing ()
   #+jscl
@@ -214,11 +238,38 @@
   #-jscl
   (sdl2-mixer:playing -1))
 
+(defun volume-music (music-volume)
+  #+jscl
+  (#j:_Mix_VolumeMusic music-volume)
+  #-jscl
+  (sdl2-mixer:volume-music music-volume))
+
+(defun volume (channel volume)
+  #+jscl
+  (#j:_Mix_Volume channel volume)
+  #-jscl
+  (sdl2-mixer:volume channel volume))
+
 (defun halt-music ()
   #+jscl
   (#j:_Mix_HaltMusic)
   #-jscl
   (sdl2-mixer:halt-music))
+
+(defun halt-wav (&optional (channel -1))
+  #+jscl
+  (#j:_Mix_HaltChannel channel)
+  #-jscl
+  (sdl2-mixer:halt-channel channel))
+
+#+jscl
+(defun halt-audio (&optional (url nil))
+  (loop
+    for object in calm::*calm-state-loaded-audio*
+    when (or (null url) (string= (car object) url))
+    do
+       (format t "halting: ~A~%" object)
+       ((jscl::oget (cdr object) "pause"))))
 
 (defun get-ticks ()
   #+jscl
