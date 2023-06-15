@@ -1,4 +1,14 @@
 * CALM
+** 0.1.3
+- fix version check in command `calm hello`
+- add `c:halt-wav`
+   i.e. SDL2_mixer/Mix_HaltChannel
+- add `fc-init-reinitialize`
+  to load fonts while developing with `calm` command
+- add volume controle `c:volume` and `c:volume-music`
+  i.e. SDL2_mixer/Mix_Volume, SDL2_mixer/Mix_VolumeMusic
+- add `c:play-audio` and `c:halt-audio` on web
+  i.e. HTMLAudioElement: new Audio(url)
 ** 0.1.2
 - add touch event support, mainly for mobile + web
   should also work on all platforms
