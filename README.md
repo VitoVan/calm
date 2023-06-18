@@ -1,8 +1,8 @@
 # <img style="vertical-align:middle;margin-right:10px;" width="100" alt="Calm" src="docs/images/calm.png"> Canvas Aided Lisp Magic
 
-Calm down and draw something, in Lisp.
-
 [![CI](https://github.com/VitoVan/calm/actions/workflows/calm.yml/badge.svg)](https://github.com/VitoVan/calm/actions/workflows/calm.yml) [![GitHub all releases](https://img.shields.io/github/downloads/vitovan/calm/total?color=brightgreen&label=Downloads&style=flat)](https://github.com/VitoVan/calm/releases/latest)
+
+A Lisp development environment that enables you to build and distribute canvas based applications as Linux AppImage, macOS Application Bundle, Windows Installer and Web Application.
 
 ## Hello World
 
@@ -26,16 +26,6 @@ calm
 
 [![Hello World](docs/examples/circles/canvas.png)](#hello-world)
 
-Or:
-
-```bash
-calm publish-web
-```
-
-and then:
-
-[![open in the browser](https://img.shields.io/badge/open-in%20the%20browser-brightgreen?logo=webassembly&logoColor=white)](<https://vitovan.com/calm/examples-0.1.2/circles/calm.html>)
-
 ## Examples
 
 <p align="center">
@@ -44,21 +34,21 @@ and then:
     <a href="https://vitovan.com/calm/examples-0.1.2/meditator/calm.html"><img width="250" alt="Meditator" src="./docs/examples/meditator/canvas.png"></a>
 </p>
 
-No need to download, you can check these examples [in your browser](https://github.com/VitoVan/calm/releases/tag/examples-0.1.2).
+Source files and binaries for the above examples are [here](https://github.com/VitoVan/calm/tree/main/docs/examples) and [here](https://github.com/VitoVan/calm/releases/tag/examples-0.1.3).
 
-For more examples, please check this list: [Made with CALM](https://github.com/VitoVan/made-with-calm).
+For more applications made with CALM, please check: [Made with CALM](https://github.com/VitoVan/made-with-calm).
 
 ## <img style="vertical-align:middle;margin-right:5px;" width="50" alt="Calm Installer" src="./build/calm.png"> Installation
 
 ### Pre-built Binary
 
-1. Download for your platform
+1. Download
 
-   [![Linux Download](https://img.shields.io/badge/Linux-glibc%202.33+-FFD032.svg?logo=linux)](<https://github.com/VitoVan/calm/releases/latest/download/calm.tgz>) [![macOS Ventura Download](https://img.shields.io/badge/macOS-Ventura-black?logo=apple)](<https://github.com/VitoVan/calm/releases/latest/download/calm.macos-13.dmg>) [![Windows Download](https://img.shields.io/badge/Windows-Windows%2010/11-017fd5.svg?logo=windows)](<https://github.com/VitoVan/calm/releases/latest/download/calm.zip>) [![macOS Monterey Download](https://img.shields.io/badge/macOS-Monterey-white?logo=apple)](<https://github.com/VitoVan/calm/releases/latest/download/calm.macos-12.dmg>) [![macOS Big Sur Download](https://img.shields.io/badge/macOS-Big%20Sur-white?logo=apple)](<https://github.com/VitoVan/calm/releases/latest/download/calm.macos-11.dmg>)
+   [![Linux Download](https://img.shields.io/badge/Linux-glibc%202.31+-FFD032.svg?logo=linux)](<https://github.com/VitoVan/calm/releases/latest/download/calm.tgz>) [![macOS Ventura Download](https://img.shields.io/badge/macOS-Ventura-black?logo=apple)](<https://github.com/VitoVan/calm/releases/latest/download/calm.macos-13.dmg>) [![Windows Download](https://img.shields.io/badge/Windows-Windows%2010/11-017fd5.svg?logo=windows)](<https://github.com/VitoVan/calm/releases/latest/download/calm.zip>) [![macOS Monterey Download](https://img.shields.io/badge/macOS-Monterey-white?logo=apple)](<https://github.com/VitoVan/calm/releases/latest/download/calm.macos-12.dmg>) [![macOS Big Sur Download](https://img.shields.io/badge/macOS-Big%20Sur-white?logo=apple)](<https://github.com/VitoVan/calm/releases/latest/download/calm.macos-11.dmg>)
 
-2. Extract the content
+2. Extract
 
-3. Add the extracted folder into your PATH environment
+3. Add the extracted directory into your PATH environment
 
    for macOS, add `/path/to/Calm.app/Contents/MacOS/` instead
 
@@ -94,8 +84,6 @@ This command will generate different packages on different platforms:
 
 >**Note**
 >
->_You don't need to read this if you don't care about what I am going to install on your machine_
->
 >DMG creation is powered by [create-dmg](https://github.com/create-dmg/create-dmg), will be installed by `brew install create-dmg` if it were not present.
 >
 >So if you don't have create-dmg, this will install create-dmg for you.
@@ -110,8 +98,6 @@ This command will generate different packages on different platforms:
 
 > **Note**
 >
-> _You don't need to read this if you don't care about what I am going to install on your machine_
->
 > Installer creation is powered by [NSIS](https://nsis.sourceforge.io/), will be installed by `winget install nsis` if it were not present.
 >
 > So if you don't have NSIS (i.e., `makensis`) under your PATH, this will install NSIS for you.
@@ -119,6 +105,18 @@ This command will generate different packages on different platforms:
 > And, if you don't have [winget](https://github.com/microsoft/winget-cli) under your PATH, this will also install winget for you.
 >
 > The binary detection was done by `where makensis` and `where winget`.
+
+### To the Web
+
+```bash
+calm publish-web
+```
+
+This command could compoile your Lisp code into web pages that could be served on the internet.
+
+> **Note**
+>
+> docker and git should be present.
 
 ### Customization
 
@@ -130,17 +128,7 @@ calm publish-with-options
 
 You will be asked for all the customization options and the default value will also be provided.
 
-### On the Web
-
-```bash
-calm publish-web
-```
-
-This command could compoile your Lisp code into web pages that could be served on the internet.
-
-There is also another `calm publish-web-with-options` command for more customization.
-
-I haven't write any document yet, but the command should deliver, docker and git are needed. Please let me know if you encountered any problems.
+There is also another `calm publish-web-with-options` command for web-end customization.
 
 ## Environment Variables
 
