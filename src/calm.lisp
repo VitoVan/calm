@@ -2,7 +2,8 @@
 
 #-jscl
 (defun calm-quit ()
-  (sdl2-mixer:close-audio)
+  (when *calm-state-audio-open*
+    (sdl2-mixer:close-audio))
   ;; on Linux & Windows, uiop:quit will hang a while
   ;; don't know why, fix it recklessly.
   (if (uiop:featurep :darwin)

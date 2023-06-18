@@ -16,7 +16,7 @@ jobs:
 
       - name: Build for Linux
         run: |
-          docker run --env CI=true -v $PWD:/calm -w /calm fedora:34 bash build/build.sh
+          docker run --env CI=true -v $PWD:/calm -w /calm fedora:32 bash build/build.sh
           ls -lah .
 
       - name: Build for Web
