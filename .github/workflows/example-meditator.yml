@@ -22,7 +22,7 @@ jobs:
           set -x
           curl -L -o calm.tgz https://github.com/VitoVan/calm/releases/download/0.1.3/calm.tgz
           mkdir calm
-          tar xvf calm.tgz --directory=calm
+          tar xvf calm.tgz
           ls -lah calm
           export PATH=$PATH:$(pwd)/calm/
           export APP_NAME=Meditator
@@ -51,7 +51,7 @@ jobs:
           set -x
           curl -L -o calm.tgz https://github.com/VitoVan/calm/releases/download/0.1.3/calm.tgz
           mkdir calm
-          tar xvf calm.tgz --directory=calm
+          tar xvf calm.tgz
           ls -lah calm
           export PATH=$PATH:$(pwd)/calm/
           export APP_NAME=Meditator
@@ -120,7 +120,7 @@ jobs:
           set -x
           pacman -S --noconfirm --needed unzip
           curl -L -o calm.zip https://github.com/VitoVan/calm/releases/download/0.1.3/calm.zip
-          unzip calm.zip -d calm
+          unzip calm.zip
           ls -lah calm
           export PATH=$PATH:$(pwd)/calm/
           export APP_NAME=Meditator

@@ -22,7 +22,7 @@ jobs:
       - name: Build for Web
         run: |
           mkdir calm
-          tar xvf calm.tgz --directory=calm
+          tar xvf calm.tgz
           ls -lah calm
           export PATH=$PATH:$(pwd)/calm/
           calm hello
@@ -37,7 +37,6 @@ jobs:
           files: |
             *.tar
             *.tgz
-            *.AppImage
 
   macOS:
     runs-on: ${{ matrix.os }}
@@ -63,7 +62,6 @@ jobs:
         with:
           draft: true
           files: |
-            *.tgz
             *.dmg
 
   Windows:
@@ -84,6 +82,4 @@ jobs:
         with:
           draft: true
           files: |
-            *.tgz
             *.zip
-            Hello.exe

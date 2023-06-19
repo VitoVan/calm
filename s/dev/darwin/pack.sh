@@ -11,7 +11,7 @@ export APP_ICON=./build/calm.icns
 export APP_VERSION=$(grep :version calm.asd | awk -F \" '{print $2}')
 
 mkdir calm-dist
-cp -R {calm,build,entry.lisp,src,lib,s,quicklisp,README.md,calm.asd,sbcl,images,LICENSE} ./calm-dist/
+cp -R {calm,build,entry.lisp,src,lib,s,quicklisp,README.md,calm.asd,sbcl,LICENSE} ./calm-dist/
 export APP_NAME=Calm
 export BUNDLE_ID=com.vitovan.calm
 export DIST_DIR=./calm-dist/

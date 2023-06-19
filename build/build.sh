@@ -80,6 +80,7 @@ build_msys () {
 
     echo "packing ..."
     ./calm s dev msys pack.sh
+    echo "DONE."
 
 }
 
