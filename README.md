@@ -29,9 +29,9 @@ calm
 ## Examples
 
 <p align="center">
-    <a href="https://vitovan.com/calm/examples-0.1.2/fan/calm.html"><img width="250" alt="Fan" src="./docs/examples/fan/canvas.png"></a>
-    <a href="https://vitovan.com/calm/examples-0.1.2/mondrian/calm.html"><img width="250" alt="Mondrian" src="./docs/examples/mondrian/canvas.png"></a>
-    <a href="https://vitovan.com/calm/examples-0.1.2/meditator/calm.html"><img width="250" alt="Meditator" src="./docs/examples/meditator/canvas.png"></a>
+    <a href="https://vitovan.com/calm/examples-0.1.3/fan/calm.html"><img width="250" alt="Fan" src="./docs/examples/fan/canvas.png"></a>
+    <a href="https://vitovan.com/calm/examples-0.1.3/mondrian/calm.html"><img width="250" alt="Mondrian" src="./docs/examples/mondrian/canvas.png"></a>
+    <a href="https://vitovan.com/calm/examples-0.1.3/meditator/calm.html"><img width="250" alt="Meditator" src="./docs/examples/meditator/canvas.png"></a>
 </p>
 
 Source files and binaries for the above examples are [here](https://github.com/VitoVan/calm/tree/main/docs/examples) and [here](https://github.com/VitoVan/calm/releases/tag/examples-0.1.3).
