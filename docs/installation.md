@@ -10,8 +10,7 @@ Now let's set up the environment for the ease of use.
 
 - Linux
   ```bash
-  mkdir -p ~/calm
-  tar xvf calm.tgz --directory=$HOME/calm/
+  tar xvf calm.tgz --directory=$HOME/
   echo 'export PATH="$HOME/calm/:$PATH"'>> ~/.bashrc
   ```
 - macOS

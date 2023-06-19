@@ -169,18 +169,40 @@
   ;; let pango use fontconfig to get cross-platform font loading support
   (setf (uiop:getenv "PANGOCAIRO_BACKEND") "fontconfig")
 
-  ;; set fontconfig config dir
+  ;;
+  ;; set fontconfig config
+  ;;
   (setf (uiop:getenv "FONTCONFIG_PATH") (uiop:native-namestring (merge-pathnames "fonts/" *calm-env-app-dir*)))
-  (setf (uiop:getenv "FONTCONFIG_FILE") (uiop:native-namestring (merge-pathnames "fonts/fonts.conf" *calm-env-app-dir*)))
+  (let ((app-fonts-conf (merge-pathnames "fonts/fonts.conf" *calm-env-app-dir*))
+        (calm-fonts-conf (merge-pathnames "s/usr/all/fonts.conf" *calm-env-calm-home*)))
+    ;;
+    ;; this is only needed by fontconfig @ fedora-32:
+    ;; https://bodhi.fedoraproject.org/updates/?search=fontconfig&releases=F32
+    ;; when a non-exist fonts.conf was set, something weird will happen:
+    ;; like text was stretched
+    ;;
+    ;; why using granny's fedora?
+    ;; because we want to lower the glibc dependency
+    ;;     https://github.com/AppImage/appimage.github.io/pull/3166
+    ;; Ubuntu 20.04 LTS with GLIBC_2.31 won't be died till 2030, so...
+    ;;     https://wiki.ubuntu.com/Releases
+    (if (probe-file app-fonts-conf)
+        ;; if there exists a fonts.conf inside app dir, use it
+        (setf (uiop:getenv "FONTCONFIG_FILE") (uiop:native-namestring app-fonts-conf))
+        ;; if not, use CALM default (this won't be available in distribution mode, but anyway...)
+        (setf (uiop:getenv "FONTCONFIG_FILE") (uiop:native-namestring calm-fonts-conf)))
 
-  (format t "fontpath: ~A~%" (uiop:native-namestring (merge-pathnames "fonts/" *calm-env-app-dir*)))
-  (format t "fontfile: ~A~%" (uiop:native-namestring (merge-pathnames "fonts/fonts.conf" *calm-env-app-dir*)))
+    (format t "fontpath: ~A~%" (uiop:getenv "FONTCONFIG_PATH"))
+    (format t "fontfile: ~A~%" (uiop:getenv "FONTCONFIG_FILE"))
 
-  ;; https://www.freedesktop.org/software/fontconfig/fontconfig-user.html#DEBUG
-  ;; (setf (uiop:getenv "FC_DEBUG") "1024")
+    ;; https://www.freedesktop.org/software/fontconfig/fontconfig-user.html#DEBUG
+    ;; (setf (uiop:getenv "FC_DEBUG") "1024")
 
-  ;; init fc
-  (fontconfig:fc-init-reinitialize)
+    ;; reinit fc, if there exists fonts.conf
+    (when (or (probe-file app-fonts-conf) (probe-file calm-fonts-conf))
+      (fontconfig:fc-init-reinitialize)))
+
+
   )
 
 #+jscl

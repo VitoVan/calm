@@ -1,4 +1,8 @@
 * CALM
+** 0.1.4
+- downgrade glibc version 2.33+ -> 2.31(for Linux)
+  now CALM applications could run on the old Ubuntu 20.04 LTS
+- more elegant circles/canvas.lisp
 ** 0.1.3
 - fix version check in command `calm hello`
 - add `c:halt-wav`
