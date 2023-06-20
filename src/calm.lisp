@@ -34,17 +34,14 @@
 (defun calm-init ()
   (sdl2:with-init (:everything)
     (sdl2:with-window (calm-window :title *calm-window-title* :x *calm-window-x* :y *calm-window-y* :w *calm-window-width* :h *calm-window-height* :flags *calm-window-flags*)
-      ;; default window icon
-      (if *calm-window-icon*
-          (setf *calm-window-icon*
-                (or
-                 (uiop:absolute-pathname-p *calm-window-icon*)
-                 (uiop:merge-pathnames* *calm-window-icon* (uiop:getenv "CALM_APP_DIR"))))
-          (setf *calm-window-icon* (str:concat (uiop:getenv "CALM_HOME") "build/app.png")))
-      (when (probe-file *calm-window-icon*)
-        (sdl2-ffi.functions:sdl-set-window-icon ;; on Wayland, this doesn't work, who should I blame?
-         calm-window
-         (sdl2-image:load-image *calm-window-icon*)))
+
+      ;; window icon for Linux
+      (let ((window-icon (str:concat (uiop:getenv "CALM_HOME") "build/app.png")))
+        ;; this file should only exist on Linux, it was copied by `s/usr/linux/appimage.lisp'
+        (when (probe-file window-icon)
+          (sdl2-ffi.functions:sdl-set-window-icon ;; on Wayland, this doesn't work, who should I blame?
+           calm-window
+           (sdl2-image:load-image window-icon))))
 
       (sdl2:with-renderer (calm-renderer calm-window :flags *calm-renderer-flags*)
         (multiple-value-bind (calm-renderer-width calm-renderer-height)

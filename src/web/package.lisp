@@ -152,7 +152,7 @@
    :halt-music
    :halt-wav
    :halt-audio
-   :volume
+   :volume-wav
    :volume-music
    :get-ticks
    :keq

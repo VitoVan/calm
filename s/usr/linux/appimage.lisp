@@ -18,12 +18,6 @@
     ;; mkdir
     (ensure-directories-exist appimage-app-dir)
 
-    ;; default SDL Window ICON
-    (ensure-directories-exist (merge-pathnames "build/" dist-dir))
-    (u:copy-file
-     (merge-pathnames "build/app.png" *calm-env-calm-home*)
-     (merge-pathnames "build/app.png" dist-dir))
-
     ;; copy dist-dir
     (ensure-directories-exist (merge-pathnames "usr/" appimage-app-dir))
     (u:copy-dir dist-dir (merge-pathnames "usr/bin/" appimage-app-dir))
@@ -35,6 +29,10 @@
 
     ;; copy AppImage ICON
     (u:copy-file app-icon (merge-pathnames (str:concat "icon." (pathname-type app-icon)) appimage-app-dir))
+    ;; copy SDL Window ICON, this is only needed by Linux system
+    (ensure-directories-exist (merge-pathnames "usr/bin/build/" appimage-app-dir))
+    (u:copy-file app-icon (merge-pathnames "usr/bin/build/app.png" appimage-app-dir))
+
 
     ;; generate desktop file
     (str:to-file (merge-pathnames (str:concat app-name ".desktop") appimage-app-dir)

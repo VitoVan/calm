@@ -244,11 +244,11 @@
   #-jscl
   (sdl2-mixer:volume-music music-volume))
 
-(defun volume (channel volume)
+(defun volume-wav (wav-volume &key (channel -1))
   #+jscl
-  (#j:_Mix_Volume channel volume)
+  (#j:_Mix_Volume channel wav-volume)
   #-jscl
-  (sdl2-mixer:volume channel volume))
+  (sdl2-mixer:volume channel wav-volume))
 
 (defun halt-music ()
   #+jscl

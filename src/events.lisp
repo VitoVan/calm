@@ -53,7 +53,7 @@
   (setf *calm-state-finger-x* x
         *calm-state-finger-y* y
         *calm-redraw* t
-        *calm-state-finger-just-clicked* nil)
+        *calm-state-finger-just-tapped* nil)
   (format t "finger motion~%")
   (when (fboundp 'on-fingermotion)
     (on-fingermotion :x x :y y :dx dx :dy dy :pressure pressure :finger-id finger-id)))
@@ -63,7 +63,7 @@
    *calm-state-finger-up* finger-id
    *calm-state-finger-down* nil
    *calm-redraw* t
-   *calm-state-finger-just-clicked* t)
+   *calm-state-finger-just-tapped* t)
   (format t "finger up~%")
   (when (fboundp 'on-fingerup)
     (on-fingerup :x x :y y :dx dx :dy dy :pressure pressure :finger-id finger-id)))
@@ -73,7 +73,7 @@
    *calm-state-finger-up* nil
    *calm-state-finger-down* finger-id
    *calm-redraw* t
-   *calm-state-finger-just-clicked* nil)
+   *calm-state-finger-just-tapped* nil)
   (format t "finger down~%")
   (when (fboundp 'on-fingerdown)
     (on-fingerdown :x x :y y :dx dx :dy dy :pressure pressure :finger-id finger-id)))

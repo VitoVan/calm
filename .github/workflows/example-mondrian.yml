@@ -7,7 +7,6 @@ on:
   push:
     tags:
       - "examples-*"
-      - "test-examples-*"
 
 jobs:
   Web:
