@@ -8,8 +8,11 @@ if [[ ! -v CALM_VERSION ]]; then
     exit 42
 fi
 
+rm /tmp/calm.zip
+rm -rf /tmp/calm
+
 curl -o /tmp/calm.zip -L https://github.com/VitoVan/calm/archive/refs/heads/${CALM_VERSION}.zip
-unzip calm.zip -d /tmp/calm
+unzip /tmp/calm.zip -d /tmp/calm
 
 rm -rf ./docs
 rm -rf ./build
