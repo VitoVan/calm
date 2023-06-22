@@ -7,7 +7,7 @@ on:
 
 jobs:
 
-  Linux-and-Web:
+  Linux:
     runs-on: ubuntu-22.04
 
     steps:
@@ -18,9 +18,36 @@ jobs:
           docker run --env CI=true -v $PWD:/calm -w /calm fedora:32 bash build/build.sh
           ls -lah .
 
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: CALM Linux
+          path: |
+            *.tgz
+
+      - name: GH Release
+        uses: softprops/action-gh-release@v0.1.14
+        with:
+          draft: true
+          files: |
+            *.tgz
+
+  Web:
+    needs: Linux
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Download Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: CALM Linux
+
       - name: Build for Web
         run: |
-          mkdir calm
+          set -x
+          ls -lah
           tar xvf calm.tgz
           ls -lah calm
           export PATH=$PATH:$(pwd)/calm/
@@ -29,13 +56,20 @@ jobs:
           export REBUILD_WASM_P=yes
           calm publish-web
           tar cf calm.tar web/calm.*
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: CALM Web
+          path: |
+            *.tar
+
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.14
         with:
           draft: true
           files: |
             *.tar
-            *.tgz
 
   macOS:
     runs-on: ${{ matrix.os }}
@@ -56,6 +90,14 @@ jobs:
         run: |
           bash build/build.sh
           ls -lah .
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: CALM macOS
+          path: |
+            *.dmg
+
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.14
         with:
@@ -76,9 +118,640 @@ jobs:
         run: |
           build\\build.bat
 
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: CALM Windows
+          path: |
+            *.zip
+
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.14
         with:
           draft: true
           files: |
             *.zip
+
+# Circles Exmaple
+
+  Circles-Web:
+    needs: Web
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Download Artifact Linux
+        uses: actions/download-artifact@v3
+        with:
+          name: CALM Linux
+
+      - name: Download Artifact Web
+        uses: actions/download-artifact@v3
+        with:
+          name: CALM Web
+
+      - name: Build
+        run: |
+          set -x
+          ls -lah
+          tar xvf calm.tgz
+          ls -lah calm
+          mkdir -p ./calm/build/web/ && cp calm.tar ./calm/build/web/calm.tar
+          export PATH=$PATH:$(pwd)/calm/
+          export APP_NAME=Circles
+          # switch dir, this is unnecessary if you are already at the same dir with canvas.lisp
+          cd docs/examples/circles/
+          calm publish-web
+          ls -lah .
+          zip -r -9 ${APP_NAME}-web.zip ./web
+          cp *.zip ../../../
+      - name: GH Release
+        uses: softprops/action-gh-release@v0.1.14
+        with:
+          draft: true
+          files: |
+            *-web.zip
+  Circles-Linux:
+    needs: Linux
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Download Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: CALM Linux
+
+      - name: Build
+        run: |
+          set -x
+          ls -lah
+          tar xvf calm.tgz
+          ls -lah calm
+          export PATH=$PATH:$(pwd)/calm/
+          export APP_NAME=Circles
+          # switch dir, this is unnecessary if you are already at the same dir with canvas.lisp
+          cd docs/examples/circles/
+          calm publish
+          ls -lah .
+          cp *.AppImage ../../../
+      - name: GH Release
+        uses: softprops/action-gh-release@v0.1.14
+        with:
+          draft: true
+          files: |
+            *.AppImage
+  Circles-macOS:
+    needs: macOS
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [macos-11, macos-12, macos-13]
+
+    env:
+      CI_MATRIX_OS: ${{ matrix.os }}
+      HOMEBREW_NO_AUTO_UPDATE: 1
+      HOMEBREW_NO_INSTALL_CLEANUP: 1
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Download Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: CALM macOS
+
+      - name: Build
+        run: |
+          set -x
+          ls -lah
+          export OS_SUBFIX=".${CI_MATRIX_OS}"
+          cp calm${OS_SUBFIX}.dmg calm.dmg
+          hdiutil attach calm.dmg
+          cp -R "/Volumes/Calm - CALM/Calm.app/Contents/MacOS/" calm
+          ls -lah calm
+          rm *.dmg
+          export PATH=$PATH:$(pwd)/calm/
+          export APP_VERSION=0.1.0
+          export APP_ID=com.vitovan.circles
+          export APP_NAME=Circles
+          # switch dir, this is unnecessary if you are already at the same dir with canvas.lisp
+          cd docs/examples/circles/
+          calm publish
+          ls -lah .
+          mv *.dmg Circles${OS_SUBFIX}.dmg
+          cp *.dmg ../../../
+      - name: GH Release
+        uses: softprops/action-gh-release@v0.1.14
+        with:
+          draft: true
+          files: |
+            *.dmg
+  Circles-Windows:
+    needs: Windows
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: msys2/setup-msys2@v2
+
+      - name: Download Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: CALM Windows
+
+      - name: Build
+        shell: msys2 {0}
+        run: |
+          set -x
+          ls -lah
+          pacman -S --noconfirm --needed unzip
+          unzip calm.zip
+          ls -lah calm
+          export PATH=$PATH:$(pwd)/calm/
+          export APP_NAME=Circles
+          # switch dir, this is unnecessary if you are already at the same dir with canvas.lisp
+          cd docs/examples/circles/
+          calm publish
+          mv ./*-Installer.exe ./Circles.exe
+          ls -lah .
+          cp *.exe ../../../
+      - name: GH Release
+        uses: softprops/action-gh-release@v0.1.14
+        with:
+          draft: true
+          files: |
+            *.exe
+
+# Fan Exmaple
+
+  Fan-Web:
+    needs: Web
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Download Artifact Linux
+        uses: actions/download-artifact@v3
+        with:
+          name: CALM Linux
+
+
+      - name: Download Artifact - Web
+        uses: actions/download-artifact@v3
+        with:
+          name: CALM Web
+
+      - name: Build
+        run: |
+          set -x
+          ls -lah
+          tar xvf calm.tgz
+          ls -lah calm
+          mkdir -p ./calm/build/web/ && cp calm.tar ./calm/build/web/calm.tar
+          export PATH=$PATH:$(pwd)/calm/
+          export APP_NAME=Fan
+          # switch dir, this is unnecessary if you are already at the same dir with canvas.lisp
+          cd docs/examples/fan/
+          calm publish-web
+          ls -lah .
+          zip -r -9 ${APP_NAME}-web.zip ./web
+          cp *.zip ../../../
+      - name: GH Release
+        uses: softprops/action-gh-release@v0.1.14
+        with:
+          draft: true
+          files: |
+            *-web.zip
+  Fan-Linux:
+    needs: Linux
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Download Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: CALM Linux
+
+      - name: Build
+        run: |
+          set -x
+          ls -lah
+          tar xvf calm.tgz
+          ls -lah calm
+          export PATH=$PATH:$(pwd)/calm/
+          export APP_NAME=Fan
+          # switch dir, this is unnecessary if you are already at the same dir with canvas.lisp
+          cd docs/examples/fan/
+          calm publish
+          ls -lah .
+          cp *.AppImage ../../../
+      - name: GH Release
+        uses: softprops/action-gh-release@v0.1.14
+        with:
+          draft: true
+          files: |
+            *.AppImage
+  Fan-macOS:
+    needs: macOS
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [macos-11, macos-12, macos-13]
+
+    env:
+      CI_MATRIX_OS: ${{ matrix.os }}
+      HOMEBREW_NO_AUTO_UPDATE: 1
+      HOMEBREW_NO_INSTALL_CLEANUP: 1
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Download Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: CALM macOS
+
+      - name: Build
+        run: |
+          set -x
+          ls -lah
+          export OS_SUBFIX=".${CI_MATRIX_OS}"
+          cp calm${OS_SUBFIX}.dmg calm.dmg
+          hdiutil attach calm.dmg
+          cp -R "/Volumes/Calm - CALM/Calm.app/Contents/MacOS/" calm
+          ls -lah calm
+          rm *.dmg
+          export PATH=$PATH:$(pwd)/calm/
+          export APP_VERSION=0.1.0
+          export APP_ID=com.vitovan.fan
+          export APP_NAME=Fan
+          # switch dir, this is unnecessary if you are already at the same dir with canvas.lisp
+          cd docs/examples/fan/
+          calm publish
+          ls -lah .
+          mv *.dmg Fan${OS_SUBFIX}.dmg
+          cp *.dmg ../../../
+      - name: GH Release
+        uses: softprops/action-gh-release@v0.1.14
+        with:
+          draft: true
+          files: |
+            *.dmg
+  Fan-Windows:
+    needs: Windows
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: msys2/setup-msys2@v2
+
+      - name: Download Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: CALM Windows
+
+      - name: Build
+        shell: msys2 {0}
+        run: |
+          set -x
+          ls -lah
+          pacman -S --noconfirm --needed unzip
+          unzip calm.zip
+          ls -lah calm
+          export PATH=$PATH:$(pwd)/calm/
+          export APP_NAME=Fan
+          # switch dir, this is unnecessary if you are already at the same dir with canvas.lisp
+          cd docs/examples/fan/
+          calm publish
+          mv ./*-Installer.exe ./Fan.exe
+          ls -lah .
+          cp *.exe ../../../
+      - name: GH Release
+        uses: softprops/action-gh-release@v0.1.14
+        with:
+          draft: true
+          files: |
+            *.exe
+
+# Mondrian Exmaple
+
+  Mondrian-Web:
+    needs: Web
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Download Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: CALM Linux
+
+      - name: Download Artifact - Web
+        uses: actions/download-artifact@v3
+        with:
+          name: CALM Web
+
+      - name: Build
+        run: |
+          set -x
+          ls -lah
+          tar xvf calm.tgz
+          ls -lah calm
+          mkdir -p ./calm/build/web/ && cp calm.tar ./calm/build/web/calm.tar
+          export PATH=$PATH:$(pwd)/calm/
+          export APP_NAME=Mondrian
+          # switch dir, this is unnecessary if you are already at the same dir with canvas.lisp
+          cd docs/examples/mondrian/
+          calm publish-web
+          ls -lah .
+          zip -r -9 ${APP_NAME}-web.zip ./web
+          cp *.zip ../../../
+      - name: GH Release
+        uses: softprops/action-gh-release@v0.1.14
+        with:
+          draft: true
+          files: |
+            *-web.zip
+  Mondrian-Linux:
+    needs: Linux
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Download Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: CALM Linux
+
+      - name: Build
+        run: |
+          set -x
+          ls -lah
+          tar xvf calm.tgz
+          ls -lah calm
+          export PATH=$PATH:$(pwd)/calm/
+          export APP_NAME=Mondrian
+          # switch dir, this is unnecessary if you are already at the same dir with canvas.lisp
+          cd docs/examples/mondrian/
+          calm publish
+          ls -lah .
+          cp *.AppImage ../../../
+      - name: GH Release
+        uses: softprops/action-gh-release@v0.1.14
+        with:
+          draft: true
+          files: |
+            *.AppImage
+  Mondrian-macOS:
+    needs: macOS
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [macos-11, macos-12, macos-13]
+
+    env:
+      CI_MATRIX_OS: ${{ matrix.os }}
+      HOMEBREW_NO_AUTO_UPDATE: 1
+      HOMEBREW_NO_INSTALL_CLEANUP: 1
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Download Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: CALM macOS
+
+      - name: Build
+        run: |
+          set -x
+          ls -lah
+          export OS_SUBFIX=".${CI_MATRIX_OS}"
+          cp calm${OS_SUBFIX}.dmg calm.dmg
+          hdiutil attach calm.dmg
+          cp -R "/Volumes/Calm - CALM/Calm.app/Contents/MacOS/" calm
+          ls -lah calm
+          rm *.dmg
+          export PATH=$PATH:$(pwd)/calm/
+          export APP_VERSION=0.1.0
+          export APP_ID=com.vitovan.mondrian
+          export APP_NAME=Mondrian
+          # switch dir, this is unnecessary if you are already at the same dir with canvas.lisp
+          cd docs/examples/mondrian/
+          calm publish
+          ls -lah .
+          mv *.dmg Mondrian${OS_SUBFIX}.dmg
+          cp *.dmg ../../../
+      - name: GH Release
+        uses: softprops/action-gh-release@v0.1.14
+        with:
+          draft: true
+          files: |
+            *.dmg
+  Mondrian-Windows:
+    needs: Windows
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: msys2/setup-msys2@v2
+
+      - name: Download Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: CALM Windows
+
+      - name: Build
+        shell: msys2 {0}
+        run: |
+          set -x
+          ls -lah
+          pacman -S --noconfirm --needed unzip
+          unzip calm.zip
+          ls -lah calm
+          export PATH=$PATH:$(pwd)/calm/
+          export APP_NAME=Mondrian
+          # switch dir, this is unnecessary if you are already at the same dir with canvas.lisp
+          cd docs/examples/mondrian/
+          calm publish
+          mv ./*-Installer.exe ./Mondrian.exe
+          ls -lah .
+          cp *.exe ../../../
+      - name: GH Release
+        uses: softprops/action-gh-release@v0.1.14
+        with:
+          draft: true
+          files: |
+            *.exe
+
+
+# Meditator Exmaple
+
+  Meditator-Web:
+    needs: Web
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Download Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: CALM Linux
+
+      - name: Download Artifact - Web
+        uses: actions/download-artifact@v3
+        with:
+          name: CALM Web
+
+      - name: Build
+        run: |
+          set -x
+          ls -lah
+          tar xvf calm.tgz
+          ls -lah calm
+          mkdir -p ./calm/build/web/ && cp calm.tar ./calm/build/web/calm.tar
+          export PATH=$PATH:$(pwd)/calm/
+          export APP_NAME=Meditator
+          # switch dir, this is unnecessary if you are already at the same dir with canvas.lisp
+          cd docs/examples/meditator/
+          # extra sound files need to be packed
+          export REBUILD_WASM_P=yes
+          calm publish-web
+          ls -lah .
+          zip -r -9 ${APP_NAME}-web.zip ./web
+          cp *.zip ../../../
+      - name: GH Release
+        uses: softprops/action-gh-release@v0.1.14
+        with:
+          draft: true
+          files: |
+            *-web.zip
+  Meditator-Linux:
+    needs: Linux
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Download Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: CALM Linux
+
+      - name: Build
+        run: |
+          set -x
+          ls -lah
+          tar xvf calm.tgz
+          ls -lah calm
+          export PATH=$PATH:$(pwd)/calm/
+          export APP_NAME=Meditator
+          # switch dir, this is unnecessary if you are already at the same dir with canvas.lisp
+          cd docs/examples/meditator/
+          calm publish
+          ls -lah .
+          cp *.AppImage ../../../
+      - name: GH Release
+        uses: softprops/action-gh-release@v0.1.14
+        with:
+          draft: true
+          files: |
+            *.AppImage
+  Meditator-macOS:
+    needs: macOS
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [macos-11, macos-12, macos-13]
+
+    env:
+      CI_MATRIX_OS: ${{ matrix.os }}
+      HOMEBREW_NO_AUTO_UPDATE: 1
+      HOMEBREW_NO_INSTALL_CLEANUP: 1
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Download Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: CALM macOS
+
+      - name: Build
+        run: |
+          set -x
+          ls -lah
+          export OS_SUBFIX=".${CI_MATRIX_OS}"
+          cp calm${OS_SUBFIX}.dmg calm.dmg
+          hdiutil attach calm.dmg
+          cp -R "/Volumes/Calm - CALM/Calm.app/Contents/MacOS/" calm
+          ls -lah calm
+          rm *.dmg
+          export PATH=$PATH:$(pwd)/calm/
+          export APP_VERSION=0.1.0
+          export APP_ID=com.vitovan.meditator
+          export APP_NAME=Meditator
+          # switch dir, this is unnecessary if you are already at the same dir with canvas.lisp
+          cd docs/examples/meditator/
+          calm publish
+          ls -lah .
+          mv *.dmg Meditator${OS_SUBFIX}.dmg
+          cp *.dmg ../../../
+      - name: GH Release
+        uses: softprops/action-gh-release@v0.1.14
+        with:
+          draft: true
+          files: |
+            *.dmg
+  Meditator-Windows:
+    needs: Windows
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: msys2/setup-msys2@v2
+
+      - name: Download Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: CALM Windows
+
+      - name: Build
+        shell: msys2 {0}
+        run: |
+          set -x
+          ls -lah
+          pacman -S --noconfirm --needed unzip
+          unzip calm.zip
+          ls -lah calm
+          export PATH=$PATH:$(pwd)/calm/
+          export APP_NAME=Meditator
+          # switch dir, this is unnecessary if you are already at the same dir with canvas.lisp
+          cd docs/examples/meditator/
+          calm publish
+          mv ./*-Installer.exe ./Meditator.exe
+          ls -lah .
+          cp *.exe ../../../
+      - name: GH Release
+        uses: softprops/action-gh-release@v0.1.14
+        with:
+          draft: true
+          files: |
+            *.exe

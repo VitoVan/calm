@@ -40,7 +40,7 @@ Source files and binaries for the above examples are [here](https://github.com/V
 
 For more applications made with CALM, please check: [Made with CALM](https://github.com/VitoVan/made-with-calm).
 
-## <img style="vertical-align:middle;margin-right:5px;" width="50" alt="Calm Installer" src="./build/calm.png"> Installation
+## <img style="vertical-align:middle;margin-right:5px;" width="50" alt="Calm Installer" src="./docs/images/calm.png"> Installation
 
 ### Pre-built Binary
 
@@ -62,7 +62,7 @@ Supported platforms are currently limited by [Github Actions runner images](http
 
 If your platforms are not supported, feel free to [Run from Source](docs/hacking.md#run-from-source).
 
-## <img style="vertical-align:middle;margin-right:5px;" width="50" alt="Calm Application" src="./build/app.png"> Distribution
+## <img style="vertical-align:middle;margin-right:5px;" width="50" alt="Calm Application" src="./docs/images/app.png"> Distribution
 
 Launch your terminal, cd to the directory where the file **canvas.lisp** exists, enter the command:
 
