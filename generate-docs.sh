@@ -20,11 +20,10 @@ cp -R /tmp/calm/calm-${CALM_VERSION}/docs ./docs
 cp /tmp/calm/calm-${CALM_VERSION}/build/calm.ico ./favicon.ico
 
 cp /tmp/calm/calm-${CALM_VERSION}/README.md ./
-cd docs
+
 sbcl --load md-to-html.lisp
 rm README.md
 
-cd ..
 git status
 
 git add .
