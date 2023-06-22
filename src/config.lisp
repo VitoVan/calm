@@ -29,9 +29,6 @@
 #+(and linux (not jscl))
 (push :opengl *calm-window-flags*)
 
-;; on Wayland, this doesn't work, who should I blame?
-#-jscl
-(defparameter *calm-window-icon* nil)
 #-jscl
 (defparameter *calm-delay* 42)
 #+jscl
@@ -77,7 +74,7 @@
 
 (defparameter *calm-state-finger-x* 0)
 (defparameter *calm-state-finger-y* 0)
-(defparameter *calm-state-finger-just-clicked* nil)
+(defparameter *calm-state-finger-just-tapped* nil)
 
 (defparameter *calm-state-audio-open* nil)
 (defparameter *calm-state-loaded-audio* nil)

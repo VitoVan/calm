@@ -9,7 +9,7 @@
    :playing
    :halt-music
    :halt-wav
-   :volume
+   :volume-wav
    :volume-music
    :get-ticks
    :keq

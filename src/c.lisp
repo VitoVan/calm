@@ -128,7 +128,10 @@
 
 (defun open-audio-if-not-yet ()
   ;; (format t "open-audio-if-not-yet, already opened?: ~A~%" calm::*calm-state-audio-open*)
-  (unless calm::*calm-state-audio-open*
+  (when (and
+         (not calm::*calm-state-audio-open*) ;; not opened yet
+         (null (uiop:getenv "CI")) ;; not CI
+         )
     ;;
     ;; if we put the following code outside of this function,
     ;; it will open-audio right after the library is loaded,
@@ -158,66 +161,66 @@
 
 (defun play-music (pathname &key (loops 0))
   ;; (format t "playing music: ~A~%" pathname)
-  (open-audio-if-not-yet)
-  (let* ((music-pathname
-           #+jscl
-           (concatenate 'string "/usr/share/" pathname) ;; /usr/share/assets/ will be embedded
-           #-jscl
-           (or (uiop:absolute-pathname-p pathname)
-               (uiop:merge-pathnames* pathname (uiop:getenv "CALM_APP_DIR"))))
-         (music-object-cache
-           (cdr (assoc music-pathname calm::*calm-state-loaded-audio*
-                       #+jscl :test #+jscl #'string=)))
-         (music-object (or music-object-cache
-                           #+jscl
-                           (let ((music-pathname-ptr (#j:allocateUTF8 music-pathname)))
-                             (prog1 (#j:_Mix_LoadMUS music-pathname-ptr)
-                               (#j:_free music-pathname-ptr)))
-                           #-jscl
-                           (sdl2-mixer:load-music music-pathname))))
-    (unless music-object-cache
-      (push (cons music-pathname music-object) calm::*calm-state-loaded-audio*))
-    #+jscl
-    (#j:_Mix_PlayMusic music-object loops)
-    #-jscl
-    (sdl2-mixer:play-music music-object loops)))
+  (when (open-audio-if-not-yet)
+    (let* ((music-pathname
+             #+jscl
+             (concatenate 'string "/usr/share/" pathname) ;; /usr/share/assets/ will be embedded
+             #-jscl
+             (or (uiop:absolute-pathname-p pathname)
+                 (uiop:merge-pathnames* pathname (uiop:getenv "CALM_APP_DIR"))))
+           (music-object-cache
+             (cdr (assoc music-pathname calm::*calm-state-loaded-audio*
+                         #+jscl :test #+jscl #'string=)))
+           (music-object (or music-object-cache
+                             #+jscl
+                             (let ((music-pathname-ptr (#j:allocateUTF8 music-pathname)))
+                               (prog1 (#j:_Mix_LoadMUS music-pathname-ptr)
+                                 (#j:_free music-pathname-ptr)))
+                             #-jscl
+                             (sdl2-mixer:load-music music-pathname))))
+      (unless music-object-cache
+        (push (cons music-pathname music-object) calm::*calm-state-loaded-audio*))
+      #+jscl
+      (#j:_Mix_PlayMusic music-object loops)
+      #-jscl
+      (sdl2-mixer:play-music music-object loops))))
 
 (defun play-wav (pathname &key (loops 0) (channel -1))
   ;; (format t "playing wav: ~A~%" pathname)
-  (open-audio-if-not-yet)
-  (let* ((wav-pathname
-          #+jscl
-           (concatenate 'string "/usr/share/" pathname) ;; /usr/share/assets/ will be embedded
-           #-jscl
-           (or (uiop:absolute-pathname-p pathname)
-               (uiop:merge-pathnames* pathname (uiop:getenv "CALM_APP_DIR"))))
-         (wav-object-cache
-          (cdr (assoc wav-pathname calm::*calm-state-loaded-audio*
-                      #+jscl :test #+jscl #'string=)))
-         (wav-object (or wav-object-cache
-                         #+jscl
-                         (let* ((wav-pathname-allocated-ptr (#j:allocateUTF8 wav-pathname))
-                                (rb-allocated-ptr (#j:allocateUTF8 "rb"))
-                                (rwops (#j:_SDL_RWFromFile wav-pathname-allocated-ptr rb-allocated-ptr))
-                                (spec (#j:_Mix_LoadWAV_RW rwops 1 nil nil nil)))
-                           (#j:_free wav-pathname-allocated-ptr)
-                           (#j:_free rb-allocated-ptr)
-                           spec)
-                         #-jscl
-                         (sdl2-mixer:load-wav wav-pathname))))
-    (unless wav-object-cache
-      (push (cons wav-pathname wav-object) calm::*calm-state-loaded-audio*))
+  (when (open-audio-if-not-yet)
+    (let* ((wav-pathname
+             #+jscl
+             (concatenate 'string "/usr/share/" pathname) ;; /usr/share/assets/ will be embedded
+             #-jscl
+             (or (uiop:absolute-pathname-p pathname)
+                 (uiop:merge-pathnames* pathname (uiop:getenv "CALM_APP_DIR"))))
+           (wav-object-cache
+             (cdr (assoc wav-pathname calm::*calm-state-loaded-audio*
+                         #+jscl :test #+jscl #'string=)))
+           (wav-object (or wav-object-cache
+                           #+jscl
+                           (let* ((wav-pathname-allocated-ptr (#j:allocateUTF8 wav-pathname))
+                                  (rb-allocated-ptr (#j:allocateUTF8 "rb"))
+                                  (rwops (#j:_SDL_RWFromFile wav-pathname-allocated-ptr rb-allocated-ptr))
+                                  (spec (#j:_Mix_LoadWAV_RW rwops 1 nil nil nil)))
+                             (#j:_free wav-pathname-allocated-ptr)
+                             (#j:_free rb-allocated-ptr)
+                             spec)
+                           #-jscl
+                           (sdl2-mixer:load-wav wav-pathname))))
+      (unless wav-object-cache
+        (push (cons wav-pathname wav-object) calm::*calm-state-loaded-audio*))
 
-    ;; only play when there is/are available channel(s)
-    (when (< (playing) calm::*calm-audio-numchans*)
-      #+jscl
-      (#j:_Mix_PlayChannelTimed channel wav-object loops -1)
-      #-jscl
-      (sdl2-mixer:play-channel channel wav-object loops))))
+      ;; only play when there is/are available channel(s)
+      (when (< (playing) calm::*calm-audio-numchans*)
+        #+jscl
+        (#j:_Mix_PlayChannelTimed channel wav-object loops -1)
+        #-jscl
+        (sdl2-mixer:play-channel channel wav-object loops)))))
 
 #+jscl
 (defun play-audio (audio-url &key (loop-audio-p nil) (volume 1))
-  (format t "playing audio: ~A~%" audio-url)
+  ;; (format t "playing audio: ~A~%" audio-url)
   (let* ((audio-object-cache
            (cdr (assoc audio-url calm::*calm-state-loaded-audio* :test #'string=)))
          (audio-object
@@ -244,11 +247,11 @@
   #-jscl
   (sdl2-mixer:volume-music music-volume))
 
-(defun volume (channel volume)
+(defun volume-wav (wav-volume &key (channel -1))
   #+jscl
-  (#j:_Mix_Volume channel volume)
+  (#j:_Mix_Volume channel wav-volume)
   #-jscl
-  (sdl2-mixer:volume channel volume))
+  (sdl2-mixer:volume channel wav-volume))
 
 (defun halt-music ()
   #+jscl
