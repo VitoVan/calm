@@ -32,6 +32,24 @@ git reset --hard origin/main
 
 Now you can modify, push and create pull requests!
 
+### My Personal Favour
+
+Personally, I would clone the repository somewhere else and make some symbol links into the directory of the downloaded binary, such as:
+
+```bash
+cd /Applications/Calm.app/Contents/MacOS
+
+rm -rf ./build
+rm -rf ./s
+rm -rf ./src
+
+ln -s ~/github/VitoVan/calm/build build
+ln -s ~/github/VitoVan/calm/s s
+ln -s ~/github/VitoVan/calm/src src
+```
+
+This won't cover all the source code, but normally it's enough.
+
 ## Run From Source
 
 0. Preparation
@@ -128,7 +146,7 @@ Now you can modify, push and create pull requests!
       export CALM_CMD=show
       sbcl --load entry.lisp show
     EOF
-    
+
     chmod +x ./calm
 
     # add the launcher to PATH env
@@ -148,47 +166,9 @@ Congrats! You are all set!
 
 Can't wait to see what you are going to build!
 
-## Build CALM Itself
+# Building CALM
 
-Running CALM from source is an expedient way to have a taste, it can load `canvas.lisp`, but don't deal with the third party dependencies.
-
-To build CALM is to perform the following tasks:
-
-- Collect the dependencies
-- Build a launcher (from `calm.c`)
-
-Those strenuous low-tech work are initiated by `build.sh`, and carried by those in the `s/dev/` directory.
-
-To build CALM on a not yet supported platform, the following files definitely need to be investigated:
-
-```bash
-s/dev/
-├── all
-│   ├── clean.sh
-│   ├── copy-lib-with-canvas.sh
-│   ├── copy-lib.lisp
-│   ├── copy-lib.sh
-│   ├── install-quicklisp.lisp
-│   ├── load-calm.lisp
-│   └── quicklisp.sh
-├── darwin
-│   ├── config-lib.sh
-│   ├── deps.sh
-│   ├── pack.sh
-│   └── sbcl.sh
-├── fedora
-│   ├── config-lib.sh
-│   ├── deps.sh
-│   ├── pack.sh
-│   └── sbcl.sh
-└── msys
-    ├── config-lib.sh
-    ├── deps.sh
-    ├── pack.sh
-    └── sbcl.sh
-```
-
-I will leave this here for now, since there might be very few people want to do this kind of work.
+Currently CALM was built on github actions, you can find the workflow [here](https://github.com/VitoVan/calm/blob/main/.github/workflows/calm.yml).
 
 If you have interests to build CALM and encountered any problem, please let me know.
 
