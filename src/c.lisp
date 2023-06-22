@@ -130,7 +130,7 @@
   ;; (format t "open-audio-if-not-yet, already opened?: ~A~%" calm::*calm-state-audio-open*)
   (when (and
          (not calm::*calm-state-audio-open*) ;; not opened yet
-         (null (uiop:getenv "CI")) ;; not CI
+         #-jscl (null (uiop:getenv "CI")) ;; not CI
          )
     ;;
     ;; if we put the following code outside of this function,
