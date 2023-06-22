@@ -34,6 +34,7 @@ rm *.zip
 ls **/*.js | xargs -I _ uglifyjs _ -c -m -o _
 
 cd ..
+git status
 
 git add .
 git commit -m "Deploy examples to gh-pages $(date +%s)"

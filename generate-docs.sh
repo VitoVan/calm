@@ -8,13 +8,21 @@ if [[ ! -v CALM_VERSION ]]; then
     exit 42
 fi
 
-curl -o calm.zip -L https://github.com/VitoVan/calm/archive/refs/heads/${CALM_VERSION}.zip
+curl -o /tmp/calm.zip -L https://github.com/VitoVan/calm/archive/refs/heads/${CALM_VERSION}.zip
 unzip calm.zip -d /tmp/calm
 
-rm -rf ./doc
-cp -R /tmp/calm/doc ./doc
-cd doc
+rm -rf ./docs
+cp -R /tmp/calm/calm-${CALM_VERSION}/docs ./docs
+cp /tmp/calm/calm-${CALM_VERSION}/README.md ./
+cd docs
 sbcl --load md-to-html.lisp
+rm README.md
 
+cd ..
 git status
+
+git add .
+git commit -m "Deploy docs to gh-pages $(date +%s)"
+git push --set-upstream origin gh-pages
+
 
