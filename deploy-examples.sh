@@ -37,5 +37,5 @@ cd ..
 git status
 
 git add .
-git commit -m "Deploy examples to gh-pages $(date +%s)"
+git commit -m "Deploy examples for ${CALM_EXAMPLE_VERSION} to gh-pages $(date +%s)"
 git push --set-upstream origin gh-pages
