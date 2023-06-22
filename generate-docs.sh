@@ -11,7 +11,7 @@ fi
 rm /tmp/calm.zip
 rm -rf /tmp/calm
 
-curl -o /tmp/calm.zip -L https://github.com/VitoVan/calm/archive/refs/heads/${CALM_VERSION}.zip
+curl -o /tmp/calm.zip -L https://github.com/VitoVan/calm/archive/refs/tags/${CALM_VERSION}.zip
 unzip /tmp/calm.zip -d /tmp/calm
 
 rm -rf ./docs
@@ -21,7 +21,7 @@ cp /tmp/calm/calm-${CALM_VERSION}/build/calm.ico ./favicon.ico
 
 cp /tmp/calm/calm-${CALM_VERSION}/README.md ./
 
-sbcl --load md-to-html.lisp
+sbcl --non-interactive --load md-to-html.lisp
 rm README.md
 
 git status

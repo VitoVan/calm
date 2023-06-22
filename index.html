@@ -780,7 +780,7 @@ body{
 <p>Source files and binaries for the above examples are <a href="https://github.com/VitoVan/calm/tree/main/docs/examples">here</a> and <a href="https://github.com/VitoVan/calm/releases/tag/examples-0.1.3">here</a>.</p>
 <p>For more applications made with CALM, please check: <a href="https://github.com/VitoVan/made-with-calm">Made with CALM</a>.</p>
 <h2><a name="-installation" class="anchor" aria-hidden="true" href="#-installation"><span aria-hidden="true" class="octicon octicon-link"></span></a>
-<a target="_blank" rel="noopener noreferrer" href="./build/calm.png"><img width="50" alt="Calm Installer" src="./build/calm.png" style="max-width: 100%;"></a> Installation</h2>
+<a target="_blank" rel="noopener noreferrer" href="./docs/images/calm.png"><img width="50" alt="Calm Installer" src="./docs/images/calm.png" style="max-width: 100%;"></a> Installation</h2>
 <h3><a name="pre-built-binary" class="anchor" aria-hidden="true" href="#pre-built-binary"><span aria-hidden="true" class="octicon octicon-link"></span></a>Pre-built Binary</h3>
 <ol>
 <li>
@@ -800,7 +800,7 @@ body{
 <p>Supported platforms are currently limited by <a href="https://github.com/actions/runner-images">Github Actions runner images</a>.</p>
 <p>If your platforms are not supported, feel free to <a href="docs/hacking.md#run-from-source">Run from Source</a>.</p>
 <h2><a name="-distribution" class="anchor" aria-hidden="true" href="#-distribution"><span aria-hidden="true" class="octicon octicon-link"></span></a>
-<a target="_blank" rel="noopener noreferrer" href="./build/app.png"><img width="50" alt="Calm Application" src="./build/app.png" style="max-width: 100%;"></a> Distribution</h2>
+<a target="_blank" rel="noopener noreferrer" href="./docs/images/app.png"><img width="50" alt="Calm Application" src="./docs/images/app.png" style="max-width: 100%;"></a> Distribution</h2>
 <p>Launch your terminal, cd to the directory where the file <strong>canvas.lisp</strong> exists, enter the command:</p>
 <div class="highlight highlight-source-shell"><pre>calm publish</pre></div>
 <p>This command will generate different packages on different platforms:</p>
@@ -920,6 +920,12 @@ calm hello</pre></div>
 <td>Windows</td>
 <td>APP_ICON</td>
 <td>Windows EXE icon, absolute path of an ICO file</td>
+</tr>
+<tr>
+<td>All</td>
+<td>DIST_DIR</td>
+<td>The directory of generated binaries, normally it's <code>./dist</code>
+</td>
 </tr>
 </tbody>
 </table>
