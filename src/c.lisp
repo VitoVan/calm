@@ -127,7 +127,6 @@
     (show-layout layout :cr cr)))
 
 (defun open-audio-if-not-yet ()
-  ;; (format t "open-audio-if-not-yet, already opened?: ~A~%" calm::*calm-state-audio-open*)
   (when (and
          (not calm::*calm-state-audio-open*) ;; not opened yet
          #-jscl (null (uiop:getenv "CI")) ;; not CI
@@ -157,7 +156,8 @@
     (#j:_Mix_AllocateChannels calm::*calm-audio-numchans*)
     #-jscl
     (sdl2-mixer:allocate-channels calm::*calm-audio-numchans*)
-    (setf calm::*calm-state-audio-open* t)))
+    (setf calm::*calm-state-audio-open* t))
+  calm::*calm-state-audio-open*)
 
 (defun play-music (pathname &key (loops 0))
   ;; (format t "playing music: ~A~%" pathname)
