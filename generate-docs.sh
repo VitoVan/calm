@@ -11,15 +11,14 @@ fi
 rm /tmp/calm.zip
 rm -rf /tmp/calm
 
-curl -o /tmp/calm.zip -L https://github.com/VitoVan/calm/archive/refs/tags/${CALM_VERSION}.zip
-unzip /tmp/calm.zip -d /tmp/calm
+git clone --single-branch --depth 1 --branch ${CALM_VERSION} https://github.com/VitoVan/calm.git /tmp/calm
 
 rm -rf ./docs
-cp -R /tmp/calm/calm-${CALM_VERSION}/docs ./docs
+cp -R /tmp/calm/docs ./docs
 
-cp /tmp/calm/calm-${CALM_VERSION}/build/calm.ico ./favicon.ico
+cp /tmp/calm/build/calm.ico ./favicon.ico
 
-cp /tmp/calm/calm-${CALM_VERSION}/README.md ./
+cp /tmp/calm/README.md ./
 
 sbcl --non-interactive --load md-to-html.lisp
 rm README.md
