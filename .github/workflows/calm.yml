@@ -26,7 +26,7 @@ jobs:
             *.tgz
 
       - name: GH Release
-        uses: softprops/action-gh-release@v0.1.14
+        uses: softprops/action-gh-release@v0.1.15
         with:
           draft: true
           files: |
@@ -65,7 +65,7 @@ jobs:
             *.tar
 
       - name: GH Release
-        uses: softprops/action-gh-release@v0.1.14
+        uses: softprops/action-gh-release@v0.1.15
         with:
           draft: true
           files: |
@@ -99,7 +99,7 @@ jobs:
             *.dmg
 
       - name: GH Release
-        uses: softprops/action-gh-release@v0.1.14
+        uses: softprops/action-gh-release@v0.1.15
         with:
           draft: true
           files: |
@@ -126,7 +126,7 @@ jobs:
             *.zip
 
       - name: GH Release
-        uses: softprops/action-gh-release@v0.1.14
+        uses: softprops/action-gh-release@v0.1.15
         with:
           draft: true
           files: |
@@ -167,7 +167,7 @@ jobs:
           zip -r -9 ${APP_NAME}-web.zip ./web
           cp *.zip ../../../
       - name: GH Release
-        uses: softprops/action-gh-release@v0.1.14
+        uses: softprops/action-gh-release@v0.1.15
         with:
           draft: true
           files: |
@@ -198,7 +198,7 @@ jobs:
           ls -lah .
           cp *.AppImage ../../../
       - name: GH Release
-        uses: softprops/action-gh-release@v0.1.14
+        uses: softprops/action-gh-release@v0.1.15
         with:
           draft: true
           files: |
@@ -245,7 +245,7 @@ jobs:
           mv *.dmg Circles${OS_SUBFIX}.dmg
           cp *.dmg ../../../
       - name: GH Release
-        uses: softprops/action-gh-release@v0.1.14
+        uses: softprops/action-gh-release@v0.1.15
         with:
           draft: true
           files: |
@@ -281,7 +281,7 @@ jobs:
           ls -lah .
           cp *.exe ../../../
       - name: GH Release
-        uses: softprops/action-gh-release@v0.1.14
+        uses: softprops/action-gh-release@v0.1.15
         with:
           draft: true
           files: |
@@ -323,7 +323,7 @@ jobs:
           zip -r -9 ${APP_NAME}-web.zip ./web
           cp *.zip ../../../
       - name: GH Release
-        uses: softprops/action-gh-release@v0.1.14
+        uses: softprops/action-gh-release@v0.1.15
         with:
           draft: true
           files: |
@@ -354,7 +354,7 @@ jobs:
           ls -lah .
           cp *.AppImage ../../../
       - name: GH Release
-        uses: softprops/action-gh-release@v0.1.14
+        uses: softprops/action-gh-release@v0.1.15
         with:
           draft: true
           files: |
@@ -401,7 +401,7 @@ jobs:
           mv *.dmg Fan${OS_SUBFIX}.dmg
           cp *.dmg ../../../
       - name: GH Release
-        uses: softprops/action-gh-release@v0.1.14
+        uses: softprops/action-gh-release@v0.1.15
         with:
           draft: true
           files: |
@@ -437,7 +437,7 @@ jobs:
           ls -lah .
           cp *.exe ../../../
       - name: GH Release
-        uses: softprops/action-gh-release@v0.1.14
+        uses: softprops/action-gh-release@v0.1.15
         with:
           draft: true
           files: |
@@ -478,7 +478,7 @@ jobs:
           zip -r -9 ${APP_NAME}-web.zip ./web
           cp *.zip ../../../
       - name: GH Release
-        uses: softprops/action-gh-release@v0.1.14
+        uses: softprops/action-gh-release@v0.1.15
         with:
           draft: true
           files: |
@@ -509,7 +509,7 @@ jobs:
           ls -lah .
           cp *.AppImage ../../../
       - name: GH Release
-        uses: softprops/action-gh-release@v0.1.14
+        uses: softprops/action-gh-release@v0.1.15
         with:
           draft: true
           files: |
@@ -556,7 +556,7 @@ jobs:
           mv *.dmg Mondrian${OS_SUBFIX}.dmg
           cp *.dmg ../../../
       - name: GH Release
-        uses: softprops/action-gh-release@v0.1.14
+        uses: softprops/action-gh-release@v0.1.15
         with:
           draft: true
           files: |
@@ -592,7 +592,7 @@ jobs:
           ls -lah .
           cp *.exe ../../../
       - name: GH Release
-        uses: softprops/action-gh-release@v0.1.14
+        uses: softprops/action-gh-release@v0.1.15
         with:
           draft: true
           files: |
@@ -636,7 +636,7 @@ jobs:
           zip -r -9 ${APP_NAME}-web.zip ./web
           cp *.zip ../../../
       - name: GH Release
-        uses: softprops/action-gh-release@v0.1.14
+        uses: softprops/action-gh-release@v0.1.15
         with:
           draft: true
           files: |
@@ -667,7 +667,7 @@ jobs:
           ls -lah .
           cp *.AppImage ../../../
       - name: GH Release
-        uses: softprops/action-gh-release@v0.1.14
+        uses: softprops/action-gh-release@v0.1.15
         with:
           draft: true
           files: |
@@ -714,7 +714,7 @@ jobs:
           mv *.dmg Meditator${OS_SUBFIX}.dmg
           cp *.dmg ../../../
       - name: GH Release
-        uses: softprops/action-gh-release@v0.1.14
+        uses: softprops/action-gh-release@v0.1.15
         with:
           draft: true
           files: |
@@ -750,7 +750,7 @@ jobs:
           ls -lah .
           cp *.exe ../../../
       - name: GH Release
-        uses: softprops/action-gh-release@v0.1.14
+        uses: softprops/action-gh-release@v0.1.15
         with:
           draft: true
           files: |
