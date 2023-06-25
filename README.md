@@ -1,14 +1,12 @@
-# <img style="vertical-align:middle;margin-right:10px;" width="100" alt="Calm" src="docs/images/calm.png"> Canvas Aided Lisp Magic
+# <img style="vertical-align:middle;margin-right:10px;" width="100" alt="Calm" src="docs/images/calm.png"> C A L M
 
 [![CI](https://github.com/VitoVan/calm/actions/workflows/calm.yml/badge.svg)](https://github.com/VitoVan/calm/actions/workflows/calm.yml) [![GitHub all releases](https://img.shields.io/github/downloads/vitovan/calm/total?color=brightgreen&label=Downloads&style=flat)](#pre-built-binary) [![GitHub release (release name instead of tag name)](https://img.shields.io/github/v/release/vitovan/calm?label=Latest&color=%23005896)](https://github.com/VitoVan/calm/releases/latest)
 
-A Lisp development environment that enables you to build and distribute canvas based applications as Linux AppImage, macOS Application Bundle, Windows Installer and Web Application.
-
-CALM down and draw something, in Lisp.
+**C**anvas **A**ided **L**isp **M**agic: Create canvas-based applications with Lisp and distribute them on Linux, macOS, Windows, and the web.
 
 ## Hello World
 
-Find whatever directory, create a file: **canvas.lisp**
+Find whatever directory, and create a file: **canvas.lisp**
 
 ```lisp
 (defparameter *color-list* '((0.83 0.82 0.84) (0.89 0.12 0.17) (0.94 0.87 0.47) (0 0.35 0.59)))
@@ -20,7 +18,7 @@ Find whatever directory, create a file: **canvas.lisp**
     (c:fill-path)))
 ```
 
-Launch your terminal, cd to that directory, enter the command:
+Launch your terminal, cd to that directory, and enter the command:
 
 ```bash
 calm
@@ -31,14 +29,14 @@ calm
 ## Examples
 
 <p align="center">
-    <a href="https://vitovan.com/calm/examples-0.1.3/fan/calm.html"><img width="250" alt="Fan" src="./docs/examples/fan/canvas.png"></a>
-    <a href="https://vitovan.com/calm/examples-0.1.3/mondrian/calm.html"><img width="250" alt="Mondrian" src="./docs/examples/mondrian/canvas.png"></a>
-    <a href="https://vitovan.com/calm/examples-0.1.3/meditator/calm.html"><img width="250" alt="Meditator" src="./docs/examples/meditator/canvas.png"></a>
+    <a href="https://vitovan.com/calm/1.0.1/fan/calm.html"><img width="250" alt="Fan" src="./docs/examples/fan/canvas.png"></a>
+    <a href="https://vitovan.com/calm/1.0.1/mondrian/calm.html"><img width="250" alt="Mondrian" src="./docs/examples/mondrian/canvas.png"></a>
+    <a href="https://vitovan.com/calm/1.0.1/meditator/calm.html"><img width="250" alt="Meditator" src="./docs/examples/meditator/canvas.png"></a>
 </p>
 
-Source files and binaries for the above examples are [here](https://github.com/VitoVan/calm/tree/main/docs/examples) and [here](https://github.com/VitoVan/calm/releases/tag/examples-0.1.3).
+Source files and binaries for the above examples are [here](https://github.com/VitoVan/calm/tree/main/docs/examples) and [here](https://github.com/VitoVan/calm/releases/tag/1.0.1).
 
-For more applications made with CALM, please check: [Made with CALM](https://github.com/VitoVan/made-with-calm).
+For more applications made with CALM, please check [Made with CALM](https://github.com/VitoVan/made-with-calm).
 
 ## <img style="vertical-align:middle;margin-right:5px;" width="50" alt="Calm Installer" src="./docs/images/calm.png"> Installation
 
@@ -86,7 +84,7 @@ This command will generate different packages on different platforms:
 
 >**Note**
 >
->DMG creation is powered by [create-dmg](https://github.com/create-dmg/create-dmg), will be installed by `brew install create-dmg` if it were not present. So if you don't have create-dmg, this will install create-dmg for you.
+>DMG creation is powered by [create-dmg](https://github.com/create-dmg/create-dmg) and will be installed by `brew install create-dmg` if it were not present. So if you don't have create-dmg, this will install create-dmg for you.
 >
 >And, if you don't have [Homebrew](https://brew.sh/), this will also install Homebrew for you.
 >
@@ -98,7 +96,7 @@ This command will generate different packages on different platforms:
 
 > **Note**
 >
-> Installer creation is powered by [NSIS](https://nsis.sourceforge.io/), will be installed by `winget install nsis` if it were not present. So if you don't have NSIS (i.e., `makensis`) under your PATH, this will install NSIS for you.
+> Installer creation is powered by [NSIS](https://nsis.sourceforge.io/) and will be installed by `winget install nsis` if it were not present. So if you don't have NSIS (i.e., `makensis`) under your PATH, this will install NSIS for you.
 >
 > And, if you don't have [winget](https://github.com/microsoft/winget-cli) under your PATH, this will also install winget for you.
 >
@@ -116,7 +114,7 @@ For more, please refer to the [Command Reference](#command-reference).
 
 # CALM - References
 
-From CALM 1.0.0, the version number will follow [Semantic Versioning Specification](https://semver.org/spec/v2.0.0.html). This means you can use CALM calmly without worrying me being crazy. Because whenever I'm going to be crazy, I will let you know [before anything got changed](https://semver.org/spec/v2.0.0.html#spec-item-7) and bump the major version if [anything could surprise](https://semver.org/spec/v2.0.0.html#spec-item-8) you.
+From CALM 1.0.0, the version number will follow [Semantic Versioning Specification](https://semver.org/spec/v2.0.0.html). This means you can use CALM calmly without worrying about me being crazy. Because whenever I'm going to be crazy, I will let you know [before anything got changed](https://semver.org/spec/v2.0.0.html#spec-item-7) and bump the major version if [anything could surprise](https://semver.org/spec/v2.0.0.html#spec-item-8) you.
 
 Keep CALM and have fun.
 
@@ -126,9 +124,9 @@ Keep CALM and have fun.
 
 You should run this command inside your project directory, where the file **canvas.lisp** should exist.
 
-This command will load **canvas.lisp** and show a window according to the instructions of the function  `draw` or `draw-forever`. The file **canvas.lisp** is just a regular Lisp source file, you do what ever you like in it.
+This command will load **canvas.lisp** and show a window according to the instructions of the function  `draw` or `draw-forever`. The file **canvas.lisp** is just a regular Lisp source file, you do whatever you like in it.
 
-For CALM related functions and parameters, please refer to the [API Reference](#api-reference).
+For CALM-related functions and parameters, please refer to the [API Reference](#api-reference).
 
 ### `calm hello`
 
@@ -150,7 +148,7 @@ You will have the following files and directories created:
     └── fonts.conf
 ```
 
-Files put into **assets** and **fonts** directory will be packed with your application during distribution. If you put your favourite font into **fonts** directory, you will be able to use it inside your application.
+Files put into **assets** and **fonts** directories will be packed with your application during distribution. If you put your favorite font into the **fonts** directory, you will be able to use it inside your application.
 
 For more about font usage, please refer to the [API Reference](#api-reference).
 
@@ -162,13 +160,13 @@ This command will generate:
 - macOS Application Bundle inside DMG
 - Windows Application Installer
 
-according to the platform it were running on.
+according to the platform it was running on.
 
 It does not take any arguments, but some options could be set through the environment variables, please check `calm publish-with-options` for the option details.
 
 ### `calm publish-with-options`
 
-This command will do the same thing as `calm publish`, instead it will ask your opinions on all the customisable options (with a default value provided, don't worry), respectively:
+This command will do the same thing as `calm publish`, instead it will ask your opinions on all the customizable options (with a default value provided, don't worry), respectively:
 
 | OS | ENV | Description                                                  |
 | ---------------- | -------------------- | ------------------------------------------------------------ |
@@ -187,7 +185,7 @@ If you have provided the corresponding environment variable, the option will not
 
 ### `calm publish-web`
 
-This command will generate a  **web** directory containing all the necessary materials for you to serve it on the internet. The common usage could be like:
+This command will generate a  **web** directory containing all the necessary materials for you to serve it on the internet. The common usage could be like this:
 
 ```bash
 cd my-cool-app
@@ -224,14 +222,14 @@ This command works like `calm publish-with-options` except it's for `calm publis
 
 | ENV | Description                                                  |
 | -------------------- | ------------------------------------------------------------ |
-| LISP_FILES           | Code like `(load "shape.lisp")` may cause problem for the web application, since JSCL will try to load that file via HTTP requests. <br/>If you need to include the extra files other than **canvas.lisp**, please modify your code to bypass JSCL, for example: `#-jscl (load "shape.lisp")` and then set this option, such as: `("/abs/path/to/canvas.lisp" "/abs/path/to/shape.lisp")`. Please remember to escape the double quotes if you're going to set the ENV. |
-| REBUILD_WASM_P       | By default WebAssembly files were not built locally, they were downloaded from the [CALM Releases](https://github.com/VitoVan/calm/releases/): **calm.tar**. This prebuilt WebAssembly binary bundled with [OpenSan-Regular.ttf](https://github.com/googlefonts/opensans/raw/main/fonts/ttf/OpenSans-Regular.ttf) and [exposed all the Cairo and SDL2 APIs](https://github.com/VitoVan/calm/blob/main/s/usr/web/wasm.lisp#L61) mentioned in the below [API Reference](#api-reference) section.<br/> If you need to bundle other **fonts** or **assets**, or you need expose more C APIs be exposed to the web, please set this option to "yes". <br/>Caution: Building WebAssembly binaries involves a whole lot of dependencies, to simplify this progress, I irresponsibly utilised docker. So, please make sure you have the `docker` command at your disposal.<br/>Default: "no" |
+| LISP_FILES           | Code like `(load "shape.lisp")` may cause problems for the web application, since JSCL will try to load that file via HTTP requests. <br/>If you need to include the extra files other than **canvas.lisp**, please modify your code to bypass JSCL, for example: `#-jscl (load "shape.lisp")` and then set this option, such as: `("/abs/path/to/canvas.lisp" "/abs/path/to/shape.lisp")`. Please remember to escape the double quotes if you're going to set the ENV. |
+| REBUILD_WASM_P       | By default WebAssembly files were not built locally, they were downloaded from the [CALM Releases](https://github.com/VitoVan/calm/releases/): **calm.tar**. This prebuilt WebAssembly binary bundled with [OpenSan-Regular.ttf](https://github.com/googlefonts/opensans/raw/main/fonts/ttf/OpenSans-Regular.ttf) and [exposed all the Cairo and SDL2 APIs](https://github.com/VitoVan/calm/blob/main/s/usr/web/wasm.lisp#L61) mentioned in the below [API Reference](#api-reference) section.<br/> If you need to bundle other **fonts** or **assets**, or you need to expose more C APIs be exposed to the web, please set this option to "yes". <br/>Caution: Building WebAssembly binaries involves a whole lot of dependencies, to simplify this progress, I irresponsibly utilized docker. So, please make sure you have the `docker` command at your disposal.<br/>Default: "no" |
 
 Since JSCL is the backbone of CALM on the web, any change of JSCL will be considered as a change of CALM itself. The code base of JSCL used by each version of CALM is fixed, it won't change unless you update CALM. Please feel safe to use it.
 
 ### API Reference
 
-CALM intended to be a thin layer above [SDL2](https://wiki.libsdl.org/SDL2/FrontPage), [Cairo](https://www.cairographics.org/) and some other things. So the number of APIs provided by CALM is intended to be as small as possible.
+CALM is intended to be a thin layer above [SDL2](https://wiki.libsdl.org/SDL2/FrontPage), [Cairo](https://www.cairographics.org/), and some other things. So the number of APIs provided by CALM is intended to be as small as possible.
 
 #### Fundamentals
 
@@ -250,15 +248,15 @@ This is the entry function for a CALM application, it will be called once the ap
   (c:fill-path))
 ```
 
-This function will be called passivly. That is to say, this function won't be called again after the first call, unless any event has been triggered by the user, such as: mouse motion, keydown, keyup, mousebuttondown, etc.
+This function will be called passively. That is to say, this function won't be called again after the first call, unless any event has been triggered by the user, such as mouse motion, key down, key up, mouse button down, etc.
 
 If you want to continually refresh the canvas without user interaction, you should use `draw-forever`.
 
-Note: Functions like `c:arc` are third party APIs exposed by CALM. Please refer to [Drawing on Canvas](#drawing-on-canvas) for more info.
+Note: Functions like `c:arc` are third-party APIs exposed by CALM. Please refer to [Drawing on Canvas](#drawing-on-canvas) for more info.
 
 #### Function `draw-forever`
 
-This is also the entry function  for a CALM application, just like `draw`, so please DON NOT define both of them, the consequence of having both `draw` and `draw-forever` is equivalent to killing John Wick's dog.
+This function also serves as the entry point for a CALM application, similar to the `draw` function. It is important to avoid defining both `draw` and `draw-forever` as doing so would have severe consequences, comparable to killing John Wick's dog.
 
 This function will be called every `*calm-delay*` milliseconds, regardless of user interaction.
 
@@ -268,7 +266,7 @@ This variable controls how many milliseconds CALM should wait before refreshing 
 
 Default: 42
 
-This variable only works on desktop, for web platform, please check `*calm-fps*`.
+This variable only works on the desktop platform, for the web platform, please check `*calm-fps*`.
 
 #### Variable `*calm-fps*`
 
@@ -276,7 +274,7 @@ This variable controls how many milliseconds CALM should wait before refreshing 
 
 Default: 42
 
-This variable only works on the web, for desktop platform, please check `*calm-delay*`.
+This variable only works on the web, for the desktop platform, please check `*calm-delay*`.
 
 #### Drawing on Canvas
 
@@ -304,7 +302,7 @@ is equivalent to
 
 All the symbols [exported by cl-cairo2](https://github.com/rpav/cl-cairo2/blob/master/src/package.lisp#L7-L142) should be accessible through `c:` prefix, such as: `c:arc`. On the web, the accessible symbols are limited by [cairo.lisp](https://github.com/VitoVan/calm/blob/main/src/web/cairo.lisp#L266-L405).
 
-Since Cairo is the cardinal drawing facility of CALM, any change of Cairo related symbols will be considered as a change of CALM itself. Please feel safe to use them.
+Since Cairo is the cardinal drawing facility of CALM, any change of Cairo-related symbols will be considered as a change of CALM itself. Please feel safe to use them.
 
 #### Function `c:rrectangle`
 
@@ -359,7 +357,7 @@ This function is not exposed to the web due to the following reasons:
 
 1. Pango requires multi-threading, which requires extra [HTTP HEADERS](https://web.dev/coop-coep/) to be set
 2. Compiling Pango into WebAssembly will increase the time and data for loading
-3. Using Pango often involves extra fonts to be bundle, this will cause more data to be loaded
+3. Using Pango often involves extra fonts to be bundled, this will cause more data to be loaded
 
 So I don't think this is a good idea to include Pango by default, albeit it is easy to implement.
 
@@ -369,7 +367,7 @@ So I don't think this is a good idea to include Pango by default, albeit it is e
 
 Play a wav file.
 
-If `c:play-wav` were called before, and the previous wav file were still playing, the sound will be merged together.
+If `c:play-wav` were called before, and the previous wav file was still playing, the sound will be merged together.
 
 ```lisp
 (c:play-wav "assets/ouch.ogg" :loops 0 :channel -1)
@@ -395,7 +393,7 @@ Set the volume of `c:play-wav`.
 (c:volume-wav 128 :channel -1)
 ```
 
-The value should between 0 (silence) and 128.
+The value should be between 0 (silence) and 128.
 
 Set `:channel` to -1 means all channels.
 
@@ -411,7 +409,7 @@ Set `:channel` to -1 means all channels.
 
 #### Function `c:play-music`
 
-Play a music file, it is able to play MP3, Ogg, and WAV.
+Play a music file, it can play MP3, Ogg, and WAV.
 
 Other types of files might also work, but they are not guaranteed by CALM.
 
@@ -419,7 +417,7 @@ Other types of files might also work, but they are not guaranteed by CALM.
 (c:play-music "assets/bgm.ogg" :loops 0)
 ```
 
-If `c:play-music` were called before, and the previous music were still playing, it will be stopped and the latest music will start playing.
+If `c:play-music` were called before, and the previous music was still playing, it will be stopped and the latest music will start playing.
 
 #### Function `c:volume-music`
 
@@ -429,7 +427,7 @@ Set the volume of `c:play-music`.
 (c:volume-music 128)
 ```
 
-The value should between 0 (silence) and 128.
+The value should be between 0 (silence) and 128.
 
 #### Function `c:halt-music`
 
@@ -437,13 +435,13 @@ Stop playing music.
 
 #### Function `c:play-audio`
 
-Play an audio file, this function is only available on the web, since it utilise the [HTMLAudioElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLAudioElement).
+Play an audio file, this function is only available on the web since it utilizes the [HTMLAudioElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLAudioElement).
 
 ```lisp
 (c:play-audio "assets/meow.ogg" :loop-audio-p nil :volume 1)
 ```
 
-`:volume` should between 0 and 1.
+`:volume` should be between 0 and 1.
 
 #### Function `c:halt-audio`
 
@@ -474,7 +472,7 @@ If call it without any arguments, it stops all the playing audio.
 
 #### Variable `*calm-state-finger-just-tapped*`
 
-The above variables hold the state of mouse and finger (touch device, like the mobile web browser), they are readonly. The consequence of `(setf *calm-state-mouse-x* 20)` is equivalent to drinking bleach.
+The above variables hold the state of the mouse and finger (touch device, like the mobile web browser), they are read-only. The consequence of `(setf *calm-state-mouse-x* 20)` is equivalent to drinking bleach.
 
 #### Function `c:get-ticks`
 
@@ -482,7 +480,7 @@ This is just [SDL_GetTicks](https://wiki.libsdl.org/SDL2/SDL_GetTicks).
 
 #### Event Callbacks
 
-These callbacks are functions that you should define. If you defined any of them, they will be called when the corresponding event being triggered.
+These callbacks are functions that you should define. If you defined any of them, they will be called when the corresponding event was triggered.
 
 #### Callback `on-keydown`
 
@@ -492,7 +490,7 @@ You know what these callbacks do, what you don't know is their should-be argumen
 
 #### Function `c:keq`
 
-This function compares the first argument with a infinite number of SDL2 Scancodes, if any of them matched, it will return `T`.
+This function compares the first argument with an infinite number of SDL2 Scancodes, if any of them matched, it will return `T`.
 
 ```lisp
 (defun on-keyup (key) ;; keyup handler for evil vimers
@@ -572,7 +570,7 @@ SDL2 Scancode: https://wiki.libsdl.org/SDL2/SDL_Scancode
 
 #### Callback `on-windowleave`
 
-These two callbacks does not take any arguments, for example:
+These two callbacks do not take any arguments, for example:
 
 ```lisp
 (defun on-windowenter ()
@@ -629,3 +627,7 @@ You could check these useful links while waiting:
   - https://lispcookbook.github.io/cl-cookbook/
   - http://www.lispworks.com/documentation/HyperSpec/Front/
   - https://lisp-lang.org/books/
+
+## License
+
+The [souece code](https://github.com/VitoVan/calm) is released under GPL-2.0-only.
