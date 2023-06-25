@@ -627,3 +627,7 @@ You could check these useful links while waiting:
   - https://lispcookbook.github.io/cl-cookbook/
   - http://www.lispworks.com/documentation/HyperSpec/Front/
   - https://lisp-lang.org/books/
+
+## License
+
+The [souece code](https://github.com/VitoVan/calm) is released under GPL-2.0-only.
