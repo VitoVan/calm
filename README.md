@@ -630,4 +630,4 @@ You could check these useful links while waiting:
 
 ## License
 
-The [souece code](https://github.com/VitoVan/calm) is released under GPL-2.0-only.
+The [source code](https://github.com/VitoVan/calm) is released under GPL-2.0-only.
