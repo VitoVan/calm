@@ -1,4 +1,6 @@
 * CALM
+** 1.0.1
+- fix: audio won't play the second time
 ** 1.0.0
 - stabilise CALM command and API
   use Semantic Versioning from now on
