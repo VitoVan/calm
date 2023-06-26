@@ -1,9 +1,6 @@
 name: CALM
 
-on:
-  push:
-    tags:
-      - "*.*.*"
+on: push
 
 jobs:
 
@@ -27,6 +24,7 @@ jobs:
 
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.15
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           draft: true
           files: |
@@ -66,6 +64,7 @@ jobs:
 
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.15
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           draft: true
           files: |
@@ -100,6 +99,7 @@ jobs:
 
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.15
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           draft: true
           files: |
@@ -127,6 +127,7 @@ jobs:
 
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.15
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           draft: true
           files: |
@@ -168,6 +169,7 @@ jobs:
           cp *.zip ../../../
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.15
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           draft: true
           files: |
@@ -199,6 +201,7 @@ jobs:
           cp *.AppImage ../../../
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.15
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           draft: true
           files: |
@@ -246,6 +249,7 @@ jobs:
           cp *.dmg ../../../
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.15
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           draft: true
           files: |
@@ -282,6 +286,7 @@ jobs:
           cp *.exe ../../../
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.15
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           draft: true
           files: |
@@ -324,6 +329,7 @@ jobs:
           cp *.zip ../../../
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.15
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           draft: true
           files: |
@@ -355,6 +361,7 @@ jobs:
           cp *.AppImage ../../../
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.15
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           draft: true
           files: |
@@ -402,6 +409,7 @@ jobs:
           cp *.dmg ../../../
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.15
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           draft: true
           files: |
@@ -438,6 +446,7 @@ jobs:
           cp *.exe ../../../
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.15
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           draft: true
           files: |
@@ -479,6 +488,7 @@ jobs:
           cp *.zip ../../../
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.15
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           draft: true
           files: |
@@ -510,6 +520,7 @@ jobs:
           cp *.AppImage ../../../
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.15
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           draft: true
           files: |
@@ -557,6 +568,7 @@ jobs:
           cp *.dmg ../../../
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.15
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           draft: true
           files: |
@@ -593,6 +605,7 @@ jobs:
           cp *.exe ../../../
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.15
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           draft: true
           files: |
@@ -637,6 +650,7 @@ jobs:
           cp *.zip ../../../
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.15
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           draft: true
           files: |
@@ -668,6 +682,7 @@ jobs:
           cp *.AppImage ../../../
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.15
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           draft: true
           files: |
@@ -715,6 +730,7 @@ jobs:
           cp *.dmg ../../../
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.15
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           draft: true
           files: |
@@ -751,6 +767,7 @@ jobs:
           cp *.exe ../../../
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.15
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           draft: true
           files: |
