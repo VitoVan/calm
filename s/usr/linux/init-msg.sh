@@ -1,6 +1,3 @@
-# without this, zenity will fail from our bundled .so files
-unset LD_LIBRARY_PATH
-
 if [ "$XDG_CURRENT_DESKTOP" = "KDE" ]; then
     if command -v kdialog &> /dev/null
     then
