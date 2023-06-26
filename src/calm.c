@@ -295,6 +295,31 @@ int main(int argc, char *argv[]) {
   chdir(getenv("CALM_HOME"));
 
   /*
+   * if it is not building CALM, and there is no calm.core
+   * then show tips and build core
+   */
+  if (access("calm.asd", F_OK) == 0 && strcmp(calm_cmd, "core") != 0 &&
+      getenv("CALM_BUILDING") == NULL) {
+    firstrun();
+    if (access("calm.core", F_OK) != 0) {
+#ifdef _WIN32
+      system("calm.exe core");
+#else
+      system("./calm core");
+#endif
+      if (access("calm.core", F_OK) != 0) {
+        // sleep 2 seconds for calm.core to be written to the disk
+        printf("waiting for calm.core to be written to the disk...\n");
+#ifdef _WIN32
+        Sleep(2000);
+#else
+        sleep(2);
+#endif
+      }
+    }
+  }
+
+  /*
    * ==============
    * detecting SBCL path - START
    * ==============
@@ -336,21 +361,6 @@ int main(int argc, char *argv[]) {
      * Running CALM
      * ==============
      */
-
-    /*
-     * if it is not building CALM, and there is no calm.core
-     * then show tips and build core
-     */
-    if (strcmp(calm_cmd, "core") != 0 && getenv("CALM_BUILDING") == NULL) {
-      firstrun();
-      if (access("calm.core", F_OK) != 0) {
-#ifdef _WIN32
-        system("calm.exe core");
-#else
-        system("./calm core");
-#endif
-      }
-    }
 
     if (strcmp(calm_cmd, "sbcl") == 0) {  // running CALM bundled SBCL
       for (int i = 2; i < argc; i++) {
