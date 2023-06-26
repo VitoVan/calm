@@ -1,6 +1,7 @@
 (in-package :calm)
 
 ;; init config
+(defparameter *calm-window* nil)
 #-jscl
 (defparameter *calm-window-x* :centered)
 #-jscl

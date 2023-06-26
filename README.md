@@ -233,11 +233,11 @@ CALM is intended to be a thin layer above [SDL2](https://wiki.libsdl.org/SDL2/Fr
 
 #### Fundamentals
 
-#### File `canvas.lisp`
+##### File `canvas.lisp`
 
 This is the entry file for a CALM application. Typically, it should contain a function called `draw`.
 
-#### Function `draw`
+##### Function `draw`
 
 This is the entry function for a CALM application, it will be called once the application started. You are supposed to call some canvas drawing functions to be shown, such as:
 
@@ -254,13 +254,13 @@ If you want to continually refresh the canvas without user interaction, you shou
 
 Note: Functions like `c:arc` are third-party APIs exposed by CALM. Please refer to [Drawing on Canvas](#drawing-on-canvas) for more info.
 
-#### Function `draw-forever`
+##### Function `draw-forever`
 
 This function also serves as the entry point for a CALM application, similar to the `draw` function. It is important to avoid defining both `draw` and `draw-forever` as doing so would have severe consequences, comparable to killing John Wick's dog.
 
 This function will be called every `*calm-delay*` milliseconds, regardless of user interaction.
 
-#### Variable `*calm-delay*`
+##### Variable `*calm-delay*`
 
 This variable controls how many milliseconds CALM should wait before refreshing the canvas.
 
@@ -268,7 +268,7 @@ Default: 42
 
 This variable only works on the desktop platform, for the web platform, please check `*calm-fps*`.
 
-#### Variable `*calm-fps*`
+##### Variable `*calm-fps*`
 
 This variable controls how many milliseconds CALM should wait before refreshing the canvas. Setting 0 will use the browser’s `requestAnimationFrame` mechanism to refresh the canvas.
 
@@ -304,7 +304,7 @@ All the symbols [exported by cl-cairo2](https://github.com/rpav/cl-cairo2/blob/m
 
 Since Cairo is the cardinal drawing facility of CALM, any change of Cairo-related symbols will be considered as a change of CALM itself. Please feel safe to use them.
 
-#### Function `c:rrectangle`
+##### Function `c:rrectangle`
 
 Draw a rounded rectangle.
 
@@ -315,7 +315,7 @@ Draw a rounded rectangle.
   (c:fill-path))
 ```
 
-#### Function `c:show-png`
+##### Function `c:show-png`
 
 Show a png file.
 
@@ -328,7 +328,7 @@ This function will stretch the png if needed.
 
 #### Rendering Text
 
-#### Function `c:show-text`
+##### Function `c:show-text`
 
 This function will show simple text.
 
@@ -340,7 +340,7 @@ This function will show simple text.
   (c:show-text "DON'T PANIC"))
 ```
 
-#### Function `c:show-markup`
+##### Function `c:show-markup`
 
 This function will show [Pango Markup](https://docs.gtk.org/Pango/pango_markup.html).
 
@@ -363,7 +363,7 @@ So I don't think this is a good idea to include Pango by default, albeit it is e
 
 #### Playing Sound
 
-#### Function `c:play-wav`
+##### Function `c:play-wav`
 
 Play a wav file.
 
@@ -379,13 +379,13 @@ Set `:channel` to -1 means play on the first free channel
 
 The maximum number of files playing at the same time is limited to the variable `*calm-audio-numchans*`.
 
-#### Variable `*calm-audio-numchans*`
+##### Variable `*calm-audio-numchans*`
 
 The maximum number of wav files being played at the same time.
 
 Default: 8
 
-#### Function `c:volume-wav`
+##### Function `c:volume-wav`
 
 Set the volume of `c:play-wav`.
 
@@ -397,7 +397,7 @@ The value should be between 0 (silence) and 128.
 
 Set `:channel` to -1 means all channels.
 
-#### Function `c:halt-wav`
+##### Function `c:halt-wav`
 
 Stop playing a channel or all of them.
 
@@ -407,7 +407,7 @@ Stop playing a channel or all of them.
 
 Set `:channel` to -1 means all channels.
 
-#### Function `c:play-music`
+##### Function `c:play-music`
 
 Play a music file, it can play MP3, Ogg, and WAV.
 
@@ -419,7 +419,7 @@ Other types of files might also work, but they are not guaranteed by CALM.
 
 If `c:play-music` were called before, and the previous music was still playing, it will be stopped and the latest music will start playing.
 
-#### Function `c:volume-music`
+##### Function `c:volume-music`
 
 Set the volume of `c:play-music`.
 
@@ -429,11 +429,11 @@ Set the volume of `c:play-music`.
 
 The value should be between 0 (silence) and 128.
 
-#### Function `c:halt-music`
+##### Function `c:halt-music`
 
 Stop playing music.
 
-#### Function `c:play-audio`
+##### Function `c:play-audio`
 
 Play an audio file, this function is only available on the web since it utilizes the [HTMLAudioElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLAudioElement).
 
@@ -443,7 +443,7 @@ Play an audio file, this function is only available on the web since it utilizes
 
 `:volume` should be between 0 and 1.
 
-#### Function `c:halt-audio`
+##### Function `c:halt-audio`
 
 Stop playing one specific audio file or all of them.
 
@@ -456,25 +456,25 @@ If call it without any arguments, it stops all the playing audio.
 
 #### Internal States
 
-#### Variable `*calm-state-mouse-x*`
+##### Variable `*calm-state-mouse-x*`
 
-#### Variable `*calm-state-mouse-y*`
+##### Variable `*calm-state-mouse-y*`
 
-#### Variable `*calm-state-mouse-up*`
+##### Variable `*calm-state-mouse-up*`
 
-#### Variable `*calm-state-mouse-down*`
+##### Variable `*calm-state-mouse-down*`
 
-#### Variable `*calm-state-mouse-just-clicked*`
+##### Variable `*calm-state-mouse-just-clicked*`
 
-#### Variable `*calm-state-finger-x*`
+##### Variable `*calm-state-finger-x*`
 
-#### Variable `*calm-state-finger-y*`
+##### Variable `*calm-state-finger-y*`
 
-#### Variable `*calm-state-finger-just-tapped*`
+##### Variable `*calm-state-finger-just-tapped*`
 
 The above variables hold the state of the mouse and finger (touch device, like the mobile web browser), they are read-only. The consequence of `(setf *calm-state-mouse-x* 20)` is equivalent to drinking bleach.
 
-#### Function `c:get-ticks`
+##### Function `c:get-ticks`
 
 This is just [SDL_GetTicks](https://wiki.libsdl.org/SDL2/SDL_GetTicks).
 
@@ -482,13 +482,13 @@ This is just [SDL_GetTicks](https://wiki.libsdl.org/SDL2/SDL_GetTicks).
 
 These callbacks are functions that you should define. If you defined any of them, they will be called when the corresponding event was triggered.
 
-#### Callback `on-keydown`
+##### Callback `on-keydown`
 
-#### Callback `on-keyup`
+##### Callback `on-keyup`
 
 You know what these callbacks do, what you don't know is their should-be arguments. Please check `c:keq` for a detailed example.
 
-#### Function `c:keq`
+##### Function `c:keq`
 
 This function compares the first argument with an infinite number of SDL2 Scancodes, if any of them matched, it will return `T`.
 
@@ -508,7 +508,7 @@ This function compares the first argument with an infinite number of SDL2 Scanco
 
 SDL2 Scancode: https://wiki.libsdl.org/SDL2/SDL_Scancode
 
-#### Callback `on-mousewheel`
+##### Callback `on-mousewheel`
 
 ```lisp
 (defun on-mousewheel (x y direction)
@@ -516,7 +516,7 @@ SDL2 Scancode: https://wiki.libsdl.org/SDL2/SDL_Scancode
   )
 ```
 
-#### Callback `on-mousemotion`
+##### Callback `on-mousemotion`
 
 ```lisp
 (defun internal-on-mousemotion (&key x y)
@@ -524,9 +524,9 @@ SDL2 Scancode: https://wiki.libsdl.org/SDL2/SDL_Scancode
   )
 ```
 
-#### Callback `on-mousebuttonup`
+##### Callback `on-mousebuttonup`
 
-#### Callback `on-mousebuttondown`
+##### Callback `on-mousebuttondown`
 
 ```lisp
 (defun on-mousebuttonup (&key button x y clicks)
@@ -537,7 +537,7 @@ SDL2 Scancode: https://wiki.libsdl.org/SDL2/SDL_Scancode
   )
 ```
 
-#### Callback `on-fingermotion`
+##### Callback `on-fingermotion`
 
 ```lisp
 (defun on-fingermotion (&key x  y dx dy pressure finger-id)
@@ -545,9 +545,9 @@ SDL2 Scancode: https://wiki.libsdl.org/SDL2/SDL_Scancode
   )
 ```
 
-#### Callback `on-fingerup`
+##### Callback `on-fingerup`
 
-#### Callback `on-fingerdown`
+##### Callback `on-fingerdown`
 
 ```lisp
 (defun on-fingerup (&key x  y dx dy pressure finger-id)
@@ -558,7 +558,7 @@ SDL2 Scancode: https://wiki.libsdl.org/SDL2/SDL_Scancode
   )
 ```
 
-#### Callback `on-windowresized`
+##### Callback `on-windowresized`
 
 ```lisp
 (defun on-windowresized (width height)
@@ -566,9 +566,9 @@ SDL2 Scancode: https://wiki.libsdl.org/SDL2/SDL_Scancode
   )
 ```
 
-#### Callback `on-windowenter`
+##### Callback `on-windowenter`
 
-#### Callback `on-windowleave`
+##### Callback `on-windowleave`
 
 These two callbacks do not take any arguments, for example:
 
@@ -578,17 +578,33 @@ These two callbacks do not take any arguments, for example:
   )
 ```
 
-#### Window Settings
+#### Window Related
 
-#### Variable `*calm-window-x*`
+##### Variable `*calm-window*`
 
-#### Variable `*calm-window-y*`
+This variable is readonly, it holds the created instance of [SDL_Window](https://wiki.libsdl.org/SDL2/SDL_Window).
+
+With this variable, one could utilize all kinds of SDL2 window related functions, such as:
+
+```lisp
+;; get window position
+(sdl2:get-window-position *calm-window*)
+
+;; set window always on top
+(sdl2-ffi.functions:sdl-set-window-always-on-top
+ *calm-window*
+ sdl2-ffi:+true+)
+```
+
+##### Variable `*calm-window-x*`
+
+##### Variable `*calm-window-y*`
 
 The initial position (x, y) of your CALM application window.
 
 Default: `:centered`
 
-#### Variable `*calm-window-flags*`
+##### Variable `*calm-window-flags*`
 
 A list of [SDL_WindowFlags](https://wiki.libsdl.org/SDL2/SDL_WindowFlags).
 
@@ -596,11 +612,11 @@ You could set this value like: `(setf *calm-window-flags* '(:shown :allow-highdp
 
 Default: `'(:shown :allow-highdpi)`
 
-#### Variable `*calm-window-width*`
+##### Variable `*calm-window-width*`
 
-#### Variable `*calm-window-height*`
+##### Variable `*calm-window-height*`
 
-#### Variable `*calm-window-title*`
+##### Variable `*calm-window-title*`
 
 You know what these variables do.
 

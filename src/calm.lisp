@@ -35,6 +35,11 @@
   (sdl2:with-init (:everything)
     (sdl2:with-window (calm-window :title *calm-window-title* :x *calm-window-x* :y *calm-window-y* :w *calm-window-width* :h *calm-window-height* :flags *calm-window-flags*)
 
+      ;; make SDL2 Window variable available,
+      ;; so we can call SDL2 Window related functions,
+      ;; such as `sdl2-ffi.functions:sdl-set-window-always-on-top', `sdl2:get-window-position', etc.
+      (setf *calm-window* calm-window)
+
       ;; window icon for Linux
       (let ((window-icon (str:concat (uiop:getenv "CALM_HOME") "build/app.png")))
         ;; this file should only exist on Linux, it was copied by `s/usr/linux/appimage.lisp'
