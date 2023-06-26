@@ -268,6 +268,33 @@ Default: 42
 
 This variable only works on the desktop platform, for the web platform, please check `*calm-fps*`.
 
+##### Variable `*calm-redraw*`
+
+This variable controls if the canvas will be refreshed from now on.
+
+Normally, you don't need to touch this variable. But if you are using `draw-forever` and you want to manually control the process of refreshing, it could be useful. Such as:
+
+```lisp
+(defparameter *game-started* nil)
+
+(defun on-keyup (key)
+  (when (c:keq key :SCANCODE-SPACE)
+    (setf *game-started* (not *game-started*))))
+
+(defun draw-forever ()
+  (format t "drawing canvas...~%")
+  (c:set-source-rgb (/ 12 255) (/ 55 255) (/ 132 255))
+  (c:paint)
+  (c:set-source-rgb 1 1 1)
+  (c:move-to 70 90)
+  (c:select-font-family "Arial" :normal :normal)
+  (c:set-font-size 60)
+  (c:show-text (format nil "Press SPACE: ~A" (write-to-string (mod (c:get-ticks) 9))))
+  (setf *calm-redraw* *game-started*))
+```
+
+Note: this variable will be set to `T` whenever a user event was triggered.
+
 ##### Variable `*calm-fps*`
 
 This variable controls how many milliseconds CALM should wait before refreshing the canvas. Setting 0 will use the browser’s `requestAnimationFrame` mechanism to refresh the canvas.
