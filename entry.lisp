@@ -1,8 +1,11 @@
+#-quicklisp
 (let ((quicklisp-setup (probe-file "quicklisp/setup.lisp")))
   (when quicklisp-setup
     (load quicklisp-setup)))
 ;; Load CALM
+#-calm
 (load "calm.asd")
+#-calm
 (ql:quickload :calm)
 (in-package #:calm)
 (calm-config)
