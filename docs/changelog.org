@@ -1,4 +1,9 @@
 * CALM
+** 1.1.0
+- expose `*calm-window*` variable
+  for SDL2 Window related control
+- expose `*calm-redraw*` variable
+  for manual management of the canvas refreshing
 ** 1.0.1
 - fix: audio won't play the second time
 ** 1.0.0
