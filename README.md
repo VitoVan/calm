@@ -150,7 +150,7 @@ You will have the following files and directories created:
 
 Files put into **assets** and **fonts** directories will be packed with your application during distribution. If you put your favorite font into the **fonts** directory, you will be able to use it inside your application.
 
-For more about font usage, please refer to the [API Reference](#api-reference).
+For more about font usage, please refer to the [API Reference: Rendering Text](#rendering-text).
 
 ### `calm publish`
 
@@ -355,6 +355,18 @@ This function will stretch the png if needed.
 
 #### Rendering Text
 
+##### Function `c:select-font-family`
+
+This function will select a font to be used in `c:show-text`.
+
+```lisp
+(c:select-font-family "Open Sans" :normal :normal)
+```
+
+It takes three arguments: `family`, `slant` and `weight`. For detailed example, please check `c:show-text`.
+
+To use a custom font without installing it, just put it inside the **fonts** directory, relative to the file **canvas.lisp**.
+
 ##### Function `c:show-text`
 
 This function will show simple text.
@@ -363,7 +375,7 @@ This function will show simple text.
 (defun draw ()
   (c:move-to 30 100)
   (c:set-font-size 84)
-  (c:select-font-family "Open Sans" :normal :normal)
+  (c:select-font-family "Open Sans" :italic :bold)
   (c:show-text "DON'T PANIC"))
 ```
 
