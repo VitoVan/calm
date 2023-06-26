@@ -238,7 +238,7 @@ jobs:
           ls -lah calm
           rm *.dmg
           export PATH=$PATH:$(pwd)/calm/
-          export APP_VERSION=1.1.0
+          export APP_VERSION=1.1.1
           export APP_ID=com.vitovan.circles
           export APP_NAME=Circles
           # switch dir, this is unnecessary if you are already at the same dir with canvas.lisp
@@ -398,7 +398,7 @@ jobs:
           ls -lah calm
           rm *.dmg
           export PATH=$PATH:$(pwd)/calm/
-          export APP_VERSION=1.1.0
+          export APP_VERSION=1.1.1
           export APP_ID=com.vitovan.fan
           export APP_NAME=Fan
           # switch dir, this is unnecessary if you are already at the same dir with canvas.lisp
@@ -557,7 +557,7 @@ jobs:
           ls -lah calm
           rm *.dmg
           export PATH=$PATH:$(pwd)/calm/
-          export APP_VERSION=1.1.0
+          export APP_VERSION=1.1.1
           export APP_ID=com.vitovan.mondrian
           export APP_NAME=Mondrian
           # switch dir, this is unnecessary if you are already at the same dir with canvas.lisp
@@ -719,7 +719,7 @@ jobs:
           ls -lah calm
           rm *.dmg
           export PATH=$PATH:$(pwd)/calm/
-          export APP_VERSION=1.1.0
+          export APP_VERSION=1.1.1
           export APP_ID=com.vitovan.meditator
           export APP_NAME=Meditator
           # switch dir, this is unnecessary if you are already at the same dir with canvas.lisp

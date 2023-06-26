@@ -1,4 +1,9 @@
 * CALM
+** 1.1.1
+- add document for `c:select-font-family`
+- reduce CALM first startup time
+- fix first startup message (zenity) on Linux
+- fix CL systems re-loading problem on recent Linux (tested on Fedora 36)
 ** 1.1.0
 - expose `*calm-window*` variable
   for SDL2 Window related control
