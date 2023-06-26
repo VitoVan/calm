@@ -4,7 +4,7 @@
 
 **C**anvas **A**ided **L**isp **M**agic: Create canvas-based applications with Lisp and distribute them on Linux, macOS, Windows, and the web.
 
-## Hello World
+## Hello, World!
 
 Find whatever directory, and create a file: **canvas.lisp**
 
