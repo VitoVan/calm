@@ -850,7 +850,7 @@ calm hello</pre></div>
     └── fonts.conf
 </code></pre>
 <p>Files put into <strong>assets</strong> and <strong>fonts</strong> directories will be packed with your application during distribution. If you put your favorite font into the <strong>fonts</strong> directory, you will be able to use it inside your application.</p>
-<p>For more about font usage, please refer to the <a href="#api-reference">API Reference</a>.</p>
+<p>For more about font usage, please refer to the <a href="#rendering-text">API Reference: Rendering Text</a>.</p>
 <h3><a name="calm-publish" class="anchor" aria-hidden="true" href="#calm-publish"><span aria-hidden="true" class="octicon octicon-link"></span></a><code>calm publish</code></h3>
 <p>This command will generate:</p>
 <ul>
@@ -1049,13 +1049,19 @@ python3 -m http.server 8000</pre></div>
   (c:show-png <span class="pl-s"><span class="pl-pds">"</span>assets/calm.png<span class="pl-pds">"</span></span> <span class="pl-c1">20</span> <span class="pl-c1">20</span> <span class="pl-c1">100</span> <span class="pl-c1">100</span>))</pre></div>
 <p>This function will stretch the png if needed.</p>
 <h4><a name="rendering-text" class="anchor" aria-hidden="true" href="#rendering-text"><span aria-hidden="true" class="octicon octicon-link"></span></a>Rendering Text</h4>
+<h5><a name="function-cselect-font-family" class="anchor" aria-hidden="true" href="#function-cselect-font-family"><span aria-hidden="true" class="octicon octicon-link"></span></a>Function <code>c:select-font-family</code>
+</h5>
+<p>This function will select a font to be used in <code>c:show-text</code>.</p>
+<div class="highlight highlight-source-lisp"><pre>(c:select-font-family <span class="pl-s"><span class="pl-pds">"</span>Open Sans<span class="pl-pds">"</span></span> :normal :normal)</pre></div>
+<p>It takes three arguments: <code>family</code>, <code>slant</code> and <code>weight</code>. For detailed example, please check <code>c:show-text</code>.</p>
+<p>To use a custom font without installing it, just put it inside the <strong>fonts</strong> directory, relative to the file <strong>canvas.lisp</strong>.</p>
 <h5><a name="function-cshow-text" class="anchor" aria-hidden="true" href="#function-cshow-text"><span aria-hidden="true" class="octicon octicon-link"></span></a>Function <code>c:show-text</code>
 </h5>
 <p>This function will show simple text.</p>
 <div class="highlight highlight-source-lisp"><pre>(<span class="pl-k">defun</span> <span class="pl-en">draw</span> ()
   (c:move-to <span class="pl-c1">30</span> <span class="pl-c1">100</span>)
   (c:set-font-size <span class="pl-c1">84</span>)
-  (c:select-font-family <span class="pl-s"><span class="pl-pds">"</span>Open Sans<span class="pl-pds">"</span></span> :normal :normal)
+  (c:select-font-family <span class="pl-s"><span class="pl-pds">"</span>Open Sans<span class="pl-pds">"</span></span> :italic :bold)
   (c:show-text <span class="pl-s"><span class="pl-pds">"</span>DON'T PANIC<span class="pl-pds">"</span></span>))</pre></div>
 <h5><a name="function-cshow-markup" class="anchor" aria-hidden="true" href="#function-cshow-markup"><span aria-hidden="true" class="octicon octicon-link"></span></a>Function <code>c:show-markup</code>
 </h5>
