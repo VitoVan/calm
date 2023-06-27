@@ -17,9 +17,6 @@
   (u:exec
    (str:concat
     "create-dmg "
-    (if (string= (uiop:getenv "CI_MATRIX_OS") "macos-13")
-        " --skip-jenkins"  ;; macos-13 not working yet
-        " ")
     " --hdiutil-verbose --volname \"" app-name " - CALM\""
     " --volicon \"" dmg-icon "\""
     " --window-pos 200 120"
