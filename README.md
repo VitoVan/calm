@@ -307,7 +307,7 @@ This variable only works on the web, for the desktop platform, please check `*ca
 
 Drawing in CALM could be achieved via [Cairo](https://www.cairographics.org/).
 
-To know more about how to draw anything, please read [Cairo Tutorial](https://www.cairographics.org/tutorial/) and [Cairo API](https://www.cairographics.org/manual/), most of the code should be modified to work in CALM.
+To know more about how to draw anything, please read [Cairo Tutorial](https://www.cairographics.org/tutorial/) and [Cairo API](https://www.cairographics.org/manual/), most of the code could be modified to work in CALM.
 
 For example:
 
