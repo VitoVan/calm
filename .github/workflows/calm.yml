@@ -85,6 +85,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Setup AppleScript for macOS 13
+        if: ${{ matrix.os == 'macos-13' }}
+        run: |
+          sudo sqlite3 $HOME/Library/Application\ Support/com.apple.TCC/TCC.db "INSERT OR REPLACE INTO access VALUES('kTCCServiceAppleEvents','/usr/local/opt/runner/provisioner/provisioner',1,2,3,1,NULL,NULL,0,'com.apple.finder',X'fade0c000000002c00000001000000060000000200000010636f6d2e6170706c652e66696e64657200000003',NULL,1592919552);"
+          sudo sqlite3 /Library/Application\ Support/com.apple.TCC/TCC.db "INSERT OR REPLACE INTO access VALUES('kTCCServiceAppleEvents','/usr/local/opt/runner/provisioner/provisioner',1,2,3,1,NULL,NULL,0,'com.apple.finder',X'fade0c000000002c00000001000000060000000200000010636f6d2e6170706c652e66696e64657200000003',NULL,1592919552);"
+
       - name: Build
         run: |
           bash build/build.sh
@@ -222,6 +228,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Setup AppleScript for macOS 13
+        if: ${{ matrix.os == 'macos-13' }}
+        run: |
+          sudo sqlite3 $HOME/Library/Application\ Support/com.apple.TCC/TCC.db "INSERT OR REPLACE INTO access VALUES('kTCCServiceAppleEvents','/usr/local/opt/runner/provisioner/provisioner',1,2,3,1,NULL,NULL,0,'com.apple.finder',X'fade0c000000002c00000001000000060000000200000010636f6d2e6170706c652e66696e64657200000003',NULL,1592919552);"
+          sudo sqlite3 /Library/Application\ Support/com.apple.TCC/TCC.db "INSERT OR REPLACE INTO access VALUES('kTCCServiceAppleEvents','/usr/local/opt/runner/provisioner/provisioner',1,2,3,1,NULL,NULL,0,'com.apple.finder',X'fade0c000000002c00000001000000060000000200000010636f6d2e6170706c652e66696e64657200000003',NULL,1592919552);"
       - name: Download Artifact
         uses: actions/download-artifact@v3
         with:
@@ -382,6 +393,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Setup AppleScript for macOS 13
+        if: ${{ matrix.os == 'macos-13' }}
+        run: |
+          sudo sqlite3 $HOME/Library/Application\ Support/com.apple.TCC/TCC.db "INSERT OR REPLACE INTO access VALUES('kTCCServiceAppleEvents','/usr/local/opt/runner/provisioner/provisioner',1,2,3,1,NULL,NULL,0,'com.apple.finder',X'fade0c000000002c00000001000000060000000200000010636f6d2e6170706c652e66696e64657200000003',NULL,1592919552);"
+          sudo sqlite3 /Library/Application\ Support/com.apple.TCC/TCC.db "INSERT OR REPLACE INTO access VALUES('kTCCServiceAppleEvents','/usr/local/opt/runner/provisioner/provisioner',1,2,3,1,NULL,NULL,0,'com.apple.finder',X'fade0c000000002c00000001000000060000000200000010636f6d2e6170706c652e66696e64657200000003',NULL,1592919552);"
       - name: Download Artifact
         uses: actions/download-artifact@v3
         with:
@@ -541,6 +557,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Setup AppleScript for macOS 13
+        if: ${{ matrix.os == 'macos-13' }}
+        run: |
+          sudo sqlite3 $HOME/Library/Application\ Support/com.apple.TCC/TCC.db "INSERT OR REPLACE INTO access VALUES('kTCCServiceAppleEvents','/usr/local/opt/runner/provisioner/provisioner',1,2,3,1,NULL,NULL,0,'com.apple.finder',X'fade0c000000002c00000001000000060000000200000010636f6d2e6170706c652e66696e64657200000003',NULL,1592919552);"
+          sudo sqlite3 /Library/Application\ Support/com.apple.TCC/TCC.db "INSERT OR REPLACE INTO access VALUES('kTCCServiceAppleEvents','/usr/local/opt/runner/provisioner/provisioner',1,2,3,1,NULL,NULL,0,'com.apple.finder',X'fade0c000000002c00000001000000060000000200000010636f6d2e6170706c652e66696e64657200000003',NULL,1592919552);"
       - name: Download Artifact
         uses: actions/download-artifact@v3
         with:
@@ -648,6 +669,14 @@ jobs:
           ls -lah .
           zip -r -9 ${APP_NAME}-web.zip ./web
           cp *.zip ../../../
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: Meditator Web
+          path: |
+            *-web.zip
+
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.15
         if: startsWith(github.ref, 'refs/tags/')
@@ -680,6 +709,12 @@ jobs:
           calm publish
           ls -lah .
           cp *.AppImage ../../../
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: Meditator Linux
+          path: |
+            *.AppImage
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.15
         if: startsWith(github.ref, 'refs/tags/')
@@ -702,6 +737,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+
+      - name: Setup AppleScript for macOS 13
+        if: ${{ matrix.os == 'macos-13' }}
+        run: |
+          sudo sqlite3 $HOME/Library/Application\ Support/com.apple.TCC/TCC.db "INSERT OR REPLACE INTO access VALUES('kTCCServiceAppleEvents','/usr/local/opt/runner/provisioner/provisioner',1,2,3,1,NULL,NULL,0,'com.apple.finder',X'fade0c000000002c00000001000000060000000200000010636f6d2e6170706c652e66696e64657200000003',NULL,1592919552);"
+          sudo sqlite3 /Library/Application\ Support/com.apple.TCC/TCC.db "INSERT OR REPLACE INTO access VALUES('kTCCServiceAppleEvents','/usr/local/opt/runner/provisioner/provisioner',1,2,3,1,NULL,NULL,0,'com.apple.finder',X'fade0c000000002c00000001000000060000000200000010636f6d2e6170706c652e66696e64657200000003',NULL,1592919552);"
 
       - name: Download Artifact
         uses: actions/download-artifact@v3
@@ -728,6 +769,12 @@ jobs:
           ls -lah .
           mv *.dmg Meditator${OS_SUBFIX}.dmg
           cp *.dmg ../../../
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: Meditator macOS
+          path: |
+            *.dmg
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.15
         if: startsWith(github.ref, 'refs/tags/')
@@ -765,6 +812,12 @@ jobs:
           mv ./*-Installer.exe ./Meditator.exe
           ls -lah .
           cp *.exe ../../../
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: Meditator Windows
+          path: |
+            *.exe
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.15
         if: startsWith(github.ref, 'refs/tags/')
