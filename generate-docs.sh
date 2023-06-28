@@ -19,9 +19,12 @@ cp -R /tmp/calm/docs ./docs
 cp /tmp/calm/build/calm.ico ./favicon.ico
 
 cp /tmp/calm/README.md ./
+cp /tmp/calm/README_JA.md ./
 
 sbcl --non-interactive --load md-to-html.lisp
+
 rm README.md
+rm README_JA.md
 
 git status
 

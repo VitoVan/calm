@@ -771,15 +771,16 @@ body{
                                      :content md-file)))
     (cl-ppcre:regex-replace-all "id=\"user-content-" result "name=\"")))
 
-(defun make-html ()
-  (let ((readme-html (gh-markdown (truename "README.md"))))
+(defun make-html (from to)
+  (let ((readme-html (gh-markdown (truename from))))
     (str:to-file
-     "index.html"
+     to
      (str:concat
       *pre-html*
       readme-html
       *post-html*
       ))))
 
-(make-html)
+(make-html "README.md" "index.html")
+(make-html "README_JA.md" "index_ja.html")
 (quit)
