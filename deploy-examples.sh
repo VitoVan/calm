@@ -36,6 +36,18 @@ ls **/*.js | xargs -I _ uglifyjs _ -c -m -o _
 cd ..
 git status
 
+git diff
+
+read -p "Do you want to proceed? (yes/no) " yn
+
+case $yn in
+        yes ) echo ok, we will proceed;;
+        no ) echo exiting...;
+                exit;;
+        * ) echo invalid response;
+                exit 1;;
+esac
+
 git add .
 git commit -m "Deploy examples for ${CALM_VERSION} to gh-pages $(date +%s)"
 git push --set-upstream origin gh-pages
