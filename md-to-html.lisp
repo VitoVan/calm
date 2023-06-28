@@ -1,7 +1,7 @@
 (ql:quickload '(:drakma :cl-ppcre :str))
 
 (defparameter *pre-html* "<!DOCTYPE html>
-<html lang=\"en\">
+<html lang=\"__LANG__\">
     <head>
         <!-- Google tag (gtag.js) -->
         <script async src=\"https://www.googletagmanager.com/gtag/js?id=G-SJ5CP8DCH9\"></script>
@@ -771,16 +771,16 @@ body{
                                      :content md-file)))
     (cl-ppcre:regex-replace-all "id=\"user-content-" result "name=\"")))
 
-(defun make-html (from to)
+(defun make-html (from to lang)
   (let ((readme-html (gh-markdown (truename from))))
     (str:to-file
      to
      (str:concat
-      *pre-html*
+      (str:replace-first "__LANG__" lang *pre-html*)
       readme-html
       *post-html*
       ))))
 
-(make-html "README.md" "index.html")
-(make-html "README_JA.md" "index_ja.html")
+(make-html "README.md" "index.html" "en")
+(make-html "README_JA.md" "index_ja.html" "ja")
 (quit)
