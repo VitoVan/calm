@@ -6,7 +6,7 @@
 
 English | [日本語](README_JA.md)
 
-## Hello World
+## Hello, World!
 
 Find whatever directory, and create a file: **canvas.lisp**
 
@@ -31,12 +31,12 @@ calm
 ## Examples
 
 <p align="center">
-    <a href="https://vitovan.com/calm/1.1.0/fan/calm.html"><img width="250" alt="Fan" src="./docs/examples/fan/canvas.png"></a>
-    <a href="https://vitovan.com/calm/1.1.0/mondrian/calm.html"><img width="250" alt="Mondrian" src="./docs/examples/mondrian/canvas.png"></a>
-    <a href="https://vitovan.com/calm/1.1.0/meditator/calm.html"><img width="250" alt="Meditator" src="./docs/examples/meditator/canvas.png"></a>
+    <a href="https://vitovan.com/calm/1.1.1/fan/calm.html"><img width="250" alt="Fan" src="./docs/examples/fan/canvas.png"></a>
+    <a href="https://vitovan.com/calm/1.1.1/mondrian/calm.html"><img width="250" alt="Mondrian" src="./docs/examples/mondrian/canvas.png"></a>
+    <a href="https://vitovan.com/calm/1.1.1/meditator/calm.html"><img width="250" alt="Meditator" src="./docs/examples/meditator/canvas.png"></a>
 </p>
 
-Source files and binaries for the above examples are [here](https://github.com/VitoVan/calm/tree/main/docs/examples) and [here](https://github.com/VitoVan/calm/releases/tag/1.1.0).
+Source files and binaries for the above examples are [here](https://github.com/VitoVan/calm/tree/main/docs/examples) and [here](https://github.com/VitoVan/calm/releases/tag/1.1.1).
 
 For more applications made with CALM, please check [Made with CALM](https://github.com/VitoVan/made-with-calm).
 
@@ -152,7 +152,7 @@ You will have the following files and directories created:
 
 Files put into **assets** and **fonts** directories will be packed with your application during distribution. If you put your favorite font into the **fonts** directory, you will be able to use it inside your application.
 
-For more about font usage, please refer to the [API Reference](#api-reference).
+For more about font usage, please refer to the [API Reference: Rendering Text](#rendering-text).
 
 ### `calm publish`
 
@@ -309,7 +309,7 @@ This variable only works on the web, for the desktop platform, please check `*ca
 
 Drawing in CALM could be achieved via [Cairo](https://www.cairographics.org/).
 
-To know more about how to draw anything, please read [Cairo Tutorial](https://www.cairographics.org/tutorial/) and [Cairo API](https://www.cairographics.org/manual/), most of the code should be modified to work in CALM.
+To know more about how to draw anything, please read [Cairo Tutorial](https://www.cairographics.org/tutorial/) and [Cairo API](https://www.cairographics.org/manual/), most of the code could be modified to work in CALM.
 
 For example:
 
@@ -357,6 +357,18 @@ This function will stretch the png if needed.
 
 #### Rendering Text
 
+##### Function `c:select-font-family`
+
+This function will select a font to be used in `c:show-text`.
+
+```lisp
+(c:select-font-family "Open Sans" :normal :normal)
+```
+
+It takes three arguments: `family`, `slant` and `weight`. For detailed example, please check `c:show-text`.
+
+To use a custom font without installing it, just put it inside the **fonts** directory, relative to the file **canvas.lisp**.
+
 ##### Function `c:show-text`
 
 This function will show simple text.
@@ -365,7 +377,7 @@ This function will show simple text.
 (defun draw ()
   (c:move-to 30 100)
   (c:set-font-size 84)
-  (c:select-font-family "Open Sans" :normal :normal)
+  (c:select-font-family "Open Sans" :italic :bold)
   (c:show-text "DON'T PANIC"))
 ```
 

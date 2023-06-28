@@ -1,9 +1,6 @@
 name: CALM
 
-on:
-  push:
-    tags:
-      - "*.*.*"
+on: push
 
 jobs:
 
@@ -27,6 +24,7 @@ jobs:
 
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.15
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           draft: true
           files: |
@@ -66,6 +64,7 @@ jobs:
 
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.15
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           draft: true
           files: |
@@ -86,6 +85,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Setup AppleScript for macOS 13
+        if: ${{ matrix.os == 'macos-13' }}
+        run: |
+          sudo sqlite3 $HOME/Library/Application\ Support/com.apple.TCC/TCC.db "INSERT OR REPLACE INTO access VALUES('kTCCServiceAppleEvents','/usr/local/opt/runner/provisioner/provisioner',1,2,3,1,NULL,NULL,0,'com.apple.finder',X'fade0c000000002c00000001000000060000000200000010636f6d2e6170706c652e66696e64657200000003',NULL,1592919552);"
+          sudo sqlite3 /Library/Application\ Support/com.apple.TCC/TCC.db "INSERT OR REPLACE INTO access VALUES('kTCCServiceAppleEvents','/usr/local/opt/runner/provisioner/provisioner',1,2,3,1,NULL,NULL,0,'com.apple.finder',X'fade0c000000002c00000001000000060000000200000010636f6d2e6170706c652e66696e64657200000003',NULL,1592919552);"
+
       - name: Build
         run: |
           bash build/build.sh
@@ -100,6 +105,7 @@ jobs:
 
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.15
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           draft: true
           files: |
@@ -127,6 +133,7 @@ jobs:
 
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.15
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           draft: true
           files: |
@@ -168,6 +175,7 @@ jobs:
           cp *.zip ../../../
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.15
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           draft: true
           files: |
@@ -199,6 +207,7 @@ jobs:
           cp *.AppImage ../../../
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.15
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           draft: true
           files: |
@@ -219,6 +228,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Setup AppleScript for macOS 13
+        if: ${{ matrix.os == 'macos-13' }}
+        run: |
+          sudo sqlite3 $HOME/Library/Application\ Support/com.apple.TCC/TCC.db "INSERT OR REPLACE INTO access VALUES('kTCCServiceAppleEvents','/usr/local/opt/runner/provisioner/provisioner',1,2,3,1,NULL,NULL,0,'com.apple.finder',X'fade0c000000002c00000001000000060000000200000010636f6d2e6170706c652e66696e64657200000003',NULL,1592919552);"
+          sudo sqlite3 /Library/Application\ Support/com.apple.TCC/TCC.db "INSERT OR REPLACE INTO access VALUES('kTCCServiceAppleEvents','/usr/local/opt/runner/provisioner/provisioner',1,2,3,1,NULL,NULL,0,'com.apple.finder',X'fade0c000000002c00000001000000060000000200000010636f6d2e6170706c652e66696e64657200000003',NULL,1592919552);"
       - name: Download Artifact
         uses: actions/download-artifact@v3
         with:
@@ -235,7 +249,7 @@ jobs:
           ls -lah calm
           rm *.dmg
           export PATH=$PATH:$(pwd)/calm/
-          export APP_VERSION=1.1.0
+          export APP_VERSION=1.1.1
           export APP_ID=com.vitovan.circles
           export APP_NAME=Circles
           # switch dir, this is unnecessary if you are already at the same dir with canvas.lisp
@@ -246,6 +260,7 @@ jobs:
           cp *.dmg ../../../
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.15
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           draft: true
           files: |
@@ -282,6 +297,7 @@ jobs:
           cp *.exe ../../../
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.15
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           draft: true
           files: |
@@ -324,6 +340,7 @@ jobs:
           cp *.zip ../../../
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.15
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           draft: true
           files: |
@@ -355,6 +372,7 @@ jobs:
           cp *.AppImage ../../../
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.15
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           draft: true
           files: |
@@ -375,6 +393,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Setup AppleScript for macOS 13
+        if: ${{ matrix.os == 'macos-13' }}
+        run: |
+          sudo sqlite3 $HOME/Library/Application\ Support/com.apple.TCC/TCC.db "INSERT OR REPLACE INTO access VALUES('kTCCServiceAppleEvents','/usr/local/opt/runner/provisioner/provisioner',1,2,3,1,NULL,NULL,0,'com.apple.finder',X'fade0c000000002c00000001000000060000000200000010636f6d2e6170706c652e66696e64657200000003',NULL,1592919552);"
+          sudo sqlite3 /Library/Application\ Support/com.apple.TCC/TCC.db "INSERT OR REPLACE INTO access VALUES('kTCCServiceAppleEvents','/usr/local/opt/runner/provisioner/provisioner',1,2,3,1,NULL,NULL,0,'com.apple.finder',X'fade0c000000002c00000001000000060000000200000010636f6d2e6170706c652e66696e64657200000003',NULL,1592919552);"
       - name: Download Artifact
         uses: actions/download-artifact@v3
         with:
@@ -391,7 +414,7 @@ jobs:
           ls -lah calm
           rm *.dmg
           export PATH=$PATH:$(pwd)/calm/
-          export APP_VERSION=1.1.0
+          export APP_VERSION=1.1.1
           export APP_ID=com.vitovan.fan
           export APP_NAME=Fan
           # switch dir, this is unnecessary if you are already at the same dir with canvas.lisp
@@ -402,6 +425,7 @@ jobs:
           cp *.dmg ../../../
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.15
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           draft: true
           files: |
@@ -438,6 +462,7 @@ jobs:
           cp *.exe ../../../
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.15
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           draft: true
           files: |
@@ -479,6 +504,7 @@ jobs:
           cp *.zip ../../../
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.15
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           draft: true
           files: |
@@ -510,6 +536,7 @@ jobs:
           cp *.AppImage ../../../
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.15
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           draft: true
           files: |
@@ -530,6 +557,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Setup AppleScript for macOS 13
+        if: ${{ matrix.os == 'macos-13' }}
+        run: |
+          sudo sqlite3 $HOME/Library/Application\ Support/com.apple.TCC/TCC.db "INSERT OR REPLACE INTO access VALUES('kTCCServiceAppleEvents','/usr/local/opt/runner/provisioner/provisioner',1,2,3,1,NULL,NULL,0,'com.apple.finder',X'fade0c000000002c00000001000000060000000200000010636f6d2e6170706c652e66696e64657200000003',NULL,1592919552);"
+          sudo sqlite3 /Library/Application\ Support/com.apple.TCC/TCC.db "INSERT OR REPLACE INTO access VALUES('kTCCServiceAppleEvents','/usr/local/opt/runner/provisioner/provisioner',1,2,3,1,NULL,NULL,0,'com.apple.finder',X'fade0c000000002c00000001000000060000000200000010636f6d2e6170706c652e66696e64657200000003',NULL,1592919552);"
       - name: Download Artifact
         uses: actions/download-artifact@v3
         with:
@@ -546,7 +578,7 @@ jobs:
           ls -lah calm
           rm *.dmg
           export PATH=$PATH:$(pwd)/calm/
-          export APP_VERSION=1.1.0
+          export APP_VERSION=1.1.1
           export APP_ID=com.vitovan.mondrian
           export APP_NAME=Mondrian
           # switch dir, this is unnecessary if you are already at the same dir with canvas.lisp
@@ -557,6 +589,7 @@ jobs:
           cp *.dmg ../../../
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.15
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           draft: true
           files: |
@@ -593,6 +626,7 @@ jobs:
           cp *.exe ../../../
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.15
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           draft: true
           files: |
@@ -635,8 +669,17 @@ jobs:
           ls -lah .
           zip -r -9 ${APP_NAME}-web.zip ./web
           cp *.zip ../../../
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: Meditator Web
+          path: |
+            *-web.zip
+
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.15
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           draft: true
           files: |
@@ -666,8 +709,15 @@ jobs:
           calm publish
           ls -lah .
           cp *.AppImage ../../../
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: Meditator Linux
+          path: |
+            *.AppImage
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.15
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           draft: true
           files: |
@@ -688,6 +738,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Setup AppleScript for macOS 13
+        if: ${{ matrix.os == 'macos-13' }}
+        run: |
+          sudo sqlite3 $HOME/Library/Application\ Support/com.apple.TCC/TCC.db "INSERT OR REPLACE INTO access VALUES('kTCCServiceAppleEvents','/usr/local/opt/runner/provisioner/provisioner',1,2,3,1,NULL,NULL,0,'com.apple.finder',X'fade0c000000002c00000001000000060000000200000010636f6d2e6170706c652e66696e64657200000003',NULL,1592919552);"
+          sudo sqlite3 /Library/Application\ Support/com.apple.TCC/TCC.db "INSERT OR REPLACE INTO access VALUES('kTCCServiceAppleEvents','/usr/local/opt/runner/provisioner/provisioner',1,2,3,1,NULL,NULL,0,'com.apple.finder',X'fade0c000000002c00000001000000060000000200000010636f6d2e6170706c652e66696e64657200000003',NULL,1592919552);"
+
       - name: Download Artifact
         uses: actions/download-artifact@v3
         with:
@@ -704,7 +760,7 @@ jobs:
           ls -lah calm
           rm *.dmg
           export PATH=$PATH:$(pwd)/calm/
-          export APP_VERSION=1.1.0
+          export APP_VERSION=1.1.1
           export APP_ID=com.vitovan.meditator
           export APP_NAME=Meditator
           # switch dir, this is unnecessary if you are already at the same dir with canvas.lisp
@@ -713,8 +769,15 @@ jobs:
           ls -lah .
           mv *.dmg Meditator${OS_SUBFIX}.dmg
           cp *.dmg ../../../
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: Meditator macOS
+          path: |
+            *.dmg
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.15
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           draft: true
           files: |
@@ -749,8 +812,15 @@ jobs:
           mv ./*-Installer.exe ./Meditator.exe
           ls -lah .
           cp *.exe ../../../
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: Meditator Windows
+          path: |
+            *.exe
       - name: GH Release
         uses: softprops/action-gh-release@v0.1.15
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           draft: true
           files: |
