@@ -777,7 +777,10 @@ body{
      to
      (str:concat
       (str:replace-first "__LANG__" lang *pre-html*)
-      readme-html
+      (str:replace-using
+       (list "README.md" "index.html"
+             "README_JA.md" "index_ja.html")
+       readme-html)
       *post-html*
       ))))
 
