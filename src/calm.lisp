@@ -148,7 +148,7 @@
                                          ;; default font size
                                          (c:set-font-size *calm-default-font-size*)
                                          ;; default font face
-                                         (c:select-font-face *calm-default-font-family* :normal :normal)
+                                         (c:select-font-family *calm-default-font-family* :normal :normal)
                                          ;; default color
                                          (c:set-source-rgb 0 0 0)
                                          ;; default position
