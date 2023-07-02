@@ -4,6 +4,8 @@ brew install git \
      sdl2 \
      sdl2_mixer \
      sdl2_image \
+     sdl2_ttf \
+     libffi \
      cairo \
      pango \
      gobject-introspection \

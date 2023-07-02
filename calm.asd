@@ -7,6 +7,7 @@
                #:sdl2
                #:sdl2-mixer
                #:sdl2-image
+               #:sdl2-ttf
                #:str
                #:swank
                #:bt-semaphore
