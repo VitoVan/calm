@@ -6,7 +6,7 @@
 
 [English](README.md) | 日本語
 
-## Hello World
+## Hello, World!
 
 任意のディレクトリを探し、ファイルを作成する: **canvas.lisp**
 
@@ -31,12 +31,12 @@ calm
 ## 例
 
 <p align="center">
-    <a href="https://vitovan.com/calm/1.1.0/fan/calm.html"><img width="250" alt="Fan" src="./docs/examples/fan/canvas.png"></a>
-    <a href="https://vitovan.com/calm/1.1.0/mondrian/calm.html"><img width="250" alt="Mondrian" src="./docs/examples/mondrian/canvas.png"></a>
-    <a href="https://vitovan.com/calm/1.1.0/meditator/calm.html"><img width="250" alt="Meditator" src="./docs/examples/meditator/canvas.png"></a>
+    <a href="https://vitovan.com/calm/1.1.1/fan/calm.html"><img width="250" alt="Fan" src="./docs/examples/fan/canvas.png"></a>
+    <a href="https://vitovan.com/calm/1.1.1/mondrian/calm.html"><img width="250" alt="Mondrian" src="./docs/examples/mondrian/canvas.png"></a>
+    <a href="https://vitovan.com/calm/1.1.1/meditator/calm.html"><img width="250" alt="Meditator" src="./docs/examples/meditator/canvas.png"></a>
 </p>
 
-上記の例のソースファイルとバイナリは[こちら](https://github.com/VitoVan/calm/tree/main/docs/examples)と[こちら](https://github.com/VitoVan/calm/releases/tag/1.1.0)です。
+上記の例のソースファイルとバイナリは[こちら](https://github.com/VitoVan/calm/tree/main/docs/examples)と[こちら](https://github.com/VitoVan/calm/releases/tag/1.1.1)です。
 
 CALM で作られた他のアプリケーションについては、[Made with CALM](https://github.com/VitoVan/made-with-calm) をご覧ください。
 
@@ -152,7 +152,7 @@ calm hello
 
 **assets** ディレクトリと **fonts** ディレクトリに入れたファイルは、配布時にアプリケーションに同梱されます。お気に入りのフォントを **fonts** ディレクトリに置くと、アプリケーション内でそのフォントを使用できるようになります。
 
-フォントの使い方については、[API リファレンス](#api-リファレンス)を参照してください。
+フォントの使い方については、[API リファレンス: テキストのレンダリング](#テキストのレンダリング)を参照してください。
 
 ### `calm publish`
 
@@ -357,6 +357,18 @@ png ファイルを表示します。
 
 #### テキストのレンダリング
 
+##### 関数 `c:select-font-family`
+
+この関数は`c:show-text`で使用するフォントを選択します。
+
+```lisp
+(c:select-font-family "Open Sans" :normal :normal)
+```
+
+次の 3 つの引数を取ります: `family`、`slant`、`weight` です。詳細な例については、`c:show-text` を参照して下さい。
+
+カスタムフォントをインストールせずに使用するには、**canvas.lisp**ファイルからの相対パスで、**fonts**ディレクトリに置くだけです。
+
 ##### 関数 `c:show-text`
 
 この関数は単純なテキストを表示します。
@@ -365,7 +377,7 @@ png ファイルを表示します。
 (defun draw ()
   (c:move-to 30 100)
   (c:set-font-size 84)
-  (c:select-font-family "Open Sans" :normal :normal)
+  (c:select-font-family "Open Sans" :italic :bold)
   (c:show-text "DON'T PANIC"))
 ```
 
