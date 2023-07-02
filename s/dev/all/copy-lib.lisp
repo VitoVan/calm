@@ -13,7 +13,8 @@
                        (uiop:merge-pathnames* lib-pathname "/usr/local/lib/")
                        #+win32
                        (uiop:merge-pathnames* lib-pathname "/mingw64/bin/"))
-                      " ./lib/" )))))
+                      " ./lib/" )
+          :ignore-error-status t))))
  (cffi:list-foreign-libraries :loaded-only t))
 
 (quit)

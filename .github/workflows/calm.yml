@@ -1,4 +1,4 @@
-name: CALM
+name: CI
 
 on: push
 
@@ -284,7 +284,7 @@ jobs:
         run: |
           set -x
           ls -lah
-          pacman -S --noconfirm --needed unzip
+          pacman -S --noconfirm --needed unzip gcc libffi-devel
           unzip calm.zip
           ls -lah calm
           export PATH=$PATH:$(pwd)/calm/
@@ -449,7 +449,7 @@ jobs:
         run: |
           set -x
           ls -lah
-          pacman -S --noconfirm --needed unzip
+          pacman -S --noconfirm --needed unzip gcc libffi-devel
           unzip calm.zip
           ls -lah calm
           export PATH=$PATH:$(pwd)/calm/
@@ -613,7 +613,7 @@ jobs:
         run: |
           set -x
           ls -lah
-          pacman -S --noconfirm --needed unzip
+          pacman -S --noconfirm --needed unzip gcc libffi-devel
           unzip calm.zip
           ls -lah calm
           export PATH=$PATH:$(pwd)/calm/
@@ -801,7 +801,7 @@ jobs:
         run: |
           set -x
           ls -lah
-          pacman -S --noconfirm --needed unzip
+          pacman -S --noconfirm --needed unzip gcc libffi-devel
           unzip calm.zip
           ls -lah calm
           export PATH=$PATH:$(pwd)/calm/
