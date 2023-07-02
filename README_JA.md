@@ -1,6 +1,6 @@
 # <img style="vertical-align:middle;margin-right:10px;" width="100" alt="Calm" src="docs/images/calm.png"> C A L M
 
-[![CI](https://github.com/VitoVan/calm/actions/workflows/calm.yml/badge.svg)](https://github.com/VitoVan/calm/actions/workflows/calm.yml) [![GitHub all releases](https://img.shields.io/github/downloads/vitovan/calm/total?color=brightgreen&label=Downloads&style=flat)](#pre-built-binary) [![GitHub release (release name instead of tag name)](https://img.shields.io/github/v/release/vitovan/calm?label=Latest&color=%23005896)](https://github.com/VitoVan/calm/releases/latest)
+[![CI](https://github.com/VitoVan/calm/actions/workflows/calm.yml/badge.svg)](https://github.com/VitoVan/calm/actions/workflows/calm.yml) [![GitHub all releases](https://img.shields.io/github/downloads/vitovan/calm/total?color=brightgreen&label=Downloads&style=flat)](#pre-built-binary) [![Discord](https://img.shields.io/discord/1124894601908584528?logo=discord&logoColor=white&label=Chat&labelColor=%235865f2&color=white)](https://discord.gg/xN6VeaMr2a)
 
 **C**anvas **A**ided **L**isp **M**agic: Lisp でキャンバスベースのアプリケーションを作成し、Linux、macOS、Windows、Web 上で配布できます。
 
