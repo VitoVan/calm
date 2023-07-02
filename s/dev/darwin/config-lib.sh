@@ -43,6 +43,9 @@ ln -s libSDL2_mixer-2.0.0.dylib libSDL2_mixer.dylib
 rm libSDL2_image.dylib
 ln -s libSDL2_image-2.0.0.dylib libSDL2_image.dylib
 
+rm libSDL2_ttf.dylib
+ln -s libSDL2_ttf-2.0.0.dylib libSDL2_ttf.dylib
+
 rm libcairo.dylib
 ln -s libcairo.2.dylib libcairo.dylib
 

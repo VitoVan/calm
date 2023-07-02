@@ -10,6 +10,9 @@ sudo dnf install -y \
      SDL2 \
      SDL2_mixer \
      SDL2_image \
+     SDL2_ttf \
+     libffi \
+     libffi-devel \
      cairo \
      pango \
      fontconfig \
