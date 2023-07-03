@@ -230,7 +230,11 @@ int main(int argc, char *argv[]) {
   if (argc >= 2) {
     strcpy(calm_cmd, argv[1]);
   } else {
+    #ifdef LEM
+    strcpy(calm_cmd, "lem");
+    #else
     strcpy(calm_cmd, "show");
+    #endif
   }
 
   apply_env("CALM_CMD", calm_cmd);

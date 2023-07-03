@@ -8,6 +8,8 @@ build_fedora () {
         echo "build launcher ..."
         sudo dnf install gcc -y
         gcc src/calm.c -o calm
+        # build lem
+        gcc -DLEM src/calm.c -o lem
     fi
 
     ./calm s dev fedora deps.sh && \
@@ -38,6 +40,8 @@ build_darwin () {
     echo "build launcher ..."
     brew install gcc
     gcc src/calm.c -o calm
+    # build lem
+    gcc -DLEM src/calm.c -o lem
 
     ./calm s dev darwin deps.sh && \
         ./calm s dev darwin sbcl.sh && \

@@ -2,6 +2,9 @@
 (let ((quicklisp-setup (probe-file "quicklisp/setup.lisp")))
   (when quicklisp-setup
     (load quicklisp-setup)))
+;; load Lem
+#-lem-sdl2
+(ql:quickload :lem-sdl2)
 ;; Load CALM
 #-calm
 (load "calm.asd")
@@ -96,6 +99,9 @@
 
   ((string= *calm-env-calm-cmd* "show")
    (calm:calm-load-and-start))
+
+  ((string= *calm-env-calm-cmd* "lem")
+   (lem:lem))
 
   ((string= *calm-env-calm-cmd* "hello")
    (u:copy-file (merge-pathnames "s/usr/all/panic.lisp" *calm-env-calm-home*)
