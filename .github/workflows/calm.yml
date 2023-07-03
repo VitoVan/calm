@@ -1,4 +1,4 @@
-name: CALM
+name: CI
 
 on: push
 
