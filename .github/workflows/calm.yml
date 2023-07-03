@@ -19,6 +19,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: CALM Linux
+          if-no-files-found: error
           path: |
             *.tgz
 
@@ -59,6 +60,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: CALM Web
+          if-no-files-found: error
           path: |
             *.tar
 
@@ -100,6 +102,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: CALM macOS
+          if-no-files-found: error
           path: |
             *.dmg
 
@@ -128,6 +131,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: CALM Windows
+          if-no-files-found: error
           path: |
             *.zip
 
@@ -674,6 +678,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: Meditator Web
+          if-no-files-found: error
           path: |
             *-web.zip
 
@@ -713,6 +718,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: Meditator Linux
+          if-no-files-found: error
           path: |
             *.AppImage
       - name: GH Release
@@ -773,6 +779,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: Meditator macOS
+          if-no-files-found: error
           path: |
             *.dmg
       - name: GH Release
@@ -816,6 +823,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: Meditator Windows
+          if-no-files-found: error
           path: |
             *.exe
       - name: GH Release
