@@ -117,7 +117,7 @@
   ;; for macOS bundled CALM Application (not CALM itself)
   ;;
   ;; on macOS, if the CALM_HOME env contains ".app/Contents/MacOS",
-  ;; and the user double clicked the application,
+  ;; and the user launched through LaunchPad,
   ;; then CALM_APP_DIR won't be able to be set correctly,
   ;; since the `pwd` will be given as "/Users/jack/" instead of the real location,
   ;; so we should set CALM_APP_DIR to CALM_HOME
@@ -126,15 +126,15 @@
   ;; because if we have packed CALM as an APP, then it will always find the canvas.lisp inside the app bundle,
   ;; instead of the current directory.
   ;;
-  ;; so, let's create a dummy file (.calm-app-macos-bundle) inside the app bundle,
-  ;; and if it exists, then we will pick it up.
+  ;; so, let's check if calm.asd exists inside the app bundle,
+  ;; and if it exists, then we will know it's CALM as an APP instead of an application made with CALM.
   (when
       (and
        ;; why `featurep' instead of `#+darwin'?
        ;; track: https://github.com/jscl-project/jscl/issues/475
        (uiop:featurep :darwin)
        (str:contains? ".app/Contents/MacOS" (namestring *calm-env-calm-home*))
-       (probe-file (merge-pathnames ".calm-app-macos-bundle" *calm-env-calm-home*)))
+       (not (probe-file (merge-pathnames "calm.asd" *calm-env-calm-home*))))
     (setf (uiop:getenv "CALM_APP_DIR") *calm-env-calm-home*
           *calm-env-app-dir* *calm-env-calm-home*))
 

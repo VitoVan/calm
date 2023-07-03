@@ -38,9 +38,7 @@
      dist-dir-abs
      app-macos-dir)
     ;; copy icon
-    (u:copy-file app-icon-abs (merge-pathnames "icon.icns" app-resources-dir))
-    ;; touch bundle indicator
-    (u:touch-file (merge-pathnames ".calm-app-macos-bundle" app-macos-dir)))
+    (u:copy-file app-icon-abs (merge-pathnames "icon.icns" app-resources-dir)))
 
   (u:calm-log-fancy "~%Application Bundle created: ~A.app~%" app-name))
 

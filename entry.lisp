@@ -13,7 +13,7 @@
 ;; switch to the CALM_APP_DIR
 (uiop:chdir *calm-env-app-dir*)
 
-(defun copy-dist-files (pathname &key with-canvas)
+(defun copy-dist-files (pathname)
   ;; copy files
   (let* ((ori-lib-dir (merge-pathnames "lib/" *calm-env-calm-home*))
          (dist-dir (merge-pathnames pathname *calm-env-app-dir*))
@@ -37,15 +37,11 @@
     ;; copy calm launcher
     (u:copy-file
      (merge-pathnames calm-bin *calm-env-calm-home*)
-     (merge-pathnames (str:concat "calm" #+win32 ".exe")  dist-dir))
-    ;; copy `canvas.lisp' and `src' directory
-    (when with-canvas
-      (u:copy-file (merge-pathnames "canvas.lisp"  *calm-env-app-dir*) (merge-pathnames "canvas.lisp" dist-dir))
-      (u:copy-dir (merge-pathnames "src/" *calm-env-app-dir*) (merge-pathnames "src/" dist-dir)))))
+     (merge-pathnames (str:concat "calm" #+win32 ".exe")  dist-dir))))
 
-(defun dist (pathname &key with-canvas)
-  (u:calm-log "binary pathname ~A ~A~%" pathname (if with-canvas "(with-canvas)" ""))
-  (copy-dist-files pathname :with-canvas with-canvas)
+(defun dist (pathname)
+  (u:calm-log "binary pathname ~A~%" pathname)
+  (copy-dist-files pathname)
   ;; load `canvas.lisp'
   (load (merge-pathnames "canvas.lisp" *calm-env-app-dir*))
   ;; dump binary
@@ -56,18 +52,14 @@
    #+win32 :gui
    :executable t
    :toplevel
-   (if with-canvas
-       #'calm:calm-load-and-start
-       #'calm:calm-start)))
+   #'calm:calm-start))
 
-(defun dist-by-new-process (&key with-canvas)
+(defun dist-by-new-process ()
   (let ((calm-bin-abs (str:concat (namestring *calm-env-calm-home*) "calm" #+win32 ".exe")))
     ;; the following command will quit SBCL,
     ;; so exec it as external cmd instead of load lisp file
     (u:calm-log-fancy "dumping binary, this may take a few minutes...")
-    (if with-canvas
-        (u:exec (str:concat calm-bin-abs " dist-with-canvas"))
-        (u:exec (str:concat calm-bin-abs " dist")))))
+    (u:exec (str:concat calm-bin-abs " dist"))))
 
 (defun publish-web ()
   (u:load-from-calm "s/usr/web/wasm.lisp")
@@ -143,9 +135,6 @@
 
   #+linux
   ((string= *calm-env-calm-cmd* "make-appimage") (u:load-from-calm "s/usr/linux/appimage.lisp"))
-
-  #+sbcl
-  ((string= *calm-env-calm-cmd* "dist-with-canvas") (dist #p"dist-with-canvas/" :with-canvas t))
 
   #+sbcl
   ((string= *calm-env-calm-cmd* "dist") (dist #p"dist/"))
