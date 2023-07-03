@@ -17,9 +17,6 @@ export BUNDLE_ID=com.vitovan.calm
 export DIST_DIR=./calm-dist/
 
 ./calm make-bundle
-# remove macos bundle for CALM itself
-# to be able to load canvas.lisp outside of CALM_HOME
-rm Calm.app/Contents/MacOS/.calm-app-macos-bundle
 
 export DMG_ICON=./build/calm-dmg.icns
 ./calm make-dmg
