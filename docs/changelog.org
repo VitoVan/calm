@@ -1,4 +1,16 @@
 * CALM
+** 1.1.2
+- add Japanese document: README_JA.md
+  by Ikko Eltociear Ashimine (安次嶺 一功) @eltociear
+- fix macOS Ventura ugly DMG file on GitHub Workflow
+- fix default font family in dev mode
+  use `c:select-font-family`
+- fix ugly font on Windows
+  add `<dir>C:\Windows\Fonts</dir>` to fonts.conf
+- fix aggressive font dir scanning
+  remove `<dir prefix="cwd">./</dir>` from fonts.conf
+- remove unused command `dist-with-canvas`
+- tidy up CI script - calm.yml
 ** 1.1.1
 - add document for `c:select-font-family`
 - reduce CALM first startup time

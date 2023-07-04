@@ -31,12 +31,12 @@ calm
 ## Examples
 
 <p align="center">
-    <a href="https://vitovan.com/calm/1.1.1/fan/calm.html"><img width="250" alt="Fan" src="./docs/examples/fan/canvas.png"></a>
-    <a href="https://vitovan.com/calm/1.1.1/mondrian/calm.html"><img width="250" alt="Mondrian" src="./docs/examples/mondrian/canvas.png"></a>
-    <a href="https://vitovan.com/calm/1.1.1/meditator/calm.html"><img width="250" alt="Meditator" src="./docs/examples/meditator/canvas.png"></a>
+    <a href="https://vitovan.com/calm/1.1.2/fan/calm.html"><img width="250" alt="Fan" src="./docs/examples/fan/canvas.png"></a>
+    <a href="https://vitovan.com/calm/1.1.2/mondrian/calm.html"><img width="250" alt="Mondrian" src="./docs/examples/mondrian/canvas.png"></a>
+    <a href="https://vitovan.com/calm/1.1.2/meditator/calm.html"><img width="250" alt="Meditator" src="./docs/examples/meditator/canvas.png"></a>
 </p>
 
-Source files and binaries for the above examples are [here](https://github.com/VitoVan/calm/tree/main/docs/examples) and [here](https://github.com/VitoVan/calm/releases/tag/1.1.1).
+Source files and binaries for the above examples are [here](https://github.com/VitoVan/calm/tree/main/docs/examples) and [here](https://github.com/VitoVan/calm/releases/tag/1.1.2).
 
 For more applications made with CALM, please check [Made with CALM](https://github.com/VitoVan/made-with-calm).
 
