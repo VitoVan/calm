@@ -60,7 +60,7 @@ macOS と Windows ユーザーの場合、CALM を使うには [Windows SmartScr
 
 現在、サポートされているプラットフォームは [GitHub Actions runner images](https://github.com/actions/runner-images) によって制限されています。
 
-もしあなたのプラットフォームがサポートされていない場合は、[ソースから実行](docs/hacking_JA.md#run-from-source)を使ってください。
+もしあなたのプラットフォームがサポートされていない場合は、[ソースから実行](docs/hacking_JA.md#ソースからの実行)を使ってください。
 
 ## <img style="vertical-align:middle;margin-right:5px;" width="50" alt="Calm Application" src="./docs/images/app.png"> 配布
 
