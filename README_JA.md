@@ -383,7 +383,7 @@ png ファイルを表示します。
 
 ##### 関数 `c:show-markup`
 
-This function will show [Pango Markup](https://docs.gtk.org/Pango/pango_markup.html).
+この関数は [Pango Markup](https://docs.gtk.org/Pango/pango_markup.html) を表示します。
 
 ```lisp
 (defun draw ()
