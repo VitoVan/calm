@@ -1,10 +1,8 @@
-(ql:quickload '(:drakma :cl-ppcre :str))
-
-(defparameter *pre-html* "<!DOCTYPE html>
-<html lang=\"__LANG__\">
+<!DOCTYPE html>
+<html lang="en">
     <head>
         <!-- Google tag (gtag.js) -->
-        <script async src=\"https://www.googletagmanager.com/gtag/js?id=G-SJ5CP8DCH9\"></script>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-SJ5CP8DCH9"></script>
         <script>
          window.dataLayer = window.dataLayer || [];
          function gtag(){dataLayer.push(arguments);}
@@ -13,11 +11,11 @@
          gtag('config', 'G-SJ5CP8DCH9');
         </script>
         <!-- Standard Meta -->
-        <meta charset=\"utf-8\" />
-        <meta name=\"author\" content=\"Vito Van, Ikko Eltociear Ashimine\"/>
-        <meta name=\"theme-color\" content=\"#005797\">
-        <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" />
-        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0\">
+        <meta charset="utf-8" />
+        <meta name="author" content="Vito Van, Ikko Eltociear Ashimine"/>
+        <meta name="theme-color" content="#005797">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
         <link href=favicon.ico rel=icon type=image/x-icon>
         <style>
 body{
@@ -553,7 +551,7 @@ body{
 .markdown-body code:before,
 .markdown-body code:after {
   letter-spacing: -0.2em;
-  content: '\\00a0';
+  content: '\00a0';
 }
 
 .markdown-body pre>code {
@@ -755,49 +753,156 @@ body{
         <title>CALM - Canvas Aided Lisp Magic</title>
     </head>
     <body>
-        <div class=\"container\">
-            <div class=\"content markdown-body\">")
+        <div class="container">
+            <div class="content markdown-body"><h1><a name="hacking-calm" class="anchor" aria-hidden="true" href="#hacking-calm"><span aria-hidden="true" class="octicon octicon-link"></span></a>Hacking CALM</h1>
+<h2><a name="with-pre-built-binaries" class="anchor" aria-hidden="true" href="#with-pre-built-binaries"><span aria-hidden="true" class="octicon octicon-link"></span></a>With Pre-built Binaries</h2>
+<h3><a name="step-1-fork-calm" class="anchor" aria-hidden="true" href="#step-1-fork-calm"><span aria-hidden="true" class="octicon octicon-link"></span></a>Step 1: Fork CALM</h3>
+<p><a href="https://github.com/VitoVan/calm/fork">https://github.com/VitoVan/calm/fork</a></p>
+<h3><a name="step-2-install-calm-binary" class="anchor" aria-hidden="true" href="#step-2-install-calm-binary"><span aria-hidden="true" class="octicon octicon-link"></span></a>Step 2: Install CALM binary</h3>
+<p><a href="https://github.com/VitoVan/calm#-installation">https://github.com/VitoVan/calm#-installation</a></p>
+<h3><a name="step-3-init-git-repository" class="anchor" aria-hidden="true" href="#step-3-init-git-repository"><span aria-hidden="true" class="octicon octicon-link"></span></a>Step 3: Init Git Repository</h3>
+<div class="highlight highlight-source-shell"><pre><span class="pl-c"><span class="pl-c">#</span> cd to your downloaded CALM binary directory</span>
+<span class="pl-c"><span class="pl-c">#</span> e.g. on macOS:</span>
+<span class="pl-c1">cd</span> /Applications/Calm.app/Contents/MacOS
 
-(defparameter *post-html* "</div>
+<span class="pl-c"><span class="pl-c">#</span> init git</span>
+git init <span class="pl-c1">.</span>
+
+<span class="pl-c"><span class="pl-c">#</span> add your fork to remote</span>
+git remote add origin git@github.com:<span class="pl-k">&lt;</span>your-name<span class="pl-k">&gt;</span>/calm.git
+
+<span class="pl-c"><span class="pl-c">#</span> fetch</span>
+git fetch origin --depth=1
+
+<span class="pl-c"><span class="pl-c">#</span> reset hard to origin/main</span>
+git reset --hard origin/main</pre></div>
+<p>Now you can modify, push and create pull requests!</p>
+<h3><a name="my-personal-favour" class="anchor" aria-hidden="true" href="#my-personal-favour"><span aria-hidden="true" class="octicon octicon-link"></span></a>My Personal Favour</h3>
+<p>Personally, I would clone the repository somewhere else and make some symbol links into the directory of the downloaded binary, such as:</p>
+<div class="highlight highlight-source-shell"><pre><span class="pl-c1">cd</span> /Applications/Calm.app/Contents/MacOS
+
+rm -rf ./build
+rm -rf ./s
+rm -rf ./src
+
+ln -s <span class="pl-k">~</span>/github/VitoVan/calm/build build
+ln -s <span class="pl-k">~</span>/github/VitoVan/calm/s s
+ln -s <span class="pl-k">~</span>/github/VitoVan/calm/src src</pre></div>
+<p>This won't cover all the source code, but normally it's enough.</p>
+<h2><a name="run-from-source" class="anchor" aria-hidden="true" href="#run-from-source"><span aria-hidden="true" class="octicon octicon-link"></span></a>Run From Source</h2>
+<ol start="0">
+<li>
+<p>Preparation</p>
+<ul>
+<li>
+<p>Linux</p>
+<p>Sit tight.</p>
+</li>
+<li>
+<p>macOS</p>
+<p>You need a package manager, I suggest <a href="https://brew.sh/" rel="nofollow">Homebrew</a>.</p>
+<p><a href="https://www.macports.org/" rel="nofollow">MacPorts</a> should work, but I haven't tried it.</p>
+</li>
+<li>
+<p>Windows
+You need a package manager, I suggest <a href="https://www.msys2.org/" rel="nofollow">MSYS2</a>.</p>
+<p>I hate to ask Windows users to use Bash, but I haven't found any other options.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Install SBCL &amp; Quicklisp</p>
+<p>SBCL binaries can be found <a href="https://www.sbcl.org/platform-table.html" rel="nofollow">here</a>. It should also has been included in your package manager. You should be able to install it easily.</p>
+<ul>
+<li>
+<p>Linux (Fedora)</p>
+<div class="highlight highlight-source-shell"><pre>sudo dnf install sbcl -y</pre></div>
+</li>
+<li>
+<p>macOS</p>
+<div class="highlight highlight-source-shell"><pre>brew install sbcl</pre></div>
+</li>
+<li>
+<p>Windows</p>
+<div class="highlight highlight-source-batchfile"><pre>winget install sbcl</pre></div>
+</li>
+</ul>
+<p>After you have installed SBCL, it should be accessible in your terminal.</p>
+<blockquote>
+<p>On Windows (MSYS2), you may need to set the PATH environment manually, like this:</p>
+<div class="highlight highlight-source-shell"><pre><span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">'</span>export PATH="/c/program files/steel bank common lisp/:$PATH"<span class="pl-pds">'</span></span> <span class="pl-k">&gt;&gt;</span> <span class="pl-k">~</span>/.bashrc
+<span class="pl-c1">source</span> <span class="pl-k">~</span>/.bashrc</pre></div>
+</blockquote>
+<p>Now download and install Quicklisp:</p>
+<div class="highlight highlight-source-shell"><pre>curl -O https://beta.quicklisp.org/quicklisp.lisp
+sbcl --non-interactive --load quicklisp.lisp \
+     --eval <span class="pl-s"><span class="pl-pds">"</span>(quicklisp-quickstart:install)<span class="pl-pds">"</span></span> \
+     --eval <span class="pl-s"><span class="pl-pds">"</span>(ql-util:without-prompting (ql:add-to-init-file))<span class="pl-pds">"</span></span></pre></div>
+</li>
+<li>
+<p>Install dependencies</p>
+<p>All you need is: <a href="https://github.com/facebook/zstd">libzstd</a>, <a href="https://wiki.libsdl.org/SDL2/FrontPage" rel="nofollow">SDL2</a>, <a href="https://github.com/libsdl-org/SDL_mixer">SDL2_mixer</a>, <a href="https://github.com/libsdl-org/SDL_image">SDL2_image</a> and <a href="https://www.cairographics.org/" rel="nofollow">Cairo</a>.</p>
+<blockquote>
+<p>libzstd is required by the recent version of SBCL, and will be installed by your package manager automatically if you installed SBCL.</p>
+</blockquote>
+<p>Here I will provide some sample commands, hope this would be helpful:</p>
+<ul>
+<li>Linux (Fedora)
+<div class="highlight highlight-source-shell"><pre>sudo dnf install libzstd SDL2 SDL2_mixer SDL2_image cairo -y</pre></div>
+</li>
+<li>macOS
+<div class="highlight highlight-source-shell"><pre>brew install zstd sdl2 sdl2_mixer sdl2_image cairo</pre></div>
+</li>
+<li>Windows (MSYS2)
+<blockquote>
+<p>The code below definitely need to be adjusted for ARM devices, since they are installing x86_64 version libs. Packages can be found <a href="https://packages.msys2.org/queue" rel="nofollow">here</a>.</p>
+</blockquote>
+<div class="highlight highlight-source-shell"><pre>pacman -S --noconfirm --needed git \
+ mingw64/mingw-w64-x86_64-zstd \
+ mingw64/mingw-w64-x86_64-SDL2 \
+ mingw64/mingw-w64-x86_64-SDL2_mixer \
+ mingw64/mingw-w64-x86_64-SDL2_image \
+ mingw64/mingw-w64-x86_64-cairo</pre></div>
+</li>
+</ul>
+</li>
+<li>
+<p>Clone CALM &amp; make a temporary launcher</p>
+<div class="highlight highlight-source-shell"><pre><span class="pl-c"><span class="pl-c">#</span> clone the source code</span>
+git clone https://github.com/VitoVan/calm.git <span class="pl-k">~</span>/calm
+<span class="pl-c1">cd</span> <span class="pl-k">~</span>/calm
+
+<span class="pl-c"><span class="pl-c">#</span> make a temporary launcher</span>
+cat <span class="pl-k">&gt;</span> <span class="pl-s"><span class="pl-pds">"</span>./calm<span class="pl-pds">"</span></span> <span class="pl-s"><span class="pl-k">&lt;&lt;</span><span class="pl-k">EOF</span></span>
+<span class="pl-s">  cd "<span class="pl-smi">$HOME</span>/calm"</span>
+<span class="pl-s">  export CALM_APP_DIR=<span class="pl-s"><span class="pl-pds">$(</span>pwd<span class="pl-pds">)</span></span></span>
+<span class="pl-s">  export CALM_HOME="<span class="pl-smi">$HOME</span>/calm/"</span>
+<span class="pl-s">  export CALM_CMD=show</span>
+<span class="pl-s">  sbcl --load entry.lisp show</span>
+<span class="pl-s"><span class="pl-k">EOF</span></span>
+
+chmod +x ./calm
+
+<span class="pl-c"><span class="pl-c">#</span> add the launcher to PATH env</span>
+<span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">'</span>export PATH="$HOME/calm/:$PATH"<span class="pl-pds">'</span></span> <span class="pl-k">&gt;&gt;</span> <span class="pl-k">~</span>/.bashrc
+
+<span class="pl-c"><span class="pl-c">#</span> Windows (MSYS2) user may need the following line:</span>
+<span class="pl-c"><span class="pl-c">#</span> echo 'export PATH="/mingw64/bin/:$PATH"' &gt;&gt; ~/.bashrc</span>
+
+<span class="pl-c"><span class="pl-c">#</span> activate the ENV change</span>
+<span class="pl-c1">source</span> <span class="pl-k">~</span>/.bashrc
+
+<span class="pl-c"><span class="pl-c">#</span> give it a try</span>
+calm</pre></div>
+</li>
+</ol>
+<p>Congrats! You are all set!</p>
+<p>Can't wait to see what you are going to build!</p>
+<h1><a name="building-calm" class="anchor" aria-hidden="true" href="#building-calm"><span aria-hidden="true" class="octicon octicon-link"></span></a>Building CALM</h1>
+<p>Currently CALM was built on github actions, you can find the workflow <a href="https://github.com/VitoVan/calm/blob/main/.github/workflows/calm.yml">here</a>.</p>
+<p>If you have interests to build CALM and encountered any problem, please let me know.</p>
+<p>I would be so glad to help.</p>
+</div>
         </div>
     </body>
 </html>
-")
-
-(defun gh-markdown (md-file)
-  (let ((result (drakma:http-request "https://api.github.com/markdown/raw"
-                                     :method :post
-                                     :content-type "text/x-markdown; charset=utf-8"
-                                     :content md-file)))
-    (cl-ppcre:regex-replace-all "id=\"user-content-" result "name=\"")))
-
-(defun make-html (from to lang &key replace-plist)
-  (let ((readme-html (gh-markdown (truename from))))
-    (str:to-file
-     to
-     (str:concat
-      (str:replace-first "__LANG__" lang *pre-html*)
-      (if replace-plist
-          (str:replace-using replace-plist readme-html)
-          readme-html)
-      *post-html*
-      ))))
-
-(defparameter *replace-plist-for-index*
-  '("README.md" "index.html"
-    "README_JA.md" "index_ja.html"
-    "installation.md" "installation.html"
-    "installation_JA.md" "installation_ja.html"
-    "hacking.md" "hacking.html"
-    "hacking_JA.md" "hacking_ja.html"))
-
-(make-html "README.md" "index.html" "en" :replace-plist *replace-plist-for-index*)
-(make-html "README_JA.md" "index_ja.html" "ja" :replace-plist *replace-plist-for-index*)
-
-(make-html "docs/installation.md" "docs/installation.html" "en")
-(make-html "docs/installation_JA.md" "docs/installation_ja.html" "ja")
-
-(make-html "docs/hacking.md" "docs/hacking.html" "en")
-(make-html "docs/hacking_JA.md" "docs/hacking_ja.html" "ja")
-
-(quit)

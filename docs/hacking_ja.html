@@ -1,10 +1,8 @@
-(ql:quickload '(:drakma :cl-ppcre :str))
-
-(defparameter *pre-html* "<!DOCTYPE html>
-<html lang=\"__LANG__\">
+<!DOCTYPE html>
+<html lang="ja">
     <head>
         <!-- Google tag (gtag.js) -->
-        <script async src=\"https://www.googletagmanager.com/gtag/js?id=G-SJ5CP8DCH9\"></script>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-SJ5CP8DCH9"></script>
         <script>
          window.dataLayer = window.dataLayer || [];
          function gtag(){dataLayer.push(arguments);}
@@ -13,11 +11,11 @@
          gtag('config', 'G-SJ5CP8DCH9');
         </script>
         <!-- Standard Meta -->
-        <meta charset=\"utf-8\" />
-        <meta name=\"author\" content=\"Vito Van, Ikko Eltociear Ashimine\"/>
-        <meta name=\"theme-color\" content=\"#005797\">
-        <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" />
-        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0\">
+        <meta charset="utf-8" />
+        <meta name="author" content="Vito Van, Ikko Eltociear Ashimine"/>
+        <meta name="theme-color" content="#005797">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
         <link href=favicon.ico rel=icon type=image/x-icon>
         <style>
 body{
@@ -553,7 +551,7 @@ body{
 .markdown-body code:before,
 .markdown-body code:after {
   letter-spacing: -0.2em;
-  content: '\\00a0';
+  content: '\00a0';
 }
 
 .markdown-body pre>code {
@@ -755,49 +753,156 @@ body{
         <title>CALM - Canvas Aided Lisp Magic</title>
     </head>
     <body>
-        <div class=\"container\">
-            <div class=\"content markdown-body\">")
+        <div class="container">
+            <div class="content markdown-body"><h1><a name="calm-をハックする" class="anchor" aria-hidden="true" href="#calm-をハックする"><span aria-hidden="true" class="octicon octicon-link"></span></a>CALM をハックする</h1>
+<h2><a name="ビルド済みバイナリを使用" class="anchor" aria-hidden="true" href="#ビルド済みバイナリを使用"><span aria-hidden="true" class="octicon octicon-link"></span></a>ビルド済みバイナリを使用</h2>
+<h3><a name="ステップ-1-calm-をフォークする" class="anchor" aria-hidden="true" href="#ステップ-1-calm-をフォークする"><span aria-hidden="true" class="octicon octicon-link"></span></a>ステップ 1: CALM をフォークする</h3>
+<p><a href="https://github.com/VitoVan/calm/fork">https://github.com/VitoVan/calm/fork</a></p>
+<h3><a name="ステップ-2-calm-バイナリのインストール" class="anchor" aria-hidden="true" href="#ステップ-2-calm-バイナリのインストール"><span aria-hidden="true" class="octicon octicon-link"></span></a>ステップ 2: CALM バイナリのインストール</h3>
+<p><a href="https://github.com/VitoVan/calm#-installation">https://github.com/VitoVan/calm#-installation</a></p>
+<h3><a name="ステップ-3-git-リポジトリの初期化" class="anchor" aria-hidden="true" href="#ステップ-3-git-リポジトリの初期化"><span aria-hidden="true" class="octicon octicon-link"></span></a>ステップ 3: Git リポジトリの初期化</h3>
+<div class="highlight highlight-source-shell"><pre><span class="pl-c"><span class="pl-c">#</span> ダウンロードした CALM バイナリのディレクトリに cd する</span>
+<span class="pl-c"><span class="pl-c">#</span> 例 macOS の場合:</span>
+<span class="pl-c1">cd</span> /Applications/Calm.app/Contents/MacOS
 
-(defparameter *post-html* "</div>
+<span class="pl-c"><span class="pl-c">#</span> git の init</span>
+git init <span class="pl-c1">.</span>
+
+<span class="pl-c"><span class="pl-c">#</span> フォークをリモートに追加</span>
+git remote add origin git@github.com:<span class="pl-k">&lt;</span>your-name<span class="pl-k">&gt;</span>/calm.git
+
+<span class="pl-c"><span class="pl-c">#</span> fetch</span>
+git fetch origin --depth=1
+
+<span class="pl-c"><span class="pl-c">#</span> hard を origin/main にリセット</span>
+git reset --hard origin/main</pre></div>
+<p>これで、修正、プッシュ、プルリクエストの作成ができるようになりましたた！</p>
+<h3><a name="個人的なお気に入り" class="anchor" aria-hidden="true" href="#個人的なお気に入り"><span aria-hidden="true" class="octicon octicon-link"></span></a>個人的なお気に入り</h3>
+<p>個人的には、リポジトリをどこか別の場所にクローンし、ダウンロードしたバイナリのディレクトリにシンボルリンクを作成します、それは次のものなどがあります:</p>
+<div class="highlight highlight-source-shell"><pre><span class="pl-c1">cd</span> /Applications/Calm.app/Contents/MacOS
+
+rm -rf ./build
+rm -rf ./s
+rm -rf ./src
+
+ln -s <span class="pl-k">~</span>/github/VitoVan/calm/build build
+ln -s <span class="pl-k">~</span>/github/VitoVan/calm/s s
+ln -s <span class="pl-k">~</span>/github/VitoVan/calm/src src</pre></div>
+<p>これですべてのソースコードをカバーできるわけではないが、通常はこれで十分です。</p>
+<h2><a name="ソースからの実行" class="anchor" aria-hidden="true" href="#ソースからの実行"><span aria-hidden="true" class="octicon octicon-link"></span></a>ソースからの実行</h2>
+<ol start="0">
+<li>
+<p>準備</p>
+<ul>
+<li>
+<p>Linux</p>
+<p>じっと座る。</p>
+</li>
+<li>
+<p>macOS</p>
+<p>パッケージマネージャーが必要です。<a href="https://brew.sh/" rel="nofollow">Homebrew</a> をお勧めします。</p>
+<p><a href="https://www.macports.org/" rel="nofollow">MacPorts</a>は機能するはずですが、試してはいません。</p>
+</li>
+<li>
+<p>Windows
+<a href="https://www.msys2.org/" rel="nofollow">MSYS2</a> をお勧めします。</p>
+<p>Windows ユーザーに Bash を使えとは言いませんが、他の選択肢は見つかってはいません。</p>
+</li>
+</ul>
+</li>
+<li>
+<p>SBCL と Quicklisp のインストール</p>
+<p>SBCL のバイナリは<a href="https://www.sbcl.org/platform-table.html" rel="nofollow">こちら</a>にあります。また、パッケージ・マネージャーにも含まれているはずです。簡単にインストールできるはずです。</p>
+<ul>
+<li>
+<p>Linux (Fedora)</p>
+<div class="highlight highlight-source-shell"><pre>sudo dnf install sbcl -y</pre></div>
+</li>
+<li>
+<p>macOS</p>
+<div class="highlight highlight-source-shell"><pre>brew install sbcl</pre></div>
+</li>
+<li>
+<p>Windows</p>
+<div class="highlight highlight-source-batchfile"><pre>winget install sbcl</pre></div>
+</li>
+</ul>
+<p>SBCL をインストールしたら、ターミナルからアクセスできるはずです。</p>
+<blockquote>
+<p>Windows (MSYS2) では、次のように PATH 環境を手動で設定する必要があります:</p>
+<div class="highlight highlight-source-shell"><pre><span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">'</span>export PATH="/c/program files/steel bank common lisp/:$PATH"<span class="pl-pds">'</span></span> <span class="pl-k">&gt;&gt;</span> <span class="pl-k">~</span>/.bashrc
+<span class="pl-c1">source</span> <span class="pl-k">~</span>/.bashrc</pre></div>
+</blockquote>
+<p>Quicklisp をダウンロードしてインストールする:</p>
+<div class="highlight highlight-source-shell"><pre>curl -O https://beta.quicklisp.org/quicklisp.lisp
+sbcl --non-interactive --load quicklisp.lisp \
+     --eval <span class="pl-s"><span class="pl-pds">"</span>(quicklisp-quickstart:install)<span class="pl-pds">"</span></span> \
+     --eval <span class="pl-s"><span class="pl-pds">"</span>(ql-util:without-prompting (ql:add-to-init-file))<span class="pl-pds">"</span></span></pre></div>
+</li>
+<li>
+<p>依存関係のインストール</p>
+<p>必要なのは次のものだけです: <a href="https://github.com/facebook/zstd">libzstd</a>, <a href="https://wiki.libsdl.org/SDL2/FrontPage" rel="nofollow">SDL2</a>, <a href="https://github.com/libsdl-org/SDL_mixer">SDL2_mixer</a>, <a href="https://github.com/libsdl-org/SDL_image">SDL2_image</a> そして <a href="https://www.cairographics.org/" rel="nofollow">Cairo</a>.</p>
+<blockquote>
+<p>libzstd は最近のバージョンの SBCL に必要で、SBCL をインストールすればパッケージマネージャーによって自動的にインストールされます。</p>
+</blockquote>
+<p>ここでは、いくつかのコマンドのサンプルを提供します:</p>
+<ul>
+<li>Linux (Fedora)
+<div class="highlight highlight-source-shell"><pre>sudo dnf install libzstd SDL2 SDL2_mixer SDL2_image cairo -y</pre></div>
+</li>
+<li>macOS
+<div class="highlight highlight-source-shell"><pre>brew install zstd sdl2 sdl2_mixer sdl2_image cairo</pre></div>
+</li>
+<li>Windows (MSYS2)
+<blockquote>
+<p>以下のコードは、ARM デバイス用に調整する必要があります。パッケージは<a href="https://packages.msys2.org/queue" rel="nofollow">ここ</a>にある。</p>
+</blockquote>
+<div class="highlight highlight-source-shell"><pre>pacman -S --noconfirm --needed git \
+ mingw64/mingw-w64-x86_64-zstd \
+ mingw64/mingw-w64-x86_64-SDL2 \
+ mingw64/mingw-w64-x86_64-SDL2_mixer \
+ mingw64/mingw-w64-x86_64-SDL2_image \
+ mingw64/mingw-w64-x86_64-cairo</pre></div>
+</li>
+</ul>
+</li>
+<li>
+<p>CALM をクローンし、一時的なランチャーの作成</p>
+<div class="highlight highlight-source-shell"><pre><span class="pl-c"><span class="pl-c">#</span> ソースコードのクローン</span>
+git clone https://github.com/VitoVan/calm.git <span class="pl-k">~</span>/calm
+<span class="pl-c1">cd</span> <span class="pl-k">~</span>/calm
+
+<span class="pl-c"><span class="pl-c">#</span> 一時的なランチャーの作成</span>
+cat <span class="pl-k">&gt;</span> <span class="pl-s"><span class="pl-pds">"</span>./calm<span class="pl-pds">"</span></span> <span class="pl-s"><span class="pl-k">&lt;&lt;</span><span class="pl-k">EOF</span></span>
+<span class="pl-s">  cd "<span class="pl-smi">$HOME</span>/calm"</span>
+<span class="pl-s">  export CALM_APP_DIR=<span class="pl-s"><span class="pl-pds">$(</span>pwd<span class="pl-pds">)</span></span></span>
+<span class="pl-s">  export CALM_HOME="<span class="pl-smi">$HOME</span>/calm/"</span>
+<span class="pl-s">  export CALM_CMD=show</span>
+<span class="pl-s">  sbcl --load entry.lisp show</span>
+<span class="pl-s"><span class="pl-k">EOF</span></span>
+
+chmod +x ./calm
+
+<span class="pl-c"><span class="pl-c">#</span> ランチャーをPATH環境に追加</span>
+<span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">'</span>export PATH="$HOME/calm/:$PATH"<span class="pl-pds">'</span></span> <span class="pl-k">&gt;&gt;</span> <span class="pl-k">~</span>/.bashrc
+
+<span class="pl-c"><span class="pl-c">#</span> Windows (MSYS2) ユーザーは、以下の行が必要な場合があります:</span>
+<span class="pl-c"><span class="pl-c">#</span> echo 'export PATH="/mingw64/bin/:$PATH"' &gt;&gt; ~/.bashrc</span>
+
+<span class="pl-c"><span class="pl-c">#</span> ENV変更の有効化</span>
+<span class="pl-c1">source</span> <span class="pl-k">~</span>/.bashrc
+
+<span class="pl-c"><span class="pl-c">#</span> 試してみる</span>
+calm</pre></div>
+</li>
+</ol>
+<p>おめでとう！準備万端です！</p>
+<p>何を作るのか楽しみです！</p>
+<h1><a name="calm-のビルド" class="anchor" aria-hidden="true" href="#calm-のビルド"><span aria-hidden="true" class="octicon octicon-link"></span></a>CALM のビルド</h1>
+<p>現在、CALM は GitHub actions でビルドされています。ワークフローは<a href="https://github.com/VitoVan/calm/blob/main/.github/workflows/calm.yml">こちら</a>にあります。</p>
+<p>もし CALM のビルドに興味があり、何か問題が発生したら、私にお知らせください。</p>
+<p>喜んでお手伝いします。</p>
+</div>
         </div>
     </body>
 </html>
-")
-
-(defun gh-markdown (md-file)
-  (let ((result (drakma:http-request "https://api.github.com/markdown/raw"
-                                     :method :post
-                                     :content-type "text/x-markdown; charset=utf-8"
-                                     :content md-file)))
-    (cl-ppcre:regex-replace-all "id=\"user-content-" result "name=\"")))
-
-(defun make-html (from to lang &key replace-plist)
-  (let ((readme-html (gh-markdown (truename from))))
-    (str:to-file
-     to
-     (str:concat
-      (str:replace-first "__LANG__" lang *pre-html*)
-      (if replace-plist
-          (str:replace-using replace-plist readme-html)
-          readme-html)
-      *post-html*
-      ))))
-
-(defparameter *replace-plist-for-index*
-  '("README.md" "index.html"
-    "README_JA.md" "index_ja.html"
-    "installation.md" "installation.html"
-    "installation_JA.md" "installation_ja.html"
-    "hacking.md" "hacking.html"
-    "hacking_JA.md" "hacking_ja.html"))
-
-(make-html "README.md" "index.html" "en" :replace-plist *replace-plist-for-index*)
-(make-html "README_JA.md" "index_ja.html" "ja" :replace-plist *replace-plist-for-index*)
-
-(make-html "docs/installation.md" "docs/installation.html" "en")
-(make-html "docs/installation_JA.md" "docs/installation_ja.html" "ja")
-
-(make-html "docs/hacking.md" "docs/hacking.html" "en")
-(make-html "docs/hacking_JA.md" "docs/hacking_ja.html" "ja")
-
-(quit)

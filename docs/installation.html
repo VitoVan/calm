@@ -1,10 +1,8 @@
-(ql:quickload '(:drakma :cl-ppcre :str))
-
-(defparameter *pre-html* "<!DOCTYPE html>
-<html lang=\"__LANG__\">
+<!DOCTYPE html>
+<html lang="en">
     <head>
         <!-- Google tag (gtag.js) -->
-        <script async src=\"https://www.googletagmanager.com/gtag/js?id=G-SJ5CP8DCH9\"></script>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-SJ5CP8DCH9"></script>
         <script>
          window.dataLayer = window.dataLayer || [];
          function gtag(){dataLayer.push(arguments);}
@@ -13,11 +11,11 @@
          gtag('config', 'G-SJ5CP8DCH9');
         </script>
         <!-- Standard Meta -->
-        <meta charset=\"utf-8\" />
-        <meta name=\"author\" content=\"Vito Van, Ikko Eltociear Ashimine\"/>
-        <meta name=\"theme-color\" content=\"#005797\">
-        <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" />
-        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0\">
+        <meta charset="utf-8" />
+        <meta name="author" content="Vito Van, Ikko Eltociear Ashimine"/>
+        <meta name="theme-color" content="#005797">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
         <link href=favicon.ico rel=icon type=image/x-icon>
         <style>
 body{
@@ -553,7 +551,7 @@ body{
 .markdown-body code:before,
 .markdown-body code:after {
   letter-spacing: -0.2em;
-  content: '\\00a0';
+  content: '\00a0';
 }
 
 .markdown-body pre>code {
@@ -755,49 +753,63 @@ body{
         <title>CALM - Canvas Aided Lisp Magic</title>
     </head>
     <body>
-        <div class=\"container\">
-            <div class=\"content markdown-body\">")
-
-(defparameter *post-html* "</div>
+        <div class="container">
+            <div class="content markdown-body"><h1><a name="calm-installation" class="anchor" aria-hidden="true" href="#calm-installation"><span aria-hidden="true" class="octicon octicon-link"></span></a>CALM Installation</h1>
+<h2><a name="setting-up-calm" class="anchor" aria-hidden="true" href="#setting-up-calm"><span aria-hidden="true" class="octicon octicon-link"></span></a>Setting Up CALM</h2>
+<p>You have <a href="https://github.com/VitoVan/calm#pre-built-binary">donwloaded</a> it, right?</p>
+<p>Now let's set up the environment for the ease of use.</p>
+<ul>
+<li>
+<p>Linux</p>
+<div class="highlight highlight-source-shell"><pre>tar xvf calm.tgz --directory=<span class="pl-smi">$HOME</span>/
+<span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">'</span>export PATH="$HOME/calm/:$PATH"<span class="pl-pds">'</span></span><span class="pl-k">&gt;&gt;</span> <span class="pl-k">~</span>/.bashrc</pre></div>
+</li>
+<li>
+<p>macOS</p>
+<ol>
+<li>
+<p>Open the downloaded DMG file</p>
+</li>
+<li>
+<p>Drage the .app to the Applications folder</p>
+</li>
+<li>
+<p>Eject the DMG and run Calm.app</p>
+<p><strong>It may take a while</strong> for the first run.</p>
+<blockquote>
+<p>On macOS, it's very likely the system will stop you from running the software, since it's not verified by Apple. If you have problem to run it, please check <a href="https://support.apple.com/HT202491" rel="nofollow">this</a>.</p>
+</blockquote>
+</li>
+<li>
+<p>Add command <code>calm</code> to the PATH environment</p>
+<div class="highlight highlight-source-shell"><pre><span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">'</span>export PATH="/Applications/Calm.app/Contents/MacOS/:$PATH"<span class="pl-pds">'</span></span><span class="pl-k">&gt;&gt;</span> <span class="pl-k">~</span>/.bashrc</pre></div>
+</li>
+</ol>
+</li>
+<li>
+<p>Windows</p>
+<ol>
+<li>
+<p>Right click to Extract All</p>
+</li>
+<li>
+<p>Move the extracted folder to <code>C:\calm</code></p>
+</li>
+<li>
+<p>Add <code>C:\calm</code> to your <a href="https://helpdeskgeek.com/windows-10/add-windows-path-environment-variable/" rel="nofollow">PATH environment variable</a></p>
+<blockquote>
+<p>If you are using MSYS2 or Git Bash, run the following code:</p>
+<div class="highlight highlight-source-shell"><pre><span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">'</span>export PATH="/c/calm/:$PATH"<span class="pl-pds">'</span></span> <span class="pl-k">&gt;&gt;</span> <span class="pl-k">~</span>/.bashrc</pre></div>
+</blockquote>
+<blockquote>
+<p>On Windows, it's very likely the system will stop you from running the software, since it's not verified by Microsoft. If you have problem to run it, please <a href="https://duckduckgo.com/?q=how+to+bypass+smartscreen" rel="nofollow">find a way to bypass SmartScreen</a>.</p>
+</blockquote>
+</li>
+</ol>
+</li>
+</ul>
+<p>Now you are all set, enjoy.</p>
+</div>
         </div>
     </body>
 </html>
-")
-
-(defun gh-markdown (md-file)
-  (let ((result (drakma:http-request "https://api.github.com/markdown/raw"
-                                     :method :post
-                                     :content-type "text/x-markdown; charset=utf-8"
-                                     :content md-file)))
-    (cl-ppcre:regex-replace-all "id=\"user-content-" result "name=\"")))
-
-(defun make-html (from to lang &key replace-plist)
-  (let ((readme-html (gh-markdown (truename from))))
-    (str:to-file
-     to
-     (str:concat
-      (str:replace-first "__LANG__" lang *pre-html*)
-      (if replace-plist
-          (str:replace-using replace-plist readme-html)
-          readme-html)
-      *post-html*
-      ))))
-
-(defparameter *replace-plist-for-index*
-  '("README.md" "index.html"
-    "README_JA.md" "index_ja.html"
-    "installation.md" "installation.html"
-    "installation_JA.md" "installation_ja.html"
-    "hacking.md" "hacking.html"
-    "hacking_JA.md" "hacking_ja.html"))
-
-(make-html "README.md" "index.html" "en" :replace-plist *replace-plist-for-index*)
-(make-html "README_JA.md" "index_ja.html" "ja" :replace-plist *replace-plist-for-index*)
-
-(make-html "docs/installation.md" "docs/installation.html" "en")
-(make-html "docs/installation_JA.md" "docs/installation_ja.html" "ja")
-
-(make-html "docs/hacking.md" "docs/hacking.html" "en")
-(make-html "docs/hacking_JA.md" "docs/hacking_ja.html" "ja")
-
-(quit)

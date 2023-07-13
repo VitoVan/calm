@@ -1,10 +1,8 @@
-(ql:quickload '(:drakma :cl-ppcre :str))
-
-(defparameter *pre-html* "<!DOCTYPE html>
-<html lang=\"__LANG__\">
+<!DOCTYPE html>
+<html lang="ja">
     <head>
         <!-- Google tag (gtag.js) -->
-        <script async src=\"https://www.googletagmanager.com/gtag/js?id=G-SJ5CP8DCH9\"></script>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-SJ5CP8DCH9"></script>
         <script>
          window.dataLayer = window.dataLayer || [];
          function gtag(){dataLayer.push(arguments);}
@@ -13,11 +11,11 @@
          gtag('config', 'G-SJ5CP8DCH9');
         </script>
         <!-- Standard Meta -->
-        <meta charset=\"utf-8\" />
-        <meta name=\"author\" content=\"Vito Van, Ikko Eltociear Ashimine\"/>
-        <meta name=\"theme-color\" content=\"#005797\">
-        <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" />
-        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0\">
+        <meta charset="utf-8" />
+        <meta name="author" content="Vito Van, Ikko Eltociear Ashimine"/>
+        <meta name="theme-color" content="#005797">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
         <link href=favicon.ico rel=icon type=image/x-icon>
         <style>
 body{
@@ -553,7 +551,7 @@ body{
 .markdown-body code:before,
 .markdown-body code:after {
   letter-spacing: -0.2em;
-  content: '\\00a0';
+  content: '\00a0';
 }
 
 .markdown-body pre>code {
@@ -755,49 +753,63 @@ body{
         <title>CALM - Canvas Aided Lisp Magic</title>
     </head>
     <body>
-        <div class=\"container\">
-            <div class=\"content markdown-body\">")
-
-(defparameter *post-html* "</div>
+        <div class="container">
+            <div class="content markdown-body"><h1><a name="calm-インストール" class="anchor" aria-hidden="true" href="#calm-インストール"><span aria-hidden="true" class="octicon octicon-link"></span></a>CALM インストール</h1>
+<h2><a name="calm-の設定" class="anchor" aria-hidden="true" href="#calm-の設定"><span aria-hidden="true" class="octicon octicon-link"></span></a>CALM の設定</h2>
+<p>もう<a href="https://github.com/VitoVan/calm#pre-built-binary">ダウンロード</a>済みですよね？</p>
+<p>では、使いやすい環境を整えてみましょう。</p>
+<ul>
+<li>
+<p>Linux</p>
+<div class="highlight highlight-source-shell"><pre>tar xvf calm.tgz --directory=<span class="pl-smi">$HOME</span>/
+<span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">'</span>export PATH="$HOME/calm/:$PATH"<span class="pl-pds">'</span></span><span class="pl-k">&gt;&gt;</span> <span class="pl-k">~</span>/.bashrc</pre></div>
+</li>
+<li>
+<p>macOS</p>
+<ol>
+<li>
+<p>ダウンロードした DMG ファイルを開きます</p>
+</li>
+<li>
+<p>.app をアプリケーションフォルダにドラッグします</p>
+</li>
+<li>
+<p>DMG を取り出し、Calm.app を実行する</p>
+<p>初回の実行には <strong>時間がかかるかもしれません。</strong></p>
+<blockquote>
+<p>macOS の場合、Apple によって検証されていないため、システムによってソフトウェアの実行が停止される確率が非常に高いです。実行に問題がある場合は、<a href="https://support.apple.com/HT202491" rel="nofollow">こちら</a>を確認してください。</p>
+</blockquote>
+</li>
+<li>
+<p>コマンド <code>calm</code> を PATH 環境に追加する</p>
+<div class="highlight highlight-source-shell"><pre><span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">'</span>export PATH="/Applications/Calm.app/Contents/MacOS/:$PATH"<span class="pl-pds">'</span></span><span class="pl-k">&gt;&gt;</span> <span class="pl-k">~</span>/.bashrc</pre></div>
+</li>
+</ol>
+</li>
+<li>
+<p>Windows</p>
+<ol>
+<li>
+<p>右クリックしてすべて展開します</p>
+</li>
+<li>
+<p>解凍したフォルダを C: に移動します</p>
+</li>
+<li>
+<p><a href="https://helpdeskgeek.com/windows-10/add-windows-path-environment-variable/" rel="nofollow">PATH 環境変数</a>に <code>C:¥calm</code> を追加します</p>
+<blockquote>
+<p>MSYS2 または Git Bash を使用している場合は、以下のコードを実行してください:</p>
+<div class="highlight highlight-source-shell"><pre><span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">'</span>export PATH="/c/calm/:$PATH"<span class="pl-pds">'</span></span> <span class="pl-k">&gt;&gt;</span> <span class="pl-k">~</span>/.bashrc</pre></div>
+</blockquote>
+<blockquote>
+<p>Windows の場合、マイクロソフト社によって検証されていないため、システムがソフトウェアの実行を停止する確率が非常に高いです。実行に問題がある場合は、<a href="https://duckduckgo.com/?q=how+to+bypass+smartscreen" rel="nofollow">SmartScreen をバイパスする方法を見つけてください</a>。</p>
+</blockquote>
+</li>
+</ol>
+</li>
+</ul>
+<p>これで準備万端、お楽しみください。</p>
+</div>
         </div>
     </body>
 </html>
-")
-
-(defun gh-markdown (md-file)
-  (let ((result (drakma:http-request "https://api.github.com/markdown/raw"
-                                     :method :post
-                                     :content-type "text/x-markdown; charset=utf-8"
-                                     :content md-file)))
-    (cl-ppcre:regex-replace-all "id=\"user-content-" result "name=\"")))
-
-(defun make-html (from to lang &key replace-plist)
-  (let ((readme-html (gh-markdown (truename from))))
-    (str:to-file
-     to
-     (str:concat
-      (str:replace-first "__LANG__" lang *pre-html*)
-      (if replace-plist
-          (str:replace-using replace-plist readme-html)
-          readme-html)
-      *post-html*
-      ))))
-
-(defparameter *replace-plist-for-index*
-  '("README.md" "index.html"
-    "README_JA.md" "index_ja.html"
-    "installation.md" "installation.html"
-    "installation_JA.md" "installation_ja.html"
-    "hacking.md" "hacking.html"
-    "hacking_JA.md" "hacking_ja.html"))
-
-(make-html "README.md" "index.html" "en" :replace-plist *replace-plist-for-index*)
-(make-html "README_JA.md" "index_ja.html" "ja" :replace-plist *replace-plist-for-index*)
-
-(make-html "docs/installation.md" "docs/installation.html" "en")
-(make-html "docs/installation_JA.md" "docs/installation_ja.html" "ja")
-
-(make-html "docs/hacking.md" "docs/hacking.html" "en")
-(make-html "docs/hacking_JA.md" "docs/hacking_ja.html" "ja")
-
-(quit)
