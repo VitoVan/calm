@@ -54,13 +54,13 @@ CALM で作られた他のアプリケーションについては、[Made with C
 
    macOS の場合は、代わりに `/path/to/Calm.app/Contents/MacOS/` を追加する
 
-macOS と Windows ユーザーの場合、CALM を使うには [Windows SmartScreen](https://duckduckgo.com/?q=how+to+bypass+smartscreen) よりもスマートであるか、[macOS を飼いならす事](https://support.apple.com/guide/mac-help/open-a-mac-app-from-an-unidentified-developer-mh40616/mac)ができる必要があります。万が一何かあったときのために、ここに[インストールガイド](docs/installation.md)があります。
+macOS と Windows ユーザーの場合、CALM を使うには [Windows SmartScreen](https://duckduckgo.com/?q=how+to+bypass+smartscreen) よりもスマートであるか、[macOS を飼いならす事](https://support.apple.com/guide/mac-help/open-a-mac-app-from-an-unidentified-developer-mh40616/mac)ができる必要があります。万が一何かあったときのために、ここに[インストールガイド](docs/installation_JA.md)があります。
 
 ### ソースからの実行
 
 現在、サポートされているプラットフォームは [GitHub Actions runner images](https://github.com/actions/runner-images) によって制限されています。
 
-もしあなたのプラットフォームがサポートされていない場合は、[ソースから実行](docs/hacking.md#run-from-source)を使ってください。
+もしあなたのプラットフォームがサポートされていない場合は、[ソースから実行](docs/hacking_JA.md#run-from-source)を使ってください。
 
 ## <img style="vertical-align:middle;margin-right:5px;" width="50" alt="Calm Application" src="./docs/images/app.png"> 配布
 
