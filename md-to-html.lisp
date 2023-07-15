@@ -770,9 +770,10 @@ body{
         <div class=\"container\">
         <div class=\"menu\">
             <ul>
-               <li><a href=\"/calm/index___LANG__.html\">Home</a></li>
-               <li><a href=\"/calm/docs/installation___LANG__.html\">Installation</a></li>
-               <li><a href=\"/calm/docs/hacking___LANG__.html\">Hacking</a></li>
+               <li><a href=\"/calm/index___LANG__.html\">$home-__LANG__</a></li>
+               <li><a href=\"/calm/docs/installation___LANG__.html\">$installation-__LANG__</a></li>
+               <li><a href=\"/calm/docs/hacking___LANG__.html\">$hacking-__LANG__</a></li>
+               <li><a href=\"https://github.com/VitoVan/calm\">$source-__LANG__</a></li>
             </ul>
          </div>
             <div class=\"content markdown-body\">")
@@ -801,6 +802,16 @@ body{
     "hacking_JA.md" "hacking_ja.html"
     ;; _en.html to .html
     "_en.html" ".html"
+    ;; $Installation-en to Installation
+    ;; $Installation-ja to インストール
+    "$installation-en" "Installation"
+    "$installation-ja" "インストール"
+    "$hacking-en" "Hacking"
+    "$hacking-ja" "ハッキング"
+    "$home-en" "Home"
+    "$home-ja" "ホーム"
+    "$source-en" "Source"
+    "$source-ja" "ソース"
     ))
 
 (defun make-html (from to lang &key (replace-plist *replace-plist-for-index*))
