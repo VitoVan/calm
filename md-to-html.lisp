@@ -21,11 +21,11 @@
         <link href=favicon.ico rel=icon type=image/x-icon>
         <style>
 body{
+    background-color: #005896;
     display: flex;
     justify-content: center;
     font-family: Optima, Palatino, Charter, 'Bitstream Charter', serif;
     color: #000;
-    background: #F0F1EE none repeat scroll 0% 0%;
     font-size: 12pt;
     clear: both;
     padding: 0;
@@ -43,6 +43,18 @@ body{
     width: 840px;
     padding: 20px;
 }
+.container > .menu > ul {
+    list-style: none;
+}
+.container > .menu > ul > li {
+    display: inline-block;
+    margin: 10px 10px 5px 0px;
+    padding: 10px 10px 5px 0px;
+}
+.container > .menu > ul > li > a{
+    color: white;
+}
+
 .container img{
   border-radius: 4px;
   vertical-align: middle;
@@ -756,6 +768,13 @@ body{
     </head>
     <body>
         <div class=\"container\">
+        <div class=\"menu\">
+            <ul>
+               <li><a href=\"\">Home</a></li>
+               <li><a href=\"docs/installation___LANG__.html\">Installation</a></li>
+               <li><a href=\"docs/hacking___LANG__.html\">Hacking</a></li>
+            </ul>
+         </div>
             <div class=\"content markdown-body\">")
 
 (defparameter *post-html* "</div>
@@ -771,25 +790,30 @@ body{
                                      :content md-file)))
     (cl-ppcre:regex-replace-all "id=\"user-content-" result "name=\"")))
 
-(defun make-html (from to lang &key replace-plist)
-  (let ((readme-html (gh-markdown (truename from))))
-    (str:to-file
-     to
-     (str:concat
-      (str:replace-first "__LANG__" lang *pre-html*)
-      (if replace-plist
-          (str:replace-using replace-plist readme-html)
-          readme-html)
-      *post-html*
-      ))))
-
 (defparameter *replace-plist-for-index*
-  '("README.md" "index.html"
+  '(
+    ;; .md to .html
+    "README.md" "index.html"
     "README_JA.md" "index_ja.html"
     "installation.md" "installation.html"
     "installation_JA.md" "installation_ja.html"
     "hacking.md" "hacking.html"
-    "hacking_JA.md" "hacking_ja.html"))
+    "hacking_JA.md" "hacking_ja.html"
+    ;; _en.html to .html
+    "_en.html" ".html"
+    ))
+
+(defun make-html (from to lang &key replace-plist)
+  (let ((readme-html (gh-markdown (truename from))))
+    (str:to-file
+     to
+     (str:replace-using
+      replace-plist
+      (str:concat
+       (str:replace-all "__LANG__" lang *pre-html*)
+       readme-html
+       *post-html*
+       )))))
 
 (make-html "README.md" "index.html" "en" :replace-plist *replace-plist-for-index*)
 (make-html "README_JA.md" "index_ja.html" "ja" :replace-plist *replace-plist-for-index*)
