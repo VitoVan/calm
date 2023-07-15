@@ -51,4 +51,4 @@
 (make-appimage
  (u:get-from-env-or-ask 'app-name "Hello")
  (u:get-from-env-or-ask 'app-icon (namestring (merge-pathnames "build/app.png" *calm-env-calm-home*)))
- (u:get-from-env-or-ask 'dist-dir (uiop:native-namestring (uiop:merge-pathnames* "dist/" *calm-env-app-dir*))))
+ (or (uiop:getenv "DIST_DIR") (uiop:native-namestring (uiop:merge-pathnames* "dist/" *calm-env-app-dir*))))
