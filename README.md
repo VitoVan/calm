@@ -181,7 +181,6 @@ This command will do the same thing as `calm publish`, instead it will ask your 
 | macOS            | DMG_ICON             | The icon of the Apple Disk Image (DMG), absolute path of an ICNS file |
 | Windows          | APP_NAME             | Windows Application Name, will appear in the *Control Panel > Programs and Features*, *Apps & features* and as the name of desktop shortcut |
 | Windows          | APP_ICON             | Windows EXE icon, absolute path of an ICO file               |
-| All          | DIST_DIR             | The directory of generated binaries, normally it's `./dist`       |
 
 If you have provided the corresponding environment variable, the option will not be asked. You could also set these environment variables while using the command `calm publish`, the options will be picked up.
 

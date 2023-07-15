@@ -181,7 +181,6 @@ calm hello
 | macOS            | DMG_ICON             | Apple Disk Image (DMG) のアイコン、ICNS ファイルの絶対パス |
 | Windows          | APP_NAME             | Windows アプリケーション名は、*コントロールパネル > プログラムと機能*、*アプリケーションと機能*、およびデスクトップショートカットの名前として表示されます |
 | Windows          | APP_ICON             | Windows EXE アイコン、ICO ファイルの絶対パス               |
-| 全て              | DIST_DIR             | 生成されたバイナリのディレクトリで通常は `./dist`        |
 
 対応する環境変数を設定した場合、オプションは聞かれません。また、`calm publish` コマンドを使っているときにこれらの環境変数を設定することもできます。
 

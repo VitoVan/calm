@@ -46,5 +46,5 @@
  (u:get-from-env-or-ask 'app-name "Hello")
  (u:get-from-env-or-ask 'bundle-id "com.jack.hello")
  (u:get-from-env-or-ask 'app-version "0.0.1")
- (u:get-from-env-or-ask 'dist-dir (uiop:native-namestring (uiop:merge-pathnames* "dist/" *calm-env-app-dir*)))
+ (or (uiop:getenv "DIST_DIR") (uiop:native-namestring (uiop:merge-pathnames* "dist/" *calm-env-app-dir*)))
  (u:get-from-env-or-ask 'app-icon (namestring (merge-pathnames "build/app.icns" *calm-env-calm-home*))))
