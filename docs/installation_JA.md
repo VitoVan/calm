@@ -34,7 +34,7 @@
 
   2. 解凍したフォルダを C: に移動します
 
-  3. [PATH 環境変数](https://helpdeskgeek.com/windows-10/add-windows-path-environment-variable/)に `C:¥calm` を追加します
+  3. [PATH 環境変数](https://helpdeskgeek.com/windows-10/add-windows-path-environment-variable/)に `C:\calm` を追加します
 
      > MSYS2 または Git Bash を使用している場合は、以下のコードを実行してください:
      >
