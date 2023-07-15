@@ -19,11 +19,11 @@
         <link href=favicon.ico rel=icon type=image/x-icon>
         <style>
 body{
+    background-color: #005896;
     display: flex;
     justify-content: center;
     font-family: Optima, Palatino, Charter, 'Bitstream Charter', serif;
     color: #000;
-    background: #F0F1EE none repeat scroll 0% 0%;
     font-size: 12pt;
     clear: both;
     padding: 0;
@@ -41,6 +41,18 @@ body{
     width: 840px;
     padding: 20px;
 }
+.container > .menu > ul {
+    list-style: none;
+}
+.container > .menu > ul > li {
+    display: inline-block;
+    margin: 0px 10px 5px 0px;
+    padding: 0px 10px 5px 0px;
+}
+.container > .menu > ul > li > a{
+    color: white;
+}
+
 .container img{
   border-radius: 4px;
   vertical-align: middle;
@@ -754,6 +766,13 @@ body{
     </head>
     <body>
         <div class="container">
+        <div class="menu">
+            <ul>
+               <li><a href="/calm/index_ja.html">Home</a></li>
+               <li><a href="/calm/docs/installation_ja.html">Installation</a></li>
+               <li><a href="/calm/docs/hacking_ja.html">Hacking</a></li>
+            </ul>
+         </div>
             <div class="content markdown-body"><h1><a name="calm-をハックする" class="anchor" aria-hidden="true" href="#calm-をハックする"><span aria-hidden="true" class="octicon octicon-link"></span></a>CALM をハックする</h1>
 <h2><a name="ビルド済みバイナリを使用" class="anchor" aria-hidden="true" href="#ビルド済みバイナリを使用"><span aria-hidden="true" class="octicon octicon-link"></span></a>ビルド済みバイナリを使用</h2>
 <h3><a name="ステップ-1-calm-をフォークする" class="anchor" aria-hidden="true" href="#ステップ-1-calm-をフォークする"><span aria-hidden="true" class="octicon octicon-link"></span></a>ステップ 1: CALM をフォークする</h3>

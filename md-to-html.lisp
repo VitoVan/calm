@@ -48,8 +48,8 @@ body{
 }
 .container > .menu > ul > li {
     display: inline-block;
-    margin: 10px 10px 5px 0px;
-    padding: 10px 10px 5px 0px;
+    margin: 0px 10px 5px 0px;
+    padding: 0px 10px 5px 0px;
 }
 .container > .menu > ul > li > a{
     color: white;
@@ -770,9 +770,9 @@ body{
         <div class=\"container\">
         <div class=\"menu\">
             <ul>
-               <li><a href=\"\">Home</a></li>
-               <li><a href=\"docs/installation___LANG__.html\">Installation</a></li>
-               <li><a href=\"docs/hacking___LANG__.html\">Hacking</a></li>
+               <li><a href=\"/calm/index___LANG__.html\">Home</a></li>
+               <li><a href=\"/calm/docs/installation___LANG__.html\">Installation</a></li>
+               <li><a href=\"/calm/docs/hacking___LANG__.html\">Hacking</a></li>
             </ul>
          </div>
             <div class=\"content markdown-body\">")
@@ -803,7 +803,7 @@ body{
     "_en.html" ".html"
     ))
 
-(defun make-html (from to lang &key replace-plist)
+(defun make-html (from to lang &key (replace-plist *replace-plist-for-index*))
   (let ((readme-html (gh-markdown (truename from))))
     (str:to-file
      to
@@ -815,8 +815,8 @@ body{
        *post-html*
        )))))
 
-(make-html "README.md" "index.html" "en" :replace-plist *replace-plist-for-index*)
-(make-html "README_JA.md" "index_ja.html" "ja" :replace-plist *replace-plist-for-index*)
+(make-html "README.md" "index.html" "en")
+(make-html "README_JA.md" "index_ja.html" "ja")
 
 (make-html "docs/installation.md" "docs/installation.html" "en")
 (make-html "docs/installation_JA.md" "docs/installation_ja.html" "ja")
