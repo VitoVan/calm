@@ -11,4 +11,4 @@ If you're interested in setting up the CALM development environment, please refe
 - To ensure proper code management, please refrain from pushing commits directly to the main branch.
 - Instead, submit all changes through a pull request.
 - Please note that a pull request must receive approval from code owners before it can be merged.
-  As an counterexample, please check https://github.com/VitoVan/calm/pull/163.
+  As a counterexample, please check https://github.com/VitoVan/calm/pull/163.
