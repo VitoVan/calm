@@ -24,7 +24,7 @@ body{
     background-color: #005896;
     display: flex;
     justify-content: center;
-    font-family: Optima, Palatino, Charter, 'Bitstream Charter', serif;
+    font-family: Optima, Palatino, 'Palatino Linotype', Charter, 'Bitstream Charter', serif;
     color: #000;
     font-size: 12pt;
     clear: both;
