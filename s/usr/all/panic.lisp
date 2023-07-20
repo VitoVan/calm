@@ -14,15 +14,30 @@
     (uiop:quit)))
 
 
+;; DEBUGGING, please uncomment the correspoding line
 ;;
-;; the swank server is for debugging, for usage please check
-;; Emacs:
+;; for Emacs - SLIME
 ;;        https://slime.common-lisp.dev/
-;; Visual Studio Code
-;;        https://lispcookbook.github.io/cl-cookbook/vscode-alive.html
 ;;
-;; uncomment the following line to enable SWANK Server
-;; (unless (str:starts-with? "dist" (uiop:getenv "CALM_CMD")) (swank:create-server))
+;; (unless (str:starts-with? "dist" (uiop:getenv "CALM_CMD")) (swank:create-server :dont-close t))
+;;
+;; for LEM - micros
+;;        https://github.com/lem-project/micros
+;;
+;; (unless (str:starts-with? "dist" (uiop:getenv "CALM_CMD")) (micros:create-server :dont-close t))
+;;
+;; for Alive - Visual Studio Code
+;;        https://github.com/nobody-famous/alive
+;; please config `alive.lsp.startCommand':
+;;
+;;        {
+;;            "alive.lsp.startCommand": [
+;;                "calm",
+;;                "alive"
+;;            ]
+;;        }
+
+
 
 ;;
 ;; by default, the screensaver is disabled,
@@ -32,7 +47,7 @@
 ;; (setf (uiop:getenv "SDL_VIDEO_ALLOW_SCREENSAVER") "1")
 
 ;;
-;; setting window properties, for more of this, please check
+;; setting window properties, for others, please check
 ;;      https://github.com/VitoVan/calm/blob/main/src/config.lisp
 ;;
 (setf *calm-window-width* 600)
