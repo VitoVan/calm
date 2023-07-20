@@ -4,7 +4,7 @@
  *    !!!! SHITTY CODE AHEAD !!!!
  *
  * I tried to replace Bash with C to get more compatibility
- * on different OSes, but I suck at C programming.
+ * on different OSes, but iSuck@C.
  * Now the bright side is that it worked,
  * the dark side is that the code is worse than the Bash scripts.
  *

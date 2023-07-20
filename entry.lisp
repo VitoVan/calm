@@ -88,16 +88,19 @@
     (u:calm-log "building Linux AppImage...")
     (u:load-from-calm "s/usr/linux/appimage.lisp")))
 
-(cond
+(alexandria:switch (*calm-env-calm-cmd* :test #'equal)
 
-  ((string= *calm-env-calm-cmd* "test")
+  ("test"
    (u:calm-log-fancy "Nothing to test.")
    (uiop:quit 0))
 
-  ((string= *calm-env-calm-cmd* "show")
+  ("alive"
+   (u:load-from-calm "s/dev/all/start-alive.lisp"))
+
+  ("show"
    (calm:calm-load-and-start))
 
-  ((string= *calm-env-calm-cmd* "hello")
+  ("hello"
    (u:copy-file (merge-pathnames "s/usr/all/panic.lisp" *calm-env-calm-home*)
                 (merge-pathnames "canvas.lisp" *calm-env-app-dir*))
    (ensure-directories-exist (merge-pathnames "assets/" *calm-env-app-dir*))
@@ -106,38 +109,38 @@
                 (merge-pathnames "fonts/fonts.conf" *calm-env-app-dir*))
    (u:calm-log-fancy "Hello, sample files and directories created, please enjoy"))
 
-  ((string= *calm-env-calm-cmd* "publish") (publish))
+  ("publish" (publish))
 
-  ((string= *calm-env-calm-cmd* "publish-web") (publish-web))
+  ("publish-web" (publish-web))
 
-  ((string= *calm-env-calm-cmd* "publish-with-options")
+  ("publish-with-options"
    (setf (uiop:getenv "CALM_ASK_ME") "yes-please")
    (publish))
 
-  ((string= *calm-env-calm-cmd* "publish-web-with-options")
+  ("publish-web-with-options"
    (setf (uiop:getenv "CALM_ASK_ME") "yes-please")
    (publish-web))
 
   ;; rebuild calm.core
   ;; this could speed up your CALM command
   #+sbcl
-  ((string= *calm-env-calm-cmd* "core") (sb-ext:save-lisp-and-die (merge-pathnames *calm-env-calm-home* "calm.core")))
+  ("core" (sb-ext:save-lisp-and-die (merge-pathnames *calm-env-calm-home* "calm.core")))
 
   #+darwin
-  ((string= *calm-env-calm-cmd* "make-bundle") (u:load-from-calm "s/usr/macos/bundle.lisp"))
+  ("make-bundle" (u:load-from-calm "s/usr/macos/bundle.lisp"))
   #+darwin
-  ((string= *calm-env-calm-cmd* "make-dmg") (u:load-from-calm "s/usr/macos/dmg.lisp"))
+  ("make-dmg" (u:load-from-calm "s/usr/macos/dmg.lisp"))
 
   #+win32
-  ((string= *calm-env-calm-cmd* "make-installer") (u:load-from-calm "s/usr/windows/installer.lisp"))
+  ("make-installer" (u:load-from-calm "s/usr/windows/installer.lisp"))
   #+win32
-  ((string= *calm-env-calm-cmd* "set-icon") (u:load-from-calm "s/usr/windows/icon.lisp"))
+  ("set-icon" (u:load-from-calm "s/usr/windows/icon.lisp"))
 
   #+linux
-  ((string= *calm-env-calm-cmd* "make-appimage") (u:load-from-calm "s/usr/linux/appimage.lisp"))
+  ("make-appimage" (u:load-from-calm "s/usr/linux/appimage.lisp"))
 
   #+sbcl
-  ((string= *calm-env-calm-cmd* "dist") (dist #p"dist/"))
+  ("dist" (dist #p"dist/"))
 
   (t (format t "UNKOWN CALM_CMD: ~A~%" *calm-env-calm-cmd*)))
 
