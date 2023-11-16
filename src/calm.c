@@ -125,6 +125,20 @@ const char *get_sbcl_path() {
   return sbcl_path;
 }
 
+void prepend(char *s1, char *s2) {
+  int len1 = strlen(s1);
+  int len2 = strlen(s2);
+
+  // Make s1 big enough to hold both strings
+  s1 = realloc(s1, len1 + len2 + 1);
+
+  // Move s1's original contents to the end
+  memmove(s1 + len2, s1, len1 + 1);
+
+  // Copy s2 to the beginning of s1
+  memcpy(s1, s2, len2);
+}
+
 /*
  * return the new value for
  *     Linux: LD_LIBRARY_PATH
@@ -149,10 +163,21 @@ const char *get_lib_env() {
       (strlen(ori_lib_env) + strlen(lib_path) + strlen(path_separator) + 1) *
       sizeof(char));
   strcpy(lib_env, ori_lib_env);
+
+#if defined _WIN32
+  // on Windows, we need to prepend PATH to coexist (override) with other
+  // incompatible version of SDL2 under system env settings of PATH
+  if (strlen(ori_lib_env) > 0) {
+    prepend(lib_env, path_separator);
+  }
+  prepend(lib_env, lib_path);
+#else
   if (strlen(ori_lib_env) > 0) {
     strcat(lib_env, path_separator);
   }
   strcat(lib_env, lib_path);
+#endif
+
   printf("LIB_ENV=%s\n", lib_env);
   return lib_env;
 }
