@@ -16,6 +16,8 @@
 
   (u:exec
    (str:concat
+    ;; https://github.com/actions/runner-images/issues/7522#issuecomment-1566746364
+    (if (uiop:getenv "CI") "sudo " "")
     "create-dmg "
     " --hdiutil-verbose --volname \"" app-name " - CALM\""
     " --volicon \"" dmg-icon "\""

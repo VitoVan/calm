@@ -95,6 +95,9 @@ jobs:
 
       - name: Build
         run: |
+          # install it before executing the script
+          # to work around resource busy thing
+          brew install create-dmg
           bash build/build.sh
           ls -lah .
 

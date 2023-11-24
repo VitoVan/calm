@@ -18,6 +18,14 @@ export DIST_DIR=./calm-dist/
 
 ./calm make-bundle
 
+if [ -n "${CI}" ]; then
+    echo working around for macos-13 on github ...
+    # A workaround mentioned here https://github.com/actions/runner-images/issues/7522
+    echo killing...; sudo pkill -9 XProtect >/dev/null || true;
+    echo waiting...; while pgrep XProtect; do sleep 3; done;
+fi
+
+
 export DMG_ICON=./build/calm-dmg.icns
 ./calm make-dmg
 
