@@ -146,5 +146,5 @@ this function will:
                                  current-value
                                  input-line)))
                 ;; update ENV to match the user input
-                (setf (uiop:getenv env-name) (write-to-string result))
+                (setf (uiop:getenv env-name) (princ-to-string result))
                 result))))))
