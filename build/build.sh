@@ -10,6 +10,11 @@ build_fedora () {
         gcc src/calm.c -o calm
     fi
 
+    echo "remove Windows fonts dir ..."
+    sed '/<dir>C:\\Windows\\Fonts<\/dir>/d' s/usr/all/fonts.conf > tmp-fonts.conf
+    mv tmp-fonts.conf s/usr/all/fonts.conf
+
+    echo "executing calm s ..."
     ./calm s dev fedora deps.sh && \
         ./calm s dev fedora sbcl.sh && \
         ./calm s dev all quicklisp.sh && \
@@ -40,6 +45,11 @@ build_darwin () {
     brew install gcc
     gcc src/calm.c -o calm
 
+    echo "remove Windows fonts dir ..."
+    sed '/<dir>C:\\Windows\\Fonts<\/dir>/d' s/usr/all/fonts.conf > tmp-fonts.conf
+    mv tmp-fonts.conf s/usr/all/fonts.conf
+
+    echo "executing calm s ..."
     ./calm s dev darwin deps.sh && \
         ./calm s dev darwin sbcl.sh && \
         ./calm s dev all quicklisp.sh && \
