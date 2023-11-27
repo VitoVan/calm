@@ -31,12 +31,12 @@ calm
 ## 例
 
 <p align="center">
-    <a href="https://vitovan.com/calm/1.1.2/fan/calm.html"><img width="250" alt="Fan" src="./docs/examples/fan/canvas.png"></a>
-    <a href="https://vitovan.com/calm/1.1.2/mondrian/calm.html"><img width="250" alt="Mondrian" src="./docs/examples/mondrian/canvas.png"></a>
-    <a href="https://vitovan.com/calm/1.1.2/meditator/calm.html"><img width="250" alt="Meditator" src="./docs/examples/meditator/canvas.png"></a>
+    <a href="https://vitovan.com/calm/1.2.0/fan/calm.html"><img width="250" alt="Fan" src="./docs/examples/fan/canvas.png"></a>
+    <a href="https://vitovan.com/calm/1.2.0/mondrian/calm.html"><img width="250" alt="Mondrian" src="./docs/examples/mondrian/canvas.png"></a>
+    <a href="https://vitovan.com/calm/1.2.0/meditator/calm.html"><img width="250" alt="Meditator" src="./docs/examples/meditator/canvas.png"></a>
 </p>
 
-上記の例のソースファイルとバイナリは[こちら](https://github.com/VitoVan/calm/tree/main/docs/examples)と[こちら](https://github.com/VitoVan/calm/releases/tag/1.1.2)です。
+上記の例のソースファイルとバイナリは[こちら](https://github.com/VitoVan/calm/tree/main/docs/examples)と[こちら](https://github.com/VitoVan/calm/releases/tag/1.2.0)です。
 
 CALM で作られた他のアプリケーションについては、[Made with CALM](https://github.com/VitoVan/made-with-calm) をご覧ください。
 
