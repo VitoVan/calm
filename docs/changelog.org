@@ -1,4 +1,27 @@
 * CALM
+** 1.2.0
+- add documents:
+  - hacking_JA.md @eltociear
+  - installation_JA.md @eltociear
+  - CONTRIBUTING_JA.md @eltociear
+  - CONTRIBUTING.md
+- add alive support
+  for Alive - Visual Studio Code
+  https://github.com/nobody-famous/alive
+  https://marketplace.visualstudio.com/items?itemName=rheller.alive
+  please config `alive.lsp.startCommand':
+  #+begin_src json
+  {
+      "alive.lsp.startCommand": [
+          "calm",
+          "alive"
+      ]
+  }
+  #+end_src
+- fix coexisting with other SDL2 on Windows
+  reported by @simmihugs at #170
+- fix defect when publish-with-options + whitespaced app-name
+- remove Windows fonts dir on *nix, to reduce fontconfig warnings
 ** 1.1.2
 - add Japanese document: README_JA.md
   by Ikko Eltociear Ashimine (安次嶺 一功) @eltociear
