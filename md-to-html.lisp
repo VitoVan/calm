@@ -104,8 +104,8 @@ body{
         margin: 0 0.8em;
     }
     .container {
-        width: 100%;
-        padding: 0;
+        width: 96%;
+        padding: 2%;
     }
     .markdown-body{
         min-width: inherit !important;
