@@ -118,7 +118,7 @@ jobs:
             *.dmg
 
   Windows:
-    runs-on: windows-latest
+    runs-on: windows-2019
 
     steps:
       - uses: actions/checkout@v3
@@ -274,7 +274,7 @@ jobs:
             *.dmg
   Circles-Windows:
     needs: Windows
-    runs-on: windows-latest
+    runs-on: windows-2019
 
     steps:
       - uses: actions/checkout@v3
@@ -439,7 +439,7 @@ jobs:
             *.dmg
   Fan-Windows:
     needs: Windows
-    runs-on: windows-latest
+    runs-on: windows-2019
 
     steps:
       - uses: actions/checkout@v3
@@ -603,7 +603,7 @@ jobs:
             *.dmg
   Mondrian-Windows:
     needs: Windows
-    runs-on: windows-latest
+    runs-on: windows-2019
 
     steps:
       - uses: actions/checkout@v3
@@ -794,7 +794,7 @@ jobs:
             *.dmg
   Meditator-Windows:
     needs: Windows
-    runs-on: windows-latest
+    runs-on: windows-2019
 
     steps:
       - uses: actions/checkout@v3
