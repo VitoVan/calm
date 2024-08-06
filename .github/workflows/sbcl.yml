@@ -32,6 +32,7 @@ jobs:
           # otherwise, it won't build
           curl -o install_root.zip -L https://github.com/VitoVan/calm/releases/download/sbcl-2.3.4/install_root-ubuntu-20.04.zip
           unzip install_root.zip
+          rm install_root.zip
           mv ./install_root ./sbcl
           export PATH=$(pwd)/sbcl/bin:$PATH
           # start building new sbcl
