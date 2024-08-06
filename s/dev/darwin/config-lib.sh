@@ -13,6 +13,8 @@ cp $(brew --prefix)/lib/libpangocairo*.dylib ./
 for i in {1..42}
 do
     otool -L *.dylib | grep $(brew --prefix) | awk '{print $1}' | xargs -I _ cp -n _ .
+    # some fuckers had fucked up rpath, we need to consider that
+    otool -L *.dylib | grep "@rpath" | sed s,@rpath,"$(brew --prefix)/lib/", | awk '{print $1}' | xargs -I _ cp -n _ .
 done
 
 chmod +w *.dylib
