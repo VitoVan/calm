@@ -4,15 +4,15 @@ set -x
 echo "config all libraries (.dylib) ..."
 cd ./lib
 
-cp /usr/local/lib/libzstd.dylib ./
-cp /usr/local/lib/libpangocairo*.dylib ./
+cp $(brew --prefix)/lib/libzstd.dylib ./
+cp $(brew --prefix)/lib/libpangocairo*.dylib ./
 
 # copy all dependencies
 # this should be ran for many times until no more dylib need to be copied
 # loop 42 times to make sure every dependency's dependency's dependency's ... dependencies are all copied
 for i in {1..42}
 do
-    otool -L *.dylib | grep /usr/local | awk '{print $1}' | xargs -I _ cp -n _ .
+    otool -L *.dylib | grep $(brew --prefix) | awk '{print $1}' | xargs -I _ cp -n _ .
 done
 
 chmod +w *.dylib
@@ -28,7 +28,7 @@ for f in *.dylib; do install_name_tool -id @rpath/`basename $f` $f; done
 # make all of them load dependencies from the @rpath
 for f in *.dylib
 do
-    for p in $(otool -L $f | grep /usr/local | awk '{print $1}')
+    for p in $(otool -L $f | grep $(brew --prefix) | awk '{print $1}')
     do
         install_name_tool -change $p @rpath/`basename $p` $f
     done
@@ -61,4 +61,4 @@ ln -s libzstd.1.dylib libzstd.dylib
 ls -lah .
 
 # copy all typelibs
-cp -L -R /usr/local/lib/girepository-1.0/*.typelib ./
+cp -L -R $(brew --prefix)/lib/girepository-1.0/*.typelib ./

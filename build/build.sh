@@ -18,6 +18,7 @@ build_fedora () {
     ./calm s dev fedora deps.sh && \
         ./calm s dev fedora sbcl.sh && \
         ./calm s dev all quicklisp.sh && \
+        ./calm s dev all quicklisp-fix-old-packages.sh && \
         ./calm s dev all alive.sh && \
         ./calm s dev all copy-lib.sh && \
         ./calm s dev fedora config-lib.sh
@@ -53,6 +54,8 @@ build_darwin () {
     ./calm s dev darwin deps.sh && \
         ./calm s dev darwin sbcl.sh && \
         ./calm s dev all quicklisp.sh && \
+        ./calm s dev all quicklisp-fix-apple-silicon.sh && \
+        ./calm s dev all quicklisp-fix-old-packages.sh && \
         ./calm s dev all alive.sh && \
         ./calm s dev all copy-lib.sh && \
         ./calm s dev darwin config-lib.sh && \
@@ -70,6 +73,7 @@ build_msys () {
     ./calm s dev msys deps.sh && \
         ./calm s dev msys sbcl.sh && \
         ./calm s dev all quicklisp.sh && \
+        ./calm s dev all quicklisp-fix-old-packages.sh && \
         ./calm s dev all alive.sh && \
         ./calm s dev all copy-lib.sh && \
         ./calm s dev msys config-lib.sh

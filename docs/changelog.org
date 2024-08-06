@@ -1,4 +1,7 @@
 * CALM
+** 1.3.0
+- remove macos-11 support
+- add macos-14 support
 ** 1.2.0
 - add documents:
   - hacking_JA.md @eltociear
