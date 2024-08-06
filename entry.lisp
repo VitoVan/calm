@@ -2,6 +2,9 @@
 (let ((quicklisp-setup (probe-file "quicklisp/setup.lisp")))
   (when quicklisp-setup
     (load quicklisp-setup)))
+;; https://groups.google.com/g/quicklisp/c/wrULkRePVE4
+#+win32
+(quicklisp-client::make-system-index "quicklisp/local-projects/")
 ;; Load CALM
 #-calm
 (load "calm.asd")
