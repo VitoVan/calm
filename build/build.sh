@@ -83,7 +83,7 @@ build_msys () {
     RCEDIT_LICENSE="./s/usr/windows/rcedit-LICENSE"
     if [ ! -f "$RCEDIT" ]; then
         set -x
-        curl -o "$RCEDIT" -L https://github.com/electron/rcedit/releases/download/v1.1.1/rcedit-x64.exe
+        curl -o "$RCEDIT" -L https://github.com/electron/rcedit/releases/download/v2.0.0/rcedit-x64.exe
         curl -o "$RCEDIT_LICENSE" -L https://raw.githubusercontent.com/electron/rcedit/master/LICENSE
         set +x
     fi
