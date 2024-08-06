@@ -6,7 +6,7 @@
 (defun set-icon (app-icon)
 
   (let ((rcedit-bin (merge-pathnames "s/usr/windows/rcedit.exe" *calm-env-calm-home*))
-        (rcedit-url "https://github.com/electron/rcedit/releases/download/v1.1.1/rcedit-x64.exe")
+        (rcedit-url "https://github.com/electron/rcedit/releases/download/v2.0.0/rcedit-x64.exe")
         (old-sbcl (merge-pathnames "sbcl/bin/sbcl.exe" *calm-env-calm-home*))
         (new-sbcl (merge-pathnames "sbcl/bin/sbcl-with-icon.exe" *calm-env-calm-home*))
         (calm-no-console (merge-pathnames "calmNoConsole.exe" *calm-env-calm-home*)))
