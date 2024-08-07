@@ -27,8 +27,9 @@ rm README.md
 rm README_JA.md
 
 # fix shields badges
-ls *.html | xargs -I _ gsed -E -i 's/src=.+?data-canonical-src=/src=/g' _
-ls docs/*.html | xargs -I _ gsed -E -i 's/src=.+?data-canonical-src=/src=/g' _
+# https://stackoverflow.com/questions/1103149/non-greedy-reluctant-regex-matching-in-sed
+ls *.html | xargs -I _ perl -pi -e 's/src=.+?data-canonical-src=/src=/g' _
+ls docs/*.html | xargs -I _ perl -pi -e 's/src=.+?data-canonical-src=/src=/g' _
 
 git status
 
