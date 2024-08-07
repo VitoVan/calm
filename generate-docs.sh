@@ -26,16 +26,26 @@ sbcl --non-interactive --load md-to-html.lisp
 rm README.md
 rm README_JA.md
 
+read -p "About to replace shields badges in html, do you want to proceed? (yes/no) " yn
+
+case $yn in
+        yes ) echo ok, we will proceed;;
+        no ) echo exiting...;
+                exit;;
+        * ) echo invalid response;
+                exit 1;;
+esac
+
 # fix shields badges
 # https://stackoverflow.com/questions/1103149/non-greedy-reluctant-regex-matching-in-sed
-ls *.html | xargs -I _ perl -pi -e 's/src=.+?data-canonical-src=/src=/g' _
-ls docs/*.html | xargs -I _ perl -pi -e 's/src=.+?data-canonical-src=/src=/g' _
+ls *.html | xargs -I _ perl -pi -e 's/src="https:\/\/camo.+?" data-canonical-src=/src=/g' _
+ls docs/*.html | xargs -I _ perl -pi -e 's/src="https:\/\/camo.+?" data-canonical-src=/src=/g' _
 
 git status
 
 git diff
 
-read -p "Do you want to proceed? (yes/no) " yn
+read -p "About to push, Do you want to proceed? (yes/no) " yn
 
 case $yn in
         yes ) echo ok, we will proceed;;
