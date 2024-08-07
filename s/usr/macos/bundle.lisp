@@ -13,7 +13,8 @@
          (dist-dir-abs (or (uiop:absolute-pathname-p dist-dir)
                            (uiop:merge-pathnames* dist-dir *calm-env-app-dir*)))
          (app-icon-abs (or (uiop:absolute-pathname-p app-icon)
-                           (uiop:merge-pathnames* app-icon *calm-env-app-dir*))))
+                           (uiop:merge-pathnames* app-icon *calm-env-app-dir*)))
+         (codesign-cmd "codesign --sign - --force --preserve-metadata=entitlements,requirements,flags,runtime "))
 
     ;; clean old bunlde
     (uiop:delete-directory-tree app-dir :validate t :if-does-not-exist :ignore)
@@ -38,7 +39,17 @@
      dist-dir-abs
      app-macos-dir)
     ;; copy icon
-    (u:copy-file app-icon-abs (merge-pathnames "icon.icns" app-resources-dir)))
+    (u:copy-file app-icon-abs (merge-pathnames "icon.icns" app-resources-dir))
+
+    (u:calm-log "signing everything... (some files need sudo permission)")
+    (u:exec (str:concat "find " app-name ".app/Contents/MacOS/ -type f | xargs -I _ sudo " codesign-cmd " _")
+            :ignore-error-status t)
+    (u:calm-log "signing calm launcher...")
+    (u:exec (str:concat "sudo " codesign-cmd app-name ".app/Contents/MacOS/calm")
+            :ignore-error-status t)
+    (u:calm-log "signing the application bundle itself...")
+    (u:exec (str:concat "sudo " codesign-cmd app-name ".app")
+            :ignore-error-status t))
 
   (u:calm-log-fancy "~%Application Bundle created: ~A.app~%" app-name))
 
