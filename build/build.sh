@@ -45,6 +45,8 @@ build_darwin () {
     echo "build launcher ..."
     brew install gcc
     gcc src/calm.c -o calm
+    # codesign for macos-14 enhanced security
+    codesign --sign - --force --preserve-metadata=entitlements,requirements,flags,runtime calm
 
     echo "remove Windows fonts dir ..."
     sed '/<dir>C:\\Windows\\Fonts<\/dir>/d' s/usr/all/fonts.conf > tmp-fonts.conf
