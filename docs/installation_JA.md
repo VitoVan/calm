@@ -16,7 +16,7 @@
 
   2. .app をアプリケーションフォルダにドラッグします
 
-  3. Trust me and de-quarantine Calm.app
+  3. 私を信じて、Calm.appの隔離を解除してください。
 
       ```bash
       xattr -d com.apple.quarantine /Applications/Calm.app
