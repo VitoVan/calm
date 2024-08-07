@@ -64,3 +64,6 @@ ls -lah .
 
 # copy all typelibs
 cp -L -R $(brew --prefix)/lib/girepository-1.0/*.typelib ./
+
+# codesign for macos-14, since we changed those libs
+ls *.dylib | xargs -I _ codesign --sign - --force --preserve-metadata=entitlements,requirements,flags,runtime _
