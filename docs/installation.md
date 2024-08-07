@@ -14,15 +14,19 @@ Now let's set up the environment for the ease of use.
 - macOS
   1. Open the downloaded DMG file
 
-  2. Drage the .app to the Applications folder
+  2. Drag the .app to the Applications folder
 
-  3. Eject the DMG and run Calm.app
+  3. Trust me and de-quarantine Calm.app
+
+      ```bash
+      xattr -d com.apple.quarantine /Applications/Calm.app
+      ```
+
+  4. Eject the DMG and run Calm.app
 
      **It may take a while** for the first run.
 
-     > On macOS, it's very likely the system will stop you from running the software, since it's not verified by Apple. If you have problem to run it, please check [this](https://support.apple.com/HT202491).
-
-  4. Add command `calm` to the PATH environment
+  5. Add command `calm` to the PATH environment
 
       ```bash
       echo 'export PATH="/Applications/Calm.app/Contents/MacOS/:$PATH"'>> ~/.bashrc
@@ -42,7 +46,7 @@ Now let's set up the environment for the ease of use.
       > echo 'export PATH="/c/calm/:$PATH"' >> ~/.bashrc
       > ```
 
-     > On Windows, it's very likely the system will stop you from running the software, since it's not verified by Microsoft. If you have problem to run it, please [find a way to bypass SmartScreen](https://duckduckgo.com/?q=how+to+bypass+smartscreen).
+     > On Windows, it's very likely the system will stop you from running the software, since it's not verified by Microsoft. If you have problem to run it, please [find a way to bypass SmartScreen](https://www.google.com/search?q=how+to+get+around+windows+smartscreen).
 
 
 Now you are all set, enjoy.
