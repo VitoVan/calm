@@ -44,9 +44,13 @@ For more applications made with CALM, please check [Made with CALM](https://gith
 
 ### Pre-built Binary
 
-1. Download
+1. Downloads
 
-   [![Linux Download](https://img.shields.io/badge/Linux-glibc%202.31+-FFD032.svg?logo=linux)](<https://github.com/VitoVan/calm/releases/latest/download/calm.tgz>) [![macOS Ventura Download](https://img.shields.io/badge/macOS-Ventura-black?logo=apple)](<https://github.com/VitoVan/calm/releases/latest/download/calm.macos-13.dmg>) [![Windows Download](https://img.shields.io/badge/Windows-Windows%2010/11-017fd5.svg?logo=windows)](<https://github.com/VitoVan/calm/releases/latest/download/calm.zip>) [![macOS Monterey Download](https://img.shields.io/badge/macOS-Monterey-white?logo=apple)](<https://github.com/VitoVan/calm/releases/latest/download/calm.macos-12.dmg>) [![macOS Big Sur Download](https://img.shields.io/badge/macOS-Big%20Sur-white?logo=apple)](<https://github.com/VitoVan/calm/releases/latest/download/calm.macos-11.dmg>)
+   [![Linux Download](https://img.shields.io/badge/Linux-glibc%202.31+-FFD032.svg?logo=linux)](<https://github.com/VitoVan/calm/releases/latest/download/calm.tgz>)
+   [![macOS Sonoma Download](https://img.shields.io/badge/macOS-Sonoma-black?logo=apple)](<https://github.com/VitoVan/calm/releases/latest/download/calm.macos-14.dmg>)
+   [![Windows Download](https://img.shields.io/badge/Windows-Windows%2010/11-017fd5.svg?logo=windows)](<https://github.com/VitoVan/calm/releases/latest/download/calm.zip>)
+   [![macOS Ventura Download](https://img.shields.io/badge/macOS-Ventura-white?logo=apple)](<https://github.com/VitoVan/calm/releases/latest/download/calm.macos-13.dmg>)
+   [![macOS Monterey Download](https://img.shields.io/badge/macOS-Monterey-white?logo=apple)](<https://github.com/VitoVan/calm/releases/latest/download/calm.macos-12.dmg>)
 
 2. Extract
 
