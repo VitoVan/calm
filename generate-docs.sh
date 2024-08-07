@@ -26,6 +26,10 @@ sbcl --non-interactive --load md-to-html.lisp
 rm README.md
 rm README_JA.md
 
+# fix shields badges
+ls *.html | xargs -I _ gsed -E -i 's/src=.+?data-canonical-src=/src=/g' _
+ls docs/*.html | xargs -I _ gsed -E -i 's/src=.+?data-canonical-src=/src=/g' _
+
 git status
 
 git diff
