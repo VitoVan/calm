@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-SJ5CP8DCH9"></script>
+        <script>
+         window.dataLayer = window.dataLayer || [];
+         function gtag(){dataLayer.push(arguments);}
+         gtag('js', new Date());
+
+         gtag('config', 'G-SJ5CP8DCH9');
+        </script>
+        <!-- Standard Meta -->
+        <meta charset="utf-8" />
+        <meta name="author" content="Vito Van, Ikko Eltociear Ashimine"/>
+        <meta name="theme-color" content="#005797">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+        <link href=favicon.ico rel=icon type=image/x-icon>
+        <style>
+body{
+    background-color: #005896;
+    display: flex;
+    justify-content: center;
+    font-family: Optima, Palatino, 'Palatino Linotype', Charter, 'Bitstream Charter', serif;
+    color: #000;
+    font-size: 12pt;
+    clear: both;
+    padding: 0;
+    margin: 0;
+}
+*{
+    margin: 0;
+    padding: 0;
+}
+.giscus {
+    margin-top: 40px;
+}
+.container{
+    float: left;
+    width: 840px;
+    padding: 20px;
+}
+.container > .menu > ul {
+    list-style: none;
+}
+.container > .menu > ul > li {
+    display: inline-block;
+    margin: 0px 10px 5px 0px;
+    padding: 0px 10px 5px 0px;
+}
+.container > .menu > ul > li > a{
+    color: white;
+}
+
+.container img{
+  border-radius: 4px;
+  vertical-align: middle;
+}
+.panel{
+    float: left;
+    padding: 2em 0.9em;
+    line-height: 1.2em;
+    min-height: 20em;
+    margin-right: 1em;
+    border-right-color: blue;
+    border-right-style: dashed;
+    border-right-width: 0.1em;
+}
+.panel>ul{
+    list-style:none;
+}
+.panel a{
+    text-decoration: none;
+    color: blue;
+    display: block;
+}
+.panel>ul>li{
+    margin-bottom: 0.9em;
+}
+.panel>ul>li.current>a{
+    text-decoration: underline;
+}
+.panel a:hover{
+    text-decoration: underline;
+}
+@media (max-width: 840px) {
+    body {
+      display: block;
+    }
+    .panel {
+        padding: 0.9em 0.2em;
+        min-height: 1em;
+        width: 95%;
+        border-right: none;
+        border-bottom-color: blue;
+        border-bottom-style: dashed;
+        border-bottom-width: 0.1em;
+    }
+    .panel>ul>li {
+        float: left;
+        margin: 0 0.8em;
+    }
+    .container {
+        width: 96%;
+        padding: 2%;
+    }
+    .markdown-body{
+        min-width: inherit !important;
+        border-radius: 0 !important;
+    }
+    .giscus {
+        padding: 1%;
+        width: 98%;
+    }
+}
+.head{
+    padding: 1em;
+    text-transform: uppercase;
+}
+.head>h1>a{
+    color: #888;
+    text-decoration: none;
+}
+.content{
+    padding:0 1em;
+    font-size: 1em;
+    line-height: 1.5em;
+}
+.index>a{
+    display: block;
+    line-height: 2em;
+}
+.index>li{
+    margin: 0.5em 0;
+    list-style-type: circle;
+}
+.index>li.shit{
+  display: none;
+}
+.index>li.shit>a{
+  opacity: .4;
+  color: black;
+}
+.index>li.shit>a:visited{
+  color: gray;
+}
+.markdown-body{
+    background-color: white;
+    padding: 1em;
+    border-radius: 0.3em;
+}
+
+/* github-markdown.css */
+
+.markdown-body {
+  word-wrap: break-word;
+}
+
+.markdown-body a {
+  background-color: transparent;
+}
+
+.markdown-body a:active,
+.markdown-body a:hover {
+  outline: 0;
+}
+
+.markdown-body strong {
+  font-weight: bold;
+}
+
+.markdown-body img {
+  border: 0;
+}
+
+.markdown-body hr {
+  box-sizing: content-box;
+  height: 0;
+}
+
+.markdown-body pre {
+  overflow: auto;
+}
+
+.markdown-body code,
+.markdown-body kbd,
+.markdown-body pre {
+    font-family: Consolas,'Liberation Mono',Menlo,Courier,monospace;
+}
+
+.markdown-body input {
+  color: inherit;
+  font: inherit;
+  margin: 0;
+}
+
+.markdown-body html input[disabled] {
+  cursor: default;
+}
+
+.markdown-body input {
+  line-height: normal;
+}
+
+.markdown-body input[type='checkbox'] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.markdown-body table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.markdown-body td,
+.markdown-body th {
+  padding: 0;
+}
+
+.markdown-body * {
+  box-sizing: border-box;
+}
+
+.markdown-body input {
+  font: 13px/1.4 Helvetica, arial, nimbussansl, liberationsans, freesans, clean, sans-serif, 'Segoe UI Emoji', 'Segoe UI Symbol';
+}
+
+.markdown-body a {
+  color: blue;
+}
+
+.markdown-body a:link {
+    text-decoration: none;
+}
+
+.markdown-body a:visited{
+    color: #4078c0;
+}
+
+
+.markdown-body a:hover,
+.markdown-body a:active {
+  text-decoration: underline;
+}
+
+.markdown-body hr {
+  height: 0;
+  margin: 15px 0;
+  overflow: hidden;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.markdown-body hr:before {
+  display: table;
+  content: '';
+}
+
+.markdown-body hr:after {
+  display: table;
+  clear: both;
+  content: '';
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  line-height: 1.1;
+}
+
+.markdown-body blockquote {
+    margin: 0;
+    line-height: 1em !important;
+}
+
+.markdown-body ul,
+.markdown-body ol {
+  padding: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.markdown-body ol ol,
+.markdown-body ul ol {
+  list-style-type: lower-roman;
+}
+
+.markdown-body ul ul ol,
+.markdown-body ul ol ol,
+.markdown-body ol ul ol,
+.markdown-body ol ol ol {
+  list-style-type: lower-alpha;
+}
+
+.markdown-body dd {
+  margin-left: 0;
+}
+
+.markdown-body pre {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.markdown-body .octicon {
+  display: inline-block;
+  text-decoration: none;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.markdown-body .octicon-link:before {
+  content: '#';
+}
+
+.markdown-body>*:first-child {
+  margin-top: 0 !important;
+}
+
+.markdown-body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+.markdown-body a:not([href]) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.markdown-body .anchor {
+  position: absolute;
+  top: 0;
+  right: 0.5em;
+  display: block;
+  padding-right: 6px;
+  padding-left: 30px;
+  margin-left: -30px;
+}
+
+.markdown-body .anchor:focus {
+  outline: none;
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+  position: relative;
+  margin-top: 1em;
+  margin-bottom: 16px;
+  font-weight: bold;
+  line-height: 1.4;
+}
+
+.markdown-body h1 .octicon-link,
+.markdown-body h2 .octicon-link,
+.markdown-body h3 .octicon-link,
+.markdown-body h4 .octicon-link,
+.markdown-body h5 .octicon-link,
+.markdown-body h6 .octicon-link {
+  display: none;
+  color: #000;
+  vertical-align: middle;
+}
+
+.markdown-body h1:hover .anchor,
+.markdown-body h2:hover .anchor,
+.markdown-body h3:hover .anchor,
+.markdown-body h4:hover .anchor,
+.markdown-body h5:hover .anchor,
+.markdown-body h6:hover .anchor {
+  padding-left: 8px;
+  margin-left: -30px;
+  text-decoration: none;
+}
+
+.markdown-body h1:hover .anchor .octicon-link,
+.markdown-body h2:hover .anchor .octicon-link,
+.markdown-body h3:hover .anchor .octicon-link,
+.markdown-body h4:hover .anchor .octicon-link,
+.markdown-body h5:hover .anchor .octicon-link,
+.markdown-body h6:hover .anchor .octicon-link {
+  display: inline-block;
+}
+
+.markdown-body h1 {
+  padding-bottom: 0.3em;
+  font-size: 2.25em;
+  line-height: 1.2;
+  border-bottom: 1px solid #eee;
+}
+
+.markdown-body h1 .anchor {
+  line-height: 1;
+}
+
+.markdown-body h2 {
+  padding-bottom: 0.3em;
+  font-size: 1.75em;
+  line-height: 1.225;
+  border-bottom: 1px solid #eee;
+}
+
+.markdown-body h2 .anchor {
+  line-height: 1;
+}
+
+.markdown-body h3 {
+  font-size: 1.5em;
+  line-height: 1.43;
+}
+
+.markdown-body h3 .anchor {
+  line-height: 1.2;
+}
+
+.markdown-body h4 {
+  font-size: 1.25em;
+}
+
+.markdown-body h4 .anchor {
+  line-height: 1.2;
+}
+
+.markdown-body h5 {
+  font-size: 1em;
+}
+
+.markdown-body h5 .anchor {
+  line-height: 1.1;
+}
+
+.markdown-body h6 {
+  font-size: 1em;
+  color: #777;
+}
+
+.markdown-body h6 .anchor {
+  line-height: 1.1;
+}
+
+.markdown-body p,
+.markdown-body blockquote,
+.markdown-body ul,
+.markdown-body ol,
+.markdown-body dl,
+.markdown-body table,
+.markdown-body pre {
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
+.markdown-body hr {
+  height: 4px;
+  padding: 0;
+  margin: 16px 0;
+  background-color: #e7e7e7;
+  border: 0 none;
+}
+
+.markdown-body ul,
+.markdown-body ol {
+  padding-left: 2em;
+}
+
+.markdown-body ul ul,
+.markdown-body ul ol,
+.markdown-body ol ol,
+.markdown-body ol ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.markdown-body li>p {
+  margin-top: 16px;
+}
+
+.markdown-body dl {
+  padding: 0;
+}
+
+.markdown-body dl dt {
+  padding: 0;
+  margin-top: 16px;
+  font-size: 1em;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.markdown-body dl dd {
+  padding: 0 16px;
+  margin-bottom: 16px;
+}
+
+.markdown-body blockquote {
+  padding: 0 15px;
+  color: #777;
+  border-left: 4px solid #ddd;
+}
+
+.markdown-body blockquote>:first-child {
+  margin-top: 0;
+}
+
+.markdown-body blockquote>:last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body table {
+  display: block;
+  width: 100%;
+  overflow: auto;
+  word-break: normal;
+  word-break: keep-all;
+}
+
+.markdown-body table th {
+  font-weight: bold;
+}
+
+.markdown-body table th,
+.markdown-body table td {
+  padding: 6px 13px;
+  border: 1px solid #ddd;
+}
+
+.markdown-body table tr {
+  background-color: #fff;
+  border-top: 1px solid #ccc;
+}
+
+.markdown-body table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+.markdown-body img {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.markdown-body code {
+  padding: 0;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  margin: 0;
+  font-size: 85%;
+  background-color: rgba(0,0,0,0.04);
+  border-radius: 3px;
+}
+
+.markdown-body code:before,
+.markdown-body code:after {
+  letter-spacing: -0.2em;
+  content: '\00a0';
+}
+
+.markdown-body pre>code {
+  padding: 0;
+  margin: 0;
+  font-size: 100%;
+  word-break: normal;
+  white-space: pre;
+  background: transparent;
+  border: 0;
+}
+
+.markdown-body .highlight {
+  margin-bottom: 16px;
+}
+
+.markdown-body .highlight pre,
+.markdown-body pre {
+  padding: 16px;
+  overflow: auto;
+  font-size: 85%;
+  line-height: 1.45;
+  background-color: #f7f7f7;
+  border-radius: 3px;
+}
+
+.markdown-body .highlight pre {
+  margin-bottom: 0;
+  word-break: normal;
+}
+
+.markdown-body pre {
+  word-wrap: normal;
+}
+
+.markdown-body pre code {
+  display: inline;
+  max-width: initial;
+  padding: 0;
+  margin: 0;
+  overflow: initial;
+  line-height: inherit;
+  word-wrap: normal;
+  background-color: transparent;
+  border: 0;
+}
+
+.markdown-body pre code:before,
+.markdown-body pre code:after {
+  content: normal;
+}
+
+.markdown-body kbd {
+  display: inline-block;
+  padding: 3px 5px;
+  font-size: 11px;
+  line-height: 10px;
+  color: #555;
+  vertical-align: middle;
+  background-color: #fcfcfc;
+  border: solid 1px #ccc;
+  border-bottom-color: #bbb;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 #bbb;
+}
+
+.markdown-body .pl-c {
+  color: #969896;
+}
+
+.markdown-body .pl-c1,
+.markdown-body .pl-s .pl-v {
+  color: #0086b3;
+}
+
+.markdown-body .pl-e,
+.markdown-body .pl-en {
+  color: #795da3;
+}
+
+.markdown-body .pl-s .pl-s1,
+.markdown-body .pl-smi {
+  color: #333;
+}
+
+.markdown-body .pl-ent {
+  color: #63a35c;
+}
+
+.markdown-body .pl-k {
+  color: #a71d5d;
+}
+
+.markdown-body .pl-pds,
+.markdown-body .pl-s,
+.markdown-body .pl-s .pl-pse .pl-s1,
+.markdown-body .pl-sr,
+.markdown-body .pl-sr .pl-cce,
+.markdown-body .pl-sr .pl-sra,
+.markdown-body .pl-sr .pl-sre {
+  color: #183691;
+}
+
+.markdown-body .pl-v {
+  color: #ed6a43;
+}
+
+.markdown-body .pl-id {
+  color: #b52a1d;
+}
+
+.markdown-body .pl-ii {
+  background-color: #b52a1d;
+  color: #f8f8f8;
+}
+
+.markdown-body .pl-sr .pl-cce {
+  color: #63a35c;
+  font-weight: bold;
+}
+
+.markdown-body .pl-ml {
+  color: #693a17;
+}
+
+.markdown-body .pl-mh,
+.markdown-body .pl-mh .pl-en,
+.markdown-body .pl-ms {
+  color: #1d3e81;
+  font-weight: bold;
+}
+
+.markdown-body .pl-mq {
+  color: #008080;
+}
+
+.markdown-body .pl-mi {
+  color: #333;
+  font-style: italic;
+}
+
+.markdown-body .pl-mb {
+  color: #333;
+  font-weight: bold;
+}
+
+.markdown-body .pl-md {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+
+.markdown-body .pl-mi1 {
+  background-color: #eaffea;
+  color: #55a532;
+}
+
+.markdown-body .pl-mdr {
+  color: #795da3;
+  font-weight: bold;
+}
+
+.markdown-body .pl-mo {
+  color: #1d3e81;
+}
+
+.markdown-body kbd {
+  display: inline-block;
+  padding: 3px 5px;
+  font: 11px Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+  line-height: 10px;
+  color: #555;
+  vertical-align: middle;
+  background-color: #fcfcfc;
+  border: solid 1px #ccc;
+  border-bottom-color: #bbb;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 #bbb;
+}
+
+.markdown-body .task-list-item {
+  list-style-type: none;
+}
+
+.markdown-body .task-list-item+.task-list-item {
+  margin-top: 3px;
+}
+
+.markdown-body .task-list-item input {
+  margin: 0 0.35em 0.25em -1.6em;
+  vertical-align: middle;
+}
+
+.markdown-body :checked+.radio-label {
+  z-index: 1;
+  position: relative;
+  border-color: #4078c0;
+}
+</style>
+        <title>CALM - Canvas Aided Lisp Magic</title>
+    </head>
+    <body>
+        <div class="container">
+        <div class="menu">
+            <ul>
+               <li><a href="/calm/index.html">Home</a></li>
+               <li><a href="/calm/docs/installation.html">Installation</a></li>
+               <li><a href="/calm/docs/hacking.html">Hacking</a></li>
+               <li><a href="https://github.com/VitoVan/calm">Source</a></li>
+            </ul>
+         </div>
+            <div class="content markdown-body"><div class="markdown-heading"><h1 class="heading-element">Hacking CALM</h1><a name="hacking-calm" class="anchor" aria-label="Permalink: Hacking CALM" href="#hacking-calm"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h2 class="heading-element">With Pre-built Binaries</h2><a name="with-pre-built-binaries" class="anchor" aria-label="Permalink: With Pre-built Binaries" href="#with-pre-built-binaries"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h3 class="heading-element">Step 1: Fork CALM</h3><a name="step-1-fork-calm" class="anchor" aria-label="Permalink: Step 1: Fork CALM" href="#step-1-fork-calm"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p><a href="https://github.com/VitoVan/calm/fork">https://github.com/VitoVan/calm/fork</a></p>
+<div class="markdown-heading"><h3 class="heading-element">Step 2: Install CALM binary</h3><a name="step-2-install-calm-binary" class="anchor" aria-label="Permalink: Step 2: Install CALM binary" href="#step-2-install-calm-binary"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p><a href="https://github.com/VitoVan/calm#-installation">https://github.com/VitoVan/calm#-installation</a></p>
+<div class="markdown-heading"><h3 class="heading-element">Step 3: Init Git Repository</h3><a name="step-3-init-git-repository" class="anchor" aria-label="Permalink: Step 3: Init Git Repository" href="#step-3-init-git-repository"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="highlight highlight-source-shell"><pre><span class="pl-c"><span class="pl-c">#</span> cd to your downloaded CALM binary directory</span>
+<span class="pl-c"><span class="pl-c">#</span> e.g. on macOS:</span>
+<span class="pl-c1">cd</span> /Applications/Calm.app/Contents/MacOS
+
+<span class="pl-c"><span class="pl-c">#</span> init git</span>
+git init <span class="pl-c1">.</span>
+
+<span class="pl-c"><span class="pl-c">#</span> add your fork to remote</span>
+git remote add origin git@github.com:<span class="pl-k">&lt;</span>your-name<span class="pl-k">&gt;</span>/calm.git
+
+<span class="pl-c"><span class="pl-c">#</span> fetch</span>
+git fetch origin --depth=1
+
+<span class="pl-c"><span class="pl-c">#</span> reset hard to origin/main</span>
+git reset --hard origin/main</pre></div>
+<p>Now you can modify, push and create pull requests!</p>
+<div class="markdown-heading"><h3 class="heading-element">My Personal Favour</h3><a name="my-personal-favour" class="anchor" aria-label="Permalink: My Personal Favour" href="#my-personal-favour"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>Personally, I would clone the repository somewhere else and make some symbol links into the directory of the downloaded binary, such as:</p>
+<div class="highlight highlight-source-shell"><pre><span class="pl-c1">cd</span> /Applications/Calm.app/Contents/MacOS
+
+rm -rf ./build
+rm -rf ./s
+rm -rf ./src
+
+ln -s <span class="pl-k">~</span>/github/VitoVan/calm/build build
+ln -s <span class="pl-k">~</span>/github/VitoVan/calm/s s
+ln -s <span class="pl-k">~</span>/github/VitoVan/calm/src src</pre></div>
+<p>This won't cover all the source code, but normally it's enough.</p>
+<div class="markdown-heading"><h2 class="heading-element">Run From Source</h2><a name="run-from-source" class="anchor" aria-label="Permalink: Run From Source" href="#run-from-source"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<ol start="0">
+<li>
+<p>Preparation</p>
+<ul>
+<li>
+<p>Linux</p>
+<p>Sit tight.</p>
+</li>
+<li>
+<p>macOS</p>
+<p>You need a package manager, I suggest <a href="https://brew.sh/" rel="nofollow">Homebrew</a>.</p>
+<p><a href="https://www.macports.org/" rel="nofollow">MacPorts</a> should work, but I haven't tried it.</p>
+</li>
+<li>
+<p>Windows
+You need a package manager, I suggest <a href="https://www.msys2.org/" rel="nofollow">MSYS2</a>.</p>
+<p>I hate to ask Windows users to use Bash, but I haven't found any other options.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Install SBCL &amp; Quicklisp</p>
+<p>SBCL binaries can be found <a href="https://www.sbcl.org/platform-table.html" rel="nofollow">here</a>. It should also has been included in your package manager. You should be able to install it easily.</p>
+<ul>
+<li>
+<p>Linux (Fedora)</p>
+<div class="highlight highlight-source-shell"><pre>sudo dnf install sbcl -y</pre></div>
+</li>
+<li>
+<p>macOS</p>
+<div class="highlight highlight-source-shell"><pre>brew install sbcl</pre></div>
+</li>
+<li>
+<p>Windows</p>
+<div class="highlight highlight-source-batchfile"><pre>winget install sbcl</pre></div>
+</li>
+</ul>
+<p>After you have installed SBCL, it should be accessible in your terminal.</p>
+<blockquote>
+<p>On Windows (MSYS2), you may need to set the PATH environment manually, like this:</p>
+<div class="highlight highlight-source-shell"><pre><span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">'</span>export PATH="/c/program files/steel bank common lisp/:$PATH"<span class="pl-pds">'</span></span> <span class="pl-k">&gt;&gt;</span> <span class="pl-k">~</span>/.bashrc
+<span class="pl-c1">source</span> <span class="pl-k">~</span>/.bashrc</pre></div>
+</blockquote>
+<p>Now download and install Quicklisp:</p>
+<div class="highlight highlight-source-shell"><pre>curl -O https://beta.quicklisp.org/quicklisp.lisp
+sbcl --non-interactive --load quicklisp.lisp \
+     --eval <span class="pl-s"><span class="pl-pds">"</span>(quicklisp-quickstart:install)<span class="pl-pds">"</span></span> \
+     --eval <span class="pl-s"><span class="pl-pds">"</span>(ql-util:without-prompting (ql:add-to-init-file))<span class="pl-pds">"</span></span></pre></div>
+</li>
+<li>
+<p>Install dependencies</p>
+<p>All you need is: <a href="https://github.com/facebook/zstd">libzstd</a>, <a href="https://wiki.libsdl.org/SDL2/FrontPage" rel="nofollow">SDL2</a>, <a href="https://github.com/libsdl-org/SDL_mixer">SDL2_mixer</a>, <a href="https://github.com/libsdl-org/SDL_image">SDL2_image</a> and <a href="https://www.cairographics.org/" rel="nofollow">Cairo</a>.</p>
+<blockquote>
+<p>libzstd is required by the recent version of SBCL, and will be installed by your package manager automatically if you installed SBCL.</p>
+</blockquote>
+<p>Here I will provide some sample commands, hope this would be helpful:</p>
+<ul>
+<li>Linux (Fedora)
+<div class="highlight highlight-source-shell"><pre>sudo dnf install libzstd SDL2 SDL2_mixer SDL2_image cairo -y</pre></div>
+</li>
+<li>macOS
+<div class="highlight highlight-source-shell"><pre>brew install zstd sdl2 sdl2_mixer sdl2_image cairo</pre></div>
+</li>
+<li>Windows (MSYS2)
+<blockquote>
+<p>The code below definitely need to be adjusted for ARM devices, since they are installing x86_64 version libs. Packages can be found <a href="https://packages.msys2.org/queue" rel="nofollow">here</a>.</p>
+</blockquote>
+<div class="highlight highlight-source-shell"><pre>pacman -S --noconfirm --needed git \
+ mingw64/mingw-w64-x86_64-zstd \
+ mingw64/mingw-w64-x86_64-SDL2 \
+ mingw64/mingw-w64-x86_64-SDL2_mixer \
+ mingw64/mingw-w64-x86_64-SDL2_image \
+ mingw64/mingw-w64-x86_64-cairo</pre></div>
+</li>
+</ul>
+</li>
+<li>
+<p>Clone CALM &amp; make a temporary launcher</p>
+<div class="highlight highlight-source-shell"><pre><span class="pl-c"><span class="pl-c">#</span> clone the source code</span>
+git clone https://github.com/VitoVan/calm.git <span class="pl-k">~</span>/calm
+<span class="pl-c1">cd</span> <span class="pl-k">~</span>/calm
+
+<span class="pl-c"><span class="pl-c">#</span> make a temporary launcher</span>
+cat <span class="pl-k">&gt;</span> <span class="pl-s"><span class="pl-pds">"</span>./calm<span class="pl-pds">"</span></span> <span class="pl-s"><span class="pl-k">&lt;&lt;</span><span class="pl-k">EOF</span></span>
+<span class="pl-s">  cd "<span class="pl-smi">$HOME</span>/calm"</span>
+<span class="pl-s">  export CALM_APP_DIR=<span class="pl-s"><span class="pl-pds">$(</span>pwd<span class="pl-pds">)</span></span></span>
+<span class="pl-s">  export CALM_HOME="<span class="pl-smi">$HOME</span>/calm/"</span>
+<span class="pl-s">  export CALM_CMD=show</span>
+<span class="pl-s">  sbcl --load entry.lisp show</span>
+<span class="pl-s"><span class="pl-k">EOF</span></span>
+
+chmod +x ./calm
+
+<span class="pl-c"><span class="pl-c">#</span> add the launcher to PATH env</span>
+<span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">'</span>export PATH="$HOME/calm/:$PATH"<span class="pl-pds">'</span></span> <span class="pl-k">&gt;&gt;</span> <span class="pl-k">~</span>/.bashrc
+
+<span class="pl-c"><span class="pl-c">#</span> Windows (MSYS2) user may need the following line:</span>
+<span class="pl-c"><span class="pl-c">#</span> echo 'export PATH="/mingw64/bin/:$PATH"' &gt;&gt; ~/.bashrc</span>
+
+<span class="pl-c"><span class="pl-c">#</span> activate the ENV change</span>
+<span class="pl-c1">source</span> <span class="pl-k">~</span>/.bashrc
+
+<span class="pl-c"><span class="pl-c">#</span> give it a try</span>
+calm</pre></div>
+</li>
+</ol>
+<p>Congrats! You are all set!</p>
+<p>Can't wait to see what you are going to build!</p>
+<div class="markdown-heading"><h1 class="heading-element">Building CALM</h1><a name="building-calm" class="anchor" aria-label="Permalink: Building CALM" href="#building-calm"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>Currently CALM was built on github actions, you can find the workflow <a href="https://github.com/VitoVan/calm/blob/main/.github/workflows/calm.yml">here</a>.</p>
+<p>If you have interests to build CALM and encountered any problem, please let me know.</p>
+<p>I would be so glad to help.</p>
+</div>
+        </div>
+    </body>
+</html>
