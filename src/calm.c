@@ -159,9 +159,11 @@ const char *get_lib_env() {
   if (ori_lib_env == NULL) {
     ori_lib_env = "";
   }
-  char *lib_env = malloc(
-      (strlen(ori_lib_env) + strlen(lib_path) + strlen(path_separator) + 1) *
-      sizeof(char));
+  char *lib_env =
+      malloc((strlen(ori_lib_env) + strlen(lib_path) + strlen(path_separator) +
+              1024  // I don't know what I'm doing
+              ) *
+             sizeof(char));
   strcpy(lib_env, ori_lib_env);
 
 #if defined _WIN32
