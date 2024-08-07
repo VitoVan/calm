@@ -1,4 +1,13 @@
 * CALM
+** 1.3.0
+- upgrade SBCL to 2.4.7
+- add macos-14 (arm64) support
+- fix: weird Quicklisp + Windows + SBCL bug
+  https://groups.google.com/g/quicklisp/c/wrULkRePVE4/m/DZHc0qVhAQAJ
+- fix: weird Windows + plain old CMD bug
+  https://github.com/VitoVan/calm/issues/179
+- ci: add macos-14 binary release
+- ci: remove macos-11 binary release
 ** 1.2.0
 - add documents:
   - hacking_JA.md @eltociear

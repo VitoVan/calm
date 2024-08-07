@@ -774,13 +774,13 @@ body{
                <li><a href="https://github.com/VitoVan/calm">Source</a></li>
             </ul>
          </div>
-            <div class="content markdown-body"><h1><a name="hacking-calm" class="anchor" aria-hidden="true" tabindex="-1" href="#hacking-calm"><span aria-hidden="true" class="octicon octicon-link"></span></a>Hacking CALM</h1>
-<h2><a name="with-pre-built-binaries" class="anchor" aria-hidden="true" tabindex="-1" href="#with-pre-built-binaries"><span aria-hidden="true" class="octicon octicon-link"></span></a>With Pre-built Binaries</h2>
-<h3><a name="step-1-fork-calm" class="anchor" aria-hidden="true" tabindex="-1" href="#step-1-fork-calm"><span aria-hidden="true" class="octicon octicon-link"></span></a>Step 1: Fork CALM</h3>
+            <div class="content markdown-body"><div class="markdown-heading"><h1 class="heading-element">Hacking CALM</h1><a name="hacking-calm" class="anchor" aria-label="Permalink: Hacking CALM" href="#hacking-calm"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h2 class="heading-element">With Pre-built Binaries</h2><a name="with-pre-built-binaries" class="anchor" aria-label="Permalink: With Pre-built Binaries" href="#with-pre-built-binaries"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h3 class="heading-element">Step 1: Fork CALM</h3><a name="step-1-fork-calm" class="anchor" aria-label="Permalink: Step 1: Fork CALM" href="#step-1-fork-calm"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><a href="https://github.com/VitoVan/calm/fork">https://github.com/VitoVan/calm/fork</a></p>
-<h3><a name="step-2-install-calm-binary" class="anchor" aria-hidden="true" tabindex="-1" href="#step-2-install-calm-binary"><span aria-hidden="true" class="octicon octicon-link"></span></a>Step 2: Install CALM binary</h3>
+<div class="markdown-heading"><h3 class="heading-element">Step 2: Install CALM binary</h3><a name="step-2-install-calm-binary" class="anchor" aria-label="Permalink: Step 2: Install CALM binary" href="#step-2-install-calm-binary"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p><a href="https://github.com/VitoVan/calm#-installation">https://github.com/VitoVan/calm#-installation</a></p>
-<h3><a name="step-3-init-git-repository" class="anchor" aria-hidden="true" tabindex="-1" href="#step-3-init-git-repository"><span aria-hidden="true" class="octicon octicon-link"></span></a>Step 3: Init Git Repository</h3>
+<div class="markdown-heading"><h3 class="heading-element">Step 3: Init Git Repository</h3><a name="step-3-init-git-repository" class="anchor" aria-label="Permalink: Step 3: Init Git Repository" href="#step-3-init-git-repository"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <div class="highlight highlight-source-shell"><pre><span class="pl-c"><span class="pl-c">#</span> cd to your downloaded CALM binary directory</span>
 <span class="pl-c"><span class="pl-c">#</span> e.g. on macOS:</span>
 <span class="pl-c1">cd</span> /Applications/Calm.app/Contents/MacOS
@@ -797,7 +797,7 @@ git fetch origin --depth=1
 <span class="pl-c"><span class="pl-c">#</span> reset hard to origin/main</span>
 git reset --hard origin/main</pre></div>
 <p>Now you can modify, push and create pull requests!</p>
-<h3><a name="my-personal-favour" class="anchor" aria-hidden="true" tabindex="-1" href="#my-personal-favour"><span aria-hidden="true" class="octicon octicon-link"></span></a>My Personal Favour</h3>
+<div class="markdown-heading"><h3 class="heading-element">My Personal Favour</h3><a name="my-personal-favour" class="anchor" aria-label="Permalink: My Personal Favour" href="#my-personal-favour"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Personally, I would clone the repository somewhere else and make some symbol links into the directory of the downloaded binary, such as:</p>
 <div class="highlight highlight-source-shell"><pre><span class="pl-c1">cd</span> /Applications/Calm.app/Contents/MacOS
 
@@ -809,7 +809,7 @@ ln -s <span class="pl-k">~</span>/github/VitoVan/calm/build build
 ln -s <span class="pl-k">~</span>/github/VitoVan/calm/s s
 ln -s <span class="pl-k">~</span>/github/VitoVan/calm/src src</pre></div>
 <p>This won't cover all the source code, but normally it's enough.</p>
-<h2><a name="run-from-source" class="anchor" aria-hidden="true" tabindex="-1" href="#run-from-source"><span aria-hidden="true" class="octicon octicon-link"></span></a>Run From Source</h2>
+<div class="markdown-heading"><h2 class="heading-element">Run From Source</h2><a name="run-from-source" class="anchor" aria-label="Permalink: Run From Source" href="#run-from-source"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <ol start="0">
 <li>
 <p>Preparation</p>
@@ -918,7 +918,7 @@ calm</pre></div>
 </ol>
 <p>Congrats! You are all set!</p>
 <p>Can't wait to see what you are going to build!</p>
-<h1><a name="building-calm" class="anchor" aria-hidden="true" tabindex="-1" href="#building-calm"><span aria-hidden="true" class="octicon octicon-link"></span></a>Building CALM</h1>
+<div class="markdown-heading"><h1 class="heading-element">Building CALM</h1><a name="building-calm" class="anchor" aria-label="Permalink: Building CALM" href="#building-calm"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Currently CALM was built on github actions, you can find the workflow <a href="https://github.com/VitoVan/calm/blob/main/.github/workflows/calm.yml">here</a>.</p>
 <p>If you have interests to build CALM and encountered any problem, please let me know.</p>
 <p>I would be so glad to help.</p>

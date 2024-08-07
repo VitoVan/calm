@@ -774,38 +774,38 @@ body{
                <li><a href="https://github.com/VitoVan/calm">Source</a></li>
             </ul>
          </div>
-            <div class="content markdown-body"><h1><a name="-c-a-l-m" class="anchor" aria-hidden="true" tabindex="-1" href="#-c-a-l-m"><span aria-hidden="true" class="octicon octicon-link"></span></a>
-<a target="_blank" rel="noopener noreferrer" href="docs/images/calm.png"><img width="100" alt="Calm" src="docs/images/calm.png" style="max-width: 100%;"></a> C A L M</h1>
-<p><a href="https://github.com/VitoVan/calm/actions/workflows/calm.yml"><img src="https://github.com/VitoVan/calm/actions/workflows/calm.yml/badge.svg" alt="CI" style="max-width: 100%;"></a> <a href="#pre-built-binary"><img src="https://img.shields.io/github/downloads/vitovan/calm/total?color=brightgreen&label=Downloads&style=flat" alt="GitHub all releases" style="max-width: 100%;"></a> <a href="https://discord.gg/xN6VeaMr2a" rel="nofollow"><img src="https://img.shields.io/discord/1124894601908584528?logo=discord&logoColor=white&label=Chat&labelColor=%235865f2&color=white" alt="Discord" style="max-width: 100%;"></a></p>
+            <div class="content markdown-body"><div class="markdown-heading"><h1 class="heading-element">
+<a target="_blank" rel="noopener noreferrer" href="docs/images/calm.png"><img width="100" alt="Calm" src="docs/images/calm.png" style="max-width: 100%;"></a> C A L M</h1><a name="-c-a-l-m" class="anchor" aria-label="Permalink:  C A L M" href="#-c-a-l-m"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p><a href="https://github.com/VitoVan/calm/actions/workflows/calm.yml"><img src="https://img.shields.io/discord/1124894601908584528?logo=discord&amp;logoColor=white&amp;label=Chat&amp;labelColor=%235865f2&amp;color=white" style="max-width: 100%;"></a></p>
 <p><strong>C</strong>anvas <strong>A</strong>ided <strong>L</strong>isp <strong>M</strong>agic: Create canvas-based applications with Lisp and distribute them on Linux, macOS, Windows, and the web.</p>
 <p>English | <a href="index_ja.html">日本語</a></p>
-<h2><a name="hello-world" class="anchor" aria-hidden="true" tabindex="-1" href="#hello-world"><span aria-hidden="true" class="octicon octicon-link"></span></a>Hello, World!</h2>
+<div class="markdown-heading"><h2 class="heading-element">Hello, World!</h2><a name="hello-world" class="anchor" aria-label="Permalink: Hello, World!" href="#hello-world"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Find whatever directory, and create a file: <strong>canvas.lisp</strong></p>
-<div class="highlight highlight-source-lisp"><pre>(<span class="pl-k">defparameter</span> <span class="pl-smi">*color-list*</span> '((<span class="pl-c1">0.83</span> <span class="pl-c1">0.82</span> <span class="pl-c1">0.84</span>) (<span class="pl-c1">0.89</span> <span class="pl-c1">0.12</span> <span class="pl-c1">0.17</span>) (<span class="pl-c1">0.94</span> <span class="pl-c1">0.87</span> <span class="pl-c1">0.47</span>) (<span class="pl-c1">0</span> <span class="pl-c1">0.35</span> <span class="pl-c1">0.59</span>)))
+<div class="highlight highlight-source-commonlisp"><pre>(<span class="pl-k">defparameter</span> <span class="pl-sr">*color-list*</span> <span class="pl-c1">'</span>((<span class="pl-c1">0.83</span> <span class="pl-c1">0.82</span> <span class="pl-c1">0.84</span>) (<span class="pl-c1">0.89</span> <span class="pl-c1">0.12</span> <span class="pl-c1">0.17</span>) (<span class="pl-c1">0.94</span> <span class="pl-c1">0.87</span> <span class="pl-c1">0.47</span>) (<span class="pl-c1">0</span> <span class="pl-c1">0.35</span> <span class="pl-c1">0.59</span>)))
 (<span class="pl-k">defun</span> <span class="pl-en">draw</span> ()
-  (c:set-operator :darken)
+  (<span class="pl-c1">c</span>:set-operator <span class="pl-en">:darken</span>)
   (<span class="pl-k">dotimes</span> (i <span class="pl-c1">7</span>)
-    (c:arc (+ <span class="pl-c1">72</span> (* (- (/ <span class="pl-smi">*calm-window-width*</span> <span class="pl-c1">5</span>) <span class="pl-c1">44</span>) i)) <span class="pl-c1">73</span> <span class="pl-c1">50</span> <span class="pl-c1">0</span> (* <span class="pl-c1">2</span> pi))
-    (apply <span class="pl-c1">#'c:set-source-rgb</span> (nth (<span class="pl-k">if</span> (&gt;= i <span class="pl-c1">4</span>) (- i <span class="pl-c1">4</span>) i) <span class="pl-smi">*color-list*</span>))
-    (c:fill-path)))</pre></div>
+    (<span class="pl-c1">c</span>:arc (<span class="pl-c1">+</span> <span class="pl-c1">72</span> (<span class="pl-c1">*</span> (<span class="pl-c1">-</span> (<span class="pl-c1">/</span> <span class="pl-sr">*calm-window-width*</span> <span class="pl-c1">5</span>) <span class="pl-c1">44</span>) i)) <span class="pl-c1">73</span> <span class="pl-c1">50</span> <span class="pl-c1">0</span> (<span class="pl-c1">*</span> <span class="pl-c1">2</span> <span class="pl-c1">pi</span>))
+    (<span class="pl-c1">apply</span> <span class="pl-c1">#'</span>c:set-source-rgb (<span class="pl-c1">nth</span> (<span class="pl-k">if</span> (<span class="pl-c1">&gt;=</span> i <span class="pl-c1">4</span>) (<span class="pl-c1">-</span> i <span class="pl-c1">4</span>) i) <span class="pl-sr">*color-list*</span>))
+    (<span class="pl-c1">c</span>:fill-path)))</pre></div>
 <p>Launch your terminal, cd to that directory, and enter the command:</p>
 <div class="highlight highlight-source-shell"><pre>calm</pre></div>
 <p><a href="#hello-world"><img src="docs/examples/circles/canvas.png" alt="Hello World" style="max-width: 100%;"></a></p>
-<h2><a name="examples" class="anchor" aria-hidden="true" tabindex="-1" href="#examples"><span aria-hidden="true" class="octicon octicon-link"></span></a>Examples</h2>
+<div class="markdown-heading"><h2 class="heading-element">Examples</h2><a name="examples" class="anchor" aria-label="Permalink: Examples" href="#examples"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p align="center">
-    <a href="https://vitovan.com/calm/1.2.0/fan/calm.html" rel="nofollow"><img width="250" alt="Fan" src="./docs/examples/fan/canvas.png" style="max-width: 100%;"></a>
-    <a href="https://vitovan.com/calm/1.2.0/mondrian/calm.html" rel="nofollow"><img width="250" alt="Mondrian" src="./docs/examples/mondrian/canvas.png" style="max-width: 100%;"></a>
-    <a href="https://vitovan.com/calm/1.2.0/meditator/calm.html" rel="nofollow"><img width="250" alt="Meditator" src="./docs/examples/meditator/canvas.png" style="max-width: 100%;"></a>
+    <a href="https://vitovan.com/calm/1.3.0/fan/calm.html" rel="nofollow"><img width="250" alt="Fan" src="./docs/examples/fan/canvas.png" style="max-width: 100%;"></a>
+    <a href="https://vitovan.com/calm/1.3.0/mondrian/calm.html" rel="nofollow"><img width="250" alt="Mondrian" src="./docs/examples/mondrian/canvas.png" style="max-width: 100%;"></a>
+    <a href="https://vitovan.com/calm/1.3.0/meditator/calm.html" rel="nofollow"><img width="250" alt="Meditator" src="./docs/examples/meditator/canvas.png" style="max-width: 100%;"></a>
 </p>
-<p>Source files and binaries for the above examples are <a href="https://github.com/VitoVan/calm/tree/main/docs/examples">here</a> and <a href="https://github.com/VitoVan/calm/releases/tag/1.2.0">here</a>.</p>
+<p>Source files and binaries for the above examples are <a href="https://github.com/VitoVan/calm/tree/main/docs/examples">here</a> and <a href="https://github.com/VitoVan/calm/releases/tag/1.3.0">here</a>.</p>
 <p>For more applications made with CALM, please check <a href="https://github.com/VitoVan/made-with-calm">Made with CALM</a>.</p>
-<h2><a name="-installation" class="anchor" aria-hidden="true" tabindex="-1" href="#-installation"><span aria-hidden="true" class="octicon octicon-link"></span></a>
-<a target="_blank" rel="noopener noreferrer" href="./docs/images/calm.png"><img width="50" alt="Calm Installer" src="./docs/images/calm.png" style="max-width: 100%;"></a> Installation</h2>
-<h3><a name="pre-built-binary" class="anchor" aria-hidden="true" tabindex="-1" href="#pre-built-binary"><span aria-hidden="true" class="octicon octicon-link"></span></a>Pre-built Binary</h3>
+<div class="markdown-heading"><h2 class="heading-element">
+<a target="_blank" rel="noopener noreferrer" href="./docs/images/calm.png"><img width="50" alt="Calm Installer" src="./docs/images/calm.png" style="max-width: 100%;"></a> Installation</h2><a name="-installation" class="anchor" aria-label="Permalink:  Installation" href="#-installation"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h3 class="heading-element">Pre-built Binary</h3><a name="pre-built-binary" class="anchor" aria-label="Permalink: Pre-built Binary" href="#pre-built-binary"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <ol>
 <li>
 <p>Download</p>
-<p><a href="https://github.com/VitoVan/calm/releases/latest/download/calm.tgz"><img src="https://camo.githubusercontent.com/ed1bb81167c5c35819b37ec4ccb8e689759fb1fe5abfab5fcfe5d2ea4e8d98b4/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f4c696e75782d676c696263253230322e33312b2d4646443033322e7376673f6c6f676f3d6c696e7578" alt="Linux Download" data-canonical-src="https://img.shields.io/badge/Linux-glibc%202.31+-FFD032.svg?logo=linux" style="max-width: 100%;"></a> <a href="https://github.com/VitoVan/calm/releases/latest/download/calm.macos-13.dmg"><img src="https://camo.githubusercontent.com/cf65fb0a6193ee1ab096e87da694f44de49f7e31c5a2e94301110bebcee79154/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6d61634f532d56656e747572612d626c61636b3f6c6f676f3d6170706c65" alt="macOS Ventura Download" data-canonical-src="https://img.shields.io/badge/macOS-Ventura-black?logo=apple" style="max-width: 100%;"></a> <a href="https://github.com/VitoVan/calm/releases/latest/download/calm.zip"><img src="https://camo.githubusercontent.com/29361ec2f5dc193be0ad8547adb61ef892f2ae1b2c18ee7cefde043af0e0d997/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f57696e646f77732d57696e646f777325323031302f31312d3031376664352e7376673f6c6f676f3d77696e646f7773" alt="Windows Download" data-canonical-src="https://img.shields.io/badge/Windows-Windows%2010/11-017fd5.svg?logo=windows" style="max-width: 100%;"></a> <a href="https://github.com/VitoVan/calm/releases/latest/download/calm.macos-12.dmg"><img src="https://camo.githubusercontent.com/572ad77cfb9e51b239bd15ff64da01fccbce29d1d289fb87037fbc75e18fb661/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6d61634f532d4d6f6e74657265792d77686974653f6c6f676f3d6170706c65" alt="macOS Monterey Download" data-canonical-src="https://img.shields.io/badge/macOS-Monterey-white?logo=apple" style="max-width: 100%;"></a> <a href="https://github.com/VitoVan/calm/releases/latest/download/calm.macos-11.dmg"><img src="https://camo.githubusercontent.com/329f06498dd83b70a59107e4d194fdcf4e002cfa355bcc75e4300c01214925ea/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6d61634f532d4269672532305375722d77686974653f6c6f676f3d6170706c65" alt="macOS Big Sur Download" data-canonical-src="https://img.shields.io/badge/macOS-Big%20Sur-white?logo=apple" style="max-width: 100%;"></a></p>
+<p><a href="https://github.com/VitoVan/calm/releases/latest/download/calm.tgz"><img src="https://img.shields.io/badge/macOS-Big%20Sur-white?logo=apple" style="max-width: 100%;"></a></p>
 </li>
 <li>
 <p>Extract</p>
@@ -816,11 +816,11 @@ body{
 </li>
 </ol>
 <p>For macOS and Windows users, you need to be smarter than <a href="https://duckduckgo.com/?q=how+to+bypass+smartscreen" rel="nofollow">Windows SmartScreen</a> or able to <a href="https://support.apple.com/guide/mac-help/open-a-mac-app-from-an-unidentified-developer-mh40616/mac" rel="nofollow">tame macOS</a> to use CALM. In case anything went wrong, here is an <a href="docs/installation.html">Installation Guide</a>.</p>
-<h3><a name="run-from-source" class="anchor" aria-hidden="true" tabindex="-1" href="#run-from-source"><span aria-hidden="true" class="octicon octicon-link"></span></a>Run from Source</h3>
+<div class="markdown-heading"><h3 class="heading-element">Run from Source</h3><a name="run-from-source" class="anchor" aria-label="Permalink: Run from Source" href="#run-from-source"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Supported platforms are currently limited by <a href="https://github.com/actions/runner-images">Github Actions runner images</a>.</p>
 <p>If your platforms are not supported, feel free to <a href="docs/hacking.html#run-from-source">Run from Source</a>.</p>
-<h2><a name="-distribution" class="anchor" aria-hidden="true" tabindex="-1" href="#-distribution"><span aria-hidden="true" class="octicon octicon-link"></span></a>
-<a target="_blank" rel="noopener noreferrer" href="./docs/images/app.png"><img width="50" alt="Calm Application" src="./docs/images/app.png" style="max-width: 100%;"></a> Distribution</h2>
+<div class="markdown-heading"><h2 class="heading-element">
+<a target="_blank" rel="noopener noreferrer" href="./docs/images/app.png"><img width="50" alt="Calm Application" src="./docs/images/app.png" style="max-width: 100%;"></a> Distribution</h2><a name="-distribution" class="anchor" aria-label="Permalink:  Distribution" href="#-distribution"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Launch your terminal, cd to the directory where the file <strong>canvas.lisp</strong> exists, enter the command:</p>
 <div class="highlight highlight-source-shell"><pre>calm publish</pre></div>
 <p>This command will generate different packages on different platforms:</p>
@@ -846,19 +846,19 @@ body{
 <p>And, if you don't have <a href="https://github.com/microsoft/winget-cli">winget</a> under your PATH, this will also install winget for you.</p>
 <p>The binary detection was done by <code>where makensis</code> and <code>where winget</code>.</p>
 </blockquote>
-<h3><a name="to-the-web" class="anchor" aria-hidden="true" tabindex="-1" href="#to-the-web"><span aria-hidden="true" class="octicon octicon-link"></span></a>To the Web</h3>
+<div class="markdown-heading"><h3 class="heading-element">To the Web</h3><a name="to-the-web" class="anchor" aria-label="Permalink: To the Web" href="#to-the-web"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <div class="highlight highlight-source-shell"><pre>calm publish-web</pre></div>
 <p>This command could compile your Lisp code into web pages that could be served on the internet.</p>
 <p>For more, please refer to the <a href="#command-reference">Command Reference</a>.</p>
-<h1><a name="calm---references" class="anchor" aria-hidden="true" tabindex="-1" href="#calm---references"><span aria-hidden="true" class="octicon octicon-link"></span></a>CALM - References</h1>
+<div class="markdown-heading"><h1 class="heading-element">CALM - References</h1><a name="calm---references" class="anchor" aria-label="Permalink: CALM - References" href="#calm---references"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>From CALM 1.0.0, the version number will follow <a href="https://semver.org/spec/v2.0.0.html" rel="nofollow">Semantic Versioning Specification</a>. This means you can use CALM calmly without worrying about me being crazy. Because whenever I'm going to be crazy, I will let you know <a href="https://semver.org/spec/v2.0.0.html#spec-item-7" rel="nofollow">before anything got changed</a> and bump the major version if <a href="https://semver.org/spec/v2.0.0.html#spec-item-8" rel="nofollow">anything could surprise</a> you.</p>
 <p>Keep CALM and have fun.</p>
-<h2><a name="command-reference" class="anchor" aria-hidden="true" tabindex="-1" href="#command-reference"><span aria-hidden="true" class="octicon octicon-link"></span></a>Command Reference</h2>
-<h3><a name="calm" class="anchor" aria-hidden="true" tabindex="-1" href="#calm"><span aria-hidden="true" class="octicon octicon-link"></span></a><code>calm</code></h3>
+<div class="markdown-heading"><h2 class="heading-element">Command Reference</h2><a name="command-reference" class="anchor" aria-label="Permalink: Command Reference" href="#command-reference"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h3 class="heading-element"><code>calm</code></h3><a name="calm" class="anchor" aria-label="Permalink: calm" href="#calm"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>You should run this command inside your project directory, where the file <strong>canvas.lisp</strong> should exist.</p>
 <p>This command will load <strong>canvas.lisp</strong> and show a window according to the instructions of the function  <code>draw</code> or <code>draw-forever</code>. The file <strong>canvas.lisp</strong> is just a regular Lisp source file, you do whatever you like in it.</p>
 <p>For CALM-related functions and parameters, please refer to the <a href="#api-reference">API Reference</a>.</p>
-<h3><a name="calm-hello" class="anchor" aria-hidden="true" tabindex="-1" href="#calm-hello"><span aria-hidden="true" class="octicon octicon-link"></span></a><code>calm hello</code></h3>
+<div class="markdown-heading"><h3 class="heading-element"><code>calm hello</code></h3><a name="calm-hello" class="anchor" aria-label="Permalink: calm hello" href="#calm-hello"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>This command will create a sample application with the default directory structure. You should create a project directory first, such as:</p>
 <div class="highlight highlight-source-shell"><pre>mkdir my-cool-app
 <span class="pl-c1">cd</span> my-cool-app
@@ -872,7 +872,7 @@ calm hello</pre></div>
 </code></pre>
 <p>Files put into <strong>assets</strong> and <strong>fonts</strong> directories will be packed with your application during distribution. If you put your favorite font into the <strong>fonts</strong> directory, you will be able to use it inside your application.</p>
 <p>For more about font usage, please refer to the <a href="#rendering-text">API Reference: Rendering Text</a>.</p>
-<h3><a name="calm-publish" class="anchor" aria-hidden="true" tabindex="-1" href="#calm-publish"><span aria-hidden="true" class="octicon octicon-link"></span></a><code>calm publish</code></h3>
+<div class="markdown-heading"><h3 class="heading-element"><code>calm publish</code></h3><a name="calm-publish" class="anchor" aria-label="Permalink: calm publish" href="#calm-publish"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>This command will generate:</p>
 <ul>
 <li>Linux AppImage</li>
@@ -881,7 +881,7 @@ calm hello</pre></div>
 </ul>
 <p>according to the platform it was running on.</p>
 <p>It does not take any arguments, but some options could be set through the environment variables, please check <code>calm publish-with-options</code> for the option details.</p>
-<h3><a name="calm-publish-with-options" class="anchor" aria-hidden="true" tabindex="-1" href="#calm-publish-with-options"><span aria-hidden="true" class="octicon octicon-link"></span></a><code>calm publish-with-options</code></h3>
+<div class="markdown-heading"><h3 class="heading-element"><code>calm publish-with-options</code></h3><a name="calm-publish-with-options" class="anchor" aria-label="Permalink: calm publish-with-options" href="#calm-publish-with-options"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>This command will do the same thing as <code>calm publish</code>, instead it will ask your opinions on all the customizable options (with a default value provided, don't worry), respectively:</p>
 <table>
 <thead>
@@ -944,7 +944,7 @@ calm hello</pre></div>
 </tbody>
 </table>
 <p>If you have provided the corresponding environment variable, the option will not be asked. You could also set these environment variables while using the command <code>calm publish</code>, the options will be picked up.</p>
-<h3><a name="calm-publish-web" class="anchor" aria-hidden="true" tabindex="-1" href="#calm-publish-web"><span aria-hidden="true" class="octicon octicon-link"></span></a><code>calm publish-web</code></h3>
+<div class="markdown-heading"><h3 class="heading-element"><code>calm publish-web</code></h3><a name="calm-publish-web" class="anchor" aria-label="Permalink: calm publish-web" href="#calm-publish-web"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>This command will generate a  <strong>web</strong> directory containing all the necessary materials for you to serve it on the internet. The common usage could be like this:</p>
 <div class="highlight highlight-source-shell"><pre><span class="pl-c1">cd</span> my-cool-app
 calm publish-web</pre></div>
@@ -963,7 +963,7 @@ calm publish-web</pre></div>
 python3 -m http.server 8000</pre></div>
 <p>Then open <a href="http://127.0.0.1:8000/calm.html" rel="nofollow">http://127.0.0.1:8000/calm.html</a> in your browser.</p>
 <p>Note: The files inside <strong>fonts</strong> and <strong>assets</strong> directories will <em>NOT</em> be packed by default, please check the REBUILD_WASM_P option below.</p>
-<h3><a name="calm-publish-web-with-options" class="anchor" aria-hidden="true" tabindex="-1" href="#calm-publish-web-with-options"><span aria-hidden="true" class="octicon octicon-link"></span></a><code>calm publish-web-with-options</code></h3>
+<div class="markdown-heading"><h3 class="heading-element"><code>calm publish-web-with-options</code></h3><a name="calm-publish-web-with-options" class="anchor" aria-label="Permalink: calm publish-web-with-options" href="#calm-publish-web-with-options"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>This command works like <code>calm publish-with-options</code> except it's for <code>calm publish-web</code>.</p>
 <table>
 <thead>
@@ -984,58 +984,58 @@ python3 -m http.server 8000</pre></div>
 </tbody>
 </table>
 <p>Since JSCL is the backbone of CALM on the web, any change of JSCL will be considered as a change of CALM itself. The code base of JSCL used by each version of CALM is fixed, it won't change unless you update CALM. Please feel safe to use it.</p>
-<h3><a name="api-reference" class="anchor" aria-hidden="true" tabindex="-1" href="#api-reference"><span aria-hidden="true" class="octicon octicon-link"></span></a>API Reference</h3>
+<div class="markdown-heading"><h3 class="heading-element">API Reference</h3><a name="api-reference" class="anchor" aria-label="Permalink: API Reference" href="#api-reference"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>CALM is intended to be a thin layer above <a href="https://wiki.libsdl.org/SDL2/FrontPage" rel="nofollow">SDL2</a>, <a href="https://www.cairographics.org/" rel="nofollow">Cairo</a>, and some other things. So the number of APIs provided by CALM is intended to be as small as possible.</p>
-<h4><a name="fundamentals" class="anchor" aria-hidden="true" tabindex="-1" href="#fundamentals"><span aria-hidden="true" class="octicon octicon-link"></span></a>Fundamentals</h4>
-<h5><a name="file-canvaslisp" class="anchor" aria-hidden="true" tabindex="-1" href="#file-canvaslisp"><span aria-hidden="true" class="octicon octicon-link"></span></a>File <code>canvas.lisp</code>
-</h5>
+<div class="markdown-heading"><h4 class="heading-element">Fundamentals</h4><a name="fundamentals" class="anchor" aria-label="Permalink: Fundamentals" href="#fundamentals"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h5 class="heading-element">File <code>canvas.lisp</code>
+</h5><a name="file-canvaslisp" class="anchor" aria-label="Permalink: File canvas.lisp" href="#file-canvaslisp"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>This is the entry file for a CALM application. Typically, it should contain a function called <code>draw</code>.</p>
-<h5><a name="function-draw" class="anchor" aria-hidden="true" tabindex="-1" href="#function-draw"><span aria-hidden="true" class="octicon octicon-link"></span></a>Function <code>draw</code>
-</h5>
+<div class="markdown-heading"><h5 class="heading-element">Function <code>draw</code>
+</h5><a name="function-draw" class="anchor" aria-label="Permalink: Function draw" href="#function-draw"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>This is the entry function for a CALM application, it will be called once the application started. You are supposed to call some canvas drawing functions to be shown, such as:</p>
-<div class="highlight highlight-source-lisp"><pre>(<span class="pl-k">defun</span> <span class="pl-en">draw</span> ()
-  (c:set-source-rgb <span class="pl-c1">1</span> <span class="pl-c1">0</span> <span class="pl-c1">0</span>)
-  (c:arc <span class="pl-c1">200</span> <span class="pl-c1">73</span> <span class="pl-c1">50</span> <span class="pl-c1">0</span> (* <span class="pl-c1">2</span> pi))
-  (c:fill-path))</pre></div>
+<div class="highlight highlight-source-commonlisp"><pre>(<span class="pl-k">defun</span> <span class="pl-en">draw</span> ()
+  (<span class="pl-c1">c</span>:set-source-rgb <span class="pl-c1">1</span> <span class="pl-c1">0</span> <span class="pl-c1">0</span>)
+  (<span class="pl-c1">c</span>:arc <span class="pl-c1">200</span> <span class="pl-c1">73</span> <span class="pl-c1">50</span> <span class="pl-c1">0</span> (<span class="pl-c1">*</span> <span class="pl-c1">2</span> <span class="pl-c1">pi</span>))
+  (<span class="pl-c1">c</span>:fill-path))</pre></div>
 <p>This function will be called passively. That is to say, this function won't be called again after the first call, unless any event has been triggered by the user, such as mouse motion, key down, key up, mouse button down, etc.</p>
 <p>If you want to continually refresh the canvas without user interaction, you should use <code>draw-forever</code>.</p>
 <p>Note: Functions like <code>c:arc</code> are third-party APIs exposed by CALM. Please refer to <a href="#drawing-on-canvas">Drawing on Canvas</a> for more info.</p>
-<h5><a name="function-draw-forever" class="anchor" aria-hidden="true" tabindex="-1" href="#function-draw-forever"><span aria-hidden="true" class="octicon octicon-link"></span></a>Function <code>draw-forever</code>
-</h5>
+<div class="markdown-heading"><h5 class="heading-element">Function <code>draw-forever</code>
+</h5><a name="function-draw-forever" class="anchor" aria-label="Permalink: Function draw-forever" href="#function-draw-forever"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>This function also serves as the entry point for a CALM application, similar to the <code>draw</code> function. It is important to avoid defining both <code>draw</code> and <code>draw-forever</code> as doing so would have severe consequences, comparable to killing John Wick's dog.</p>
 <p>This function will be called every <code>*calm-delay*</code> milliseconds, regardless of user interaction.</p>
-<h5><a name="variable-calm-delay" class="anchor" aria-hidden="true" tabindex="-1" href="#variable-calm-delay"><span aria-hidden="true" class="octicon octicon-link"></span></a>Variable <code>*calm-delay*</code>
-</h5>
+<div class="markdown-heading"><h5 class="heading-element">Variable <code>*calm-delay*</code>
+</h5><a name="variable-calm-delay" class="anchor" aria-label="Permalink: Variable *calm-delay*" href="#variable-calm-delay"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>This variable controls how many milliseconds CALM should wait before refreshing the canvas.</p>
 <p>Default: 42</p>
 <p>This variable only works on the desktop platform, for the web platform, please check <code>*calm-fps*</code>.</p>
-<h5><a name="variable-calm-redraw" class="anchor" aria-hidden="true" tabindex="-1" href="#variable-calm-redraw"><span aria-hidden="true" class="octicon octicon-link"></span></a>Variable <code>*calm-redraw*</code>
-</h5>
+<div class="markdown-heading"><h5 class="heading-element">Variable <code>*calm-redraw*</code>
+</h5><a name="variable-calm-redraw" class="anchor" aria-label="Permalink: Variable *calm-redraw*" href="#variable-calm-redraw"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>This variable controls if the canvas will be refreshed from now on.</p>
 <p>Normally, you don't need to touch this variable. But if you are using <code>draw-forever</code> and you want to manually control the process of refreshing, it could be useful. Such as:</p>
-<div class="highlight highlight-source-lisp"><pre>(<span class="pl-k">defparameter</span> <span class="pl-smi">*game-started*</span> <span class="pl-c1">nil</span>)
+<div class="highlight highlight-source-commonlisp"><pre>(<span class="pl-k">defparameter</span> <span class="pl-sr">*game-started*</span> <span class="pl-c1">nil</span>)
 
 (<span class="pl-k">defun</span> <span class="pl-en">on-keyup</span> (key)
-  (<span class="pl-k">when</span> (c:keq key :SCANCODE-SPACE)
-    (<span class="pl-c1">setf</span> <span class="pl-smi">*game-started*</span> (<span class="pl-k">not</span> <span class="pl-smi">*game-started*</span>))))
+  (<span class="pl-k">when</span> (<span class="pl-c1">c</span>:keq key <span class="pl-en">:SCANCODE-SPACE</span>)
+    (<span class="pl-k">setf</span> <span class="pl-sr">*game-started*</span> (<span class="pl-c1">not</span> <span class="pl-sr">*game-started*</span>))))
 
 (<span class="pl-k">defun</span> <span class="pl-en">draw-forever</span> ()
-  (<span class="pl-c1">format</span> <span class="pl-c1">t</span> <span class="pl-s"><span class="pl-pds">"</span>drawing canvas...~%<span class="pl-pds">"</span></span>)
-  (c:set-source-rgb (/ <span class="pl-c1">12</span> <span class="pl-c1">255</span>) (/ <span class="pl-c1">55</span> <span class="pl-c1">255</span>) (/ <span class="pl-c1">132</span> <span class="pl-c1">255</span>))
-  (c:paint)
-  (c:set-source-rgb <span class="pl-c1">1</span> <span class="pl-c1">1</span> <span class="pl-c1">1</span>)
-  (c:move-to <span class="pl-c1">70</span> <span class="pl-c1">90</span>)
-  (c:select-font-family <span class="pl-s"><span class="pl-pds">"</span>Arial<span class="pl-pds">"</span></span> :normal :normal)
-  (c:set-font-size <span class="pl-c1">60</span>)
-  (c:show-text (<span class="pl-c1">format</span> <span class="pl-c1">nil</span> <span class="pl-s"><span class="pl-pds">"</span>Press SPACE: ~A<span class="pl-pds">"</span></span> (write-to-string (mod (c:get-ticks) <span class="pl-c1">9</span>))))
-  (<span class="pl-c1">setf</span> <span class="pl-smi">*calm-redraw*</span> <span class="pl-smi">*game-started*</span>))</pre></div>
+  (<span class="pl-c1">format</span> <span class="pl-c1">t</span> <span class="pl-s"><span class="pl-pds">"</span>drawing canvas...<span class="pl-en">~%</span><span class="pl-pds">"</span></span>)
+  (<span class="pl-c1">c</span>:set-source-rgb (<span class="pl-c1">/</span> <span class="pl-c1">12</span> <span class="pl-c1">255</span>) (<span class="pl-c1">/</span> <span class="pl-c1">55</span> <span class="pl-c1">255</span>) (<span class="pl-c1">/</span> <span class="pl-c1">132</span> <span class="pl-c1">255</span>))
+  (<span class="pl-c1">c</span>:paint)
+  (<span class="pl-c1">c</span>:set-source-rgb <span class="pl-c1">1</span> <span class="pl-c1">1</span> <span class="pl-c1">1</span>)
+  (<span class="pl-c1">c</span>:move-to <span class="pl-c1">70</span> <span class="pl-c1">90</span>)
+  (<span class="pl-c1">c</span>:select-font-family <span class="pl-s"><span class="pl-pds">"</span>Arial<span class="pl-pds">"</span></span> <span class="pl-en">:normal</span> <span class="pl-en">:normal</span>)
+  (<span class="pl-c1">c</span>:set-font-size <span class="pl-c1">60</span>)
+  (<span class="pl-c1">c</span>:show-text (<span class="pl-c1">format</span> <span class="pl-c1">nil</span> <span class="pl-s"><span class="pl-pds">"</span>Press SPACE: <span class="pl-en">~A</span><span class="pl-pds">"</span></span> (<span class="pl-c1">write-to-string</span> (<span class="pl-c1">mod</span> (<span class="pl-c1">c</span>:get-ticks) <span class="pl-c1">9</span>))))
+  (<span class="pl-k">setf</span> <span class="pl-sr">*calm-redraw*</span> <span class="pl-sr">*game-started*</span>))</pre></div>
 <p>Note: this variable will be set to <code>T</code> whenever a user event was triggered.</p>
-<h5><a name="variable-calm-fps" class="anchor" aria-hidden="true" tabindex="-1" href="#variable-calm-fps"><span aria-hidden="true" class="octicon octicon-link"></span></a>Variable <code>*calm-fps*</code>
-</h5>
+<div class="markdown-heading"><h5 class="heading-element">Variable <code>*calm-fps*</code>
+</h5><a name="variable-calm-fps" class="anchor" aria-label="Permalink: Variable *calm-fps*" href="#variable-calm-fps"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>This variable controls how many milliseconds CALM should wait before refreshing the canvas. Setting 0 will use the browser’s <code>requestAnimationFrame</code> mechanism to refresh the canvas.</p>
 <p>Default: 42</p>
 <p>This variable only works on the web, for the desktop platform, please check <code>*calm-delay*</code>.</p>
-<h4><a name="drawing-on-canvas" class="anchor" aria-hidden="true" tabindex="-1" href="#drawing-on-canvas"><span aria-hidden="true" class="octicon octicon-link"></span></a>Drawing on Canvas</h4>
+<div class="markdown-heading"><h4 class="heading-element">Drawing on Canvas</h4><a name="drawing-on-canvas" class="anchor" aria-label="Permalink: Drawing on Canvas" href="#drawing-on-canvas"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Drawing in CALM could be achieved via <a href="https://www.cairographics.org/" rel="nofollow">Cairo</a>.</p>
 <p>To know more about how to draw anything, please read <a href="https://www.cairographics.org/tutorial/" rel="nofollow">Cairo Tutorial</a> and <a href="https://www.cairographics.org/manual/" rel="nofollow">Cairo API</a>, most of the code could be modified to work in CALM.</p>
 <p>For example:</p>
@@ -1044,47 +1044,47 @@ python3 -m http.server 8000</pre></div>
 <span class="pl-en">cairo_rectangle</span> (<span class="pl-s1">cr</span>, <span class="pl-c1">0.25</span>, <span class="pl-c1">0.25</span>, <span class="pl-c1">0.5</span>, <span class="pl-c1">0.5</span>);
 <span class="pl-en">cairo_stroke</span> (<span class="pl-s1">cr</span>);</pre></div>
 <p>is equivalent to</p>
-<div class="highlight highlight-source-lisp"><pre>(c:set-line-width <span class="pl-c1">0.1</span>)
-(c:set-source-rgb <span class="pl-c1">0</span> <span class="pl-c1">0</span> <span class="pl-c1">0</span>)
-(c:rectangle <span class="pl-c1">0.25</span> <span class="pl-c1">0.25</span> <span class="pl-c1">0.5</span> <span class="pl-c1">0.5</span>)
-(c:stroke)</pre></div>
+<div class="highlight highlight-source-commonlisp"><pre>(<span class="pl-c1">c</span>:set-line-width <span class="pl-c1">0.1</span>)
+(<span class="pl-c1">c</span>:set-source-rgb <span class="pl-c1">0</span> <span class="pl-c1">0</span> <span class="pl-c1">0</span>)
+(<span class="pl-c1">c</span>:rectangle <span class="pl-c1">0.25</span> <span class="pl-c1">0.25</span> <span class="pl-c1">0.5</span> <span class="pl-c1">0.5</span>)
+(<span class="pl-c1">c</span>:stroke)</pre></div>
 <p>All the symbols <a href="https://github.com/rpav/cl-cairo2/blob/master/src/package.lisp#L7-L142">exported by cl-cairo2</a> should be accessible through <code>c:</code> prefix, such as: <code>c:arc</code>. On the web, the accessible symbols are limited by <a href="https://github.com/VitoVan/calm/blob/main/src/web/cairo.lisp#L266-L405">cairo.lisp</a>.</p>
 <p>Since Cairo is the cardinal drawing facility of CALM, any change of Cairo-related symbols will be considered as a change of CALM itself. Please feel safe to use them.</p>
-<h5><a name="function-crrectangle" class="anchor" aria-hidden="true" tabindex="-1" href="#function-crrectangle"><span aria-hidden="true" class="octicon octicon-link"></span></a>Function <code>c:rrectangle</code>
-</h5>
+<div class="markdown-heading"><h5 class="heading-element">Function <code>c:rrectangle</code>
+</h5><a name="function-crrectangle" class="anchor" aria-label="Permalink: Function c:rrectangle" href="#function-crrectangle"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Draw a rounded rectangle.</p>
-<div class="highlight highlight-source-lisp"><pre>(<span class="pl-k">defun</span> <span class="pl-en">draw</span> ()
-  (c:set-source-rgb <span class="pl-c1">0</span> <span class="pl-c1">0</span> <span class="pl-c1">1</span>)
-  (c:rrectangle <span class="pl-c1">20</span> <span class="pl-c1">20</span> <span class="pl-c1">100</span> <span class="pl-c1">100</span> :radius <span class="pl-c1">8</span>) <span class="pl-c"><span class="pl-c">;</span>; &lt;---- here</span>
-  (c:fill-path))</pre></div>
-<h5><a name="function-cshow-png" class="anchor" aria-hidden="true" tabindex="-1" href="#function-cshow-png"><span aria-hidden="true" class="octicon octicon-link"></span></a>Function <code>c:show-png</code>
-</h5>
+<div class="highlight highlight-source-commonlisp"><pre>(<span class="pl-k">defun</span> <span class="pl-en">draw</span> ()
+  (<span class="pl-c1">c</span>:set-source-rgb <span class="pl-c1">0</span> <span class="pl-c1">0</span> <span class="pl-c1">1</span>)
+  (<span class="pl-c1">c</span>:rrectangle <span class="pl-c1">20</span> <span class="pl-c1">20</span> <span class="pl-c1">100</span> <span class="pl-c1">100</span> <span class="pl-en">:radius</span> <span class="pl-c1">8</span>) <span class="pl-c"><span class="pl-c">;</span>; &lt;---- here</span>
+  (<span class="pl-c1">c</span>:fill-path))</pre></div>
+<div class="markdown-heading"><h5 class="heading-element">Function <code>c:show-png</code>
+</h5><a name="function-cshow-png" class="anchor" aria-label="Permalink: Function c:show-png" href="#function-cshow-png"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Show a png file.</p>
-<div class="highlight highlight-source-lisp"><pre>(<span class="pl-k">defun</span> <span class="pl-en">draw</span> ()
-  (c:show-png <span class="pl-s"><span class="pl-pds">"</span>assets/calm.png<span class="pl-pds">"</span></span> <span class="pl-c1">20</span> <span class="pl-c1">20</span> <span class="pl-c1">100</span> <span class="pl-c1">100</span>))</pre></div>
+<div class="highlight highlight-source-commonlisp"><pre>(<span class="pl-k">defun</span> <span class="pl-en">draw</span> ()
+  (<span class="pl-c1">c</span>:show-png <span class="pl-s"><span class="pl-pds">"</span>assets/calm.png<span class="pl-pds">"</span></span> <span class="pl-c1">20</span> <span class="pl-c1">20</span> <span class="pl-c1">100</span> <span class="pl-c1">100</span>))</pre></div>
 <p>This function will stretch the png if needed.</p>
-<h4><a name="rendering-text" class="anchor" aria-hidden="true" tabindex="-1" href="#rendering-text"><span aria-hidden="true" class="octicon octicon-link"></span></a>Rendering Text</h4>
-<h5><a name="function-cselect-font-family" class="anchor" aria-hidden="true" tabindex="-1" href="#function-cselect-font-family"><span aria-hidden="true" class="octicon octicon-link"></span></a>Function <code>c:select-font-family</code>
-</h5>
+<div class="markdown-heading"><h4 class="heading-element">Rendering Text</h4><a name="rendering-text" class="anchor" aria-label="Permalink: Rendering Text" href="#rendering-text"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h5 class="heading-element">Function <code>c:select-font-family</code>
+</h5><a name="function-cselect-font-family" class="anchor" aria-label="Permalink: Function c:select-font-family" href="#function-cselect-font-family"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>This function will select a font to be used in <code>c:show-text</code>.</p>
-<div class="highlight highlight-source-lisp"><pre>(c:select-font-family <span class="pl-s"><span class="pl-pds">"</span>Open Sans<span class="pl-pds">"</span></span> :normal :normal)</pre></div>
+<div class="highlight highlight-source-commonlisp"><pre>(<span class="pl-c1">c</span>:select-font-family <span class="pl-s"><span class="pl-pds">"</span>Open Sans<span class="pl-pds">"</span></span> <span class="pl-en">:normal</span> <span class="pl-en">:normal</span>)</pre></div>
 <p>It takes three arguments: <code>family</code>, <code>slant</code> and <code>weight</code>. For detailed example, please check <code>c:show-text</code>.</p>
 <p>To use a custom font without installing it, just put it inside the <strong>fonts</strong> directory, relative to the file <strong>canvas.lisp</strong>.</p>
-<h5><a name="function-cshow-text" class="anchor" aria-hidden="true" tabindex="-1" href="#function-cshow-text"><span aria-hidden="true" class="octicon octicon-link"></span></a>Function <code>c:show-text</code>
-</h5>
+<div class="markdown-heading"><h5 class="heading-element">Function <code>c:show-text</code>
+</h5><a name="function-cshow-text" class="anchor" aria-label="Permalink: Function c:show-text" href="#function-cshow-text"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>This function will show simple text.</p>
-<div class="highlight highlight-source-lisp"><pre>(<span class="pl-k">defun</span> <span class="pl-en">draw</span> ()
-  (c:move-to <span class="pl-c1">30</span> <span class="pl-c1">100</span>)
-  (c:set-font-size <span class="pl-c1">84</span>)
-  (c:select-font-family <span class="pl-s"><span class="pl-pds">"</span>Open Sans<span class="pl-pds">"</span></span> :italic :bold)
-  (c:show-text <span class="pl-s"><span class="pl-pds">"</span>DON'T PANIC<span class="pl-pds">"</span></span>))</pre></div>
-<h5><a name="function-cshow-markup" class="anchor" aria-hidden="true" tabindex="-1" href="#function-cshow-markup"><span aria-hidden="true" class="octicon octicon-link"></span></a>Function <code>c:show-markup</code>
-</h5>
+<div class="highlight highlight-source-commonlisp"><pre>(<span class="pl-k">defun</span> <span class="pl-en">draw</span> ()
+  (<span class="pl-c1">c</span>:move-to <span class="pl-c1">30</span> <span class="pl-c1">100</span>)
+  (<span class="pl-c1">c</span>:set-font-size <span class="pl-c1">84</span>)
+  (<span class="pl-c1">c</span>:select-font-family <span class="pl-s"><span class="pl-pds">"</span>Open Sans<span class="pl-pds">"</span></span> <span class="pl-en">:italic</span> <span class="pl-en">:bold</span>)
+  (<span class="pl-c1">c</span>:show-text <span class="pl-s"><span class="pl-pds">"</span>DON'T PANIC<span class="pl-pds">"</span></span>))</pre></div>
+<div class="markdown-heading"><h5 class="heading-element">Function <code>c:show-markup</code>
+</h5><a name="function-cshow-markup" class="anchor" aria-label="Permalink: Function c:show-markup" href="#function-cshow-markup"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>This function will show <a href="https://docs.gtk.org/Pango/pango_markup.html" rel="nofollow">Pango Markup</a>.</p>
-<div class="highlight highlight-source-lisp"><pre>(<span class="pl-k">defun</span> <span class="pl-en">draw</span> ()
-  (c:move-to <span class="pl-c1">20</span> <span class="pl-c1">10</span>)
-  (c:set-font-size <span class="pl-c1">84</span>)
-  (c:show-markup <span class="pl-s"><span class="pl-pds">"</span>This is &lt;span fgcolor='#245791' weight='bold' face='Open Sans'&gt;SICK&lt;/span&gt;<span class="pl-pds">"</span></span>))</pre></div>
+<div class="highlight highlight-source-commonlisp"><pre>(<span class="pl-k">defun</span> <span class="pl-en">draw</span> ()
+  (<span class="pl-c1">c</span>:move-to <span class="pl-c1">20</span> <span class="pl-c1">10</span>)
+  (<span class="pl-c1">c</span>:set-font-size <span class="pl-c1">84</span>)
+  (<span class="pl-c1">c</span>:show-markup <span class="pl-s"><span class="pl-pds">"</span>This is &lt;span fgcolor='#245791' weight='bold' face='Open Sans'&gt;SICK&lt;/span&gt;<span class="pl-pds">"</span></span>))</pre></div>
 <p>Note that the coordinate system between <code>c:show-markup</code> and <code>c:show-text</code> are slightly different, so you may need to adjust the position a little if you switch between <code>c:show-markup</code> and <code>c:show-text</code>.</p>
 <p>This function is not exposed to the web due to the following reasons:</p>
 <ol>
@@ -1093,177 +1093,177 @@ python3 -m http.server 8000</pre></div>
 <li>Using Pango often involves extra fonts to be bundled, this will cause more data to be loaded</li>
 </ol>
 <p>So I don't think this is a good idea to include Pango by default, albeit it is easy to implement.</p>
-<h4><a name="playing-sound" class="anchor" aria-hidden="true" tabindex="-1" href="#playing-sound"><span aria-hidden="true" class="octicon octicon-link"></span></a>Playing Sound</h4>
-<h5><a name="function-cplay-wav" class="anchor" aria-hidden="true" tabindex="-1" href="#function-cplay-wav"><span aria-hidden="true" class="octicon octicon-link"></span></a>Function <code>c:play-wav</code>
-</h5>
+<div class="markdown-heading"><h4 class="heading-element">Playing Sound</h4><a name="playing-sound" class="anchor" aria-label="Permalink: Playing Sound" href="#playing-sound"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h5 class="heading-element">Function <code>c:play-wav</code>
+</h5><a name="function-cplay-wav" class="anchor" aria-label="Permalink: Function c:play-wav" href="#function-cplay-wav"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Play a wav file.</p>
 <p>If <code>c:play-wav</code> were called before, and the previous wav file was still playing, the sound will be merged together.</p>
-<div class="highlight highlight-source-lisp"><pre>(c:play-wav <span class="pl-s"><span class="pl-pds">"</span>assets/ouch.ogg<span class="pl-pds">"</span></span> :loops <span class="pl-c1">0</span> :channel -<span class="pl-c1">1</span>)</pre></div>
+<div class="highlight highlight-source-commonlisp"><pre>(<span class="pl-c1">c</span>:play-wav <span class="pl-s"><span class="pl-pds">"</span>assets/ouch.ogg<span class="pl-pds">"</span></span> <span class="pl-en">:loops</span> <span class="pl-c1">0</span> <span class="pl-en">:channel</span> <span class="pl-c1">-1</span>)</pre></div>
 <p>Set <code>:loops</code> to -1 means "infinitely" (~65000 times)</p>
 <p>Set <code>:channel</code> to -1 means play on the first free channel</p>
 <p>The maximum number of files playing at the same time is limited to the variable <code>*calm-audio-numchans*</code>.</p>
-<h5><a name="variable-calm-audio-numchans" class="anchor" aria-hidden="true" tabindex="-1" href="#variable-calm-audio-numchans"><span aria-hidden="true" class="octicon octicon-link"></span></a>Variable <code>*calm-audio-numchans*</code>
-</h5>
+<div class="markdown-heading"><h5 class="heading-element">Variable <code>*calm-audio-numchans*</code>
+</h5><a name="variable-calm-audio-numchans" class="anchor" aria-label="Permalink: Variable *calm-audio-numchans*" href="#variable-calm-audio-numchans"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>The maximum number of wav files being played at the same time.</p>
 <p>Default: 8</p>
-<h5><a name="function-cvolume-wav" class="anchor" aria-hidden="true" tabindex="-1" href="#function-cvolume-wav"><span aria-hidden="true" class="octicon octicon-link"></span></a>Function <code>c:volume-wav</code>
-</h5>
+<div class="markdown-heading"><h5 class="heading-element">Function <code>c:volume-wav</code>
+</h5><a name="function-cvolume-wav" class="anchor" aria-label="Permalink: Function c:volume-wav" href="#function-cvolume-wav"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Set the volume of <code>c:play-wav</code>.</p>
-<div class="highlight highlight-source-lisp"><pre>(c:volume-wav <span class="pl-c1">128</span> :channel -<span class="pl-c1">1</span>)</pre></div>
+<div class="highlight highlight-source-commonlisp"><pre>(<span class="pl-c1">c</span>:volume-wav <span class="pl-c1">128</span> <span class="pl-en">:channel</span> <span class="pl-c1">-1</span>)</pre></div>
 <p>The value should be between 0 (silence) and 128.</p>
 <p>Set <code>:channel</code> to -1 means all channels.</p>
-<h5><a name="function-chalt-wav" class="anchor" aria-hidden="true" tabindex="-1" href="#function-chalt-wav"><span aria-hidden="true" class="octicon octicon-link"></span></a>Function <code>c:halt-wav</code>
-</h5>
+<div class="markdown-heading"><h5 class="heading-element">Function <code>c:halt-wav</code>
+</h5><a name="function-chalt-wav" class="anchor" aria-label="Permalink: Function c:halt-wav" href="#function-chalt-wav"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Stop playing a channel or all of them.</p>
-<div class="highlight highlight-source-lisp"><pre>(c:halt-wav :channel -<span class="pl-c1">1</span>)</pre></div>
+<div class="highlight highlight-source-commonlisp"><pre>(<span class="pl-c1">c</span>:halt-wav <span class="pl-en">:channel</span> <span class="pl-c1">-1</span>)</pre></div>
 <p>Set <code>:channel</code> to -1 means all channels.</p>
-<h5><a name="function-cplay-music" class="anchor" aria-hidden="true" tabindex="-1" href="#function-cplay-music"><span aria-hidden="true" class="octicon octicon-link"></span></a>Function <code>c:play-music</code>
-</h5>
+<div class="markdown-heading"><h5 class="heading-element">Function <code>c:play-music</code>
+</h5><a name="function-cplay-music" class="anchor" aria-label="Permalink: Function c:play-music" href="#function-cplay-music"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Play a music file, it can play MP3, Ogg, and WAV.</p>
 <p>Other types of files might also work, but they are not guaranteed by CALM.</p>
-<div class="highlight highlight-source-lisp"><pre>(c:play-music <span class="pl-s"><span class="pl-pds">"</span>assets/bgm.ogg<span class="pl-pds">"</span></span> :loops <span class="pl-c1">0</span>)</pre></div>
+<div class="highlight highlight-source-commonlisp"><pre>(<span class="pl-c1">c</span>:play-music <span class="pl-s"><span class="pl-pds">"</span>assets/bgm.ogg<span class="pl-pds">"</span></span> <span class="pl-en">:loops</span> <span class="pl-c1">0</span>)</pre></div>
 <p>If <code>c:play-music</code> were called before, and the previous music was still playing, it will be stopped and the latest music will start playing.</p>
-<h5><a name="function-cvolume-music" class="anchor" aria-hidden="true" tabindex="-1" href="#function-cvolume-music"><span aria-hidden="true" class="octicon octicon-link"></span></a>Function <code>c:volume-music</code>
-</h5>
+<div class="markdown-heading"><h5 class="heading-element">Function <code>c:volume-music</code>
+</h5><a name="function-cvolume-music" class="anchor" aria-label="Permalink: Function c:volume-music" href="#function-cvolume-music"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Set the volume of <code>c:play-music</code>.</p>
-<div class="highlight highlight-source-lisp"><pre>(c:volume-music <span class="pl-c1">128</span>)</pre></div>
+<div class="highlight highlight-source-commonlisp"><pre>(<span class="pl-c1">c</span>:volume-music <span class="pl-c1">128</span>)</pre></div>
 <p>The value should be between 0 (silence) and 128.</p>
-<h5><a name="function-chalt-music" class="anchor" aria-hidden="true" tabindex="-1" href="#function-chalt-music"><span aria-hidden="true" class="octicon octicon-link"></span></a>Function <code>c:halt-music</code>
-</h5>
+<div class="markdown-heading"><h5 class="heading-element">Function <code>c:halt-music</code>
+</h5><a name="function-chalt-music" class="anchor" aria-label="Permalink: Function c:halt-music" href="#function-chalt-music"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Stop playing music.</p>
-<h5><a name="function-cplay-audio" class="anchor" aria-hidden="true" tabindex="-1" href="#function-cplay-audio"><span aria-hidden="true" class="octicon octicon-link"></span></a>Function <code>c:play-audio</code>
-</h5>
+<div class="markdown-heading"><h5 class="heading-element">Function <code>c:play-audio</code>
+</h5><a name="function-cplay-audio" class="anchor" aria-label="Permalink: Function c:play-audio" href="#function-cplay-audio"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Play an audio file, this function is only available on the web since it utilizes the <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLAudioElement" rel="nofollow">HTMLAudioElement</a>.</p>
-<div class="highlight highlight-source-lisp"><pre>(c:play-audio <span class="pl-s"><span class="pl-pds">"</span>assets/meow.ogg<span class="pl-pds">"</span></span> :<span class="pl-k">loop</span>-audio-p <span class="pl-c1">nil</span> :volume <span class="pl-c1">1</span>)</pre></div>
+<div class="highlight highlight-source-commonlisp"><pre>(<span class="pl-c1">c</span>:play-audio <span class="pl-s"><span class="pl-pds">"</span>assets/meow.ogg<span class="pl-pds">"</span></span> <span class="pl-en">:loop-audio-p</span> <span class="pl-c1">nil</span> <span class="pl-en">:volume</span> <span class="pl-c1">1</span>)</pre></div>
 <p><code>:volume</code> should be between 0 and 1.</p>
-<h5><a name="function-chalt-audio" class="anchor" aria-hidden="true" tabindex="-1" href="#function-chalt-audio"><span aria-hidden="true" class="octicon octicon-link"></span></a>Function <code>c:halt-audio</code>
-</h5>
+<div class="markdown-heading"><h5 class="heading-element">Function <code>c:halt-audio</code>
+</h5><a name="function-chalt-audio" class="anchor" aria-label="Permalink: Function c:halt-audio" href="#function-chalt-audio"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Stop playing one specific audio file or all of them.</p>
-<div class="highlight highlight-source-lisp"><pre>(c:halt-audio <span class="pl-s"><span class="pl-pds">"</span>assets/purr.ogg<span class="pl-pds">"</span></span>)</pre></div>
+<div class="highlight highlight-source-commonlisp"><pre>(<span class="pl-c1">c</span>:halt-audio <span class="pl-s"><span class="pl-pds">"</span>assets/purr.ogg<span class="pl-pds">"</span></span>)</pre></div>
 <p>If call it without any arguments, it stops all the playing audio.</p>
-<h4><a name="internal-states" class="anchor" aria-hidden="true" tabindex="-1" href="#internal-states"><span aria-hidden="true" class="octicon octicon-link"></span></a>Internal States</h4>
-<h5><a name="variable-calm-state-mouse-x" class="anchor" aria-hidden="true" tabindex="-1" href="#variable-calm-state-mouse-x"><span aria-hidden="true" class="octicon octicon-link"></span></a>Variable <code>*calm-state-mouse-x*</code>
-</h5>
-<h5><a name="variable-calm-state-mouse-y" class="anchor" aria-hidden="true" tabindex="-1" href="#variable-calm-state-mouse-y"><span aria-hidden="true" class="octicon octicon-link"></span></a>Variable <code>*calm-state-mouse-y*</code>
-</h5>
-<h5><a name="variable-calm-state-mouse-up" class="anchor" aria-hidden="true" tabindex="-1" href="#variable-calm-state-mouse-up"><span aria-hidden="true" class="octicon octicon-link"></span></a>Variable <code>*calm-state-mouse-up*</code>
-</h5>
-<h5><a name="variable-calm-state-mouse-down" class="anchor" aria-hidden="true" tabindex="-1" href="#variable-calm-state-mouse-down"><span aria-hidden="true" class="octicon octicon-link"></span></a>Variable <code>*calm-state-mouse-down*</code>
-</h5>
-<h5><a name="variable-calm-state-mouse-just-clicked" class="anchor" aria-hidden="true" tabindex="-1" href="#variable-calm-state-mouse-just-clicked"><span aria-hidden="true" class="octicon octicon-link"></span></a>Variable <code>*calm-state-mouse-just-clicked*</code>
-</h5>
-<h5><a name="variable-calm-state-finger-x" class="anchor" aria-hidden="true" tabindex="-1" href="#variable-calm-state-finger-x"><span aria-hidden="true" class="octicon octicon-link"></span></a>Variable <code>*calm-state-finger-x*</code>
-</h5>
-<h5><a name="variable-calm-state-finger-y" class="anchor" aria-hidden="true" tabindex="-1" href="#variable-calm-state-finger-y"><span aria-hidden="true" class="octicon octicon-link"></span></a>Variable <code>*calm-state-finger-y*</code>
-</h5>
-<h5><a name="variable-calm-state-finger-just-tapped" class="anchor" aria-hidden="true" tabindex="-1" href="#variable-calm-state-finger-just-tapped"><span aria-hidden="true" class="octicon octicon-link"></span></a>Variable <code>*calm-state-finger-just-tapped*</code>
-</h5>
+<div class="markdown-heading"><h4 class="heading-element">Internal States</h4><a name="internal-states" class="anchor" aria-label="Permalink: Internal States" href="#internal-states"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h5 class="heading-element">Variable <code>*calm-state-mouse-x*</code>
+</h5><a name="variable-calm-state-mouse-x" class="anchor" aria-label="Permalink: Variable *calm-state-mouse-x*" href="#variable-calm-state-mouse-x"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h5 class="heading-element">Variable <code>*calm-state-mouse-y*</code>
+</h5><a name="variable-calm-state-mouse-y" class="anchor" aria-label="Permalink: Variable *calm-state-mouse-y*" href="#variable-calm-state-mouse-y"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h5 class="heading-element">Variable <code>*calm-state-mouse-up*</code>
+</h5><a name="variable-calm-state-mouse-up" class="anchor" aria-label="Permalink: Variable *calm-state-mouse-up*" href="#variable-calm-state-mouse-up"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h5 class="heading-element">Variable <code>*calm-state-mouse-down*</code>
+</h5><a name="variable-calm-state-mouse-down" class="anchor" aria-label="Permalink: Variable *calm-state-mouse-down*" href="#variable-calm-state-mouse-down"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h5 class="heading-element">Variable <code>*calm-state-mouse-just-clicked*</code>
+</h5><a name="variable-calm-state-mouse-just-clicked" class="anchor" aria-label="Permalink: Variable *calm-state-mouse-just-clicked*" href="#variable-calm-state-mouse-just-clicked"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h5 class="heading-element">Variable <code>*calm-state-finger-x*</code>
+</h5><a name="variable-calm-state-finger-x" class="anchor" aria-label="Permalink: Variable *calm-state-finger-x*" href="#variable-calm-state-finger-x"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h5 class="heading-element">Variable <code>*calm-state-finger-y*</code>
+</h5><a name="variable-calm-state-finger-y" class="anchor" aria-label="Permalink: Variable *calm-state-finger-y*" href="#variable-calm-state-finger-y"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h5 class="heading-element">Variable <code>*calm-state-finger-just-tapped*</code>
+</h5><a name="variable-calm-state-finger-just-tapped" class="anchor" aria-label="Permalink: Variable *calm-state-finger-just-tapped*" href="#variable-calm-state-finger-just-tapped"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>The above variables hold the state of the mouse and finger (touch device, like the mobile web browser), they are read-only. The consequence of <code>(setf *calm-state-mouse-x* 20)</code> is equivalent to drinking bleach.</p>
-<h5><a name="function-cget-ticks" class="anchor" aria-hidden="true" tabindex="-1" href="#function-cget-ticks"><span aria-hidden="true" class="octicon octicon-link"></span></a>Function <code>c:get-ticks</code>
-</h5>
+<div class="markdown-heading"><h5 class="heading-element">Function <code>c:get-ticks</code>
+</h5><a name="function-cget-ticks" class="anchor" aria-label="Permalink: Function c:get-ticks" href="#function-cget-ticks"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>This is just <a href="https://wiki.libsdl.org/SDL2/SDL_GetTicks" rel="nofollow">SDL_GetTicks</a>.</p>
-<h4><a name="event-callbacks" class="anchor" aria-hidden="true" tabindex="-1" href="#event-callbacks"><span aria-hidden="true" class="octicon octicon-link"></span></a>Event Callbacks</h4>
+<div class="markdown-heading"><h4 class="heading-element">Event Callbacks</h4><a name="event-callbacks" class="anchor" aria-label="Permalink: Event Callbacks" href="#event-callbacks"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>These callbacks are functions that you should define. If you defined any of them, they will be called when the corresponding event was triggered.</p>
-<h5><a name="callback-on-keydown" class="anchor" aria-hidden="true" tabindex="-1" href="#callback-on-keydown"><span aria-hidden="true" class="octicon octicon-link"></span></a>Callback <code>on-keydown</code>
-</h5>
-<h5><a name="callback-on-keyup" class="anchor" aria-hidden="true" tabindex="-1" href="#callback-on-keyup"><span aria-hidden="true" class="octicon octicon-link"></span></a>Callback <code>on-keyup</code>
-</h5>
+<div class="markdown-heading"><h5 class="heading-element">Callback <code>on-keydown</code>
+</h5><a name="callback-on-keydown" class="anchor" aria-label="Permalink: Callback on-keydown" href="#callback-on-keydown"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h5 class="heading-element">Callback <code>on-keyup</code>
+</h5><a name="callback-on-keyup" class="anchor" aria-label="Permalink: Callback on-keyup" href="#callback-on-keyup"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>You know what these callbacks do, what you don't know is their should-be arguments. Please check <code>c:keq</code> for a detailed example.</p>
-<h5><a name="function-ckeq" class="anchor" aria-hidden="true" tabindex="-1" href="#function-ckeq"><span aria-hidden="true" class="octicon octicon-link"></span></a>Function <code>c:keq</code>
-</h5>
+<div class="markdown-heading"><h5 class="heading-element">Function <code>c:keq</code>
+</h5><a name="function-ckeq" class="anchor" aria-label="Permalink: Function c:keq" href="#function-ckeq"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>This function compares the first argument with an infinite number of SDL2 Scancodes, if any of them matched, it will return <code>T</code>.</p>
-<div class="highlight highlight-source-lisp"><pre>(<span class="pl-k">defun</span> <span class="pl-en">on-keyup</span> (key) <span class="pl-c"><span class="pl-c">;</span>; keyup handler for evil vimers</span>
-  (<span class="pl-c1">cond</span>
-    ((c:keq key :scancode-left :scancode-h)
-     (<span class="pl-c1">format</span> <span class="pl-c1">t</span> <span class="pl-s"><span class="pl-pds">"</span>move left~%<span class="pl-pds">"</span></span>))
-    ((c:keq key :scancode-right :scancode-l)
-     (<span class="pl-c1">format</span> <span class="pl-c1">t</span> <span class="pl-s"><span class="pl-pds">"</span>move right~%<span class="pl-pds">"</span></span>))
-    ((c:keq key :scancode-up :scancode-k)
-     (<span class="pl-c1">format</span> <span class="pl-c1">t</span> <span class="pl-s"><span class="pl-pds">"</span>move up~%<span class="pl-pds">"</span></span>))
-    ((c:keq key :scancode-down :scancode-j)
-     (<span class="pl-c1">format</span> <span class="pl-c1">t</span> <span class="pl-s"><span class="pl-pds">"</span>move down~%<span class="pl-pds">"</span></span>))
-    (<span class="pl-c1">t</span> (<span class="pl-c1">format</span> <span class="pl-c1">t</span> <span class="pl-s"><span class="pl-pds">"</span>I don't know what to do~%<span class="pl-pds">"</span></span>))))</pre></div>
+<div class="highlight highlight-source-commonlisp"><pre>(<span class="pl-k">defun</span> <span class="pl-en">on-keyup</span> (key) <span class="pl-c"><span class="pl-c">;</span>; keyup handler for evil vimers</span>
+  (<span class="pl-k">cond</span>
+    ((<span class="pl-c1">c</span>:keq key <span class="pl-en">:scancode-left</span> <span class="pl-en">:scancode-h</span>)
+     (<span class="pl-c1">format</span> <span class="pl-c1">t</span> <span class="pl-s"><span class="pl-pds">"</span>move left<span class="pl-en">~%</span><span class="pl-pds">"</span></span>))
+    ((<span class="pl-c1">c</span>:keq key <span class="pl-en">:scancode-right</span> <span class="pl-en">:scancode-l</span>)
+     (<span class="pl-c1">format</span> <span class="pl-c1">t</span> <span class="pl-s"><span class="pl-pds">"</span>move right<span class="pl-en">~%</span><span class="pl-pds">"</span></span>))
+    ((<span class="pl-c1">c</span>:keq key <span class="pl-en">:scancode-up</span> <span class="pl-en">:scancode-k</span>)
+     (<span class="pl-c1">format</span> <span class="pl-c1">t</span> <span class="pl-s"><span class="pl-pds">"</span>move up<span class="pl-en">~%</span><span class="pl-pds">"</span></span>))
+    ((<span class="pl-c1">c</span>:keq key <span class="pl-en">:scancode-down</span> <span class="pl-en">:scancode-j</span>)
+     (<span class="pl-c1">format</span> <span class="pl-c1">t</span> <span class="pl-s"><span class="pl-pds">"</span>move down<span class="pl-en">~%</span><span class="pl-pds">"</span></span>))
+    (<span class="pl-c1">t</span> (<span class="pl-c1">format</span> <span class="pl-c1">t</span> <span class="pl-s"><span class="pl-pds">"</span>I don't know what to do<span class="pl-en">~%</span><span class="pl-pds">"</span></span>))))</pre></div>
 <p>SDL2 Scancode: <a href="https://wiki.libsdl.org/SDL2/SDL_Scancode" rel="nofollow">https://wiki.libsdl.org/SDL2/SDL_Scancode</a></p>
-<h5><a name="callback-on-mousewheel" class="anchor" aria-hidden="true" tabindex="-1" href="#callback-on-mousewheel"><span aria-hidden="true" class="octicon octicon-link"></span></a>Callback <code>on-mousewheel</code>
-</h5>
-<div class="highlight highlight-source-lisp"><pre>(<span class="pl-k">defun</span> <span class="pl-en">on-mousewheel</span> (x y direction)
+<div class="markdown-heading"><h5 class="heading-element">Callback <code>on-mousewheel</code>
+</h5><a name="callback-on-mousewheel" class="anchor" aria-label="Permalink: Callback on-mousewheel" href="#callback-on-mousewheel"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="highlight highlight-source-commonlisp"><pre>(<span class="pl-k">defun</span> <span class="pl-en">on-mousewheel</span> (x y direction)
   <span class="pl-c"><span class="pl-c">;</span>; your code here</span>
   )</pre></div>
-<h5><a name="callback-on-mousemotion" class="anchor" aria-hidden="true" tabindex="-1" href="#callback-on-mousemotion"><span aria-hidden="true" class="octicon octicon-link"></span></a>Callback <code>on-mousemotion</code>
-</h5>
-<div class="highlight highlight-source-lisp"><pre>(<span class="pl-k">defun</span> <span class="pl-en">internal-on-mousemotion</span> (&amp;key x y)
+<div class="markdown-heading"><h5 class="heading-element">Callback <code>on-mousemotion</code>
+</h5><a name="callback-on-mousemotion" class="anchor" aria-label="Permalink: Callback on-mousemotion" href="#callback-on-mousemotion"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="highlight highlight-source-commonlisp"><pre>(<span class="pl-k">defun</span> <span class="pl-en">internal-on-mousemotion</span> (<span class="pl-k">&amp;key</span> x y)
   <span class="pl-c"><span class="pl-c">;</span>; your code here</span>
   )</pre></div>
-<h5><a name="callback-on-mousebuttonup" class="anchor" aria-hidden="true" tabindex="-1" href="#callback-on-mousebuttonup"><span aria-hidden="true" class="octicon octicon-link"></span></a>Callback <code>on-mousebuttonup</code>
-</h5>
-<h5><a name="callback-on-mousebuttondown" class="anchor" aria-hidden="true" tabindex="-1" href="#callback-on-mousebuttondown"><span aria-hidden="true" class="octicon octicon-link"></span></a>Callback <code>on-mousebuttondown</code>
-</h5>
-<div class="highlight highlight-source-lisp"><pre>(<span class="pl-k">defun</span> <span class="pl-en">on-mousebuttonup</span> (&amp;key button x y clicks)
+<div class="markdown-heading"><h5 class="heading-element">Callback <code>on-mousebuttonup</code>
+</h5><a name="callback-on-mousebuttonup" class="anchor" aria-label="Permalink: Callback on-mousebuttonup" href="#callback-on-mousebuttonup"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h5 class="heading-element">Callback <code>on-mousebuttondown</code>
+</h5><a name="callback-on-mousebuttondown" class="anchor" aria-label="Permalink: Callback on-mousebuttondown" href="#callback-on-mousebuttondown"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="highlight highlight-source-commonlisp"><pre>(<span class="pl-k">defun</span> <span class="pl-en">on-mousebuttonup</span> (<span class="pl-k">&amp;key</span> button x y clicks)
   <span class="pl-c"><span class="pl-c">;</span>; your code here</span>
   )
-(<span class="pl-k">defun</span> <span class="pl-en">on-mousebuttondown</span> (&amp;key button x y clicks)
+(<span class="pl-k">defun</span> <span class="pl-en">on-mousebuttondown</span> (<span class="pl-k">&amp;key</span> button x y clicks)
   <span class="pl-c"><span class="pl-c">;</span>; your code here</span>
   )</pre></div>
-<h5><a name="callback-on-fingermotion" class="anchor" aria-hidden="true" tabindex="-1" href="#callback-on-fingermotion"><span aria-hidden="true" class="octicon octicon-link"></span></a>Callback <code>on-fingermotion</code>
-</h5>
-<div class="highlight highlight-source-lisp"><pre>(<span class="pl-k">defun</span> <span class="pl-en">on-fingermotion</span> (&amp;key x  y dx dy pressure finger-id)
+<div class="markdown-heading"><h5 class="heading-element">Callback <code>on-fingermotion</code>
+</h5><a name="callback-on-fingermotion" class="anchor" aria-label="Permalink: Callback on-fingermotion" href="#callback-on-fingermotion"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="highlight highlight-source-commonlisp"><pre>(<span class="pl-k">defun</span> <span class="pl-en">on-fingermotion</span> (<span class="pl-k">&amp;key</span> x  y dx dy pressure finger-id)
   <span class="pl-c"><span class="pl-c">;</span>; your code here</span>
   )</pre></div>
-<h5><a name="callback-on-fingerup" class="anchor" aria-hidden="true" tabindex="-1" href="#callback-on-fingerup"><span aria-hidden="true" class="octicon octicon-link"></span></a>Callback <code>on-fingerup</code>
-</h5>
-<h5><a name="callback-on-fingerdown" class="anchor" aria-hidden="true" tabindex="-1" href="#callback-on-fingerdown"><span aria-hidden="true" class="octicon octicon-link"></span></a>Callback <code>on-fingerdown</code>
-</h5>
-<div class="highlight highlight-source-lisp"><pre>(<span class="pl-k">defun</span> <span class="pl-en">on-fingerup</span> (&amp;key x  y dx dy pressure finger-id)
+<div class="markdown-heading"><h5 class="heading-element">Callback <code>on-fingerup</code>
+</h5><a name="callback-on-fingerup" class="anchor" aria-label="Permalink: Callback on-fingerup" href="#callback-on-fingerup"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h5 class="heading-element">Callback <code>on-fingerdown</code>
+</h5><a name="callback-on-fingerdown" class="anchor" aria-label="Permalink: Callback on-fingerdown" href="#callback-on-fingerdown"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="highlight highlight-source-commonlisp"><pre>(<span class="pl-k">defun</span> <span class="pl-en">on-fingerup</span> (<span class="pl-k">&amp;key</span> x  y dx dy pressure finger-id)
   <span class="pl-c"><span class="pl-c">;</span>; your code here</span>
   )
-(<span class="pl-k">defun</span> <span class="pl-en">on-fingerdown</span> (&amp;key x  y dx dy pressure finger-id)
+(<span class="pl-k">defun</span> <span class="pl-en">on-fingerdown</span> (<span class="pl-k">&amp;key</span> x  y dx dy pressure finger-id)
   <span class="pl-c"><span class="pl-c">;</span>; your code here</span>
   )</pre></div>
-<h5><a name="callback-on-windowresized" class="anchor" aria-hidden="true" tabindex="-1" href="#callback-on-windowresized"><span aria-hidden="true" class="octicon octicon-link"></span></a>Callback <code>on-windowresized</code>
-</h5>
-<div class="highlight highlight-source-lisp"><pre>(<span class="pl-k">defun</span> <span class="pl-en">on-windowresized</span> (width height)
+<div class="markdown-heading"><h5 class="heading-element">Callback <code>on-windowresized</code>
+</h5><a name="callback-on-windowresized" class="anchor" aria-label="Permalink: Callback on-windowresized" href="#callback-on-windowresized"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="highlight highlight-source-commonlisp"><pre>(<span class="pl-k">defun</span> <span class="pl-en">on-windowresized</span> (width height)
   <span class="pl-c"><span class="pl-c">;</span>; your code here</span>
   )</pre></div>
-<h5><a name="callback-on-windowenter" class="anchor" aria-hidden="true" tabindex="-1" href="#callback-on-windowenter"><span aria-hidden="true" class="octicon octicon-link"></span></a>Callback <code>on-windowenter</code>
-</h5>
-<h5><a name="callback-on-windowleave" class="anchor" aria-hidden="true" tabindex="-1" href="#callback-on-windowleave"><span aria-hidden="true" class="octicon octicon-link"></span></a>Callback <code>on-windowleave</code>
-</h5>
+<div class="markdown-heading"><h5 class="heading-element">Callback <code>on-windowenter</code>
+</h5><a name="callback-on-windowenter" class="anchor" aria-label="Permalink: Callback on-windowenter" href="#callback-on-windowenter"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h5 class="heading-element">Callback <code>on-windowleave</code>
+</h5><a name="callback-on-windowleave" class="anchor" aria-label="Permalink: Callback on-windowleave" href="#callback-on-windowleave"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>These two callbacks do not take any arguments, for example:</p>
-<div class="highlight highlight-source-lisp"><pre>(<span class="pl-k">defun</span> <span class="pl-en">on-windowenter</span> ()
+<div class="highlight highlight-source-commonlisp"><pre>(<span class="pl-k">defun</span> <span class="pl-en">on-windowenter</span> ()
   <span class="pl-c"><span class="pl-c">;</span>; your code here</span>
   )</pre></div>
-<h4><a name="window-related" class="anchor" aria-hidden="true" tabindex="-1" href="#window-related"><span aria-hidden="true" class="octicon octicon-link"></span></a>Window Related</h4>
-<h5><a name="variable-calm-window" class="anchor" aria-hidden="true" tabindex="-1" href="#variable-calm-window"><span aria-hidden="true" class="octicon octicon-link"></span></a>Variable <code>*calm-window*</code>
-</h5>
+<div class="markdown-heading"><h4 class="heading-element">Window Related</h4><a name="window-related" class="anchor" aria-label="Permalink: Window Related" href="#window-related"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h5 class="heading-element">Variable <code>*calm-window*</code>
+</h5><a name="variable-calm-window" class="anchor" aria-label="Permalink: Variable *calm-window*" href="#variable-calm-window"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>This variable is readonly, it holds the created instance of <a href="https://wiki.libsdl.org/SDL2/SDL_Window" rel="nofollow">SDL_Window</a>.</p>
 <p>With this variable, one could utilize all kinds of SDL2 window related functions, such as:</p>
-<div class="highlight highlight-source-lisp"><pre><span class="pl-c"><span class="pl-c">;</span>; get window position</span>
-(sdl2:get-window-position <span class="pl-smi">*calm-window*</span>)
+<div class="highlight highlight-source-commonlisp"><pre><span class="pl-c"><span class="pl-c">;</span>; get window position</span>
+(<span class="pl-c1">sdl2</span>:get-window-position <span class="pl-sr">*calm-window*</span>)
 
 <span class="pl-c"><span class="pl-c">;</span>; set window always on top</span>
-(sdl2-ffi.functions:sdl-set-window-always-on-top
- <span class="pl-smi">*calm-window*</span>
- sdl2-ffi:+true+)</pre></div>
-<h5><a name="variable-calm-window-x" class="anchor" aria-hidden="true" tabindex="-1" href="#variable-calm-window-x"><span aria-hidden="true" class="octicon octicon-link"></span></a>Variable <code>*calm-window-x*</code>
-</h5>
-<h5><a name="variable-calm-window-y" class="anchor" aria-hidden="true" tabindex="-1" href="#variable-calm-window-y"><span aria-hidden="true" class="octicon octicon-link"></span></a>Variable <code>*calm-window-y*</code>
-</h5>
+(<span class="pl-c1">sdl2-ffi.functions</span>:sdl-set-window-always-on-top
+ <span class="pl-sr">*calm-window*</span>
+ <span class="pl-c1">sdl2-ffi</span>:<span class="pl-c1">+true+</span>)</pre></div>
+<div class="markdown-heading"><h5 class="heading-element">Variable <code>*calm-window-x*</code>
+</h5><a name="variable-calm-window-x" class="anchor" aria-label="Permalink: Variable *calm-window-x*" href="#variable-calm-window-x"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h5 class="heading-element">Variable <code>*calm-window-y*</code>
+</h5><a name="variable-calm-window-y" class="anchor" aria-label="Permalink: Variable *calm-window-y*" href="#variable-calm-window-y"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>The initial position (x, y) of your CALM application window.</p>
 <p>Default: <code>:centered</code></p>
-<h5><a name="variable-calm-window-flags" class="anchor" aria-hidden="true" tabindex="-1" href="#variable-calm-window-flags"><span aria-hidden="true" class="octicon octicon-link"></span></a>Variable <code>*calm-window-flags*</code>
-</h5>
+<div class="markdown-heading"><h5 class="heading-element">Variable <code>*calm-window-flags*</code>
+</h5><a name="variable-calm-window-flags" class="anchor" aria-label="Permalink: Variable *calm-window-flags*" href="#variable-calm-window-flags"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>A list of <a href="https://wiki.libsdl.org/SDL2/SDL_WindowFlags" rel="nofollow">SDL_WindowFlags</a>.</p>
 <p>You could set this value like: <code>(setf *calm-window-flags* '(:shown :allow-highdpi :resizable))</code></p>
 <p>Default: <code>'(:shown :allow-highdpi)</code></p>
-<h5><a name="variable-calm-window-width" class="anchor" aria-hidden="true" tabindex="-1" href="#variable-calm-window-width"><span aria-hidden="true" class="octicon octicon-link"></span></a>Variable <code>*calm-window-width*</code>
-</h5>
-<h5><a name="variable-calm-window-height" class="anchor" aria-hidden="true" tabindex="-1" href="#variable-calm-window-height"><span aria-hidden="true" class="octicon octicon-link"></span></a>Variable <code>*calm-window-height*</code>
-</h5>
-<h5><a name="variable-calm-window-title" class="anchor" aria-hidden="true" tabindex="-1" href="#variable-calm-window-title"><span aria-hidden="true" class="octicon octicon-link"></span></a>Variable <code>*calm-window-title*</code>
-</h5>
+<div class="markdown-heading"><h5 class="heading-element">Variable <code>*calm-window-width*</code>
+</h5><a name="variable-calm-window-width" class="anchor" aria-label="Permalink: Variable *calm-window-width*" href="#variable-calm-window-width"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h5 class="heading-element">Variable <code>*calm-window-height*</code>
+</h5><a name="variable-calm-window-height" class="anchor" aria-label="Permalink: Variable *calm-window-height*" href="#variable-calm-window-height"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="markdown-heading"><h5 class="heading-element">Variable <code>*calm-window-title*</code>
+</h5><a name="variable-calm-window-title" class="anchor" aria-label="Permalink: Variable *calm-window-title*" href="#variable-calm-window-title"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>You know what these variables do.</p>
 <p>If you don't, <a href="https://github.com/sponsors/VitoVan/">give me 5 bucks</a> and think harder.</p>
-<h2><a name="tutorials" class="anchor" aria-hidden="true" tabindex="-1" href="#tutorials"><span aria-hidden="true" class="octicon octicon-link"></span></a>Tutorials</h2>
+<div class="markdown-heading"><h2 class="heading-element">Tutorials</h2><a name="tutorials" class="anchor" aria-label="Permalink: Tutorials" href="#tutorials"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Ok ok, I will write this, I will write this, just wait a second.</p>
 <p>You could check these useful links while waiting:</p>
 <ul>
@@ -1301,7 +1301,7 @@ python3 -m http.server 8000</pre></div>
 </ul>
 </li>
 </ul>
-<h2><a name="license" class="anchor" aria-hidden="true" tabindex="-1" href="#license"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
+<div class="markdown-heading"><h2 class="heading-element">License</h2><a name="license" class="anchor" aria-label="Permalink: License" href="#license"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>The <a href="https://github.com/VitoVan/calm">source code</a> is released under GPL-2.0-only.</p>
 </div>
         </div>
