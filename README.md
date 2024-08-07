@@ -56,9 +56,9 @@ For more applications made with CALM, please check [Made with CALM](https://gith
 
 3. Add the extracted directory into your PATH environment
 
-   for macOS, add `/path/to/Calm.app/Contents/MacOS/` instead
+   for macOS, add `/Applications/Calm.app/Contents/MacOS/` instead
 
-For macOS and Windows users, you need to be smarter than [Windows SmartScreen](https://duckduckgo.com/?q=how+to+bypass+smartscreen) or able to [tame macOS](https://support.apple.com/guide/mac-help/open-a-mac-app-from-an-unidentified-developer-mh40616/mac) to use CALM. In case anything went wrong, here is an [Installation Guide](docs/installation.md).
+For macOS and Windows users, you need to be smarter than [Windows SmartScreen](https://www.google.com/search?q=how+to+get+around+windows+smartscreen) or able to [tame macOS](https://www.google.com/search?q=how+to+remove+quarantine+flags+in+macos) to use CALM. In case anything went wrong, here is an [Installation Guide](docs/installation.md).
 
 ### Run from Source
 
