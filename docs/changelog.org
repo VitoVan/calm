@@ -1,4 +1,25 @@
 * CALM
+** 1.3.2
+- better code signing for CALM made applications
+
+  Before this change:
+
+  1. CALM itself will be shown as a damaged application,
+     the user has to de-quarantine it with command line:
+
+     xattr -d com.apple.quarantine /Applications/Calm.app
+
+  2. CALM made applications, will also be shown as damaged,
+     the user also has to de-quarantine them.
+
+  After this change:
+
+  1. CALM itself still be shown as a damaged application.
+
+  2. CALM made applications, will shown as:
+     "cannot be opened because the developer cannot be verified."
+     which is better, since the user could open it with right click.
+
 ** 1.3.1
 - fix macos-14 (arm64) codesign problem
   https://apple.stackexchange.com/questions/258623/how-to-fix-killed-9-error-in-mac-os/470957#470957
