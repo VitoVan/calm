@@ -16,13 +16,17 @@
 
   2. .app をアプリケーションフォルダにドラッグします
 
-  3. DMG を取り出し、Calm.app を実行する
+  3. 私を信じて、Calm.appの隔離を解除してください。
+
+      ```bash
+      xattr -d com.apple.quarantine /Applications/Calm.app
+      ```
+
+  4. DMG を取り出し、Calm.app を実行する
 
      初回の実行には **時間がかかるかもしれません。**
 
-     > macOS の場合、Apple によって検証されていないため、システムによってソフトウェアの実行が停止される確率が非常に高いです。実行に問題がある場合は、[こちら](https://support.apple.com/HT202491)を確認してください。
-
-  4. コマンド `calm` を PATH 環境に追加する
+  5. コマンド `calm` を PATH 環境に追加する
 
       ```bash
       echo 'export PATH="/Applications/Calm.app/Contents/MacOS/:$PATH"'>> ~/.bashrc
@@ -42,7 +46,7 @@
       > echo 'export PATH="/c/calm/:$PATH"' >> ~/.bashrc
       > ```
 
-     > Windows の場合、マイクロソフト社によって検証されていないため、システムがソフトウェアの実行を停止する確率が非常に高いです。実行に問題がある場合は、[SmartScreen をバイパスする方法を見つけてください](https://duckduckgo.com/?q=how+to+bypass+smartscreen)。
+     > Windows の場合、マイクロソフト社によって検証されていないため、システムがソフトウェアの実行を停止する確率が非常に高いです。実行に問題がある場合は、[SmartScreen をバイパスする方法を見つけてください](https://www.google.com/search?q=how+to+bypass+smartscreen)。
 
 
 これで準備万端、お楽しみください。
