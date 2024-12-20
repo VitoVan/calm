@@ -19,6 +19,7 @@
 (defparameter *calm-default-font-family* "Arial")
 
 ;; debug variable
+(defparameter *calm-debug-enabled* nil)
 (defparameter *calm-debug-variable-a* nil)
 (defparameter *calm-debug-variable-b* nil)
 (defparameter *calm-debug-variable-c* nil)

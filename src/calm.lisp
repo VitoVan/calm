@@ -10,19 +10,41 @@
       (uiop:quit)
       (uiop:quit 0 nil)))
 
+(defun default-draw ()
+  (c:set-source-rgb (/ 12 255) (/ 55 255) (/ 132 255))
+  (c:paint)
+  (c:set-source-rgb 1 1 1)
+  (c:move-to 30 100)
+  (c:set-font-size 84)
+  (c:show-text "DON'T PANIC"))
+
+(defun error-draw ()
+  (c:set-source-rgb (/ 132 255) (/ 12 255) (/ 55 255))
+  (c:paint)
+  (c:set-source-rgb 1 1 1)
+  (c:set-font-size 16)
+  (loop for x from 10 to 300 by 100
+        do
+           (loop for y from 20 to 500 by 20
+                 do
+                    (c:move-to x y)
+                    (c:show-text "I, PANIC"))
+        ))
+
 (defun internal-draw ()
   "default drawing function, user should defun `draw'"
-  (cond
-    ((fboundp 'draw) (funcall 'draw) (setf *calm-redraw* nil))
-    ((fboundp 'draw-once) (funcall 'draw-once) (setf *calm-redraw* nil))
-    ((fboundp 'draw-forever) (funcall 'draw-forever))
-    (t
-     (c:set-source-rgb (/ 12 255) (/ 55 255) (/ 132 255))
-     (c:paint)
-     (c:set-source-rgb 1 1 1)
-     (c:move-to 30 100)
-     (c:set-font-size 84)
-     (c:show-text "DON'T PANIC"))))
+  (handler-case
+      (cond
+        ((fboundp 'draw) (funcall 'draw) (setf *calm-redraw* nil))
+        ((fboundp 'draw-once) (funcall 'draw-once) (setf *calm-redraw* nil))
+        ((fboundp 'draw-forever) (funcall 'draw-forever))
+        (t (default-draw)))
+    (error (c)
+      (if *calm-debug-enabled*
+          (invoke-debugger c)
+          (progn
+            (format t "Caught an error: ~a~%" c)
+            (error-draw))))))
 
 (defun internal-think ()
   "default thinking function, user should defun `think'
